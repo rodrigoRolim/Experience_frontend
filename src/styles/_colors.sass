@@ -4,14 +4,9 @@ $PF: #F7F01D
 $EA: #f8ac59
 $NR: #5D88FF
 
+$green: #008B8B
 @mixin color-situation($color)
-  @if $color == $EP
-    background-color: #ed55650f
-  @if $color == $TF
-    background-color: #1ab3940f
-  @if $color == $PF
-    background-color: #F7F01D0f
-  @if $color == $EA
-    background-color: #f8ac590f
-  @if $color == $NR
-    background-color: #5D88FF0f
+  background-color: #{$color}0f
+  border-bottom: 1px solid $color
+  border-top: 1px solid $color
+  border-right: 1px solid $color

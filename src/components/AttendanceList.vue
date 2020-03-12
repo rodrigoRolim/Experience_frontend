@@ -1,7 +1,6 @@
 <template>
-  <div class="container-list-attendances">
+  <div class="container-list-attendances" id="scrollbar-att">
     <attendance-list-item
-      class="att-item"
       v-for="attendance in attendances" v-bind:key="attendance.idAttendance"
       :photo="attendance.photo"
       :name="attendance.name"
@@ -36,6 +35,10 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-.att-item
-  margin: 5px 0
+@import "../styles/_scrollbar.sass"
+@include scrollbar('#scrollbar-att')
+#scrollbar-att
+  margin: 0 10px 
+  max-height: 400px
+  overflow: auto
 </style>

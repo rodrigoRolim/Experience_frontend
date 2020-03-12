@@ -1,8 +1,12 @@
 <template>
   <div class="select" ref="container">
-    <i><slot name="icon"></slot></i>
-    <select name="select" id="select">
-      <option value="0" disabled v-if="option" selected>-- {{option}} --</option>
+    <i v-if="hasIcon"><slot name="icon"></slot></i>
+    <select 
+     :name="name" 
+     :id="name" 
+     :class="{ 'select-icon': hasIcon, 'select-no-icon': !hasIcon }"
+    >
+      <option value="0" disabled v-if="option" selected>{{option}}</option>
       <option :value="option.id" v-for="option in options" v-bind:key="option.id">{{option.item}}</option>
     </select>
   </div>
@@ -11,9 +15,15 @@
 export default {
   name: 'CodeSelect',
   props: {
+    name: String,
     options: Array,
     placeholder: String,
-    option: String
+    option: String,
+    hasIcon: {
+      type: Boolean,
+      required: true,
+      default: false
+    },
   },
   data () {
     return {
@@ -30,7 +40,11 @@ select
   padding: 5px 7px
   border: 1px solid lightgray
   width: 100%
+  background-color: #F5F5F5
+.select-icon
   border-radius: 0px 3px 3px 0px
+.select-no-icon
+  border-radius: 3px
 .select
   display: flex
   flex-direction: row

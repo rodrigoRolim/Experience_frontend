@@ -25,6 +25,11 @@
       <code-input
       label="Atendimento"
       placeholder="ID"
+      :hasIcon="true"
+      name="attendance"
+      type="password"
+      required
+      v-model="value"
       >
         <template v-slot:icon>
           <font-awesome-icon icon="user" :style="{ color: '#676a6c' }"></font-awesome-icon>
@@ -84,6 +89,7 @@
     <code-select
       :options="list"
       option="escolha um doce"
+      :hasIcon="true"
     >
       <template v-slot:icon>
         <font-awesome-icon icon="candy-cane"></font-awesome-icon>
@@ -96,6 +102,9 @@
       ></code-table> 
     </div>
     <div class="list">
+      <attendance-list-filter>
+        
+      </attendance-list-filter>
       <attendance-list :attendances="attendances"></attendance-list>
     </div>
     
@@ -110,11 +119,13 @@ import CodeLabel from './base/CodeLabel.vue'
 import CodeMessage from './base/CodeMessage.vue'
 import CodeTable from './base/CodeTable.vue'
 import CodeSelect from './base/CodeSelect.vue'
+import AttendanceListFilter from './AttendanceListFilter.vue'
 
 export default {
   name: 'teste',
   components: {
     AttendanceList,
+    AttendanceListFilter,
     CodeInput,
     CodeButton,
     CodeMessage,
@@ -124,6 +135,7 @@ export default {
   },
   data () {
     return {
+      value: 'rodrigo',
       list: [
         {id: 1, item: 'doce de laranja'},
         {id: 2, item: 'doce de siriguela'},

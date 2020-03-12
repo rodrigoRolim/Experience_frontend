@@ -2,7 +2,7 @@
   <button 
    v-bind:style="getStyle"
    @click="click"
-   >{{text}}</button>
+   ><i><slot name="icon"></slot></i>{{text}}</button>
 </template>
 <script>
 export default {
@@ -24,6 +24,7 @@ export default {
     icon: {
       type: String
     },
+    fontWeight: Number
   },
   data () {
     return {
@@ -37,7 +38,8 @@ export default {
       return { 
         color: vm.color, 
         backgroundColor: vm.bcolor,
-        padding: vm.padding
+        padding: vm.padding,
+        fontWeight: vm.fontWeight
       }
     }
   },
@@ -49,8 +51,8 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-#button 
-  width: 100%
+i
+  margin-right: 10px
 button
   width: 100%
   color: green
@@ -63,4 +65,5 @@ button
     font-size: 1.0rem
   border-radius: 3px
   border: 1px solid transparent
+  letter-spacing: 1px
 </style>

@@ -11,7 +11,8 @@ import {
     faHeartbeat,
     faCreditCard,
     faCalendarCheck,
-    faClock
+    faClock,
+    faFilter
   } from '@fortawesome/free-solid-svg-icons'
 
 export default {
@@ -27,5 +28,6 @@ export default {
   faHeartbeat,
   faCreditCard,
   faCalendarCheck,
-  faClock 
+  faClock,
+  faFilter 
 }

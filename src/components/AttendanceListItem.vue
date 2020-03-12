@@ -56,47 +56,32 @@ export default {
 @import "../styles/_colors.sass"
 
 $border-pendecy: 1px solid $EP
-$border-finished: 1px solid $TF
-$border-partial-finished: 1px solid $PF
-$border-in-progress: 1px solid $EA
-$border-unrealized: 1px solid $NR
-$color-heart: rgb(255, 82, 116)
+
 .container-item
   display: flex
   flex-direction: row
   justify-content: space-between
   padding: 10px 20px
   min-height: 60px
-
+  margin: 5px 10px
+  cursor: pointer
+.container-item:hover
+  zoom: 1.05
+  -webkit-box-shadow:  0 0 6px rgba(0,0,0,.3)
 .pendency
   border-left: 5px solid $EP
   @include color-situation($EP)
-  border-bottom: $border-pendecy
-  border-top: $border-pendecy
-  border-right: $border-pendecy
 .finished
   border-left: 5px solid $TF
   @include color-situation($TF)
-  border-bottom: $border-finished
-  border-top: $border-finished
-  border-right: $border-finished
 .partial-finished
   border-left: 5px solid $PF
   @include color-situation($PF)
-  border-bottom: $border-partial-finished
-  border-top: $border-partial-finished
-  border-right: $border-partial-finished
 .in-progress
   border-left: 5px solid $EA
   @include color-situation($EA)
-  border-bottom: $border-in-progress
-  border-top: $border-in-progress
-  border-right: $border-in-progress
 .unrealized
   border-left: 5px solid $NR
   @include color-situation($NR)
-  border-bottom: $border-unrealized
-  border-top: $border-unrealized
-  border-right: $border-unrealized
   
 </style>
