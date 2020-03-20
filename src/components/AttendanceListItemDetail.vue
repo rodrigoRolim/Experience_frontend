@@ -9,7 +9,7 @@
         </div>
       </div>
       <div class="agreement-attendance">
-        <span><font-awesome-icon icon="credit-card" size="2x"/></span>
+        <span><font-awesome-icon icon="credit-card" :style="{fontSize: '23px'}"/></span>
         <div class="label">
           <span>Convenio</span>
           <span>{{agreement}}</span>
@@ -30,7 +30,7 @@
         </div>
       </div>
     </div>
-    <div :class="'list-exams ' + getSituation">
+    <div class="list-exams" :class="getSituation">
       <span><font-awesome-icon icon="flask" size="2x" class="icon" :style="{color: 'green'}"/></span>
       <div class="label">
         <span>Exames</span>
@@ -66,13 +66,18 @@ export default {
 @import "../styles/_colors.sass"
 
 $border-value: 1px solid
-
+$p-side: 12px
+$p-top-bott: 5px
 .container-attendance
   font-size: 0.8rem
   color: #3e3f3f
   margin-top: 3px
-  width: 60%
+  width: 55%
   text-align: justify
+  @include respond-to(handhelds)
+    width: 100%
+  @include respond-to(medium-screens)
+    width: 100%
 .id-attendance,
 .agreement-attendance,
 .data-attendance,
@@ -80,13 +85,34 @@ $border-value: 1px solid
 .list-exams
   display: flex
   flex-direction: row
-  padding-right: 15px
+  align-items: center
+  vertical-align: middle
+  @include respond-to(handhelds)
+    width: 100%
+    padding: 10px 0
 .list-exams
-  padding-top: 5px
+  padding-top: $p-top-bott
+  @include respond-to(handhelds)
+    padding-left: $p-side
+.list-exams span
+  display: flex
+  flex-direction: row
+  align-items: center
+.exams
+  @include respond-to(handhelds)
+    width: 90%
 .info-attendance
   display: flex
   flex-direction: row
-  padding-bottom: 5px
+  justify-content: space-between
+  padding-bottom: $p-top-bott
+  width: 85%
+  @include respond-to(handhelds)
+    padding: 0 $p-side
+    flex-direction: column
+    width: 100%
+  @include respond-to(medium-screens)
+    width: 65%
 .icon
   margin-right: 5px
 .label
@@ -99,12 +125,8 @@ $border-value: 1px solid
   color: gray
 .label span:last-child
   font-weight: 600
-.info-attendance
-  display: flex
-  flex-direction: row
-  padding-bottom: 5px
 .pendency
-  border-top: $border-value $EP
+  border-top: $border-value $EP 
 .finished
   border-top: $border-value $TF
 .partial-finished

@@ -1,7 +1,7 @@
 <template>
   <div class="container-list-attendances" id="scrollbar-att">
     <attendance-list-item
-      v-for="attendance in attendances" v-bind:key="attendance.idAttendance"
+      v-for="(attendance, i) in attendances" v-bind:key="i"
       :photo="attendance.photo"
       :name="attendance.name"
       :age="attendance.age"
@@ -17,6 +17,7 @@
 </template>
 <script>
 import AttendanceListItem from './AttendanceListItem'
+
 export default {
   name: 'AttendanceList',
   props: {
@@ -36,9 +37,13 @@ export default {
 </script>
 <style lang="sass" scoped>
 @import "../styles/_scrollbar.sass"
-@include scrollbar('#scrollbar-att')
+@include scrollbar('#scrollbar-att', 10px)
+.container-list-attendances
+  display: flex
+  flex-direction: column
+
 #scrollbar-att
-  margin: 0 10px 
   max-height: 400px
-  overflow: auto
+  overflow-y: auto
+  overflow-x: hidden
 </style>

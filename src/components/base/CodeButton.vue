@@ -65,5 +65,7 @@ button
     font-size: 1.0rem
   border-radius: 3px
   border: 1px solid transparent
-  letter-spacing: 1px
+  letter-spacing: 0.2px
+  text-transform: capitalize
+  font-weight: 500
 </style>

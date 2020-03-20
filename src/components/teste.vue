@@ -16,6 +16,7 @@
    />
     <div class="container-form">
       <code-label
+        name="attendance"
         label="Atendimento"
         color="#676a6c"
         :fontWeight="700"
@@ -23,13 +24,13 @@
         fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
       ></code-label>
       <code-input
-      label="Atendimento"
-      placeholder="ID"
-      :hasIcon="true"
-      name="attendance"
-      type="password"
-      required
-      v-model="value"
+        label="Atendimento"
+        placeholder="ID"
+        :hasIcon="true"
+        name="attendance"
+        type="password"
+        required
+        v-model="value"
       >
         <template v-slot:icon>
           <font-awesome-icon icon="user" :style="{ color: '#676a6c' }"></font-awesome-icon>
@@ -40,7 +41,6 @@
       <code-message
         message="info message"
         typeMessage="info"
-        width="50%"
         position="flex-start"
       >
         <template v-slot:icon>
@@ -50,7 +50,6 @@
       <code-message
         message="warning message"
         typeMessage="warning"
-        width="50%"
         position="flex-start"
       >
         <template v-slot:icon>
@@ -60,7 +59,6 @@
       <code-message
         message="error message"
         typeMessage="error"
-        width="50%"
         position="flex-start"
       >
         <template v-slot:icon>
@@ -70,7 +68,6 @@
       <code-message
         message="success message"
         typeMessage="success"
-        width="50%"
         position="flex-start"
       >
         <template v-slot:icon>
@@ -96,28 +93,57 @@
       </template>
     </code-select>
     <div class="table">
-      <code-table
-        :captions="['nome', 'acompanhamento', 'quantidade', 'preço']"
-        :object="obj"
-      ></code-table> 
+     <!--  <code-data-picker 
+        padding="6px 7px"
+        paddingIcon="8px 13px"
+        :hasIcon="true"
+        name="birth"
+      ></code-data-picker> -->
     </div>
     <div class="list">
-      <attendance-list-filter>
-        
-      </attendance-list-filter>
-      <attendance-list :attendances="attendances"></attendance-list>
+      <div class="header-list">
+        <div class="filter">
+          <attendance-list-filter></attendance-list-filter>
+        </div>
+        <div class="search">
+          <attendance-list-search></attendance-list-search>
+        </div>
+      </div>    
+      <div class="body-list">
+        <attendance-list :attendances="attendances"></attendance-list>
+      </div>
     </div>
-    
+    <div class="menu-logins">
+      <code-menu-abas>
+        <template v-slot:header>
+          <div @click="aba = 1" :class="{ 'active-aba': aba == 1 }">paciente</div>
+          <div @click="aba = 2" :class="{ 'active-aba': aba == 2 }">medico</div>
+          <div @click="aba = 3" :class="{ 'active-aba': aba == 3 }">parceiro</div>
+          <div @click="aba = 4" :class="{ 'active-aba': aba == 4 }">posto</div>
+          <div @click="aba = 5" :class="{ 'active-aba': aba == 5 }">QR code</div>
+        </template>
+        <template v-slot:body>
+          <login-patient v-if="aba == 1"></login-patient>
+          <login-patient v-if="aba == 2"></login-patient>
+          <login-patient v-if="aba == 3"></login-patient>
+          <login-patient v-if="aba == 4"></login-patient>
+          <login-patient v-if="aba == 5"></login-patient>
+        </template>
+      </code-menu-abas>
+    </div>
   </div>
 </template>
 
 <script>
 import AttendanceList from './AttendanceList.vue'
+import AttendanceListSearch from './AttendanceListSearch'
 import CodeButton from './base/CodeButton.vue'
 import CodeInput from './base/CodeInput.vue'
 import CodeLabel from './base/CodeLabel.vue'
 import CodeMessage from './base/CodeMessage.vue'
-import CodeTable from './base/CodeTable.vue'
+import CodeMenuAbas from './base/CodeMenuAbas.vue'
+import LoginPatient from './LoginPatient.vue'
+/* import CodeDataPicker from './base/CodeDataPicker.vue' */
 import CodeSelect from './base/CodeSelect.vue'
 import AttendanceListFilter from './AttendanceListFilter.vue'
 
@@ -126,12 +152,15 @@ export default {
   components: {
     AttendanceList,
     AttendanceListFilter,
+    AttendanceListSearch,
     CodeInput,
     CodeButton,
     CodeMessage,
-    CodeTable,
+    CodeMenuAbas,
+/*     CodeDataPicker, */
     CodeSelect,
-    CodeLabel
+    CodeLabel,
+    LoginPatient
   },
   data () {
     return {
@@ -211,10 +240,17 @@ export default {
           exams:"T3 T3L TSH T4 T4L POT SOD T3 T3L TSH T4 T4L POT SOD T3 T3L TSH T4 T4L POT SOD T3 T3L TSH T4 T4L POT SOD",
           situation:"NR"
         }
-      ]
+      ],
+      aba: 1
     }
   },
+  created () {
+    console.log(this.teste)
+  },
   methods: {
+    teste (value) {
+      console.log(value)
+    },
     submit () {
       console.log('submit')
     }
@@ -229,11 +265,31 @@ export default {
   align-items: flex-start
   width: 100%
 .list
+  display: flex
+  flex-direction: column
+  margin-top: 10px
+  width: 100%
+  background-color: white
+.header-list
+  display: flex
+  flex-direction: column
+  margin-bottom: 10px
+.search
   margin-top: 10px
 .messages
   margin-top: 5px
 .messages div
   margin-bottom: 5px
 .table
-  margin-top: 10px
+  margin: 10px auto
+  width: 100%
+.menu-logins
+  display: flex
+  flex-direction: row
+  width: 400px
+  justify-content: center
+  margin: 0 auto
+.body-list
+  border-bottom: 1px solid lightgray
+  padding: 10px 0
 </style>

@@ -12,7 +12,15 @@ import {
     faCreditCard,
     faCalendarCheck,
     faClock,
-    faFilter
+    faFilter,
+    faCaretDown,
+    faCaretUp,
+    faSearch,
+    faCaretLeft,
+    faCaretRight,
+    faCalendarAlt,
+    faLock,
+    faLockOpen
   } from '@fortawesome/free-solid-svg-icons'
 
 export default {
@@ -29,5 +37,13 @@ export default {
   faCreditCard,
   faCalendarCheck,
   faClock,
-  faFilter 
+  faFilter,
+  faCaretDown,
+  faCaretUp,
+  faSearch,
+  faCaretLeft,
+  faCaretRight,
+  faCalendarAlt,
+  faLock,
+  faLockOpen 
 }

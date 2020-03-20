@@ -1,15 +1,22 @@
 <template>
-    <div class="input" ref="container">
-      <i v-if="hasIcon"><slot name="icon"></slot></i>
-      <input 
-       v-bind="$attrs"
-       :class="{'input-icon': hasIcon, 'input-no-icon': !hasIcon}" 
-       :type="type" 
-       :name="name" 
-       :id="name" 
-       :placeholder="placeholder"
-       ref="input"/>
-    </div>
+<div class="container-code-inp">
+  <slot name="label"></slot>
+  <div class="input">
+    <i v-if="hasIcon" :style="{padding: paddingIcon}" :class="{'no-border': noBorder}"><slot name="icon"></slot></i>
+    <input 
+      v-bind="$attrs"
+      :class="{ 'input-icon': hasIcon, 'input-no-icon': !hasIcon, 'no-border': noBorder }" 
+      :type="type" 
+      :name="name" 
+      :id="name" 
+      :placeholder="placeholder"
+      :style="{ padding: padding }"
+      @focus="focus"
+      @blur="blur"
+      @keydown="keydown"
+      />
+  </div>
+</div>
 </template>
 
 <script>
@@ -31,16 +38,49 @@ export default {
     type: {
       type: String,
       default: 'text'
+    },
+    padding: {
+      type: String,
+      default: '6px 7px'
+    },
+    paddingIcon: {
+      type: String,
+      default: '6px 10px'
+    },
+    noBorder: {
+      type: Boolean,
+      default: false
     }
   },
-
+  directives: {
+    date: {
+      inserted (el) {
+        el.addEventListener('keypress', function (e) {
+          if ((e.keyCode > 57 || e.keyCode < 48) && e.keyCode !== 8) {
+            e.preventDefault()
+          }
+        })
+      }
+    }
+  },
+  methods: {
+    focus (e) {
+      this.$emit('focus', e)
+    },
+    blur (e) {
+      this.$emit('blur', e)
+    },
+    keydown (e) {
+      this.$emit('keydown', e)
+    }
+  }
 }
 </script>
 
 <style lang="sass" scoped>
-
+.container-code-inp
+  width: 100%
 input
-  padding: 5px 7px
   border: 1px solid lightgray
   width: 100%
 .input-icon
@@ -51,9 +91,10 @@ input
   display: flex
   flex-direction: row
   width: 100%
+.no-border
+  border-radius: 0
 i
   border: 1px solid lightgray
   border-right: none
-  padding: 5px 10px
   border-radius: 3px 0px 0px 3px
 </style>

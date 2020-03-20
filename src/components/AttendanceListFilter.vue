@@ -1,6 +1,14 @@
 <template>
   <code-filter>
     <template v-slot:filters>
+      <div class="period-date">
+       <!--  <code-data-picker 
+          padding="6px 7px"
+          paddingIcon="8px 13px"
+          :hasIcon="true"
+          name="period"
+        ></code-data-picker> -->
+      </div>
       <div class="input-health-center">
         <code-label
           label="Posto"
@@ -11,7 +19,8 @@
         ></code-label>
         <code-select
           name="postos"
-          option="-- selecione o posto --"
+          option="selecione o posto"
+          :options="list"
           :hasIcon="false"
         ></code-select>
       </div>
@@ -25,7 +34,8 @@
         ></code-label>
         <code-select
           name="acomodacoes"
-          option="-- selecione a acomodação --"
+          option="selecione a acomodação"
+          :options="list"
           :hasIcon="false"
         ></code-select>
       </div>
@@ -39,7 +49,8 @@
         ></code-label>
         <code-select
           name="acomodacoes"
-          option="-- selecione a acomodação --"
+          option="selecione a acomodação"
+          :options="list"
           :hasIcon="false"
         ></code-select>
       </div>
@@ -53,20 +64,20 @@
         ></code-label>
         <code-select
           name="acomodacoes"
-          option="-- selecione a acomodação --"
+          option="selecione a acomodação"
+          :options="list"
           :hasIcon="false"
         ></code-select>
       </div>
     </template>
-    
     <template v-slot:button>
        <code-button
-        padding="6px 0"
+        padding="10px 0"
         text="Filtrar"
-        bcolor="#34b583"
-        color="white"
+        bcolor="white"
+        color="gray"
         :fontWeight="600"
-        @click="filter"
+        @click="filter()"
       >
         <template v-slot:icon>
           <font-awesome-icon icon="filter" size="1x"></font-awesome-icon>
@@ -80,13 +91,25 @@ import CodeFilter from './base/CodeFilter.vue'
 import CodeSelect from './base/CodeSelect.vue'
 import CodeLabel from './base/CodeLabel.vue'
 import CodeButton from './base/CodeButton.vue'
+/* import CodeDataPicker from './base/CodeDataPicker.vue' */
 export default {
   name: 'AttendanceListFilter',
   components: {
     CodeButton,
     CodeSelect,
     CodeLabel,
-    CodeFilter
+    CodeFilter,
+   /*  CodeDataPicker */
+  },
+  data () {
+    return {
+       list: [
+        {id: 1, item: 'doce de laranja'},
+        {id: 2, item: 'doce de siriguela'},
+        {id: 3, item: 'doce de morango'},
+        {id: 4, item: 'doce de abobora'}
+      ]
+    }
   },
   created () {
   },
@@ -98,12 +121,12 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-@import "../styles/_colors.sass"
-.container-filter-att
-  background-color: $green
-  padding: 10px 5px
-.input-health-center
-  @include respond-to(wide-screens)
+.input-health-center,
+.input-accomodation,
+.input-situation,
+.input-health-center-realizer
+  width: 23%
+  @include respond-to(handhelds)
+    margin: 3px 0
     width: 100%
-
 </style>

@@ -6,7 +6,7 @@
      :id="name" 
      :class="{ 'select-icon': hasIcon, 'select-no-icon': !hasIcon }"
     >
-      <option value="0" disabled v-if="option" selected>{{option}}</option>
+      <option  disabled v-if="option" selected>{{option}}</option>
       <option :value="option.id" v-for="option in options" v-bind:key="option.id">{{option.item}}</option>
     </select>
   </div>
@@ -37,7 +37,7 @@ export default {
 </script>
 <style lang="sass" scoped>
 select
-  padding: 5px 7px
+  padding: 8px 7px
   border: 1px solid lightgray
   width: 100%
   background-color: #F5F5F5
@@ -52,6 +52,6 @@ select
 i
   border: 1px solid lightgray
   border-right: none
-  padding: 5px 10px
+  padding: 8px 12px
   border-radius: 3px 0px 0px 3px
 </style>

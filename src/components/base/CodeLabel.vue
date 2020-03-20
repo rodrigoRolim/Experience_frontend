@@ -1,5 +1,5 @@
 <template>
-  <label for="user" v-bind:style="style">{{label}}</label>
+  <label :for="bind" v-bind:style="style">{{label}}</label>
 </template>
 
 <script>
@@ -10,7 +10,11 @@ export default {
     color: String,
     fontWeight: Number,
     fontFamily: String,
-    fontSize: String    
+    fontSize: String,
+    bind: {
+      type: String,
+      default: ''
+    }   
   },
   data () {
     return {
@@ -26,5 +30,6 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-
+label
+  margin-bottom: 3px
 </style>
