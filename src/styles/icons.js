@@ -20,7 +20,8 @@ import {
     faCaretRight,
     faCalendarAlt,
     faLock,
-    faLockOpen
+    faLockOpen,
+    faCheck
   } from '@fortawesome/free-solid-svg-icons'
 
 export default {
@@ -45,5 +46,6 @@ export default {
   faCaretRight,
   faCalendarAlt,
   faLock,
-  faLockOpen 
+  faLockOpen,
+  faCheck 
 }

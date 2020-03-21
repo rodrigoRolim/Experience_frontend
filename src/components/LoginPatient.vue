@@ -1,6 +1,27 @@
 <template>
   <div class="login-patient">
     <form class="login-p-form">
+      <div class="login-p-radio">
+        <code-group-radios :receive="receive">
+          <template v-slot:radios>
+            <code-radio
+              name="loginPatientType"
+              value="CPF"
+              label="Atendimento Único"
+              @radio="sendToParent"
+              identifier="cpf"
+            ></code-radio>
+            <code-radio
+              name="loginPatientType"
+              value="ID"
+              label="Histórico de Resultados"
+              @radio="sendToParent"
+              identifier="id"
+            ></code-radio>
+          </template> 
+      </code-group-radios>
+       
+      </div>
       <div class="login-p-input-att">
          <code-label
           bind="attendance"
@@ -51,7 +72,7 @@
           text="acessar"
           bcolor="#34b583"
           color="white"
-          @click="submit"
+          
         ></code-button>
       </div>  
       
@@ -62,12 +83,27 @@
 import CodeInput from './base/CodeInput'
 import CodeButton from './base/CodeButton'
 import CodeLabel from './base/CodeLabel'
+import CodeRadio from './base/CodeRadio'
+import CodeGroupRadios from './base/CodeGroupRadios'
 export default {
   name: 'LoginPatient',
   components: {
     CodeButton,
     CodeInput,
-    CodeLabel
+    CodeLabel,
+    CodeRadio,
+    CodeGroupRadios
+  },
+  data () {
+    return {
+      receive: '',
+      value: ''
+    }
+  },
+  methods: {
+    sendToParent (value) {
+      this.receive = value
+    }
   }  
 }
 </script>
