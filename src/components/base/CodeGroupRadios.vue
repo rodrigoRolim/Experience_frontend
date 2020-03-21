@@ -1,5 +1,5 @@
 <template>
-  <div class="code-group-radios" @hook:mounted="visibility=false">
+  <div class="code-group-radios">
     <slot name="radios"></slot>
     <input type="hidden" v-model="receive"/>
   </div>
@@ -19,10 +19,8 @@ export default {
 
   },
   watch: {
-    receive () {
-
-      this.visibility = !this.visibility
-      console.log(this.visibility)
+    receive (value) {
+      this.$emit('resRadio', value)
     }
   },
   methods: {
@@ -34,5 +32,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-
+.code-group-radios
+  display: flex
+  flex-direction: row
 </style>

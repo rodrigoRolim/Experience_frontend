@@ -2,21 +2,23 @@
   <div class="login-patient">
     <form class="login-p-form">
       <div class="login-p-radio">
-        <code-group-radios :receive="receive">
+        <code-group-radios :receive="receive" @resRadio="sendToChild">
           <template v-slot:radios>
             <code-radio
-              name="loginPatientType"
+              name="login"
               value="CPF"
               label="Atendimento Único"
-              @radio="sendToParent"
+              @reqRadio="sendToParent"
               identifier="cpf"
+              :visible="visibility"
             ></code-radio>
             <code-radio
-              name="loginPatientType"
+              name="login"
               value="ID"
               label="Histórico de Resultados"
-              @radio="sendToParent"
+              @reqRadio="sendToParent"
               identifier="id"
+              :visible="visibility"
             ></code-radio>
           </template> 
       </code-group-radios>
@@ -97,12 +99,16 @@ export default {
   data () {
     return {
       receive: '',
-      value: ''
+      value: '',
+      visibility: ''
     }
   },
   methods: {
     sendToParent (value) {
       this.receive = value
+    },
+    sendToChild (value) {
+      this.visibility = value
     }
   }  
 }

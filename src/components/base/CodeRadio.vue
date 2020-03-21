@@ -1,6 +1,6 @@
 <template>
   <div class="code-radio">
-    <label ref="label" :class="{ 'selected': visibility, 'unselected': !visibility }">
+    <label ref="label" :class="{ 'selected': visible === value, 'unselected': !visible === value }">
       <i><font-awesome-icon icon="check" size="xs"></font-awesome-icon></i>
       <input type="radio" :name="name" :id="identifier" @click="confirm" :value="value" v-model="selected"/>
       <span class="label-radio">{{label}}</span>
@@ -24,7 +24,8 @@ export default {
       type: String,
       required: true
     },
-    identifier: String
+    identifier: String,
+    visible: String
   },
   data () {
     return {
@@ -32,15 +33,24 @@ export default {
       selected: ''
     }
   },
+ /*  watch: {
+    visible (value) {
+      console.log(value)
+      console.log(value === this.value)
+      return value === this.value
+    }
+  }, */
   methods: {
     confirm () {
-      this.$emit('radio', this.value)
+      this.$emit('reqRadio', this.value)
     }
   }
 }
 </script>
 
 <style lang="sass" scoped>
+.code-radio
+  width: 100%
 .label-radio
   position: absolute
   color: #5f5e5e
