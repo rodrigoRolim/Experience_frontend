@@ -21,7 +21,9 @@ import {
     faCalendarAlt,
     faLock,
     faLockOpen,
-    faCheck
+    faCheck,
+    faQuestionCircle,
+    faKeyboard
   } from '@fortawesome/free-solid-svg-icons'
 
 export default {
@@ -47,5 +49,7 @@ export default {
   faCalendarAlt,
   faLock,
   faLockOpen,
-  faCheck 
+  faCheck,
+  faQuestionCircle,
+  faKeyboard 
 }

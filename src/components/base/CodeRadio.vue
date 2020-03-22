@@ -33,13 +33,6 @@ export default {
       selected: ''
     }
   },
- /*  watch: {
-    visible (value) {
-      console.log(value)
-      console.log(value === this.value)
-      return value === this.value
-    }
-  }, */
   methods: {
     confirm () {
       this.$emit('reqRadio', this.value)
@@ -50,6 +43,10 @@ export default {
 
 <style lang="sass" scoped>
 .code-radio
+  display: flex
+  flex-direction: row
+  align-items: center
+  min-height: 35px
   width: 100%
 .label-radio
   position: absolute
@@ -58,21 +55,25 @@ export default {
   font-size: 0.95rem
   margin-left: 5px
 label
-  vertical-align: baseline
-  text-align: center
-  border: 1px solid gray
+  border: 0.5px solid gray
   border-radius: 100%
   color: white
+label:hover
+  border-width: 1.5px
+  cursor: pointer
+label:hover i
+  margin: 5px 3.5px
 .selected i
   visibility: visible
 .unselected i
   visibility: hidden
 .selected
-  background-color: green
+  background-color: #368c8c
 .unselected
   background-color: none
 input
   display: none
+  margin: 0
 i
-  margin: 3px
+  margin: 7px 4px
 </style>

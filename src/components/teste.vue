@@ -116,11 +116,11 @@
     <div class="menu-logins">
       <code-menu-abas>
         <template v-slot:header>
-          <div @click="aba = 1" :class="{ 'active-aba': aba == 1 }">paciente</div>
-          <div @click="aba = 2" :class="{ 'active-aba': aba == 2 }">medico</div>
-          <div @click="aba = 3" :class="{ 'active-aba': aba == 3 }">parceiro</div>
-          <div @click="aba = 4" :class="{ 'active-aba': aba == 4 }">posto</div>
-          <div @click="aba = 5" :class="{ 'active-aba': aba == 5 }">QR code</div>
+          <div @click="aba = 1" class="aba" :class="{ 'active-aba': aba == 1 }">paciente</div>
+          <div @click="aba = 2" class="aba" :class="{ 'active-aba': aba == 2 }">medico</div>
+          <div @click="aba = 3" class="aba" :class="{ 'active-aba': aba == 3 }">parceiro</div>
+          <div @click="aba = 4" class="aba" :class="{ 'active-aba': aba == 4 }">posto</div>
+          <div @click="aba = 5" class="aba" :class="{ 'active-aba': aba == 5 }">QR code</div>
         </template>
         <template v-slot:body>
           <login-patient v-if="aba == 1"></login-patient>
@@ -286,10 +286,12 @@ export default {
 .menu-logins
   display: flex
   flex-direction: row
-  width: 400px
+  width: 450px
   justify-content: center
-  margin: 0 auto
+  margin: 10px auto
 .body-list
   border-bottom: 1px solid lightgray
   padding: 10px 0
+.aba
+  font-size: 0.8rem
 </style>

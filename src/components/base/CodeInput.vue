@@ -10,7 +10,7 @@
       :name="name" 
       :id="name" 
       :placeholder="placeholder"
-      :style="{ padding: padding }"
+      :style="{ padding: padding, fontSize: size, fontWeight: weight, color: color }"
       @focus="focus"
       @blur="blur"
       @keydown="keydown"
@@ -50,6 +50,16 @@ export default {
     noBorder: {
       type: Boolean,
       default: false
+    },
+    size: {
+      type: String,
+      default: '0.95rem'
+    },
+    weight: {
+      type: Number
+    },
+    color: {
+      type: String
     }
   },
   directives: {

@@ -40,7 +40,7 @@ export default {
   font-size: 0.95rem
   text-transform: capitalize
   color: #676a6c
-  padding: 8px 10px
+  padding: 10px 15px
   cursor: pointer
 .active-aba
   border: 1px solid lightgray
@@ -49,6 +49,6 @@ export default {
   border-bottom: none
   background-color: white
   margin-bottom: -1px
-  padding: 7px 9px
+  padding: 9px 14px
   color: #5f5e5e
 </style>

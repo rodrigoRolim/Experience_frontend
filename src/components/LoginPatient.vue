@@ -3,8 +3,12 @@
     <form class="login-p-form">
       <div class="login-p-radio">
         <code-group-radios :receive="receive" @resRadio="sendToChild">
+          <template v-slot:header>
+            <p>Acessar como:</p>
+          </template>
           <template v-slot:radios>
             <code-radio
+              class="radio-input"
               name="login"
               value="CPF"
               label="Atendimento Único"
@@ -40,6 +44,10 @@
           type="text"
           required
           v-model="value"
+          padding="9px 7px"
+          paddingIcon="9px 14px"
+          :weight="600"
+          color="#333"
         >
           <template v-slot:icon>
             <font-awesome-icon icon="user" :style="{ color: '#676a6c' }"></font-awesome-icon>
@@ -62,11 +70,17 @@
           type="password"
           required
           v-model="value"
+          padding="9px 7px"
+          paddingIcon="9px 14px"
         >
           <template v-slot:icon>
             <font-awesome-icon icon="lock" :style="{ color: '#676a6c' }"></font-awesome-icon>
           </template>
         </code-input>
+      </div>
+      <div class="doubt-keyboard">
+        <small class="keyboard"><i><font-awesome-icon icon="keyboard" size="lg"/></i></small>
+        <small>duvidas <i><font-awesome-icon icon="question-circle"/></i></small>
       </div>
       <div class="login-p-buttons">
         <code-button
@@ -77,7 +91,6 @@
           
         ></code-button>
       </div>  
-      
     </form>
   </div>
 </template>
@@ -128,5 +141,17 @@ export default {
   display: flex
   flex-direction: row
   width: 100%
-  margin-top: 50px
+.radio-input
+  width: 100%
+.login-p-radio
+  margin-bottom: 20px
+.doubt-keyboard
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  align-items: baseline
+.doubt-keyboard small
+  color: rgb(52, 181, 131)
+  margin: 20px 0
+  cursor: pointer
 </style>
