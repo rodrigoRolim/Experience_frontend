@@ -25,8 +25,7 @@
               :visible="visibility"
             ></code-radio>
           </template> 
-      </code-group-radios>
-       
+        </code-group-radios>
       </div>
       <div class="login-p-input-att">
          <code-label
@@ -80,7 +79,13 @@
       </div>
       <div class="doubt-keyboard">
         <small class="keyboard"><i><font-awesome-icon icon="keyboard" size="lg"/></i></small>
-        <small>duvidas <i><font-awesome-icon icon="question-circle"/></i></small>
+        <code-tooltip
+          text="teclado virtual"
+        >
+          <template>
+            <small>duvidas <i><font-awesome-icon icon="question-circle"/></i></small>
+          </template>
+        </code-tooltip> 
       </div>
       <div class="login-p-buttons">
         <code-button
@@ -99,6 +104,7 @@ import CodeInput from './base/CodeInput'
 import CodeButton from './base/CodeButton'
 import CodeLabel from './base/CodeLabel'
 import CodeRadio from './base/CodeRadio'
+import CodeTooltip from './base/CodeTooltip'
 import CodeGroupRadios from './base/CodeGroupRadios'
 export default {
   name: 'LoginPatient',
@@ -107,6 +113,7 @@ export default {
     CodeInput,
     CodeLabel,
     CodeRadio,
+    CodeTooltip,
     CodeGroupRadios
   },
   data () {
