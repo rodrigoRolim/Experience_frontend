@@ -43,7 +43,7 @@
           v-model="item"
           padding="7px 7px"
           paddingIcon="7px 12px"
-          :weight="600"
+          :weight="500"
           color="#333"
         >
           <template v-slot:icon>
@@ -51,6 +51,51 @@
           </template>
         </code-input>
       </div>
+      <div class="login-d-password">
+        <code-label
+          bind="password"
+          label="Senha"
+          color="#676a6c"
+          :fontWeight="700"
+          fontSize="0.8rem"
+          fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
+        ></code-label>
+        <code-input
+          placeholder="Senha"
+          :hasIcon="true"
+          name="password"
+          type="password"
+          required
+          v-model="item"
+          padding="7px 7px"
+          paddingIcon="7px 12px"
+          :weight="500"
+          color="#333"
+        >
+          <template v-slot:icon>
+            <font-awesome-icon icon="lock" :style="{ color: '#676a6c' }"></font-awesome-icon>
+          </template>
+        </code-input>
+      </div>
+      <div class="login-d-doubt">
+       
+        <code-tooltip
+          text="Clique aqui"
+        >
+          <template>
+            <small>duvidas <i><font-awesome-icon icon="question-circle"/></i></small>
+          </template>
+        </code-tooltip> 
+      </div>
+      <div class="login-d-buttons">
+        <code-button
+          padding="6px 0"
+          text="acessar"
+          bcolor="#34b583"
+          color="white"
+    
+        ></code-button>
+      </div>  
     </form>
   </div>
 </template>
@@ -59,12 +104,16 @@
 import CodeSelect from './base/CodeSelect'
 import CodeInput from './base/CodeInput'
 import CodeLabel from './base/CodeLabel'
+import CodeButton from './base/CodeButton'
+import CodeTooltip from './base/CodeTooltip'
 export default {
   name: 'DoctorLogin',
   components: {
     CodeSelect,
     CodeInput,
-    CodeLabel
+    CodeLabel,
+    CodeButton,
+    CodeTooltip
   },
   data () {
     return {
@@ -102,7 +151,8 @@ export default {
   flex-direction: column
   padding: 20px
 .login-d-cr,
-.login-d-ncrm
+.login-d-ncrm,
+.login-d-password
   margin: 7px 0
 .d-selects
   display: flex
@@ -112,4 +162,17 @@ export default {
   width: 46%
 .d-uf
   width: 46%
+.login-d-buttons
+  display: flex
+  flex-direction: row
+  width: 100%
+.login-d-doubt
+  display: flex
+  flex-direction: row
+  justify-content: flex-end
+  align-items: baseline
+  margin: 20px 0
+.login-d-doubt small
+  color: rgb(52, 181, 131)
+  cursor: pointer
 </style>

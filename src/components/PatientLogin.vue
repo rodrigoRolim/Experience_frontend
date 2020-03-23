@@ -132,7 +132,7 @@
       <div class="doubt-keyboard">
         <small class="keyboard"><i v-if="visibility !== 'ID'"><font-awesome-icon icon="keyboard" size="lg"/></i></small>
         <code-tooltip
-          text="teclado virtual"
+          text="Clique aqui"
         >
           <template>
             <small>duvidas <i><font-awesome-icon icon="question-circle"/></i></small>
