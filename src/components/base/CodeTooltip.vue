@@ -26,9 +26,6 @@ export default {
 
 <style lang="sass" scoped>
 @import '../../styles/_animations.sass'
-.arrow-up
-  border: 3px solid black
-  
 .container-tool
   margin: 0
   padding: 0
@@ -41,18 +38,15 @@ export default {
   margin-top: 5px
   margin-left: 10px
   z-index: 100
-  animation: enter 0.3s linear 1
-.tooltip-text small
-  background-color: #495057 
-  padding: 10px
-  border-radius: 4px
-.tooltip-text small::after
+  background-color: #495057
+  animation: enter 0.4s linear 
+.tooltip-text::after
   content: " "
   position: absolute
-  left: 0
-  margin-top: -5px
-  bottom: 100%
   border-width: 5px
+  left: 3px
+  top: -10px
   border-style: solid
-  border-color: transparent transparent black transparent 
+  border-color: transparent transparent #495057 transparent
+    
 </style>

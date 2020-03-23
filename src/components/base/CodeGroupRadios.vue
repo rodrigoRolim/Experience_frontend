@@ -25,7 +25,7 @@ export default {
   },
   watch: {
     receive (value) {
-      this.$emit('resRadio', value)
+      this.$emit('group', value)
     }
   },
   methods: {
