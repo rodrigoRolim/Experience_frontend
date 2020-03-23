@@ -123,11 +123,11 @@
           <div @click="aba = 5" class="aba" :class="{ 'active-aba': aba == 5 }">QR code</div>
         </template>
         <template v-slot:body>
-          <login-patient v-if="aba == 1"></login-patient>
-          <login-patient v-if="aba == 2"></login-patient>
-          <login-patient v-if="aba == 3"></login-patient>
-          <login-patient v-if="aba == 4"></login-patient>
-          <login-patient v-if="aba == 5"></login-patient>
+          <patient-login v-if="aba == 1"></patient-login>
+          <doctor-login v-if="aba == 2"></doctor-login>
+          <patient-login v-if="aba == 3"></patient-login>
+          <patient-login v-if="aba == 4"></patient-login>
+          <patient-login v-if="aba == 5"></patient-login>
         </template>
       </code-menu-abas>
     </div>
@@ -142,11 +142,11 @@ import CodeInput from './base/CodeInput.vue'
 import CodeLabel from './base/CodeLabel.vue'
 import CodeMessage from './base/CodeMessage.vue'
 import CodeMenuAbas from './base/CodeMenuAbas.vue'
-import LoginPatient from './LoginPatient.vue'
+import PatientLogin from './PatientLogin.vue'
 /* import CodeDataPicker from './base/CodeDataPicker.vue' */
 import CodeSelect from './base/CodeSelect.vue'
 import AttendanceListFilter from './AttendanceListFilter.vue'
-
+import DoctorLogin from './DoctorLogin'
 export default {
   name: 'teste',
   components: {
@@ -160,7 +160,8 @@ export default {
 /*     CodeDataPicker, */
     CodeSelect,
     CodeLabel,
-    LoginPatient
+    PatientLogin,
+    DoctorLogin
   },
   data () {
     return {
@@ -287,6 +288,7 @@ export default {
   display: flex
   flex-direction: row
   width: 450px
+  min-height: 450px
   justify-content: center
   margin: 10px auto
 .body-list

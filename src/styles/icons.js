@@ -23,7 +23,8 @@ import {
     faLockOpen,
     faCheck,
     faQuestionCircle,
-    faKeyboard
+    faKeyboard,
+    faStethoscope
   } from '@fortawesome/free-solid-svg-icons'
 
 export default {
@@ -51,5 +52,6 @@ export default {
   faLockOpen,
   faCheck,
   faQuestionCircle,
-  faKeyboard 
+  faKeyboard,
+  faStethoscope 
 }

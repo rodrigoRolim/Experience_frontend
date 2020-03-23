@@ -2,7 +2,7 @@
   <div class="login-patient">
     <form class="login-p-form">
       <div class="login-p-radio">
-        <code-group-radios :receive="receive" @resRadio="sendToChild">
+        <code-group-radios :receive="valueRadio" @group="group">
           <template v-slot:header>
             <p>Acessar como:</p>
           </template>
@@ -12,7 +12,7 @@
               name="login"
               value="CPF"
               label="Atendimento Único"
-              @reqRadio="sendToParent"
+              @radio="radio"
               identifier="cpf"
               :visible="visibility"
             ></code-radio>
@@ -20,14 +20,66 @@
               name="login"
               value="ID"
               label="Histórico de Resultados"
-              @reqRadio="sendToParent"
+              @radio="radio"
               identifier="id"
               :visible="visibility"
             ></code-radio>
           </template> 
         </code-group-radios>
       </div>
-      <div class="login-p-input-att">
+      <div class="login-p-cpf" v-if="visibility == 'ID'">
+        <code-label
+          bind="cpf"
+          label="Cpf"
+          color="#676a6c"
+          :fontWeight="700"
+          fontSize="0.8rem"
+          fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
+         ></code-label>
+        <code-input
+          placeholder="CPF"
+          :hasIcon="true"
+          name="cpf"
+          type="text"
+          required
+          v-model="value"
+          padding="7px 7px"
+          paddingIcon="7px 12px"
+          :weight="500"
+          color="#333"
+        >
+          <template v-slot:icon>
+            <font-awesome-icon icon="user" :style="{ color: '#676a6c' }"></font-awesome-icon>
+          </template>
+        </code-input>
+      </div>
+      <div class="login-p-birthday" v-if="visibility == 'ID'">
+         <code-label
+          bind="cpf"
+          label="Data nascimento"
+          color="#676a6c"
+          :fontWeight="700"
+          fontSize="0.8rem"
+          fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
+         ></code-label>
+        <code-input
+          placeholder="Data de nascimento"
+          :hasIcon="true"
+          name="cpf"
+          type="text"
+          required
+          v-model="value"
+          padding="7px 7px"
+          paddingIcon="7px 12px"
+          :weight="500"
+          color="#333"
+        >
+          <template v-slot:icon>
+            <font-awesome-icon icon="user" :style="{ color: '#676a6c' }"></font-awesome-icon>
+          </template>
+        </code-input>
+      </div>
+      <div class="login-p-input-att" v-else>
          <code-label
           bind="attendance"
           label="Atendimento"
@@ -43,8 +95,8 @@
           type="text"
           required
           v-model="value"
-          padding="9px 7px"
-          paddingIcon="9px 14px"
+          padding="7px 7px"
+          paddingIcon="7px 12px"
           :weight="600"
           color="#333"
         >
@@ -61,7 +113,7 @@
           :fontWeight="700"
           fontSize="0.8rem"
           fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
-         ></code-label>
+        ></code-label>
         <code-input
           placeholder="Senha"
           :hasIcon="true"
@@ -69,8 +121,8 @@
           type="password"
           required
           v-model="value"
-          padding="9px 7px"
-          paddingIcon="9px 14px"
+          padding="7px 7px"
+          paddingIcon="7px 12px"
         >
           <template v-slot:icon>
             <font-awesome-icon icon="lock" :style="{ color: '#676a6c' }"></font-awesome-icon>
@@ -78,7 +130,7 @@
         </code-input>
       </div>
       <div class="doubt-keyboard">
-        <small class="keyboard"><i><font-awesome-icon icon="keyboard" size="lg"/></i></small>
+        <small class="keyboard"><i v-if="visibility !== 'ID'"><font-awesome-icon icon="keyboard" size="lg"/></i></small>
         <code-tooltip
           text="teclado virtual"
         >
@@ -93,7 +145,7 @@
           text="acessar"
           bcolor="#34b583"
           color="white"
-          
+    
         ></code-button>
       </div>  
     </form>
@@ -120,14 +172,16 @@ export default {
     return {
       receive: '',
       value: '',
-      visibility: ''
+      valueRadio: '',
+      visibility: 'CPF'
     }
   },
   methods: {
-    sendToParent (value) {
-      this.receive = value
+    radio (value) {
+      this.valueRadio = value
     },
-    sendToChild (value) {
+    group (value) {
+      console.log(value)
       this.visibility = value
     }
   }  
@@ -135,14 +189,14 @@ export default {
 </script>
 <style lang="sass" scoped>
 .login-patient
-  width: 100%
   background-color: white
 .login-p-form
   display: flex
   flex-direction: column
   padding: 20px
 .login-p-input-att,
-.login-p-pass
+.login-p-pass,
+.login-p-cpf
   margin: 7px 0
 .login-p-buttons
   display: flex

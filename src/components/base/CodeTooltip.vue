@@ -23,6 +23,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+@import '../../styles/_animations.sass'
 .container-tool
   margin: 0
   padding: 0
@@ -37,4 +38,14 @@ export default {
   margin: 5px
   z-index: 100
   background-color: #495057
+  animation: enter 0.4s linear 
+.tooltip-text::after
+  content: " "
+  position: absolute
+  border-width: 5px
+  left: 3px
+  top: -10px
+  border-style: solid
+  border-color: transparent transparent #495057 transparent
+    
 </style>

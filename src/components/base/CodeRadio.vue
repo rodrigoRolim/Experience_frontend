@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     confirm () {
-      this.$emit('reqRadio', this.value)
+      this.$emit('radio', this.value)
     }
   }
 }
