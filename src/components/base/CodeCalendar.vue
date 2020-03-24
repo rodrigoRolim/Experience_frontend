@@ -205,7 +205,7 @@ export default {
       }
     },
     updateCalendarMonth (command) {
-
+      this.lastClicked.target.style.backgroundColor = 'white'
       this.updateLimitMonth(command)
       this.updateLimitYear(command)
       this.calendar = this.buildCalendar(this.year, this.month, new Date().getDay())

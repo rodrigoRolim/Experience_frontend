@@ -37,6 +37,8 @@ export default {
   position: absolute
   margin-top: 5px
   margin-left: 10px
+  padding: 10px 15px
+  border-radius: 4px
   z-index: 100
   background-color: #495057
   animation: enter 0.4s linear 
