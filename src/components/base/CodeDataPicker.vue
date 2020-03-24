@@ -13,19 +13,22 @@
       readonly
       :padding="padding"
       :paddingIcon="paddingIcon"
-      v-click-outside="popup"
+      @focus="showDate"
     >
       <template v-slot:icon>
         <font-awesome-icon icon="calendar-alt" :style="{ color: '#676a6c' }"></font-awesome-icon>
       </template>
     </code-input>
   </div>
-  <code-calendar 
-    @datepicked="picked" 
-    v-show="show" 
-    :style="position" 
-    :connect="'popup-calendar'"
-  ></code-calendar>
+  <div class="container-modal" v-if="showModal" @click.self="closeModal">
+    <code-calendar
+      class="content-modal" 
+      @datepicked="picked"
+      :style="position" 
+      :connect="'popup-calendar'"
+    ></code-calendar>
+  </div>
+  
 </div>
 </template>
 <script>
@@ -67,7 +70,8 @@ export default {
       year: null,
       dateFormatted: null,
       date: '',
-      position: null
+      position: null,
+      showModal: false
     }
   },
   created () {
@@ -77,13 +81,13 @@ export default {
     this.year = this.calendar.year */
   },
   computed: {
-    /* years (vm) {
+    years (vm) {
       let years = []
       for (let i = vm.minYear; i <= vm.maxYear; i++) {
         years.push(i)
       }
       return years
-    } */
+    }
   },
   directives: {
     clickOutside: {
@@ -91,14 +95,14 @@ export default {
     
         el.clickOutsideEvent = function (event) {
 
-          console.log(!(el === event.target || el.contains(event.target)))
-          if (!(el === event.target || el.contains(event.target))) {
+         
+          if ((el === event.target || el.contains(event.target))) {
             let rec = el.getBoundingClientRect()
             let h = el.clientHeight
-            vnode.context.position = { top: (rec.top+h)+'px' }
-            //vnode.context[binding.expression](true)
+            vnode.context.position = { marginTop: (rec.top+h)+'px' }
+            vnode.context[binding.expression](true)
           } else {
-            //vnode.context[binding.expression](false)
+            vnode.context[binding.expression](false)
           }
         }
           document.body.addEventListener('click', el.clickOutsideEvent)
@@ -110,13 +114,17 @@ export default {
     }
   },
   methods: {
+    closeModal () {
+      this.showModal = false
+    },
     picked (value) {
       this.date = value
     },
     showDate (e) {
+      this.showModal = true
       let rec = e.target.getBoundingClientRect()
       let h = e.target.clientHeight
-      this.position = { top: (rec.top+h+4)+'px' }
+      this.position = { marginTop: (rec.top+h)+'px', marginLeft: (rec.left+h - 34)+'px' }
       this.popup(true)
     },
     allowedKeys (el) {
@@ -153,8 +161,7 @@ export default {
   flex-direction: row
   width: 100%
 .container-code-datapicker
-  position: fixed
-  z-index: 1000
+  width: 302px
   display: flex
   flex-direction: column
   aling-items: center
@@ -230,5 +237,12 @@ i
   align-items: center
 .decr-year
   margin-left: 5px 
-
+.container-modal
+  background-color: rgba(0, 0, 0, 0)
+  width: 100%
+  height: 100%
+  position: fixed
+  z-index: 100
+  left: 0
+  top: 0
 </style>

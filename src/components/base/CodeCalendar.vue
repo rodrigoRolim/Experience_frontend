@@ -21,7 +21,9 @@
         <td 
           v-for="(date, j) in dates" 
           v-bind:key="j"
-          :class="{ 'smooth-date-w': weekend(j), 'smooth-date-p': outMonth(i, j, calendar.edger) }"
+          :class="{ 
+           'smooth-date-w': weekend(j),
+           'smooth-date-p': outMonth(i, j, calendar.edger) }"
           @click="selectDate"
           :date="dateValue(i, j, calendar.edger, date)"
         >
@@ -69,7 +71,8 @@ export default {
       show: false,
       dateFormatted: null,
       date: '',
-      position: null
+      position: null,
+      lastClicked: null
     }
   },
   created () {
@@ -167,10 +170,16 @@ export default {
       this.$emit('popup', false)
     },
     selectDate (ev) {
+      if (this.lastClicked != null || this.lastClicked != undefined) {
+        this.lastClicked.target.style.backgroundColor = 'white'
+      }
       let dates = this.splitDate(ev)
+      
       this.dateFormatted = this.dateFormatter(...dates)
       this.emitSelected(this.dateFormatted)
-      this.signalPopup(false)
+      //this.signalPopup(false)
+      ev.target.style.backgroundColor = '#368c8c9f'
+      this.lastClicked = ev
     },
     updateLimitMonth (command) {
 
@@ -220,8 +229,6 @@ export default {
   flex-direction: row
   width: 100%
 .container-code-datapicker
-  position: fixed
-  z-index: 1000
   display: flex
   flex-direction: column
   aling-items: center

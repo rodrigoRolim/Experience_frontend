@@ -93,12 +93,12 @@
       </template>
     </code-select>
     <div class="table">
-     <!--  <code-data-picker 
+      <code-data-picker 
         padding="6px 7px"
         paddingIcon="8px 13px"
         :hasIcon="true"
         name="birth"
-      ></code-data-picker> -->
+      ></code-data-picker>
     </div>
     <div class="list">
       <div class="header-list">
@@ -143,7 +143,7 @@ import CodeLabel from './base/CodeLabel.vue'
 import CodeMessage from './base/CodeMessage.vue'
 import CodeMenuAbas from './base/CodeMenuAbas.vue'
 import PatientLogin from './PatientLogin.vue'
-/* import CodeDataPicker from './base/CodeDataPicker.vue' */
+import CodeDataPicker from './base/CodeDataPicker.vue'
 import CodeSelect from './base/CodeSelect.vue'
 import AttendanceListFilter from './AttendanceListFilter.vue'
 import DoctorLogin from './DoctorLogin'
@@ -157,7 +157,7 @@ export default {
     CodeButton,
     CodeMessage,
     CodeMenuAbas,
-/*     CodeDataPicker, */
+    CodeDataPicker,
     CodeSelect,
     CodeLabel,
     PatientLogin,
