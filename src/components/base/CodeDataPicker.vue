@@ -89,30 +89,6 @@ export default {
       return years
     }
   },
-  directives: {
-    clickOutside: {
-      bind (el, binding, vnode) {
-    
-        el.clickOutsideEvent = function (event) {
-
-         
-          if ((el === event.target || el.contains(event.target))) {
-            let rec = el.getBoundingClientRect()
-            let h = el.clientHeight
-            vnode.context.position = { marginTop: (rec.top+h)+'px' }
-            vnode.context[binding.expression](true)
-          } else {
-            vnode.context[binding.expression](false)
-          }
-        }
-          document.body.addEventListener('click', el.clickOutsideEvent)
-      },
-    
-      unbind(el) {
-        document.body.removeEventListener('click', el.clickOutsideEvent)
-      }
-    }
-  },
   methods: {
     closeModal () {
       this.showModal = false

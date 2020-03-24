@@ -170,15 +170,19 @@ export default {
       this.$emit('popup', false)
     },
     selectDate (ev) {
-      if (this.lastClicked != null || this.lastClicked != undefined) {
-        this.lastClicked.target.style.backgroundColor = 'white'
+      //let classList = this.lastClicked.classList
+      
+      if (this.lastClicked != null) {
+
+        this.lastClicked.target.classList.remove('clicked-td')
       }
       let dates = this.splitDate(ev)
       
       this.dateFormatted = this.dateFormatter(...dates)
       this.emitSelected(this.dateFormatted)
-      //this.signalPopup(false)
-      ev.target.style.backgroundColor = '#368c8c9f'
+      //this.signalPopup(false)]
+      ev.target.classList.add('clicked-td')
+      //ev.target.style.backgroundColor = '#368c8c9f'
       this.lastClicked = ev
     },
     updateLimitMonth (command) {
@@ -304,5 +308,7 @@ i
   align-items: center
 .decr-year
   margin-left: 5px 
-
+.clicked-td
+  background-color: #368c8c9f
+  color: white
 </style>
