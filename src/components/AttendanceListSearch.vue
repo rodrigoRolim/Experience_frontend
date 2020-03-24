@@ -7,8 +7,8 @@
       name="patient"
       type="text"
       required
-      padding="8px 7px"
-      paddingIcon="8px 12px"
+      :width="10"
+      :height="7"
     >
       <!-- <template v-slot:label>
         <code-label

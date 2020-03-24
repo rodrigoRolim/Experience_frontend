@@ -11,8 +11,8 @@
       class="begin-input"
       @keydown="allowedKeys"
       readonly
-      :padding="padding"
-      :paddingIcon="paddingIcon"
+      :width="width"
+      :height="height"
       @focus="showDate"
     >
       <template v-slot:icon>
@@ -49,11 +49,11 @@ export default {
       type: Number,
       default: new Date().getFullYear() - 100
     },
-    padding: {
-      type: String
+    width: {
+      type: Number
     },
-    paddingIcon: {
-      type: String
+    height: {
+      type: Number
     },
     hasIcon: Boolean,
     name: String

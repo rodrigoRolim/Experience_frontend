@@ -169,13 +169,16 @@ export default {
     signalPopup () {
       this.$emit('popup', false)
     },
-    selectDate (ev) {
-      //let classList = this.lastClicked.classList
-      
+    unmarkClickedTd () {
       if (this.lastClicked != null) {
 
         this.lastClicked.target.classList.remove('clicked-td')
       }
+    },
+    selectDate (ev) {
+      //let classList = this.lastClicked.classList
+      this.unmarkClickedTd()
+     
       let dates = this.splitDate(ev)
       
       this.dateFormatted = this.dateFormatter(...dates)
@@ -209,7 +212,8 @@ export default {
       }
     },
     updateCalendarMonth (command) {
-      this.lastClicked.target.style.backgroundColor = 'white'
+      
+      this.unmarkClickedTd()
       this.updateLimitMonth(command)
       this.updateLimitYear(command)
       this.calendar = this.buildCalendar(this.year, this.month, new Date().getDay())

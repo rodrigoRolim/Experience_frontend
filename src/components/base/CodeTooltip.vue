@@ -29,9 +29,9 @@ export default {
 .container-tool
   margin: 0
   padding: 0
-  color: white
 .tooltip-text
   display: none
+  color: white
 .container-tool:hover .tooltip-text
   display: block
   position: absolute

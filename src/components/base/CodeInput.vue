@@ -2,7 +2,7 @@
 <div class="container-code-inp">
   <slot name="label"></slot>
   <div class="input">
-    <i v-if="hasIcon" :style="{padding: paddingIcon}" :class="{'no-border': noBorder}"><slot name="icon"></slot></i>
+    <i v-if="hasIcon" :style="{padding: getSizeIcon}" :class="{'no-border': noBorder}"><slot name="icon"></slot></i>
     <input 
       v-bind="$attrs"
       :class="{ 'input-icon': hasIcon, 'input-no-icon': !hasIcon, 'no-border': noBorder }" 
@@ -10,7 +10,7 @@
       :name="name" 
       :id="name" 
       :placeholder="placeholder"
-      :style="{ padding: padding, fontSize: size, fontWeight: weight, color: color }"
+      :style="{ padding: getSizeInput, fontSize: size, fontWeight: weight, color: color }"
       @focus="focus"
       @blur="blur"
       @keydown="keydown"
@@ -20,9 +20,11 @@
 </template>
 
 <script>
+import { sizer } from '../../mixins/sizer'
 export default {
   name: 'CodeInput',
   inheritAttrs: false,
+  mixins: [sizer],
   props: {
     label: String,
     placeholder: String,
@@ -39,13 +41,13 @@ export default {
       type: String,
       default: 'text'
     },
-    padding: {
-      type: String,
-      default: '6px 7px'
+    width: {
+      type: Number,
+      default: 6
     },
-    paddingIcon: {
-      type: String,
-      default: '6px 10px'
+    height: {
+      type: Number,
+      default: 7
     },
     noBorder: {
       type: Boolean,

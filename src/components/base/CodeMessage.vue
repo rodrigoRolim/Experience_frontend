@@ -46,6 +46,7 @@ export default {
   display: flex
   flex-direction: row
   justify-content: center
+  padding: 5px 0
   width: 100%
 .icon
   margin-right: 10px

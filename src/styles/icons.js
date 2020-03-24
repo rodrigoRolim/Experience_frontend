@@ -2,7 +2,7 @@ import {
     faUser, 
     faInfoCircle, 
     faExclamationCircle, 
-    faWindowClose,
+    faTimesCircle,
     faCheckCircle,
     faCandyCane,
     faMars,
@@ -24,7 +24,8 @@ import {
     faCheck,
     faQuestionCircle,
     faKeyboard,
-    faStethoscope
+    faStethoscope,
+    faBeer
   } from '@fortawesome/free-solid-svg-icons'
 
 export default {
@@ -33,7 +34,7 @@ export default {
   faUser, 
   faInfoCircle, 
   faExclamationCircle, 
-  faWindowClose,
+  faTimesCircle,
   faMars,
   faFlask,
   faBirthdayCake,
@@ -53,5 +54,6 @@ export default {
   faCheck,
   faQuestionCircle,
   faKeyboard,
-  faStethoscope 
+  faStethoscope,
+  faBeer 
 }

@@ -43,8 +43,8 @@
           type="text"
           required
           v-model="value"
-          padding="7px 7px"
-          paddingIcon="7px 12px"
+          :width="9"
+          :height="7"
           :weight="500"
           color="#333"
         >
@@ -69,8 +69,8 @@
           type="text"
           required
           v-model="value"
-          padding="7px 7px"
-          paddingIcon="7px 12px"
+          :width="9"
+          :height="7"
           :weight="500"
           color="#333"
         >
@@ -95,8 +95,8 @@
           type="text"
           required
           v-model="value"
-          padding="7px 7px"
-          paddingIcon="7px 12px"
+          :width="9"
+          :height="7"
           :weight="600"
           color="#333"
         >
@@ -121,8 +121,8 @@
           type="password"
           required
           v-model="value"
-          padding="7px 7px"
-          paddingIcon="7px 12px"
+          :width="9"
+          :height="7"
         >
           <template v-slot:icon>
             <font-awesome-icon icon="lock" :style="{ color: '#676a6c' }"></font-awesome-icon>

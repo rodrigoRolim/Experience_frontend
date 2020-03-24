@@ -1,10 +1,11 @@
 <template>
   <div class="select" ref="container">
-    <i v-if="hasIcon"><slot name="icon"></slot></i>
+    <i v-if="hasIcon" :style="{padding: getSizeIcon}" :class="{'no-border': noBorder}"><slot name="icon"></slot></i>
     <select 
      :name="name" 
-     :id="name" 
-     :class="{ 'select-icon': hasIcon, 'select-no-icon': !hasIcon }"
+     :id="name"
+     :style="{padding: getSizeInput}" 
+     :class="{ 'select-icon': hasIcon, 'select-no-icon': !hasIcon, 'no-border': noBorder }"
     >
       <option  disabled v-if="option" selected>{{option}}</option>
       <option :value="option.id" v-for="option in options" v-bind:key="option.id">{{option.item}}</option>
@@ -12,8 +13,10 @@
   </div>
 </template>
 <script>
+import { sizer } from '../../mixins/sizer'
 export default {
   name: 'CodeSelect',
+  mixins: [sizer],
   props: {
     name: String,
     options: Array,
@@ -24,6 +27,28 @@ export default {
       required: true,
       default: false
     },
+    width: {
+      type: Number,
+      default: 7
+    },
+    height: {
+      type: Number,
+      default: 7
+    },
+    noBorder: {
+      type: Boolean,
+      default: false
+    },
+    size: {
+      type: String,
+      default: '0.95rem'
+    },
+    weight: {
+      type: Number
+    },
+    color: {
+      type: String
+    }
   },
   data () {
     return {
@@ -37,7 +62,6 @@ export default {
 </script>
 <style lang="sass" scoped>
 select
-  padding: 8px 7px
   border: 1px solid lightgray
   width: 100%
   background-color: #F5F5F5
@@ -52,6 +76,7 @@ select
 i
   border: 1px solid lightgray
   border-right: none
-  padding: 8px 12px
   border-radius: 3px 0px 0px 3px
+.no-border
+  border-radius: 0
 </style>
