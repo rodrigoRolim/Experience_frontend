@@ -116,6 +116,7 @@ export default {
   methods: {
     closeModal () {
       this.showModal = false
+      this.popup(false)
     },
     picked (value) {
       this.date = value
