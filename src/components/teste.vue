@@ -190,8 +190,8 @@
         <template v-slot:body>
           <patient-login v-if="aba == 1"></patient-login>
           <doctor-login v-if="aba == 2"></doctor-login>
-          <patient-login v-if="aba == 3"></patient-login>
-          <patient-login v-if="aba == 4"></patient-login>
+          <partner-login v-if="aba == 3"></partner-login>
+          <health-care-login v-if="aba == 4"></health-care-login>
           <patient-login v-if="aba == 5"></patient-login>
         </template>
       </code-menu-abas>
@@ -223,7 +223,9 @@ import CodeDataPicker from './base/CodeDataPicker.vue'
 import CodeSelect from './base/CodeSelect.vue'
 import CodeTooltip from './base/CodeTooltip.vue'
 import AttendanceListFilter from './AttendanceListFilter.vue'
+import PartnerLogin from './PartnerLogin'
 import DoctorLogin from './DoctorLogin'
+import HealthCareLogin from './HealthCareLogin'
 export default {
   name: 'teste',
   components: {
@@ -239,7 +241,9 @@ export default {
     CodeLabel,
     PatientLogin,
     DoctorLogin,
-    CodeTooltip
+    CodeTooltip,
+    PartnerLogin,
+    HealthCareLogin
   },
   data () {
     return {

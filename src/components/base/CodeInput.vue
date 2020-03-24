@@ -10,7 +10,7 @@
       :name="name" 
       :id="name" 
       :placeholder="placeholder"
-      :style="{ padding: getSizeInput, fontSize: size, fontWeight: weight, color: color }"
+      :style="{ padding: getSizeInput, fontSize: size, fontWeight: weight, color: color, cursor: cursor }"
       @focus="focus"
       @blur="blur"
       @keydown="keydown"
@@ -62,6 +62,9 @@ export default {
     },
     color: {
       type: String
+    },
+    cursor: {
+      type: String
     }
   },
   directives: {
@@ -103,6 +106,7 @@ input
   display: flex
   flex-direction: row
   width: 100%
+  margin: 3px 0
 .no-border
   border-radius: 0
 i

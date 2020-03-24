@@ -22,7 +22,7 @@ export default {
         color: this.color, 
         fontWeight: this.fontWeight, 
         fontFamily: this.fontFamily, 
-        fontSize: this.fontSize 
+        fontSize: this.fontSize
       }
     }
   }
@@ -30,6 +30,5 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-label
-  margin-bottom: 3px
+
 </style>

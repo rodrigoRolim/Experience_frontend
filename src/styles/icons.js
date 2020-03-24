@@ -25,7 +25,8 @@ import {
     faQuestionCircle,
     faKeyboard,
     faStethoscope,
-    faBeer
+    faBeer,
+    faClinicMedical
   } from '@fortawesome/free-solid-svg-icons'
 
 export default {
@@ -55,5 +56,6 @@ export default {
   faQuestionCircle,
   faKeyboard,
   faStethoscope,
-  faBeer 
+  faBeer,
+  faClinicMedical 
 }

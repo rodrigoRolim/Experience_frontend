@@ -4,7 +4,7 @@
     <select 
      :name="name" 
      :id="name"
-     :style="{padding: getSizeInput}" 
+     :style="{padding: getSizeInput, fontSize: size}" 
      :class="{ 'select-icon': hasIcon, 'select-no-icon': !hasIcon, 'no-border': noBorder }"
     >
       <option  disabled v-if="option" selected>{{option}}</option>
@@ -41,7 +41,7 @@ export default {
     },
     size: {
       type: String,
-      default: '0.95rem'
+      default: '0.9rem'
     },
     weight: {
       type: Number
@@ -65,6 +65,8 @@ select
   border: 1px solid lightgray
   width: 100%
   background-color: #F5F5F5
+select option
+  font-size: 1.0rem
 .select-icon
   border-radius: 0px 3px 3px 0px
 .select-no-icon
@@ -73,6 +75,7 @@ select
   display: flex
   flex-direction: row
   width: 100%
+  margin: 3px 0
 i
   border: 1px solid lightgray
   border-right: none

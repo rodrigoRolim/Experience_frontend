@@ -2,13 +2,12 @@
 <div class="datepicker">
   <div class="container-input-date">
     <code-input
-      placeholder="inicio"
+      placeholder="clique aqui"
       :hasIcon="hasIcon"
       :name="name"
       type="text"
-      required
       v-model="date"
-      class="begin-input"
+      cursor="pointer"
       @keydown="allowedKeys"
       readonly
       :width="width"
@@ -133,6 +132,8 @@ export default {
   display: flex
   flex-direction: column
   justify-content: center
+.date-input input
+  cursor: pointer
 .container-input-date
   display: flex
   flex-direction: row
