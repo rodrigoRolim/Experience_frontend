@@ -15,6 +15,8 @@
             class="d-cr"
             :options="list"
             option="escolha um doce"
+            :width="9"
+            :height="7"
             :hasIcon="false"
           ></code-select>
           <code-select
@@ -41,8 +43,8 @@
           type="text"
           required
           v-model="item"
-          padding="7px 7px"
-          paddingIcon="7px 12px"
+          :width="9"
+          :height="7"
           :weight="500"
           color="#333"
         >
@@ -67,8 +69,8 @@
           type="password"
           required
           v-model="item"
-          padding="7px 7px"
-          paddingIcon="7px 12px"
+          :width="9"
+          :height="7"
           :weight="500"
           color="#333"
         >
