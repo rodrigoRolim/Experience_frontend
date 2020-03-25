@@ -251,7 +251,7 @@ import CodeButton from './base/CodeButton.vue'
 import CodeInput from './base/CodeInput.vue'
 import CodeLabel from './base/CodeLabel.vue'
 import CodeMessage from './base/CodeMessage.vue'
-import CodeMenuAbas from './base/CodeMenuAbas.vue'
+/* import CodeMenuAbas from './base/CodeMenuAbas.vue' */
 import PatientLogin from './PatientLogin.vue'
 import CodeDataPicker from './base/CodeDataPicker.vue'
 import CodeSelect from './base/CodeSelect.vue'
@@ -275,7 +275,7 @@ export default {
     CodeInput,
     CodeButton,
     CodeMessage,
-    CodeMenuAbas,
+   /*  CodeMenuAbas, */
     CodeDataPicker,
     CodeSelect,
     CodeLabel,
