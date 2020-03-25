@@ -252,15 +252,15 @@ import CodeInput from './base/CodeInput.vue'
 import CodeLabel from './base/CodeLabel.vue'
 import CodeMessage from './base/CodeMessage.vue'
 /* import CodeMenuAbas from './base/CodeMenuAbas.vue' */
-import PatientLogin from './PatientLogin.vue'
+/* import PatientLogin from './PatientLogin.vue' */
 import CodeDataPicker from './base/CodeDataPicker.vue'
 import CodeSelect from './base/CodeSelect.vue'
 import CodeTooltip from './base/CodeTooltip.vue'
 import CodeCalendar from './base/CodeCalendar.vue'
 import AttendanceListFilter from './AttendanceListFilter.vue'
-import PartnerLogin from './PartnerLogin'
-import DoctorLogin from './DoctorLogin'
-import HealthCareLogin from './HealthCareLogin'
+/* import PartnerLogin from './PartnerLogin'
+import DoctorLogin from './DoctorLogin' */
+/* import HealthCareLogin from './HealthCareLogin' */
 import TheFooter from './TheFooter'
 import CodeModal from './base/CodeModal'
 import PatientExamListItem from './PatientExamListItem'
@@ -281,11 +281,11 @@ export default {
     CodeLabel,
     CodeModal,
     CodeCalendar,
-    PatientLogin,
-    DoctorLogin,
+    /* PatientLogin,
+    DoctorLogin, */
     CodeTooltip,
-    PartnerLogin,
-    HealthCareLogin,
+  /*   PartnerLogin,
+    HealthCareLogin, */
     PatientExamListItem,
     TheFooter
   },
