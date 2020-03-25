@@ -182,7 +182,7 @@
         <attendance-list :attendances="attendances"></attendance-list>
       </div>
     </div>
-    <div class="menu-logins">
+  <!--   <div class="menu-logins">
       <h1>6. menu de abas</h1>
       <code-menu-abas>
         <template v-slot:header>
@@ -200,7 +200,7 @@
           <patient-login v-if="aba == 5"></patient-login>
         </template>
       </code-menu-abas>
-    </div>
+    </div> -->
     <div class="tooltip">
       <h1>7. tooltip</h1>
       <code-tooltip
@@ -434,6 +434,7 @@ export default {
   width: 450px
   @include respond-to(handhelds)
     width: 100%
+  @include respond-to(medium-screens)
   justify-content: center
   margin: 10px auto
   background-color: white
