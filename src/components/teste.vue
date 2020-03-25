@@ -234,9 +234,9 @@
         </template>
       </code-modal>
     </div>
-    <div class="list-exams">
+   <!--  <div class="list-exams">
       <patient-exam-list-item></patient-exam-list-item>
-    </div>
+    </div> -->
     <div class="footer">
       <h1>9. Footer</h1>
       <the-footer></the-footer>
@@ -263,7 +263,7 @@ import DoctorLogin from './DoctorLogin' */
 /* import HealthCareLogin from './HealthCareLogin' */
 import TheFooter from './TheFooter'
 import CodeModal from './base/CodeModal'
-import PatientExamListItem from './PatientExamListItem'
+/* import PatientExamListItem from './PatientExamListItem' */
 import { popups } from '../mixins/popups'
 export default {
   name: 'teste',
@@ -286,7 +286,7 @@ export default {
     CodeTooltip,
   /*   PartnerLogin,
     HealthCareLogin, */
-    PatientExamListItem,
+  /*   PatientExamListItem, */
     TheFooter
   },
   data () {
