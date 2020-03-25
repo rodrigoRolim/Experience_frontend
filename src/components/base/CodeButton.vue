@@ -2,7 +2,10 @@
   <button 
    v-bind:style="getStyle"
    @click="click"
-   ><i><slot name="icon"></slot></i>{{text}}</button>
+   :class="{ 'rounded': round }"
+   >
+    <i v-if="icon"><font-awesome-icon :icon="icon" :size="sizeIcon"/></i><span v-if="!round">{{text}}</span>
+   </button>
 </template>
 <script>
 export default {
@@ -15,8 +18,7 @@ export default {
       type: String
     }, 
     text: {
-      type: String,
-      required: true
+      type: String
     },
     padding: {
       type: String
@@ -24,7 +26,10 @@ export default {
     icon: {
       type: String
     },
-    fontWeight: Number
+    fontWeight: Number,
+    round: Boolean,
+    radius: String,
+    sizeIcon: String
   },
   data () {
     return {
@@ -39,7 +44,9 @@ export default {
         color: vm.color, 
         backgroundColor: vm.bcolor,
         padding: vm.padding,
-        fontWeight: vm.fontWeight
+        fontWeight: vm.fontWeight,
+        height: vm.radius,
+        width: vm.radius
       }
     }
   },
@@ -68,4 +75,9 @@ button
   letter-spacing: 0.2px
   text-transform: capitalize
   font-weight: 500
+.rounded
+  border-radius: 100%
+  padding: 5px
+.rounded i
+  margin: 0
 </style>

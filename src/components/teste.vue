@@ -2,14 +2,18 @@
   <div class="comp-body">
     <div class="button">
       <h1>1. botões</h1>
-      <CodeButton
+      <code-button
         class="btn-1"
         padding="9px 0"
         text="gerar pdf"
         bcolor="#ec4758"
         color="white"
         @click="submit"
-      />
+      >
+        <tamplate v-slot:icon>
+          <font-awesome-icon icon="question-circle" />
+        </tamplate>
+      </code-button>
       <CodeButton
         class="btn-2"
         padding="9px 0"
@@ -230,6 +234,9 @@
         </template>
       </code-modal>
     </div>
+    <div class="list-exams">
+      <patient-exam-list-item></patient-exam-list-item>
+    </div>
     <div class="footer">
       <h1>9. Footer</h1>
       <the-footer></the-footer>
@@ -256,6 +263,7 @@ import DoctorLogin from './DoctorLogin'
 import HealthCareLogin from './HealthCareLogin'
 import TheFooter from './TheFooter'
 import CodeModal from './base/CodeModal'
+import PatientExamListItem from './PatientExamListItem'
 import { popups } from '../mixins/popups'
 export default {
   name: 'teste',
@@ -278,6 +286,7 @@ export default {
     CodeTooltip,
     PartnerLogin,
     HealthCareLogin,
+    PatientExamListItem,
     TheFooter
   },
   data () {
@@ -462,4 +471,7 @@ export default {
   justify-content: center
 .btn-3
   width: 20%
+.list-exams
+  margin-top: 20px
+  background-color: white
 </style>

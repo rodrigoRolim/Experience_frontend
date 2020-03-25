@@ -66,6 +66,7 @@ export default {
 .code-chip-el
   padding: 3px 0
   border-radius: 10px
+  font-weight: 600
 .pendency
   background-color: $EP 
 .finished
