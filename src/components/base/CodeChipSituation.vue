@@ -1,7 +1,7 @@
 <template>
   <div class="container-chip-situation">
-    <span class="code-chip" :class="getSituation">
-      <span class="code-chip-el" :class="getSituation">{{text}}</span>
+    <span class="code-chip-situation" :class="getSituation">
+      <span class="code-chip-el-situation" :class="getSituation">{{text}}</span>
     </span>
   </div>
 </template>
@@ -56,14 +56,14 @@ export default {
     justify-content: flex-end
   @include respond-to(wide-screens)
     text-align: center
-.code-chip
+.code-chip-situation
   color: white
   font-size: 0.8rem
   padding: 4px 10px
   border-radius: 16px
   @include respond-to(handhelds)
     margin-right: 70px
-.code-chip-el
+.code-chip-el-situation
   padding: 3px 0
   border-radius: 10px
   font-weight: 600
