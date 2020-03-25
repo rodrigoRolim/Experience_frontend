@@ -19,14 +19,21 @@
       </template>
     </code-input>
   </div>
-  <div class="container-modal" v-if="showModal" @click.self="closeModal">
+  <code-modal v-if="showModal" :normal="normalModal" @close="closeModal">
+    <template v-slot:modal >
+      <code-calendar
+        @datepicked="picked"
+        :style="position" 
+      ></code-calendar>
+    </template>
+  </code-modal>
+ <!--  <div class="container-modal" v-if="showModal" @click.self="closeModal">
     <code-calendar
       class="content-modal" 
       @datepicked="picked"
       :style="position" 
-      :connect="'popup-calendar'"
     ></code-calendar>
-  </div>
+  </div> -->
   
 </div>
 </template>
@@ -34,7 +41,7 @@
 import { popups } from '../../mixins/popups'
 import CodeInput from './CodeInput'
 import CodeCalendar from './CodeCalendar'
-
+import CodeModal from './CodeModal'
 export default {
   name: 'CodeDataPicker',
   inheritAttrs: false,
@@ -55,11 +62,14 @@ export default {
       type: Number
     },
     hasIcon: Boolean,
-    name: String
+    name: String,
+    normalModal: Boolean,
+    opacityModal: Number
   },
   components: {
     CodeInput,
-    CodeCalendar
+    CodeCalendar,
+    CodeModal
   },
   data () {
     return {
@@ -89,9 +99,9 @@ export default {
     }
   },
   methods: {
-    closeModal () {
+    closeModal (value) {
       this.showModal = false
-      this.popup(false)
+      this.popup(value)
     },
     picked (value) {
       this.date = value
@@ -220,7 +230,7 @@ i
   width: 100%
   height: 100%
   position: fixed
-  z-index: 100
+  z-index: 1
   left: 0
   top: 0
 </style>

@@ -232,16 +232,13 @@ export default {
   display: flex
   flex-direction: column
   justify-content: center
-.container-input-date
-  display: flex
-  flex-direction: row
-  width: 100%
 .container-code-datapicker
   display: flex
   flex-direction: column
-  aling-items: center
+  align-items: center
   background-color: #368c8c
   border: 1px solid rgba(0, 0, 0, 0)
+  position: fixed
 .date-time
   background-color: rgba(0, 0, 0, 0)
   color: white

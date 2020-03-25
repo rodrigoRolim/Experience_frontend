@@ -161,6 +161,7 @@
         :height="7"
         :hasIcon="true"
         name="birth"
+        :normalModal="false"
       ></code-data-picker>
     </div>
     <div class="list">
@@ -207,6 +208,32 @@
         </template>
       </code-tooltip> 
     </div>
+    <div class="modal">
+      <h1>8. Modal</h1>
+      <div class="btn-show">
+        <code-button
+          class="btn-3" 
+          padding="9px 0"
+          text="show modal"
+          bcolor="#474d5e"
+          color="white"
+          @click="displayModal"
+        ></code-button>
+      </div>
+      <code-modal
+        :normal="true"
+        v-if="modalA"
+        @close="closeModal"
+      >
+        <template v-slot:modal>
+          <code-calendar></code-calendar>
+        </template>
+      </code-modal>
+    </div>
+    <div class="footer">
+      <h1>9. Footer</h1>
+      <the-footer></the-footer>
+    </div>
   </div>
 </template>
 
@@ -222,12 +249,17 @@ import PatientLogin from './PatientLogin.vue'
 import CodeDataPicker from './base/CodeDataPicker.vue'
 import CodeSelect from './base/CodeSelect.vue'
 import CodeTooltip from './base/CodeTooltip.vue'
+import CodeCalendar from './base/CodeCalendar.vue'
 import AttendanceListFilter from './AttendanceListFilter.vue'
 import PartnerLogin from './PartnerLogin'
 import DoctorLogin from './DoctorLogin'
 import HealthCareLogin from './HealthCareLogin'
+import TheFooter from './TheFooter'
+import CodeModal from './base/CodeModal'
+import { popups } from '../mixins/popups'
 export default {
   name: 'teste',
+  mixins: [popups],
   components: {
     AttendanceList,
     AttendanceListFilter,
@@ -239,14 +271,19 @@ export default {
     CodeDataPicker,
     CodeSelect,
     CodeLabel,
+    CodeModal,
+    CodeCalendar,
     PatientLogin,
     DoctorLogin,
     CodeTooltip,
     PartnerLogin,
-    HealthCareLogin
+    HealthCareLogin,
+    TheFooter
   },
   data () {
     return {
+      modalA: false,
+      modalB: false,
       value: 'rodrigo',
       list: [
         {id: 1, item: 'doce de laranja'},
@@ -331,6 +368,14 @@ export default {
     console.log(this.teste)
   },
   methods: {
+    displayModal () {
+      this.modalA = true
+    },
+    closeModal (value) {
+      console.log(value)
+      this.modalA = value
+      this.popup(value)
+    },
     teste (value) {
       console.log(value)
     },
@@ -403,4 +448,18 @@ export default {
   background-color: white
 .c-tool
   align-self: center
+.footer
+  margin-top: 20px
+.modal
+  width: 100%
+  height: 100%
+  background-color: white
+  padding-bottom: 20px
+.btn-show
+  width: 100%
+  display: flex
+  flex-direction: row
+  justify-content: center
+.btn-3
+  width: 20%
 </style>
