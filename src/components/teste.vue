@@ -432,6 +432,8 @@ export default {
   display: flex
   flex-direction: column
   width: 450px
+  @include respond-to(handhelds)
+    width: 100%
   justify-content: center
   margin: 10px auto
   background-color: white
