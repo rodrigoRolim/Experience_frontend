@@ -482,5 +482,6 @@ export default {
   flex-direction: row
   margin-top: 20px
   background-color: white
-  justify-content: space-between
+  flex-wrap: wrap
+  margin: 0 auto
 </style>

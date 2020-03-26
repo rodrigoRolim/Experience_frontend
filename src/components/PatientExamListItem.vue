@@ -66,13 +66,13 @@ export default {
   display: flex
   flex-direction: column
   justify-content: flex-start
-  width: 100%
+  width: 30%
   border: 1px solid #1ab394
   background-color: #1ab39408
   border-top-width: 5px
   min-height: 200px
   padding-top: 20px
-  margin: 0 5px
+  margin: 10px
 .detail-exam
   display: flex
   flex-direction: row
