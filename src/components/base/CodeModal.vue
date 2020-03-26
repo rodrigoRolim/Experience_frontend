@@ -39,7 +39,7 @@ export default {
 .c-modal-normal
   background-color: rgba(0,0,0,0.5)
 .c-modal-custom
-  background-color: rgba(0,0,0,1)
+  background-color: rgba(0,0,0,0)
 .content-modal-normal
   display: flex
   flex-direction: row
