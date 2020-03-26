@@ -16,9 +16,12 @@ export default {
 </script>
 <style lang="sass" scoped>
 @import '../styles/_colors.sass'
+
 .legends
   display: flex
   flex-direction: row
+  @include respond-to(handhelds)
+    flex-direction: column
   font-size: 0.8rem 
 .footer
   background: white
