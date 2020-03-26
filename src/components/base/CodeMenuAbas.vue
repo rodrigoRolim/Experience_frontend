@@ -34,6 +34,7 @@ export default {
   display: flex
   flex-direction: row
   border-bottom: 1px solid lightgray
+
 .header-abas > *
   text-align: center
   font-weight: 550
@@ -41,6 +42,8 @@ export default {
   text-transform: capitalize
   color: #676a6c
   padding: 10px 15px
+  @include respond-to(handhelds)
+    padding: 10px 10px
   cursor: pointer
 .active-aba
   border: 1px solid lightgray
@@ -50,5 +53,7 @@ export default {
   background-color: white
   margin-bottom: -1px
   padding: 9px 14px
+  @include respond-to(handhelds)
+    padding: 9px 9px
   color: #5f5e5e
 </style>

@@ -51,5 +51,6 @@ export default {
   font-size: 0.95rem
   color: #676a6c
 .radio-inputs
-
+  @include respond-to(handhelds)
+    flex-direction: column
 </style>
