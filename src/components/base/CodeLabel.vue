@@ -1,5 +1,5 @@
 <template>
-  <label :for="bind" v-bind:style="style">{{label}}</label>
+  <label :for="bind" v-bind:style="style">{{label}}<slot name="input"></slot></label>
 </template>
 
 <script>

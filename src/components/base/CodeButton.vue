@@ -80,4 +80,5 @@ button
   padding: 5px
 .rounded i
   margin: 0
+  padding: 0
 </style>

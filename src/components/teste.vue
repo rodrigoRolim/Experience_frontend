@@ -234,7 +234,12 @@
         </template>
       </code-modal>
     </div>
-    <div class="list-exams">
+    <div class="c-list-exams">
+      <patient-exam-list-item></patient-exam-list-item>
+      <patient-exam-list-item></patient-exam-list-item>
+      <patient-exam-list-item></patient-exam-list-item>
+      <patient-exam-list-item></patient-exam-list-item>
+      <patient-exam-list-item></patient-exam-list-item>
       <patient-exam-list-item></patient-exam-list-item>
       <patient-exam-list-item></patient-exam-list-item>
       <patient-exam-list-item></patient-exam-list-item>
@@ -477,11 +482,12 @@ export default {
   justify-content: center
 .btn-3
   width: 20%
-.list-exams
+.c-list-exams
   display: flex
-  flex-direction: row
+  flex-flow: row wrap
+  align-items: center
   margin-top: 20px
   background-color: white
-  flex-wrap: wrap
-  margin: 0 auto
+  width: 100%
+
 </style>
