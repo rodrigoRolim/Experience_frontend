@@ -182,7 +182,7 @@
         <attendance-list :attendances="attendances"></attendance-list>
       </div>
     </div>
-  <!--   <div class="menu-logins">
+    <div class="menu-logins">
       <h1>6. menu de abas</h1>
       <code-menu-abas>
         <template v-slot:header>
@@ -200,7 +200,7 @@
           <patient-login v-if="aba == 5"></patient-login>
         </template>
       </code-menu-abas>
-    </div> -->
+    </div>
     <div class="tooltip">
       <h1>7. tooltip</h1>
       <code-tooltip
@@ -234,9 +234,12 @@
         </template>
       </code-modal>
     </div>
-   <!--  <div class="list-exams">
+    <div class="list-exams">
       <patient-exam-list-item></patient-exam-list-item>
-    </div> -->
+      <patient-exam-list-item></patient-exam-list-item>
+      <patient-exam-list-item></patient-exam-list-item>
+      <patient-exam-list-item></patient-exam-list-item>
+    </div>
     <div class="footer">
       <h1>9. Footer</h1>
       <the-footer></the-footer>
@@ -251,19 +254,19 @@ import CodeButton from './base/CodeButton.vue'
 import CodeInput from './base/CodeInput.vue'
 import CodeLabel from './base/CodeLabel.vue'
 import CodeMessage from './base/CodeMessage.vue'
-/* import CodeMenuAbas from './base/CodeMenuAbas.vue' */
-/* import PatientLogin from './PatientLogin.vue' */
+import CodeMenuAbas from './base/CodeMenuAbas.vue'
+import PatientLogin from './PatientLogin.vue'
 import CodeDataPicker from './base/CodeDataPicker.vue'
 import CodeSelect from './base/CodeSelect.vue'
 import CodeTooltip from './base/CodeTooltip.vue'
 import CodeCalendar from './base/CodeCalendar.vue'
 import AttendanceListFilter from './AttendanceListFilter.vue'
-/* import PartnerLogin from './PartnerLogin'
-import DoctorLogin from './DoctorLogin' */
-/* import HealthCareLogin from './HealthCareLogin' */
+import PartnerLogin from './PartnerLogin'
+import DoctorLogin from './DoctorLogin'
+import HealthCareLogin from './HealthCareLogin'
 import TheFooter from './TheFooter'
 import CodeModal from './base/CodeModal'
-/* import PatientExamListItem from './PatientExamListItem' */
+import PatientExamListItem from './PatientExamListItem'
 import { popups } from '../mixins/popups'
 export default {
   name: 'teste',
@@ -275,18 +278,18 @@ export default {
     CodeInput,
     CodeButton,
     CodeMessage,
-   /*  CodeMenuAbas, */
+    CodeMenuAbas,
     CodeDataPicker,
     CodeSelect,
     CodeLabel,
     CodeModal,
     CodeCalendar,
-    /* PatientLogin,
-    DoctorLogin, */
+    PatientLogin,
+    DoctorLogin,
     CodeTooltip,
-  /*   PartnerLogin,
-    HealthCareLogin, */
-  /*   PatientExamListItem, */
+    PartnerLogin,
+    HealthCareLogin,
+    PatientExamListItem,
     TheFooter
   },
   data () {
@@ -434,7 +437,7 @@ export default {
   width: 450px
   @include respond-to(handhelds)
     width: 100%
-  @include respond-to(medium-screens)
+  @include respond-to(mediuscreen)
   justify-content: center
   margin: 10px auto
   background-color: white
@@ -475,6 +478,9 @@ export default {
 .btn-3
   width: 20%
 .list-exams
+  display: flex
+  flex-direction: row
   margin-top: 20px
   background-color: white
+  justify-content: space-between
 </style>
