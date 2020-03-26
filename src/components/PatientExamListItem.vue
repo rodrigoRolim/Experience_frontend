@@ -67,6 +67,8 @@ export default {
   flex-direction: column
   justify-content: flex-start
   width: 30%
+  @include respond-to(handhelds)
+    width: 100%
   border: 1px solid #1ab394
   background-color: #1ab39408
   border-top-width: 5px
