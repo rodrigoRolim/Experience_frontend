@@ -15,7 +15,11 @@
       <code-chip-situation :situation="situation"></code-chip-situation>
     </div>
     <div class="checkbox">
-      <code-checkbox></code-checkbox>
+      <code-checkbox
+        text="imprimir"
+        none
+        color="blue"
+      ></code-checkbox>
     </div>
     <!--  <div class="ctrl-exam">
       
