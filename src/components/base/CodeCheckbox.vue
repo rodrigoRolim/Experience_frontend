@@ -41,7 +41,7 @@ export default {
 .c-checkbox
   display: flex
   flex-direction: row
-  position: absolute
+  position: relative
 .body-checkbox
   position: absolute
   top: 0

@@ -235,15 +235,15 @@
       </code-modal>
     </div>
     <div class="c-list-exams">
-      <patient-exam-list-item></patient-exam-list-item>
-      <patient-exam-list-item></patient-exam-list-item>
-      <patient-exam-list-item></patient-exam-list-item>
-      <patient-exam-list-item></patient-exam-list-item>
-      <patient-exam-list-item></patient-exam-list-item>
-      <patient-exam-list-item></patient-exam-list-item>
-      <patient-exam-list-item></patient-exam-list-item>
-      <patient-exam-list-item></patient-exam-list-item>
-      <patient-exam-list-item></patient-exam-list-item>
+      <patient-exam-list-item situation="TF"></patient-exam-list-item>
+      <patient-exam-list-item situation="PF"></patient-exam-list-item>
+      <patient-exam-list-item situation="NR"></patient-exam-list-item>
+      <patient-exam-list-item situation="EA"></patient-exam-list-item>
+      <patient-exam-list-item situation="EP"></patient-exam-list-item>
+      <patient-exam-list-item situation="TF"></patient-exam-list-item>
+      <patient-exam-list-item situation="EA"></patient-exam-list-item>
+      <patient-exam-list-item situation="NR"></patient-exam-list-item>
+      <patient-exam-list-item situation="PF"></patient-exam-list-item>
     </div>
     <div class="footer">
       <h1>9. Footer</h1>
@@ -486,8 +486,9 @@ export default {
   display: flex
   flex-flow: row wrap
   align-items: center
+  justify-content: space-between  
   margin-top: 20px
   background-color: white
   width: 100%
-
+  padding: 10px
 </style>
