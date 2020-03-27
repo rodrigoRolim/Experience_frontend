@@ -1,10 +1,14 @@
 <template>
   <div class="p-exam-list-item" :class="getSituation">
     <div class="detail-exam">
-      <code-chip text="tch" transform="uppercase" class="chip-exam"></code-chip>
+      <code-chip text="lic" transform="uppercase" class="chip-exam"></code-chip>
       <div class="wall"></div>
       <div class="name-exam">
-        <p>nome do exame</p>
+        <span><font-awesome-icon icon="flask" size="lg" class="icon" :style="{color: 'purple'}"/></span>
+        <div class="label">
+          <span>Exame</span>
+          <span class="exams">LIPODOGRAMA COMPLETO</span>
+        </div>
       </div>
     </div>
     <div class="situation-exam">
@@ -60,7 +64,7 @@ export default {
     CodeCheckbox
   },
   data() {
-    return {};
+    return {}
   }
 };
 </script>
@@ -80,6 +84,8 @@ export default {
   border-radius: 2px
   min-height: 70px
   margin-bottom: 10px
+.p-exam-list-item:hover
+  -webkit-box-shadow:  0 0 6px rgba(0,0,0,.3)
 .detail-exam
   display: flex
   flex-direction: row
@@ -154,4 +160,16 @@ export default {
   border-left: 5px solid $NR
   border-right: 1px solid $NR
   border-bottom: 1px solid $NR
+.icon
+  margin-right: 5px
+.label
+  display: flex
+  flex-direction: column
+  font-size: 0.7rem
+  margin-left: 3px
+.label span:first-child
+  font-size: 0.65rem
+  color: gray
+.label span:last-child
+  font-weight: 600
 </style>
