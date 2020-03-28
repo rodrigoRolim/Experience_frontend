@@ -53,6 +53,7 @@ export default {
   background-color: $green
   @include respond-to(wide-screens)
     flex-direction: row
+  border-radius: 4px
 .content
   display: flex
   flex-direction: row

@@ -237,7 +237,8 @@
     <div class="header-exams">
       <patient-exam-list-header></patient-exam-list-header>
     </div>
-    <div class="c-list-exams">
+    <patient-exam-list></patient-exam-list>
+   <!--  <div class="c-list-exams">
       <patient-exam-list-item situation="TF"></patient-exam-list-item>
       <patient-exam-list-item situation="PF"></patient-exam-list-item>
       <patient-exam-list-item situation="NR"></patient-exam-list-item>
@@ -247,7 +248,7 @@
       <patient-exam-list-item situation="EA"></patient-exam-list-item>
       <patient-exam-list-item situation="NR"></patient-exam-list-item>
       <patient-exam-list-item situation="PF"></patient-exam-list-item>
-    </div>
+    </div> -->
     <div class="footer">
       <h1>9. Footer</h1>
       <the-footer></the-footer>
@@ -274,8 +275,9 @@ import DoctorLogin from './DoctorLogin'
 import HealthCareLogin from './HealthCareLogin'
 import TheFooter from './TheFooter'
 import CodeModal from './base/CodeModal'
-import PatientExamListItem from './PatientExamListItem'
-import PatientExamListHeader from './PatientExamListHeader'
+/* import PatientExamListItem from './PatientExamListItem'
+import PatientExamListHeader from './PatientExamListHeader' */
+import PatientExamList from './PatientExamList'
 import { popups } from '../mixins/popups'
 export default {
   name: 'teste',
@@ -298,9 +300,10 @@ export default {
     CodeTooltip,
     PartnerLogin,
     HealthCareLogin,
-    PatientExamListItem,
-    PatientExamListHeader,
-    TheFooter
+  /*   PatientExamListItem,
+    PatientExamListHeader, */
+    TheFooter,
+    PatientExamList
   },
   data () {
     return {
