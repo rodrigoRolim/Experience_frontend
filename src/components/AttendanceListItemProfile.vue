@@ -32,7 +32,7 @@ export default {
 .container-patient
   display: flex
   flex-direction: column
-  width: 21%
+  width: 26%
   @include respond-to(handhelds)
     width: 100%
     padding: 10px 12px

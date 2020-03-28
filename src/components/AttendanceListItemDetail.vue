@@ -31,14 +31,14 @@
       />
     </div>
     <hr :class="getSituation">
-    <code-info 
+    <code-info
+      class="l-exams" 
       icon="flask"
       description="exames"
       :info="exams"
       color="rgba(71, 77, 94, 1)"
       size="2x"
     />
-    <attendance-exams :exams="exams"/>
   </div>
 </template>
 
@@ -79,19 +79,21 @@ $p-top-bott: 5px
   font-size: 0.8rem
   color: #3e3f3f
   margin-top: 3px
-  width: 55%
+  width: 50%
   text-align: justify
   @include respond-to(handhelds)
     width: 100%
   @include respond-to(medium-screens)
     width: 100%
-
+.l-exams
+  @include respond-to(handhelds)
+    padding: 10px
 .info-attendance
   display: flex
   flex-direction: row
   justify-content: space-between
   padding-bottom: $p-top-bott
-  width: 85%
+  width: 100%
   @include respond-to(handhelds)
     padding: 0 $p-side
     flex-direction: column

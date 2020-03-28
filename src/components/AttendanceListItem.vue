@@ -1,9 +1,5 @@
 <template>
 <div class="container-item" :class="getSituation">
- <!--  <AttendanceListItemPicture
-    :photo="photo"
-    :situation="situation"
-  /> -->
   <attendance-list-item-profile
     :name="name"
     :age="age"
