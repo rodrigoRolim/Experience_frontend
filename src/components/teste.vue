@@ -234,6 +234,9 @@
         </template>
       </code-modal>
     </div>
+    <div class="header-exams">
+      <patient-exam-list-header></patient-exam-list-header>
+    </div>
     <div class="c-list-exams">
       <patient-exam-list-item situation="TF"></patient-exam-list-item>
       <patient-exam-list-item situation="PF"></patient-exam-list-item>
@@ -272,6 +275,7 @@ import HealthCareLogin from './HealthCareLogin'
 import TheFooter from './TheFooter'
 import CodeModal from './base/CodeModal'
 import PatientExamListItem from './PatientExamListItem'
+import PatientExamListHeader from './PatientExamListHeader'
 import { popups } from '../mixins/popups'
 export default {
   name: 'teste',
@@ -295,6 +299,7 @@ export default {
     PartnerLogin,
     HealthCareLogin,
     PatientExamListItem,
+    PatientExamListHeader,
     TheFooter
   },
   data () {

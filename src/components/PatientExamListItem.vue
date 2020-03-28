@@ -4,10 +4,19 @@
       <code-chip text="lic" transform="uppercase" class="chip-exam"></code-chip>
       <div class="wall"></div>
       <div class="name-exam">
-        <span><font-awesome-icon icon="flask" size="lg" class="icon" :style="{color: 'purple'}"/></span>
+        <span><font-awesome-icon icon="flask" size="lg" class="icon" :style="{color: 'rgba(71, 77, 94, 0.8)'}"/></span>
         <div class="label">
           <span>Exame</span>
           <span class="exams">LIPODOGRAMA COMPLETO</span>
+        </div>
+      </div>
+    </div>
+    <div class="c-health-care">
+      <div class="health-care">
+        <span><font-awesome-icon icon="clinic-medical" size="lg" class="icon" :style="{color: 'rgba(71, 77, 94, 0.8)'}"/></span>
+        <div class="label">
+          <span>Posto Realizante</span>
+          <span class="exams">MATRIZ</span>
         </div>
       </div>
     </div>
@@ -16,37 +25,12 @@
     </div>
     <div class="checkbox">
       <code-checkbox
+        v-show="situation == 'TF'"
         text="imprimir"
         none
         color="blue"
       ></code-checkbox>
     </div>
-    <!--  <div class="ctrl-exam">
-      
-      <div class="btn-download-pdf">
-        <code-button
-          round
-          radius="33px"
-          bcolor="rgba(0,0,0,0)"
-          color="white"
-          class="btn-v-pdf"
-          icon="arrow-alt-circle-down"
-          sizeIcon="lg"
-        >
-        </code-button>
-      </div>
-      <div class="btn-view-pdf">
-         <code-button
-          round
-          radius="33px"
-          bcolor="rgba(0,0,0,0)"
-          color="white"
-          class="btn-d-pdf"
-          icon="file-pdf"
-          sizeIcon="lg"
-        ></code-button>
-      </div>
-    </div>-->
   </div>
 </template>
 <script>
@@ -86,7 +70,7 @@ export default {
     flex-basis: 48.8%
   padding-left: 20px
   border-radius: 2px
-  min-height: 70px
+  min-height: 150px
   margin-bottom: 10px
 .p-exam-list-item:hover
   -webkit-box-shadow:  0 0 6px rgba(0,0,0,.3)
@@ -94,11 +78,16 @@ export default {
   display: flex
   flex-direction: row
   justify-content: center
-.name-exam
+.name-exam,
+.health-care
   display: flex
   flex-direction: row
   align-items: center
   width: 100%
+.c-health-care
+  margin-top: 6px
+  margin-left: 10px
+  margin-bottom: 20px
 .name-exam p
   color: rgba(0,0,0, 0.8)
   font-size: .9rem
@@ -120,20 +109,11 @@ export default {
     flex-direction: column
     align-items: center
   justify-content: center
-.btn-view-pdf,
-.btn-download-pdf
-  background-color: #1ab394
-.btn-d-pdf,
-.btn-v-pdf
-  margin: 2px 10px
 .checkbox
   display: flex
   flex-direction: row
   justify-content: flex-end
-.ctrl-exam
-  display: flex
-  flex-direction: column
-  align-self: flex-end
+  min-height: 44px 
 .pendency
   background-color: #{$EP}08
   border-top: 1px solid $EP
@@ -173,7 +153,7 @@ export default {
   margin-left: 3px
 .label span:first-child
   font-size: 0.65rem
-  color: gray
+  color: rgba(71, 77, 94, 1)
 .label span:last-child
   font-weight: 600
 </style>

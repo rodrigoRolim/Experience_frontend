@@ -30,7 +30,14 @@ export default {
       validator: function (value) {
         return ['red', 'blue', 'gray', 'green'].indexOf(value) !== -1
       }
+    },
+    size: {
+      type: String,
+      validator: function (value) {
+        return ['xs', 'sm', 'md', 'lg'].indexOf(value) !== -1
+      }
     }
+
   },
   data () {
     return {
@@ -39,12 +46,12 @@ export default {
   },
   computed: {
     style (vm) {
-      let bcolor = vm.bcolor(vm.color)
+      let bcolor = vm.getBcolor(vm.color)
       return { backgroundColor: bcolor }
     }
   },
   methods: {
-    bcolor (value) {
+    getBcolor (value) {
       switch (value) {
         case 'red':
           return '#DC143C'
