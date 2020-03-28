@@ -1,6 +1,6 @@
 <template>
   <div class="date-attendance">
-    <span><font-awesome-icon icon="calendar-check" size="2x" :style="{color: 'rgba(71, 77, 94, 0.8)'}"/></span>
+    <span><font-awesome-icon icon="calendar-check" size="2x" :style="{color: 'rgba(71, 77, 94, 1)'}"/></span>
     <div class="label">
       <span>Data Atendimento</span>
       <span>{{dateAttendance}}</span>
@@ -12,7 +12,8 @@
 export default {
   name: 'AttendanceDate',
   props: {
-    dateAttendance: String
+    dateAttendance: String,
+    size: String
   }
 }
 </script>

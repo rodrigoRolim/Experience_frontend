@@ -28,7 +28,8 @@ import {
     faBeer,
     faClinicMedical,
     faFilePdf,
-    faArrowAltCircleDown
+    faArrowAltCircleDown,
+    faUserMd
   } from '@fortawesome/free-solid-svg-icons'
 
 export default {
@@ -61,5 +62,6 @@ export default {
   faBeer,
   faClinicMedical,
   faFilePdf,
-  faArrowAltCircleDown 
+  faArrowAltCircleDown,
+  faUserMd 
 }

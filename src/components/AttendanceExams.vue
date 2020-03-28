@@ -1,6 +1,6 @@
 <template>
   <div class="list-exams" :class="getSituation">
-    <span><font-awesome-icon icon="flask" size="2x" class="icon" :style="{color: 'rgba(71, 77, 94, 0.8)'}"/></span>
+    <span><font-awesome-icon icon="flask" size="2x" class="icon" :style="{color: 'rgba(71, 77, 94, 1)'}"/></span>
     <div class="label">
       <span>Exames</span>
       <span class="exams">{{exams}}</span>

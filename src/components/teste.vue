@@ -492,8 +492,9 @@ export default {
   flex-flow: row wrap
   align-items: center
   justify-content: space-between  
-  margin-top: 20px
   background-color: white
   width: 100%
   padding: 10px
+.header-exams
+  margin-bottom: 2px
 </style>

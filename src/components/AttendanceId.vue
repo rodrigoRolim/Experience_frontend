@@ -1,6 +1,6 @@
 <template>
   <div class="id-attendance">
-    <span><font-awesome-icon icon="heartbeat" size="2x" :style="{color: 'rgba(71, 77, 94, 0.8)'}"/></span>
+    <span><font-awesome-icon icon="heartbeat" size="2x" :style="{color: 'rgba(71, 77, 94, 1)'}"/></span>
     <div class="label">
       <span>ID Atendimento</span>
       <span>{{idAttendance}}</span>

@@ -1,6 +1,6 @@
 <template>
   <div class="age-patient">
-    <span><font-awesome-icon icon="birthday-cake" size="lg" class="icon" :style="{color: 'rgba(71, 77, 94, 0.8)'}"/></span>
+    <span><font-awesome-icon icon="birthday-cake" size="lg" class="icon" :style="{color: 'rgba(71, 77, 94, 1)'}"/></span>
     <div class="label">
       <span>Idade</span>
       <span>{{age}}</span>

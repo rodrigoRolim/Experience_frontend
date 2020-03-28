@@ -1,30 +1,49 @@
 <template>
   <div class="container-attendance">
     <div class="info-attendance">
-      <attendance-id :idAttendance="idAttendance" />
-      <attendance-agreement :agreement="agreement" />
-      <attendance-date :dateAttendance="dataAttendance" />
-      <attendance-delivery :dateDelivery="dataDelivery" />
-     
+      <code-info 
+        icon="heartbeat"
+        description="ID atendimento"
+        :info="idAttendance"
+        color="rgba(71, 77, 94, 1)"
+        size="2x"
+      />
+      <code-info 
+        icon="credit-card"
+        description="convênio"
+        :info="agreement"
+        color="rgba(71, 77, 94, 1)"
+        size="2x"
+      />
+      <code-info 
+        icon="calendar-check"
+        description="data atendimento"
+        :info="dataAttendance"
+        color="rgba(71, 77, 94, 1)"
+        size="2x"
+      />
+      <code-info 
+        icon="clock"
+        description="previsão entrega"
+        :info="dataDelivery"
+        color="rgba(71, 77, 94, 1)"
+        size="2x"
+      />
     </div>
     <hr :class="getSituation">
+    <code-info 
+      icon="flask"
+      description="exames"
+      :info="exams"
+      color="rgba(71, 77, 94, 1)"
+      size="2x"
+    />
     <attendance-exams :exams="exams"/>
-    <!-- <div class="list-exams" :class="getSituation">
-      <span><font-awesome-icon icon="flask" size="2x" class="icon" :style="{color: 'green'}"/></span>
-      <div class="label">
-        <span>Exames</span>
-        <span class="exams">{{exams}}</span>
-      </div>
-    </div> -->
   </div>
 </template>
 
 <script>
-import AttendanceId from './AttendanceId'
-import AttendanceAgreement from './AttendanceAgreement'
-import AttendanceDate from './AttendanceDate'
-import AttendanceDelivery from './AttendanceDelivery'
-import AttendanceExams from './AttendanceExams'
+import CodeInfo from './base/CodeInfo'
 import { situation } from '../mixins/situation'
 export default {
   name: 'AttendanceListItemDetail',
@@ -39,11 +58,7 @@ export default {
     AttendanceExams: String
   },
   components: {
-    AttendanceId,
-    AttendanceAgreement,
-    AttendanceDate,
-    AttendanceDelivery,
-    AttendanceExams
+    CodeInfo
   },
   data () {
     return {

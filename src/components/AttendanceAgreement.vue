@@ -1,6 +1,6 @@
 <template>
   <div class="agreement-attendance">
-    <span><font-awesome-icon icon="credit-card" :style="{fontSize: '23px', color: 'rgba(71, 77, 94, 0.8)'}" /></span>
+    <span><font-awesome-icon icon="credit-card" :style="{fontSize: '23px', color: 'rgba(71, 77, 94, 1)'}" /></span>
     <div class="label">
       <span>Convenio</span>
       <span>{{agreement}}</span>

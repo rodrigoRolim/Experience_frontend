@@ -1,6 +1,6 @@
 <template>
   <div class="gender-patient">
-    <span><font-awesome-icon icon="mars" size="lg" class="icon" :style="{color: 'rgba(71, 77, 94, 0.8)'}"/></span>
+    <span><font-awesome-icon icon="mars" size="lg" class="icon" :style="{color: 'rgba(71, 77, 94, 1)'}"/></span>
     <div class="label">
       <span>Sexo</span>
       <span>{{gender}}</span>

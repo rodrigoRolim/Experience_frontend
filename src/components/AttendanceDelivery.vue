@@ -1,6 +1,6 @@
 <template>
   <div class="delivery-attendance">
-    <span><font-awesome-icon icon="clock" size="2x" :style="{color: 'rgba(71, 77, 94, 0.8)'}"/></span>
+    <span><font-awesome-icon icon="clock" size="2x" :style="{color: 'rgba(71, 77, 94, 1)'}"/></span>
     <div class="label">
       <span>Previsão Entrega</span>
       <span>{{dateDelivery}}</span>

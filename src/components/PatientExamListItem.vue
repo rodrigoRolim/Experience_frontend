@@ -4,7 +4,7 @@
       <code-chip text="lic" transform="uppercase" class="chip-exam"></code-chip>
       <div class="wall"></div>
       <div class="name-exam">
-        <span><font-awesome-icon icon="flask" size="lg" class="icon" :style="{color: 'rgba(71, 77, 94, 0.8)'}"/></span>
+        <span><font-awesome-icon icon="flask" size="lg" class="icon" :style="{color: 'rgba(71, 77, 94, 1)'}"/></span>
         <div class="label">
           <span>Exame</span>
           <span class="exams">LIPODOGRAMA COMPLETO</span>
