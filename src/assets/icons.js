@@ -29,7 +29,10 @@ import {
     faClinicMedical,
     faFilePdf,
     faArrowAltCircleDown,
-    faUserMd
+    faUserMd,
+    faAngleUp,
+    faBackspace,
+    faTimes
   } from '@fortawesome/free-solid-svg-icons'
 
 export default {
@@ -63,5 +66,8 @@ export default {
   faClinicMedical,
   faFilePdf,
   faArrowAltCircleDown,
-  faUserMd 
+  faUserMd,
+  faAngleUp,
+  faBackspace,
+  faTimes 
 }

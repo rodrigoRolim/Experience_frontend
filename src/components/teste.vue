@@ -193,7 +193,11 @@
           <div @click="aba = 5" class="aba" :class="{ 'active-aba': aba == 5 }">QR code</div>
         </template>
         <template v-slot:body>
-          <patient-login v-if="aba == 1"></patient-login>
+          <patient-login 
+            v-if="aba == 1"
+            :digit="valueKey" 
+            @keyboard="displayKeyboard=!displayKeyboard"
+          ></patient-login>
           <doctor-login v-if="aba == 2"></doctor-login>
           <partner-login v-if="aba == 3"></partner-login>
           <health-care-login v-if="aba == 4"></health-care-login>
@@ -201,6 +205,10 @@
         </template>
       </code-menu-abas>
     </div>
+    <keyboard-self-service
+      @typed="compositeWrite" 
+      :show="displayKeyboard && aba == 1"
+      @close="displayKeyboard=false" />  
     <div class="tooltip">
       <h1>7. tooltip</h1>
       <code-tooltip
@@ -234,21 +242,10 @@
         </template>
       </code-modal>
     </div>
-    <div class="header-exams">
+   <!--  <div class="header-exams">
       <patient-exam-list-header></patient-exam-list-header>
-    </div>
-    <patient-exam-list></patient-exam-list>
-   <!--  <div class="c-list-exams">
-      <patient-exam-list-item situation="TF"></patient-exam-list-item>
-      <patient-exam-list-item situation="PF"></patient-exam-list-item>
-      <patient-exam-list-item situation="NR"></patient-exam-list-item>
-      <patient-exam-list-item situation="EA"></patient-exam-list-item>
-      <patient-exam-list-item situation="EP"></patient-exam-list-item>
-      <patient-exam-list-item situation="TF"></patient-exam-list-item>
-      <patient-exam-list-item situation="EA"></patient-exam-list-item>
-      <patient-exam-list-item situation="NR"></patient-exam-list-item>
-      <patient-exam-list-item situation="PF"></patient-exam-list-item>
     </div> -->
+    <patient-exam-list></patient-exam-list>
     <div class="footer">
       <h1>9. Footer</h1>
       <the-footer></the-footer>
@@ -275,9 +272,10 @@ import DoctorLogin from './DoctorLogin'
 import HealthCareLogin from './HealthCareLogin'
 import TheFooter from './TheFooter'
 import CodeModal from './base/CodeModal'
-/* import PatientExamListItem from './PatientExamListItem'
-import PatientExamListHeader from './PatientExamListHeader' */
+/* import PatientExamListItem from './PatientExamListItem' */
+/* import PatientExamListHeader from './PatientExamListHeader' */
 import PatientExamList from './PatientExamList'
+import KeyboardSelfService from './KeyboardSelfService'
 import { popups } from '../mixins/popups'
 export default {
   name: 'teste',
@@ -300,8 +298,9 @@ export default {
     CodeTooltip,
     PartnerLogin,
     HealthCareLogin,
-  /*   PatientExamListItem,
-    PatientExamListHeader, */
+    KeyboardSelfService,
+   /*  PatientExamListItem, */
+    /* PatientExamListHeader, */
     TheFooter,
     PatientExamList
   },
@@ -386,13 +385,19 @@ export default {
           situation:"NR"
         }
       ],
-      aba: 1
+      aba: 1,
+      displayKeyboard: false,
+      valueKey: ''
     }
   },
   created () {
     console.log(this.teste)
   },
   methods: {
+    compositeWrite (value) {
+      console.log(value)
+      this.valueKey = value
+    },
     displayModal () {
       this.modalA = true
     },

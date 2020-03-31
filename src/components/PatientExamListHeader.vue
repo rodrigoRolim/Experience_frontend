@@ -95,18 +95,20 @@ export default {
   flex-direction: column
   padding: 10px
   @include respond-to(medium-screens)
-    width: 100%
+    width: 95%
+    margin: 0 auto
   @include respond-to(handhelds)
     width: 100%
   width: 70%
 .detail-attendance
   @include respond-to(medium-screens)
     margin-top: 25px
-    width: 100%
+    width: 95%
+    margin: 25px auto 0 auto
   @include respond-to(handhelds)
     width: 100%
     margin-top: 20px
-  width: 100%
+  width: 95%
 .code-drop-down
   width: 100%
 .gender-age
@@ -114,7 +116,7 @@ export default {
   flex-direction: row
   justify-content: space-between
   @include respond-to(handhelds)
-    flex-direction: column   
+    flex-direction: column
   @include respond-to(medium-screens)
     width: 22%
   width: 40%

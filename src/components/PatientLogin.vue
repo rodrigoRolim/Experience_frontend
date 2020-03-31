@@ -94,7 +94,7 @@
           name="attendance"
           type="text"
           required
-          v-model="value"
+          v-model="digit"
           :width="9"
           :height="7"
           :weight="600"
@@ -130,7 +130,11 @@
         </code-input>
       </div>
       <div class="doubt-keyboard">
-        <small class="keyboard"><i v-if="visibility !== 'ID'"><font-awesome-icon icon="keyboard" size="lg"/></i></small>
+        <small class="keyboard">
+          <i v-if="visibility !== 'ID'" @click="displayKeyboard">
+            <font-awesome-icon icon="keyboard" size="lg"/>
+          </i>
+        </small>
         <code-tooltip
           text="Clique aqui"
         >
@@ -145,9 +149,8 @@
           text="acessar"
           bcolor="#34b583"
           color="white"
-    
         ></code-button>
-      </div>  
+      </div>
     </form>
   </div>
 </template>
@@ -158,8 +161,12 @@ import CodeLabel from './base/CodeLabel'
 import CodeRadio from './base/CodeRadio'
 import CodeTooltip from './base/CodeTooltip'
 import CodeGroupRadios from './base/CodeGroupRadios'
+
 export default {
   name: 'LoginPatient',
+  props: {
+    digit: String
+  },
   components: {
     CodeButton,
     CodeInput,
@@ -183,6 +190,9 @@ export default {
     group (value) {
       console.log(value)
       this.visibility = value
+    },
+    displayKeyboard () {
+      this.$emit('keyboard', true)
     }
   }  
 }
@@ -190,6 +200,7 @@ export default {
 <style lang="sass" scoped>
 .login-patient
   background-color: white
+  width: 100%
 .login-p-form
   display: flex
   flex-direction: column
