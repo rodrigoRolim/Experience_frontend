@@ -246,6 +246,10 @@
       <patient-exam-list-header></patient-exam-list-header>
     </div> -->
     <patient-exam-list></patient-exam-list>
+    <div class="exam__detail">
+     
+    </div>
+    
     <div class="footer">
       <h1>9. Footer</h1>
       <the-footer></the-footer>
@@ -276,6 +280,7 @@ import CodeModal from './base/CodeModal'
 /* import PatientExamListHeader from './PatientExamListHeader' */
 import PatientExamList from './PatientExamList'
 import KeyboardSelfService from './KeyboardSelfService'
+
 import { popups } from '../mixins/popups'
 export default {
   name: 'teste',

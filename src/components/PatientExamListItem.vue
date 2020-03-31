@@ -1,5 +1,5 @@
 <template>
-  <div class="p-exam-list-item" :class="getSituation">
+  <div class="p-exam-list-item" :class="getSituation" @click="click">
     <div class="detail-exam">
       <code-chip text="lic" transform="uppercase" class="chip-exam"></code-chip>
       <div class="wall"></div>
@@ -53,6 +53,11 @@ export default {
   },
   data() {
     return {}
+  },
+  methods: {
+    click () {
+      this.$emit('click')
+    }
   }
 };
 </script>

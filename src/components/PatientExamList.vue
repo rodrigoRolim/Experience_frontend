@@ -2,21 +2,23 @@
   <div class="patient-exam-list">
      <patient-exam-list-header class="header"></patient-exam-list-header>
      <div class="c-items-list" id="exams">
-        <patient-exam-list-item situation="TF"></patient-exam-list-item>
-        <patient-exam-list-item situation="PF"></patient-exam-list-item>
-        <patient-exam-list-item situation="NR"></patient-exam-list-item>
-        <patient-exam-list-item situation="EA"></patient-exam-list-item>
-        <patient-exam-list-item situation="EP"></patient-exam-list-item>
-        <patient-exam-list-item situation="TF"></patient-exam-list-item>
-        <patient-exam-list-item situation="EA"></patient-exam-list-item>
-        <patient-exam-list-item situation="NR"></patient-exam-list-item>
-        <patient-exam-list-item situation="PF"></patient-exam-list-item>
+        <patient-exam-list-item situation="TF" @click="show = true"></patient-exam-list-item>
+        <patient-exam-list-item situation="PF" @click="show = true"></patient-exam-list-item>
+        <patient-exam-list-item situation="NR" @click="show = true"></patient-exam-list-item>
+        <patient-exam-list-item situation="EA" @click="show = true"></patient-exam-list-item>
+        <patient-exam-list-item situation="EP" @click="show = true"></patient-exam-list-item>
+        <patient-exam-list-item situation="TF" @click="show = true"></patient-exam-list-item>
+        <patient-exam-list-item situation="EA" @click="show = true"></patient-exam-list-item>
+        <patient-exam-list-item situation="NR" @click="show = true"></patient-exam-list-item>
+        <patient-exam-list-item situation="PF" @click="show = true"></patient-exam-list-item>
      </div>
+     <patient-exam-detail :showExame="show" @close="show = false"></patient-exam-detail>
   </div>
 </template>
 <script>
 import PatientExamListHeader from './PatientExamListHeader'
 import PatientExamListItem from './PatientExamListItem'
+import PatientExamDetail from './PatientExamDetail'
 export default {
   name: 'PatientExamList',
   props: {
@@ -24,7 +26,13 @@ export default {
   },
   components: {
     PatientExamListHeader,
-    PatientExamListItem
+    PatientExamListItem,
+    PatientExamDetail
+  },
+  data () {
+    return {
+      show: false
+    }
   }
 }
 </script>

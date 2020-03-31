@@ -44,6 +44,7 @@ export default {
   display: flex
   flex-direction: row
   justify-content: center
-  margin: 10% 0
+  align-items: center
   width: 100%
+  height: 100%
 </style>
