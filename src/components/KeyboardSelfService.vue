@@ -111,6 +111,7 @@ export default {
   justify-content: center
   margin: 3px
   width: 6%
+  min-width: 20px
   border-radius: 5px
   border: none
   color: white
@@ -120,13 +121,14 @@ export default {
   background-color: rgba(255,255,255, 0.6)
 .keyboard__key--wide
   width: 8%
+  min-width: 30px
 .keyboard__key--activate::after,
 .keyboard__key--deactivate::after
   position: absolute
   content: " "
   border-radius: 100%
-  top: 7px
-  right: 7px
+  top: 10%
+  right: 10%
   width: 10px
   height: 10px
   align-self: flex-end
