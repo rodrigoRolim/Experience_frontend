@@ -247,10 +247,13 @@
       <patient-exam-list-header></patient-exam-list-header>
     </div> -->
     <patient-exam-list></patient-exam-list>
-    <div class="exam__detail">
+    <!-- <div class="exam__detail">
      <attendance-list-filter-period></attendance-list-filter-period>
+    </div> -->
+    <div class="sidebar">
+      <h1>sidebar</h1>
+      <the-sidebar></the-sidebar>
     </div>
-    
     <div class="footer">
       <h1>9. Footer</h1>
       <the-footer></the-footer>
@@ -282,7 +285,8 @@ import CodeModal from './base/CodeModal'
 /* import PatientExamListHeader from './PatientExamListHeader' */
 import PatientExamList from './PatientExamList'
 import KeyboardSelfService from './KeyboardSelfService'
-import AttendanceListFilterPeriod from './AttendanceListFilterPeriod'
+/* import AttendanceListFilterPeriod from './AttendanceListFilterPeriod' */
+import TheSidebar from './TheSidebar'
 import { popups } from '../mixins/popups'
 export default {
   name: 'teste',
@@ -311,7 +315,8 @@ export default {
     TheFooter,
     PatientExamList,
     TheNavbar,
-    AttendanceListFilterPeriod
+/*     AttendanceListFilterPeriod, */
+    TheSidebar
   },
   data () {
     return {
