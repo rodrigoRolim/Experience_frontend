@@ -1,5 +1,6 @@
 <template>
   <div class="comp-body">
+    <the-navbar></the-navbar>
     <div class="button">
       <h1>1. botões</h1>
       <code-button
@@ -247,7 +248,7 @@
     </div> -->
     <patient-exam-list></patient-exam-list>
     <div class="exam__detail">
-     
+     <attendance-list-filter-period></attendance-list-filter-period>
     </div>
     
     <div class="footer">
@@ -258,6 +259,7 @@
 </template>
 
 <script>
+import TheNavbar from './TheNavbar'
 import AttendanceList from './AttendanceList.vue'
 import AttendanceListSearch from './AttendanceListSearch'
 import CodeButton from './base/CodeButton.vue'
@@ -280,7 +282,7 @@ import CodeModal from './base/CodeModal'
 /* import PatientExamListHeader from './PatientExamListHeader' */
 import PatientExamList from './PatientExamList'
 import KeyboardSelfService from './KeyboardSelfService'
-
+import AttendanceListFilterPeriod from './AttendanceListFilterPeriod'
 import { popups } from '../mixins/popups'
 export default {
   name: 'teste',
@@ -307,7 +309,9 @@ export default {
    /*  PatientExamListItem, */
     /* PatientExamListHeader, */
     TheFooter,
-    PatientExamList
+    PatientExamList,
+    TheNavbar,
+    AttendanceListFilterPeriod
   },
   data () {
     return {
@@ -408,7 +412,7 @@ export default {
     },
     closeModal (value) {
       console.log(value)
-      this.modalA = value
+      this.modalA = false
       this.popup(value)
     },
     teste (value) {

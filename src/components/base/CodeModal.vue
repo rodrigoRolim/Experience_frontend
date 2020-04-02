@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ 'c-modal-normal': normal, 'c-modal-custom': !normal }" @click.self="close" >
+  <div :class="{ 'c-modal-normal': normal, 'c-modal-custom': !normal }" @click.self="close">
     <div :class="{ 'content-modal-normal': normal }">
       <slot name="modal"></slot>
     </div>

@@ -23,7 +23,9 @@
     <template v-slot:modal >
       <code-calendar
         @datepicked="picked"
-        :style="position" 
+        :style="position"
+        :begin="begin"
+        :end="end" 
       ></code-calendar>
     </template>
   </code-modal>
@@ -64,7 +66,15 @@ export default {
     hasIcon: Boolean,
     name: String,
     normalModal: Boolean,
-    opacityModal: Number
+    opacityModal: Number,
+    begin: {
+      type: String,
+      default: new Date().toLocaleDateString('pt-br')
+    },
+    end: {
+      type: String,
+      default: '1'
+    }
   },
   components: {
     CodeInput,
@@ -99,12 +109,16 @@ export default {
     }
   },
   methods: {
+    selected (value) {
+      console.log(value)
+    },
     closeModal (value) {
       this.showModal = false
       this.popup(value)
     },
     picked (value) {
       this.date = value
+      this.$emit('choosed', value)
     },
     showDate (e) {
       this.showModal = true

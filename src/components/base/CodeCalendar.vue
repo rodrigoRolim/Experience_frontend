@@ -60,7 +60,15 @@ export default {
     paddingIcon: {
       type: String
     },
-    hasIcon: Boolean
+    hasIcon: Boolean,
+    begin: {
+      type: String,
+      default: '00/00/0000'
+    },
+    end: {
+      type: String,
+      default: '1'
+    }
   },
   data () {
     return {
@@ -153,8 +161,7 @@ export default {
     },
     dateFormatter (day, month, year) {
 
-      let resultDate = new Date(Date.UTC(year, month, day, 3, 1, 1)).toLocaleDateString()
-      this.$emit('datepicked', resultDate)
+      let resultDate = new Date(Date.UTC(year, month, day, 3, 1, 1)).toLocaleDateString('pt-br')
       return resultDate
     },
     allowedKeys (el) {
@@ -163,8 +170,8 @@ export default {
         el.preventDefault()
       }
     },
-    splitDate (ev) {
-      return ev.target.attributes.date.value.split('/')
+    splitDate (date) {
+      return date.split('/')
     },
     signalPopup () {
       this.$emit('popup', false)
@@ -175,18 +182,32 @@ export default {
         this.lastClicked.target.classList.remove('clicked-td')
       }
     },
+   /*  limitDate (currentDate) {
+      if (this.begin ) {
+        return false
+      }
+    }, */
     selectDate (ev) {
-      //let classList = this.lastClicked.classList
+     
+      
       this.unmarkClickedTd()
      
-      let dates = this.splitDate(ev)
-      
+      let dates = this.splitDate(ev.target.attributes.date.value)
+     /*  if () {
+
+      } */
+      let beginArr = this.splitDate(this.begin)
+      let begin = this.dateFormatter(...beginArr)
       this.dateFormatted = this.dateFormatter(...dates)
-      this.emitSelected(this.dateFormatted)
-      //this.signalPopup(false)]
-      ev.target.classList.add('clicked-td')
-      //ev.target.style.backgroundColor = '#368c8c9f'
-      this.lastClicked = ev
+      console.log(begin)
+      console.log(begin < this.dateFormatted)
+      console.log(this.begin)
+      if (begin < this.dateFormatted) {
+        this.emitSelected(this.dateFormatted)
+        ev.target.classList.add('clicked-td')
+        this.lastClicked = ev
+      }
+      
     },
     updateLimitMonth (command) {
 

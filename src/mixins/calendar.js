@@ -100,18 +100,18 @@ export const calendar = {
       let j = 1
       let l = 1
       let k = d - 1
-  
+      // days on the current month
       for (let i = d; i < m.nDays + d; i++) {
   
         dates[i] = j
         j++  
       }
-  
+      // days that belongs to previous month
       for (let i = 0; (d%7 == 0 && i < d) || i < d; i++) {
         dates[k--] = p
         p--
       }
-  
+      // days that belong to next month
       for (let i = dates.length; (dates.length)/7 < 6 || (dates.length - 1)%7 !== 6; i++) {
         dates[i] = l
         l++

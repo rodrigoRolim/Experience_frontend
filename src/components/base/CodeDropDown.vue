@@ -49,7 +49,6 @@ export default {
   display: flex
   flex-direction: column
   justify-content: space-between
-  border-radius: 2px
   background-color: $green
   @include respond-to(wide-screens)
     flex-direction: row
@@ -63,7 +62,6 @@ export default {
   padding: 12px 10px
   @include respond-to(handhelds)
     flex-direction: column
-
 .drop-down-up
   display: none
   width: 100%
@@ -74,7 +72,8 @@ export default {
     display: block
 .drop-down-up button
   background-color: white
-  border: 1.5px solid lightgray
+  border: none
+  outline: none
   color: gray
   width: 100%
 button

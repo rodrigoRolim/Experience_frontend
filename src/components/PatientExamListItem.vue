@@ -1,17 +1,17 @@
 <template>
-  <div class="p-exam-list-item" :class="getSituation" @click="click">
-    <div class="detail-exam">
+  <div class="p-exam-list-item" :class="getSituation" @click.self="click">
+    <div class="detail-exam" @click.stop="click">
       <code-chip text="lic" transform="uppercase" class="chip-exam"></code-chip>
       <div class="wall"></div>
-      <div class="name-exam">
+      <div class="name-exam"  @click.stop="click">
         <span><font-awesome-icon icon="flask" size="lg" class="icon" :style="{color: 'rgba(71, 77, 94, 1)'}"/></span>
-        <div class="label">
+        <div class="label"  @click.stop="click">
           <span>Exame</span>
           <span class="exams">LIPODOGRAMA COMPLETO</span>
         </div>
       </div>
     </div>
-    <div class="c-health-care">
+    <div class="c-health-care"  @click.stop="click">
       <div class="health-care">
         <span><font-awesome-icon icon="clinic-medical" size="lg" class="icon" :style="{color: 'rgba(71, 77, 94, 0.8)'}"/></span>
         <div class="label">
@@ -20,7 +20,7 @@
         </div>
       </div>
     </div>
-    <div class="situation-exam">
+    <div class="situation-exam"  @click.stop="click">
       <code-chip-situation :situation="situation"></code-chip-situation>
     </div>
     <div class="checkbox">

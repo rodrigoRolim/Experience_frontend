@@ -1,8 +1,9 @@
 <template>
   <code-drop-down text="Filtrar Atendimento">
     <template v-slot:content>
-   <!--    <div class="period-date">
-      </div> -->
+      <div class="input__period">
+        
+      </div>
       <div class="input-health-center">
         <code-label
           label="Posto"

@@ -7,7 +7,7 @@
       v-bind="$attrs"
       :class="{ 'input-icon': hasIcon, 'input-no-icon': !hasIcon, 'no-border': noBorder }" 
       :type="type" 
-      :name="name" 
+      :name="name"
       :id="name" 
       :placeholder="placeholder"
       :style="{ padding: getSizeInput, fontSize: size, fontWeight: weight, color: color, cursor: cursor }"

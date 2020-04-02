@@ -32,7 +32,9 @@ import {
     faUserMd,
     faAngleUp,
     faBackspace,
-    faTimes
+    faTimes,
+    faUserEdit,
+    faSignOutAlt
   } from '@fortawesome/free-solid-svg-icons'
 
 export default {
@@ -69,5 +71,7 @@ export default {
   faUserMd,
   faAngleUp,
   faBackspace,
-  faTimes 
+  faTimes,
+  faUserEdit,
+  faSignOutAlt
 }

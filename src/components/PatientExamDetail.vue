@@ -15,21 +15,30 @@
               <font-awesome-icon icon="times" size="lg"/>
             </div>
           </div>
-          <div class="exame__modal__content">
-            <div class="exame__modal__content__row">
-              <div class="name__exame">LIPOGRAMA COMPLETO</div>
-              <div class="exame__result">90</div>
+          <div class="exam__modal__body">
+            <div class="exame__modal__content">
+              <div class="exame__modal__content__row">
+                <div class="name__exame">LIPOGRAMA COMPLETO</div>
+                <div class="exame__result">90</div>
+              </div>
+              <div class="exame__modal__content__row">
+                <div class="name__exame">LIPOGRAMA COMPLETO</div>
+                <div class="exame__result">90</div>
+              </div>
+              <div class="exame__modal__content__row">
+                <div class="name__exame">LIPOGRAMA COMPLETO</div>
+                <div class="exame__result">90</div>
+              </div>
             </div>
-          </div>
-          <div class="exame__modal__button">
-             <code-button
-              class="btn-3" 
-              padding="9px 0"
-              text="gerar PDF"
-              bcolor="#474d5e"
-              color="white"
-             
-            ></code-button>
+            <div class="exame__modal__button">
+              <code-button
+                class="btn-3" 
+                padding="9px 0"
+                text="gerar PDF"
+                bcolor="#474d5e"
+                color="white"
+              ></code-button>
+            </div>
           </div>
         </div>
       </template>
@@ -67,10 +76,22 @@ export default {
   background-color: white
   margin: 10px 0
   border-radius: 2px
+  width: 650px
+  min-height: 90vh
+  @include respond-to(handhelds)
+    width: 100%
+    height: 100vh
 .exame__modal__header .exame__name
   text-align: center
   margin: 0 auto
   color: gray
+.exam__modal__body
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  height: 80vh
+  @include respond-to(handhelds)
+    height: 90vh
 .exame__modal__header
   display: flex
   flex-direction: row
@@ -81,13 +102,12 @@ export default {
   margin-top: 14px
   color: green
   margin-right: 15px
+  cursor: pointer
 .exame__modal__content
-  width: 600px
-  min-height: 400px
+  @include respond-to(handhelds)
   display: flex
-  flex-direction: row
+  flex-direction: column
   justify-content: space-between
-  
 .exame__modal__content__row
   display: flex
   flex-direction: row
@@ -105,5 +125,7 @@ export default {
   width: 100%
   padding:10px 
 .exame__modal__button .btn-3
-  width: 20%
+  width: 30%
+  @include respond-to(handhelds)
+    width: 100%
 </style>
