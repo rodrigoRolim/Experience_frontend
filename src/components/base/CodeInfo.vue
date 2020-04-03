@@ -38,10 +38,10 @@ export default {
   flex-direction: column
   justify-content: center
   font-size: 0.7rem
-  margin-left: 3px
+  margin-left: 5px
 .description
   font-size: 0.65rem
-  color: gray
+  color: rgba(0,0,0,0.8)
   text-transform: capitalize
 .info
   font-weight: 600

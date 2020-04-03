@@ -254,6 +254,10 @@
       <h1>sidebar</h1>
       <the-sidebar></the-sidebar>
     </div>
+    <div class="patients">
+      <h1>Lista pacientes</h1>
+      <patient-list></patient-list>
+    </div>
     <div class="footer">
       <h1>9. Footer</h1>
       <the-footer></the-footer>
@@ -262,6 +266,7 @@
 </template>
 
 <script>
+import PatientList from './PatientList'
 import TheNavbar from './TheNavbar'
 import AttendanceList from './AttendanceList.vue'
 import AttendanceListSearch from './AttendanceListSearch'
@@ -316,7 +321,8 @@ export default {
     PatientExamList,
     TheNavbar,
 /*     AttendanceListFilterPeriod, */
-    TheSidebar
+    TheSidebar,
+    PatientList
   },
   data () {
     return {
@@ -519,4 +525,7 @@ export default {
   padding: 10px
 .header-exams
   margin-bottom: 2px
+.patients
+  background-color: white
+  padding: 10px
 </style>
