@@ -8,7 +8,8 @@
       :class="{ 'input-icon': hasIcon, 'input-no-icon': !hasIcon, 'no-border': noBorder }" 
       :type="type" 
       :name="name"
-      :id="name" 
+      :id="name"
+      v-model="inputEmitter" 
       :placeholder="placeholder"
       :style="{ padding: getSizeInput, fontSize: size, fontWeight: weight, color: color, cursor: cursor }"
       @focus="focus"
@@ -65,6 +66,9 @@ export default {
     },
     cursor: {
       type: String
+    },
+    value: {
+      type: String
     }
   },
   directives: {
@@ -75,6 +79,16 @@ export default {
             e.preventDefault()
           }
         })
+      }
+    }
+  },
+  computed: {
+    inputEmitter: {
+      get () {
+        return this.value
+      },
+      set (value) {
+        this.$emit('input', value)
       }
     }
   },
@@ -113,4 +127,5 @@ i
   border: 1px solid lightgray
   border-right: none
   border-radius: 3px 0px 0px 3px
+  background-color: white
 </style>

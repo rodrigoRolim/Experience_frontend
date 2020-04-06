@@ -258,6 +258,9 @@
       <h1>Lista pacientes</h1>
       <patient-list></patient-list>
     </div>
+    <div class="procediments">
+      <procediment-list></procediment-list>
+    </div>
     <div class="footer">
       <h1>9. Footer</h1>
       <the-footer></the-footer>
@@ -266,6 +269,7 @@
 </template>
 
 <script>
+import ProcedimentList from './ProcedimentList'
 import PatientList from './PatientList'
 import TheNavbar from './TheNavbar'
 import AttendanceList from './AttendanceList.vue'
@@ -322,7 +326,9 @@ export default {
     TheNavbar,
 /*     AttendanceListFilterPeriod, */
     TheSidebar,
-    PatientList
+    PatientList,
+/*  */
+    ProcedimentList
   },
   data () {
     return {
@@ -528,4 +534,6 @@ export default {
 .patients
   background-color: white
   padding: 10px
+.procediments
+  margin-top: 20px
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <code-drop-down text="Filtrar Atendimento">
-    <template v-slot:content>
+  <code-drop-down text="Filtrar Atendimento" dropdown>
+    <template v-slot:content >
       <div class="input__period">
         
       </div>

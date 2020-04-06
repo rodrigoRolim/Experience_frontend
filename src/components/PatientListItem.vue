@@ -95,6 +95,8 @@ export default {
   padding: 10px
   background-color: rgba(0,0,0,0.03)
   cursor: pointer
+.patient:hover
+  -webkit-box-shadow:  0 0 3px rgba(0,0,0,.3)
 .patient__perfil
   display: flex
   flex-direction: column
@@ -137,23 +139,26 @@ export default {
 .patient__attendance
   width: 25%
   @include respond-to(medium-screens)
-    width: 100%
+    width: 70%
     margin-top: 20px
-    justify-content: space-around
+    justify-content: space-evenly
     min-height: 50px
     align-self: center
   @include respond-to(handhelds)
     width: 100%
     margin-top: 20px
-    justify-content: space-around
-    flex-flow: row wrap
+    flex-direction: column
+    justify-content: center
+    align-items: center
     min-height: 50px
-    align-self: center
   display: flex
   flex-direction: row
-  justify-content: center
+  justify-content: space-around
   align-items: center
   background-color: white
   border: 1px solid lightgray
-  
+.patient__attendance__date,
+.patient__attendance__id
+  @include respond-to(handhelds)
+    min-width: 120px
 </style>

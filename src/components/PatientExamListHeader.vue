@@ -19,7 +19,7 @@
         />  
       </div>
     </div>
-    <code-drop-down text="detalhes" bcolor="white" class="code-drop-down">
+    <code-drop-down text="detalhes" bcolor="white" class="code-drop-down" dropdown>
       <template v-slot:content>
         <div class="detail-attendance">
           <strong>detalhe atendimento</strong>

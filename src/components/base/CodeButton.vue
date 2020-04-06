@@ -75,6 +75,8 @@ button
   letter-spacing: 0.2px
   text-transform: capitalize
   font-weight: 500
+button:active
+  opacity: 0.5
 .rounded
   border-radius: 100%
   padding: 5px

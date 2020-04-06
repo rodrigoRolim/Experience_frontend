@@ -37,7 +37,8 @@ import {
     faSignOutAlt,
     faPhone,
     faMobile,
-    faEnvelope
+    faEnvelope,
+    faBriefcaseMedical
   } from '@fortawesome/free-solid-svg-icons'
 
 export default {
@@ -79,5 +80,6 @@ export default {
   faSignOutAlt,
   faPhone,
   faMobile,
-  faEnvelope
+  faEnvelope,
+  faBriefcaseMedical
 }

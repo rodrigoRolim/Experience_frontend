@@ -1,6 +1,6 @@
 <template>
   <div class="container-drop" :style="{ backgroundColor: bcolor }">
-    <div class="drop-down-up">
+    <div class="drop-down-up" v-if="dropdown">
       <button @click="show = !show">
         <i>
           <transition name="fade" mode="out-in">
@@ -10,7 +10,8 @@
         </i>{{text}}
       </button>
     </div>
-    <div class="body-drop-down-up" :class="{'drop-down-an': show, 'drop-up-an': !show}">
+    <div class="body-drop-down-up" 
+      :class="{'drop-down-an': show && dropdown, 'drop-up-an': !show && dropdown}">
       <div class="content">
         <slot name="content"></slot>
       </div>
@@ -26,7 +27,8 @@ export default {
   },
   props: {
     text: String,
-    bcolor: String
+    bcolor: String,
+    dropdown: Boolean
   },
   data () {
     return {

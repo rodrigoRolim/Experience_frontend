@@ -57,8 +57,9 @@ export default {
   display: flex
   flex-direction: column
   justify-content: center
+  align-items: center
   border-radius: 16px
-  
+  min-width: 80px
 .code-chip
   color: white
   font-size: 0.8rem

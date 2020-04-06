@@ -79,6 +79,7 @@ export default {
   margin-bottom: 10px
 .p-exam-list-item:hover
   -webkit-box-shadow:  0 0 6px rgba(0,0,0,.3)
+  box-shadow:  0 0 6px rgba(0,0,0,.3)
 .detail-exam
   display: flex
   flex-direction: row
@@ -97,11 +98,11 @@ export default {
   color: rgba(0,0,0, 0.8)
   font-size: .9rem
   margin: 0
-.wall:after
+.wall
   content: "|"
   display: flex
   flex-direction: column
-  margin: 25px 10px
+  margin: 25px 0px
 .name, 
 .situation-exam
   width: 100%
