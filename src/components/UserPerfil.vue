@@ -1,7 +1,7 @@
 <template>
-  <div class="user_perfil">
+  <div class="user_perfil"  @mouseleave="show = false" id="user__perfil">
     <div class="user_perfil__button">
-      <button @click="show = !show" class="button_perfil">
+      <button @mouseenter="show = !show" class="button_perfil">
         <div class="perfil_info">
           <span class="perfil_info__name">rodrigo rolim veras</span>
           <span class="perfil_info__date">17/06/1992</span>
@@ -16,7 +16,7 @@
     </div>
     <transition name="fade" mode="in-out">
       <div class="perfil__content" v-if="show">
-        <div class="perfil__content__pass">
+        <div class="perfil__content__pass" @click="enableModal"> 
           <i><font-awesome-icon icon="user-edit" :style="{color: 'gray'}"/></i>
           <span class="perfil__content__pass__change">alterar senha</span>
         </div>
@@ -26,14 +26,40 @@
         </div>
       </div>
     </transition>
+    <code-modal
+      class="user_perfil__modal"
+      :normal="true"
+      :display="showModal"
+      @display="showModal = $event"
+    >
+      <template v-slot:modal> 
+        <change-password-form @modal="showModal = $event"/>
+      </template>
+    </code-modal>
   </div>
 </template>
 <script>
+import CodeModal from './base/CodeModal'
+import ChangePasswordForm from './ChangePasswordForm'
 export default {
   name: 'UserPerfil',
+  components: {
+    ChangePasswordForm,
+    CodeModal
+  },
   data () {
     return {
+      showModal: false,
       show: false
+    }
+  },
+  mounted () {
+
+  },
+  methods: {
+    enableModal () {
+      this.showModal = true
+      this.show = false
     }
   }
 }
@@ -61,6 +87,8 @@ export default {
   border-radius: 4px
   display: flex
   flex-direction: column
+  margin-top: 3px
+  box-shadow: 0px 0px 3px 2px rgba(0,0,0,0.02)
 .perfil__content__pass,
 .perfil__content__logout 
   padding: 10px 14px 
@@ -74,6 +102,7 @@ export default {
   text-transform: capitalize
   color: rgba(0,0,0,0.8)
   margin-left: 10px
+
 .fade-enter-active, .fade-leave-active
   transition: opacity .3s
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ 

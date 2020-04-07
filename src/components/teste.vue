@@ -28,7 +28,7 @@
     <div class="container-form">
       <h1>2. input</h1>
       <code-label
-        name="attendance"
+       
         label="Text"
         color="#676a6c"
         :fontWeight="700"
@@ -39,7 +39,7 @@
         label="Text"
         placeholder="eu sou um placeholder"
         :hasIcon="true"
-        name="attendance"
+        name="xxxxx"
         type="text"
         :width="9"
         :height="7"
@@ -62,7 +62,7 @@
         label="password"
         placeholder="eu sou um placeholder"
         :hasIcon="true"
-        name="password"
+        name="examplePass"
         type="password"
         :width="9"
         :height="7"
@@ -235,8 +235,8 @@
       </div>
       <code-modal
         :normal="true"
-        v-if="modalA"
-        @close="closeModal"
+        :display="modalA"
+        @display="modalA = $event"
       >
         <template v-slot:modal>
           <code-calendar></code-calendar>
@@ -261,6 +261,9 @@
     <div class="procediments">
       <procediment-list></procediment-list>
     </div>
+    <div class="change-password">
+     <!--  <change-password></change-password> -->
+    </div>
     <div class="footer">
       <h1>9. Footer</h1>
       <the-footer></the-footer>
@@ -269,6 +272,7 @@
 </template>
 
 <script>
+/* import ChangePassword from './ChangePasswordForm' */
 import ProcedimentList from './ProcedimentList'
 import PatientList from './PatientList'
 import TheNavbar from './TheNavbar'
@@ -328,7 +332,8 @@ export default {
     TheSidebar,
     PatientList,
 /*  */
-    ProcedimentList
+    ProcedimentList,
+  /*   ChangePassword */
   },
   data () {
     return {
