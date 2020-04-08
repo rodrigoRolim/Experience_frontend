@@ -17,7 +17,7 @@ export default {
 <style lang="sass" scoped>
 @import '../styles/_colors.sass'
 p
-  margin: 3 px
+  margin: 2px
   padding: 0
 .legends
   display: flex

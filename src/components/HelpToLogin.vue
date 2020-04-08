@@ -108,16 +108,18 @@ h2
   flex-direction: row
   justify-content: flex-end
   align-items: flex-end
-  height: 20vh
+  height: 12vh
   padding: 20px
 .help_login__buttons__ok
   width: 20%
+  @include respond-to(handhelds)
+    width: 100%
 .help_login__body
   padding: 0 20px
 .help_login__body__content
   display: flex
   flex-direction: row
-  max-height: 59vh
+  max-height: 60vh
   overflow: auto
   @include respond-to(medium-screens)
     flex-direction: column

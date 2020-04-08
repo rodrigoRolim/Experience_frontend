@@ -25,6 +25,14 @@ export default {
       displayModal: false
     }
   },
+  updated () {
+    if (this.display) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
+    
+  },
   methods: {
     close () {
       this.$emit('display', false)
@@ -33,6 +41,7 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+
 .c-modal-normal,
 .c-modal-custom
   margin: 0 auto
