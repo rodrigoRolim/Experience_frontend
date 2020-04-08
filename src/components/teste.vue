@@ -198,6 +198,7 @@
             v-if="aba == 1"
             :digit="valueKey" 
             @keyboard="displayKeyboard=!displayKeyboard"
+            @helptologin="helptologin = $event"
           ></patient-login>
           <doctor-login v-if="aba == 2"></doctor-login>
           <partner-login v-if="aba == 3"></partner-login>
@@ -264,6 +265,18 @@
     <div class="change-password">
      <!--  <change-password></change-password> -->
     </div>
+    <div class="help">
+      <code-modal
+        :normal="true"
+        :display="helptologin"
+        @display="helptologin = $event"
+      >
+        <template v-slot:modal>
+          <help-to-login @close="helptologin = $event"></help-to-login>
+        </template>
+      </code-modal>
+      
+    </div>
     <div class="footer">
       <h1>9. Footer</h1>
       <the-footer></the-footer>
@@ -273,6 +286,7 @@
 
 <script>
 /* import ChangePassword from './ChangePasswordForm' */
+import HelpToLogin from './HelpToLogin'
 import ProcedimentList from './ProcedimentList'
 import PatientList from './PatientList'
 import TheNavbar from './TheNavbar'
@@ -333,6 +347,7 @@ export default {
     PatientList,
 /*  */
     ProcedimentList,
+    HelpToLogin
   /*   ChangePassword */
   },
   data () {
@@ -418,7 +433,8 @@ export default {
       ],
       aba: 1,
       displayKeyboard: false,
-      valueKey: ''
+      valueKey: '',
+      helptologin: false
     }
   },
   created () {
@@ -506,6 +522,7 @@ export default {
 .select
   background-color: white
 .tooltip
+  position: relative
   display: flex
   flex-direction: column
   height: 180px

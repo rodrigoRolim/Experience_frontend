@@ -139,7 +139,7 @@
           text="Clique aqui"
         >
           <template>
-            <small>duvidas <i><font-awesome-icon icon="question-circle"/></i></small>
+            <small @click="displayHelpToLogin">duvidas <i><font-awesome-icon icon="question-circle"/></i></small>
           </template>
         </code-tooltip> 
       </div>
@@ -193,6 +193,9 @@ export default {
     },
     displayKeyboard () {
       this.$emit('keyboard', true)
+    },
+    displayHelpToLogin () {
+      this.$emit('helptologin', true)
     }
   }  
 }
@@ -226,4 +229,5 @@ export default {
   color: rgb(52, 181, 131)
   margin: 20px 0
   cursor: pointer
+  text-decoration: underline
 </style>

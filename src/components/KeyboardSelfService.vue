@@ -80,6 +80,7 @@ export default {
 .keyboard
   padding: 10px 0
   position: fixed
+  z-index: 999
   width: 95%
   display: flex
   flex-direction: column
