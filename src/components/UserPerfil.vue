@@ -1,7 +1,7 @@
 <template>
-  <div class="user_perfil"  @mouseleave="show = false" id="user__perfil">
+  <div class="user_perfil" @mouseleave="show = false" id="user__perfil">
     <div class="user_perfil__button">
-      <button @mouseenter="show = !show" class="button_perfil">
+      <button @mouseenter="show = true" class="button_perfil">
         <div class="perfil_info">
           <span class="perfil_info__name">rodrigo rolim veras</span>
           <span class="perfil_info__date">17/06/1992</span>
@@ -87,7 +87,6 @@ export default {
   border-radius: 4px
   display: flex
   flex-direction: column
-  margin-top: 3px
   box-shadow: 0px 0px 3px 2px rgba(0,0,0,0.02)
 .perfil__content__pass,
 .perfil__content__logout 
@@ -102,7 +101,8 @@ export default {
   text-transform: capitalize
   color: rgba(0,0,0,0.8)
   margin-left: 10px
-
+.user_perfil__button
+  margin-bottom: 3px
 .fade-enter-active, .fade-leave-active
   transition: opacity .3s
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ 

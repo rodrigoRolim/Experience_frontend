@@ -259,7 +259,6 @@ export default {
   align-items: center
   background-color: #368c8c
   border: 1px solid rgba(0, 0, 0, 0)
-  position: fixed
 .date-time
   background-color: rgba(0, 0, 0, 0)
   color: white

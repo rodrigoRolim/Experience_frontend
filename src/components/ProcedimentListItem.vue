@@ -1,5 +1,5 @@
 <template>
-  <div class="procediment">
+  <div class="procediment" @click="click">
     <div class="procediment__description">
       <code-chip class="procediment__description__acro" text="GPD 1575" transform="uppercase" />
       <span class="procediment__description__name">GLICEMIA POS DEXTROSE 15 MIN APOS 75G</span>
@@ -35,6 +35,11 @@ export default {
   components: {
     CodeChip,
     CodeInfo
+  },
+  methods: {
+    click () {
+      this.$emit('click', true)
+    }
   }
 }
 </script>

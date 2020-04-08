@@ -19,7 +19,10 @@
       </template>
     </code-input>
   </div>
-  <code-modal v-if="showModal" :normal="normalModal" @close="closeModal">
+  <code-modal 
+    :display="showModal" 
+    :normal="normalModal" 
+    @display="showModal = $event">
     <template v-slot:modal >
       <code-calendar
         @datepicked="picked"

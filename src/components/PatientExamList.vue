@@ -12,10 +12,20 @@
         <patient-exam-list-item situation="NR" @click="show = true"></patient-exam-list-item>
         <patient-exam-list-item situation="PF" @click="show = true"></patient-exam-list-item>
      </div>
-     <patient-exam-detail :showExame="show" @close="show = false"></patient-exam-detail>
+    <code-modal
+      :normal="true"
+      :display="show"
+      @display="show = $event"
+      class="modal"
+    >
+      <template v-slot:modal>
+        <patient-exam-detail @close="show = false"></patient-exam-detail>
+      </template>
+    </code-modal>
   </div>
 </template>
 <script>
+import CodeModal from './base/CodeModal'
 import PatientExamListHeader from './PatientExamListHeader'
 import PatientExamListItem from './PatientExamListItem'
 import PatientExamDetail from './PatientExamDetail'
@@ -25,6 +35,7 @@ export default {
     patient: Array
   },
   components: {
+    CodeModal,
     PatientExamListHeader,
     PatientExamListItem,
     PatientExamDetail

@@ -1,60 +1,47 @@
 <template>
   <div class="exame"> 
-    <code-modal
-      :normal="true"
-      v-if="showExame"
-      class="modal"
-    >
-      <template v-slot:modal>
-        <div class="exame__modal">
-          <div class="exame__modal__header">
-            <div class="exame__name">
-              <h2>LIPOGRAMA COMPLETO</h2>
-            </div>
-            <div class="exame__close" @click="close">
-              <font-awesome-icon icon="times" size="lg"/>
-            </div>
+    <div class="exame__modal">
+      <div class="exame__modal__header">
+        <div class="exame__name">
+          <h2>LIPOGRAMA COMPLETO</h2>
+        </div>
+        <div class="exame__close" @click="close">
+          <font-awesome-icon icon="times" size="lg"/>
+        </div>
+      </div>
+      <div class="exam__modal__body">
+        <div class="exame__modal__content">
+          <div class="exame__modal__content__row">
+            <div class="name__exame">LIPOGRAMA COMPLETO</div>
+            <div class="exame__result">90</div>
           </div>
-          <div class="exam__modal__body">
-            <div class="exame__modal__content">
-              <div class="exame__modal__content__row">
-                <div class="name__exame">LIPOGRAMA COMPLETO</div>
-                <div class="exame__result">90</div>
-              </div>
-              <div class="exame__modal__content__row">
-                <div class="name__exame">LIPOGRAMA COMPLETO</div>
-                <div class="exame__result">90</div>
-              </div>
-              <div class="exame__modal__content__row">
-                <div class="name__exame">LIPOGRAMA COMPLETO</div>
-                <div class="exame__result">90</div>
-              </div>
-            </div>
-            <div class="exame__modal__button">
-              <code-button
-                class="btn-3" 
-                padding="9px 0"
-                text="gerar PDF"
-                bcolor="#474d5e"
-                color="white"
-              ></code-button>
-            </div>
+          <div class="exame__modal__content__row">
+            <div class="name__exame">LIPOGRAMA COMPLETO</div>
+            <div class="exame__result">90</div>
+          </div>
+          <div class="exame__modal__content__row">
+            <div class="name__exame">LIPOGRAMA COMPLETO</div>
+            <div class="exame__result">90</div>
           </div>
         </div>
-      </template>
-    </code-modal>
+        <div class="exame__modal__button">
+          <code-button
+            class="btn-3" 
+            padding="9px 0"
+            text="gerar PDF"
+            bcolor="#474d5e"
+            color="white"
+          ></code-button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
-import CodeModal from './base/CodeModal'
 import CodeButton from './base/CodeButton'
 export default {
   name: 'PatientExamDetail',
-  props: {
-    showExame: Boolean
-  },
   components: {
-    CodeModal,
     CodeButton
   },
   data () {

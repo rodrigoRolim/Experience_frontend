@@ -4,21 +4,44 @@
       <procediment-list-item-search />    
     </div>
     <div class="procediments__body" id="procediments__body">
-      <procediment-list-item class="procediments__body__item"></procediment-list-item>
-      <procediment-list-item class="procediments__body__item"></procediment-list-item>
-      <procediment-list-item class="procediments__body__item"></procediment-list-item>
-      <procediment-list-item class="procediments__body__item"></procediment-list-item>
+      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
+      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
+      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
+      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
+    </div>
+    <div class="modal_instructions">
+      <code-modal
+        normal
+        :display="show"
+        @display="show = $event"
+      >
+        <template v-slot:modal>
+          <procediment-instructions @close="show = $event"></procediment-instructions>
+        </template>
+      </code-modal>
     </div>
   </div>
 </template>
 <script>
+import ProcedimentInstructions from './ProcedimentInstructions'
 import ProcedimentListItem from './ProcedimentListItem'
 import ProcedimentListItemSearch from './ProcedimentListItemSearch'
+import CodeModal from './base/CodeModal'
 export default {
   name: 'ProcedimentList',
   components: {
     ProcedimentListItem,
-    ProcedimentListItemSearch
+    ProcedimentListItemSearch,
+    ProcedimentInstructions,
+    CodeModal
+  },
+  data () {
+    return {
+      show: false
+    }
+  },
+  methods: {
+    
   }
 }
 </script>
