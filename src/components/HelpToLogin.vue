@@ -76,14 +76,20 @@ h2
   flex-direction: column
   background-color: white
   width: 900px
+  @include respond-to(medium-screens)
+    width: 700px
+  @include respond-to(handhelds)
+    width: 100%
+    height: 100vh
   border-radius: 4px
 .help_login__header
   display: flex
   flex-direction: row
   justify-content: space-between
+  align-items: center
   color: gray
   border-bottom: 1px solid lightgray
-  padding: 20px 10px
+  padding: 3% 2%
   margin-bottom: 20px
 .help_login__header__title
   margin: 0 auto
@@ -101,6 +107,8 @@ h2
   display: flex
   flex-direction: row
   justify-content: flex-end
+  align-items: flex-end
+  height: 20vh
   padding: 20px
 .help_login__buttons__ok
   width: 20%
@@ -109,6 +117,12 @@ h2
 .help_login__body__content
   display: flex
   flex-direction: row
+  max-height: 59vh
+  overflow: auto
+  @include respond-to(medium-screens)
+    flex-direction: column
+  @include respond-to(handhelds)
+    flex-direction: column
 .help_login__body__content__att,
 .help_login__body__content__results
   padding: 0 30px
@@ -119,8 +133,21 @@ h2
   color: dimgray
 .help_login__body__content__att
   width: 55%
+  @include respond-to(medium-screens)
+    width: 100%
+  @include respond-to(handhelds)
+    width: 100%
 .help_login__body__content__results
+  @include respond-to(medium-screens)
+    width: 100%
+  @include respond-to(handhelds)
+    width: 100%
   width: 45%
+.help_login__body__content__att__image img
+  @include respond-to(medium-screens)
+    height: 25vh
+  @include respond-to(handhelds)
+    height: 25vh
 #uppercase
   text-transform: uppercase
 </style>
