@@ -129,20 +129,33 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+.change-password
+  display: flex
+  flex-direction: column
+  width: 550px
+  background-color: white
+  @include respond-to(handhelds)
+    width: 100vw
+    height: 100vh
+.header
+  width: 100%
 .header__name
   color: gray
   align-self: center
   margin: 0 auto
 .body
-  background-color: white
-  width: 550px
+  display: flex
+  flex-direction: column
+  width: 100%
   padding: 30px 20px
-  border-bottom-left-radius: 4px
-  border-bottom-right-radius: 4px
+  @include respond-to(handhelds)
+    justify-content: center
+    padding: 100px 20px
 .inputs__current-password,
 .inputs__new-password,
 .inputs__confirm-password
   margin: 20px 0
+  width: 100%
 .header
   background-color: white
   padding: 20px
@@ -150,12 +163,16 @@ export default {
   flex-direction: row
   justify-content: space-between
   border-bottom: 1px solid lightgray
-  border-top-left-radius: 4px
-  border-top-right-radius: 4px
+  width: 100%
 .button
   display: flex
   flex-direction: row
   justify-content: flex-end
+  width: 100%
+  @include respond-to(handhelds)
+    margin-top: 80px
 .button__confirm
-  width: 20%  
+  width: 20%
+  @include respond-to(handhelds)
+    width: 100%  
 </style>

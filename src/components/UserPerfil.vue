@@ -27,7 +27,7 @@
       </div>
     </transition>
     <code-modal
-      class="user_perfil__modal"
+     
       :normal="true"
       :display="showModal"
       @display="showModal = $event"
