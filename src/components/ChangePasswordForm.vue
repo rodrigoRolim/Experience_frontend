@@ -29,7 +29,7 @@
             :width="9"
             :height="7"
             required
-            v-model="value"
+            v-model="currentPassword"
           >
             <template v-slot:icon>
               <font-awesome-icon icon="lock" :style="{ color: '#676a6c' }"></font-awesome-icon>
@@ -54,7 +54,7 @@
             :width="9"
             :height="7"
             required
-            v-model="value"
+            v-model="newPassword"
           >
             <template v-slot:icon>
               <font-awesome-icon icon="lock" :style="{ color: '#676a6c' }"></font-awesome-icon>
@@ -79,7 +79,7 @@
             :width="9"
             :height="7"
             required
-            v-model="value"
+            v-model="confirmPassword"
           >
             <template v-slot:icon>
               <font-awesome-icon icon="lock" :style="{ color: '#676a6c' }"></font-awesome-icon>
@@ -118,7 +118,9 @@ export default {
   data () {
     return {
       show: true,
-      value: ''
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: ''
     }
   },
   methods: {
@@ -135,8 +137,8 @@ export default {
   width: 550px
   background-color: white
   @include respond-to(handhelds)
-    width: 100%
-    height: 100%
+    width: 100vw
+    height: 100vh
 .header
   width: 100%
 .header__name
@@ -174,5 +176,6 @@ export default {
 .button__confirm
   width: 20%
   @include respond-to(handhelds)
-    width: 100%  
+    width: 100%
+    margin-top: 30px
 </style>
