@@ -9,7 +9,18 @@
       </div>
     </div>
     <div class="body">
-      <div class="change-pass__message"></div>
+      <div class="change-pass__message">
+        <code-message
+          v-if="show"
+          message="senha inválida ou não combinantes"
+          typeMessage="error"
+          position="flex-start"
+        >
+          <template v-slot:icon>
+            <font-awesome-icon icon="times-circle"></font-awesome-icon>
+          </template>
+        </code-message>
+      </div>
       <div class="inputs">
         <div class="inputs__current-password">
           <code-label
@@ -94,6 +105,7 @@
           text="confirmar"
           bcolor="dodgerblue"
           color="white"
+          @click="confirm"
         ></code-button>
       </div>
     </div>
@@ -104,12 +116,14 @@
 import CodeInput from './base/CodeInput'
 import CodeLabel from './base/CodeLabel'
 import CodeButton from './base/CodeButton'
+import CodeMessage from './base/CodeMessage'
 export default {
   name: 'ChangePasswordForm',
   components: {
     CodeInput,
     CodeLabel,
-    CodeButton
+    CodeButton,
+    CodeMessage
   },
   
   computed: {
@@ -117,7 +131,7 @@ export default {
   },
   data () {
     return {
-      show: true,
+      show: false,
       currentPassword: '',
       newPassword: '',
       confirmPassword: ''
@@ -126,6 +140,11 @@ export default {
   methods: {
     closeModal () {
       this.$emit('modal', false)
+    },
+    confirm () {
+      if (this.currentPassword !== this.newPassword) {
+        this.show = true
+      }
     }
   }
 }
