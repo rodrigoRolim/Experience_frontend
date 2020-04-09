@@ -1,5 +1,5 @@
 <template>
-  <div class="change-password">
+  <form class="change-password" @keypress.prevent.enter="confirm">
     <div class="header">
       <div class="header__name">
         Alterar Senha de acesso
@@ -109,7 +109,7 @@
         ></code-button>
       </div>
     </div>
-  </div>  
+  </form>  
 </template>
 <script>
 
