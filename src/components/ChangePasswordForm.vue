@@ -138,7 +138,7 @@ export default {
   background-color: white
   @include respond-to(handhelds)
     width: 100vw
-    height: 100vh
+    height: 100%
 .header
   width: 100%
 .header__name
