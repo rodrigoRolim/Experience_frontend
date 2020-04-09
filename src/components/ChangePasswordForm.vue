@@ -135,8 +135,8 @@ export default {
   width: 550px
   background-color: white
   @include respond-to(handhelds)
-    width: 100vw
-    height: 100vh
+    width: 100%
+    height: 100%
 .header
   width: 100%
 .header__name
@@ -150,7 +150,7 @@ export default {
   padding: 30px 20px
   @include respond-to(handhelds)
     justify-content: center
-    padding: 100px 20px
+    
 .inputs__current-password,
 .inputs__new-password,
 .inputs__confirm-password
@@ -170,7 +170,7 @@ export default {
   justify-content: flex-end
   width: 100%
   @include respond-to(handhelds)
-    margin-top: 80px
+   
 .button__confirm
   width: 20%
   @include respond-to(handhelds)
