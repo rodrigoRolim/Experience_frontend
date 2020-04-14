@@ -35,7 +35,7 @@ export default {
     }
   },
   created () {
-    window.addEventListener('click', function (e) {
+   /*  window.addEventListener('click', function (e) {
       const container = document.querySelector('.container')
       const select = document.querySelector('.container__list')
       console.log(container.contains(e.target))
@@ -44,7 +44,7 @@ export default {
       } else {
         select.classList.replace('container__list--open', 'container__list--close')
       }
-    })
+    }) */
   }
 }
 </script>
