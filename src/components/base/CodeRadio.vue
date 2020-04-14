@@ -74,5 +74,5 @@ input
   display: none
   margin: 0
 i 
-  margin-left: 3px
+  margin-left: 4px
 </style>

@@ -279,9 +279,11 @@
       <code-loading class="code-loading"/>
     </div>
     <div class="new-code">
+      <h1>novo select customizado (em construção)</h1>
       <code-select-new/>
     </div>
     <div class="pagination">
+      <h1>paginaçaõ (em construção)</h1>
       <code-pagination/>
     </div>
     <div class="qrcode">

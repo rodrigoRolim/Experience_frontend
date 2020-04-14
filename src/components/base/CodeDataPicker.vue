@@ -19,7 +19,8 @@
       </template>
     </code-input>
   </div>
-  <code-modal 
+  <code-modal
+    class="container__modal" 
     :display="showModal" 
     :normal="normalModal" 
     @display="showModal = $event">
@@ -156,15 +157,22 @@ export default {
 @import "../../styles/_scrollbar.sass"
 @include scrollbar('#year', 2px)
 .datepicker
+  position: relative
   display: flex
   flex-direction: column
   justify-content: center
 .date-input input
   cursor: pointer
 .container-input-date
+  position: relative
   display: flex
   flex-direction: row
   width: 100%
+.container__modal
+  position: absolute
+  left: 0
+  right: 0
+  top: 100%
 .container-code-datapicker
   width: 302px
   display: flex
