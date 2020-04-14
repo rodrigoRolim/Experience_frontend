@@ -1,6 +1,6 @@
 <template>
   <div :class="'container-message '+typeMessage" :style="{width, justifyContent: position}">
-    <p class="icon"><slot  name="icon"></slot></p>
+    <p class="icon"><font-awesome-icon :icon="icon" v-if="icon"/><slot></slot></p>
     <p class="message-content">{{message}}</p>
   </div>
 </template>
@@ -22,10 +22,11 @@ export default {
       type: String,
       default: 'default',
       validator: function (value) {
-        return ['success', 'error', 'warning', 'info'].indexOf(value) !== -1
+        return ['success', 'error', 'warning', 'info', 'default'].indexOf(value) !== -1
       }
     },
-    width: String
+    width: String,
+    icon: String
   },
   components: {
 
@@ -49,8 +50,18 @@ export default {
   padding: 5px 0
   width: 100%
 .icon
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+  justify-content: flex-start
   margin-right: 10px
   margin-left: 20px
+  
+.message-content
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
 .info
   background-color: rgba(95, 211, 250, 0.1)
   border: 1px solid blue
@@ -67,5 +78,8 @@ export default {
   background-color: rgba(250, 196, 95, 0.1)
   border: 1px solid orange
   color: orange
-
+.default
+  background-color: rgba(0,0,0,0.04)
+  border: 1px solid lightgray
+  color: dimgray
 </style>

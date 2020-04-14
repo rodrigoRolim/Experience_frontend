@@ -103,39 +103,36 @@
         message="info message"
         typeMessage="info"
         position="flex-start"
-      >
-        <template v-slot:icon>
-          <font-awesome-icon icon="info-circle"></font-awesome-icon>
-        </template>
-      </code-message>
+        icon="info-circle"
+      />
       <code-message
         message="warning message"
         typeMessage="warning"
         position="flex-start"
-      >
-        <template v-slot:icon>
-          <font-awesome-icon icon="exclamation-circle"></font-awesome-icon>
-        </template>
-      </code-message>
+        icon="exclamation-circle"
+      />
       <code-message
         message="error message"
         typeMessage="error"
         position="flex-start"
-      >
-        <template v-slot:icon>
-          <font-awesome-icon icon="times-circle"></font-awesome-icon>
-        </template>
-      </code-message>
+        icon="times-circle"
+      />
       <code-message
         message="success message"
         typeMessage="success"
         position="flex-start"
-      >
-        <template v-slot:icon>
-          <font-awesome-icon icon="check-circle"></font-awesome-icon>
-        </template>
-      </code-message>
-      
+        icon="check-circle"
+      />
+    <code-message
+      message="carregando video..."
+      typeMessage="default"
+      position="flex-start"
+    >
+      <template>
+        <code-loading class="code-loading" icon="video" sizeIcon="xs" range="40px" color="dimgray"/>
+      </template>
+    </code-message>
+
     </div>
     <div class="select">
       <h1>3. Select ou combobox</h1>
@@ -203,7 +200,7 @@
           <doctor-login v-if="aba == 2"></doctor-login>
           <partner-login v-if="aba == 3"></partner-login>
           <health-care-login v-if="aba == 4"></health-care-login>
-          <patient-login v-if="aba == 5"></patient-login>
+          <Qrcode-login v-if="aba == 5" :play="aba == 5 ? true : false"></Qrcode-login>
         </template>
       </code-menu-abas>
     </div>
@@ -277,6 +274,19 @@
       </code-modal>
       
     </div>
+    <div class="loading">
+      <h1>Loading</h1>
+      <code-loading class="code-loading"/>
+    </div>
+    <div class="new-code">
+      <code-select-new/>
+    </div>
+    <div class="pagination">
+      <code-pagination/>
+    </div>
+    <div class="qrcode">
+      <Qrcode-login />
+    </div>
     <div class="footer">
       <h1>9. Footer</h1>
       <the-footer></the-footer>
@@ -286,6 +296,10 @@
 
 <script>
 /* import ChangePassword from './ChangePasswordForm' */
+import QrcodeLogin from './QrcodeLogin'
+import CodeSelectNew from './base/CodeSelectNew'
+import CodePagination from './base/CodePagination'
+import CodeLoading from './base/CodeLoading.vue'
 import HelpToLogin from './HelpToLogin'
 import ProcedimentList from './ProcedimentList'
 import PatientList from './PatientList'
@@ -347,7 +361,11 @@ export default {
     PatientList,
 /*  */
     ProcedimentList,
-    HelpToLogin
+    HelpToLogin,
+    CodeLoading,
+    CodePagination,
+    CodeSelectNew,
+    QrcodeLogin
   /*   ChangePassword */
   },
   data () {
@@ -490,8 +508,7 @@ export default {
 .messages
   margin-top: 5px
   background-color: white
-.messages div
-  margin-bottom: 5px
+
 .table
   margin: 10px auto
   width: 100%
@@ -557,5 +574,10 @@ export default {
   background-color: white
   padding: 10px
 .procediments
+  margin-top: 20px
+.loading
+  background-color: white
+  margin: 0 auto
+.pagination
   margin-top: 20px
 </style>

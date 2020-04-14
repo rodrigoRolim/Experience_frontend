@@ -56,4 +56,5 @@ export default {
   @include respond-to(handhelds)
     padding: 9px 9px
   color: #5f5e5e
+
 </style>
