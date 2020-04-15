@@ -176,6 +176,7 @@ export default {
   align-items: center
 .qrcode-login__canvas canvas
   width: 70%
+  height: 40vh
 .qrcode-login__canvas--hidden
   display: none
 .qrcode-login__canvas--show
