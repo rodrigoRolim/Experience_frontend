@@ -90,7 +90,7 @@ export default {
       this.canvas.stroke()
     },
     getCamera () {
-      navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } })
         .then((stream) => {
   
           this.video.srcObject = stream
