@@ -45,10 +45,10 @@
         :height="7"
         required
         v-model="value"
+        icon="user"
+        Icolor='#676a6c'
       >
-        <template v-slot:icon>
-          <font-awesome-icon icon="user" :style="{ color: '#676a6c' }"></font-awesome-icon>
-        </template>
+        
       </code-input>
       <code-label
         name="password"
@@ -68,10 +68,9 @@
         :height="7"
         required
         v-model="value"
+        icon="lock"
+        Icolor='#676a6c' 
       >
-        <template v-slot:icon>
-          <font-awesome-icon icon="lock" :style="{ color: '#676a6c' }"></font-awesome-icon>
-        </template>
       </code-input>
       <code-label
         name="number"
@@ -91,10 +90,10 @@
         :height="7"
         required
         v-model="value"
+        icon="beer"
+        Icolor='#676a6c' 
       >
-        <template v-slot:icon>
-          <font-awesome-icon icon="beer" :style="{ color: '#676a6c' }"></font-awesome-icon>
-        </template>
+       
       </code-input>
     </div>
     <div class="messages">
@@ -158,13 +157,11 @@
    
     <div class="table">
       <h1>4. componente datepicker</h1>
-      <code-data-picker 
-        :width="9"
-        :height="7"
-        :hasIcon="true"
-        name="birth"
-        :normalModal="false"
-      ></code-data-picker>
+      <div class="calendars">
+        <code-calendar @datepicked="getBegin" :end="end" icon="calendar-alt" name="calendar_1"/>
+        <code-calendar @datepicked="getEnd" :begin="begin" icon="calendar-alt" name="calendar_2"/>
+      </div>
+      
     </div>
     <div class="list">
       <h1>5. lista de atendimentos</h1>
@@ -256,6 +253,9 @@
       <h1>Lista pacientes</h1>
       <patient-list></patient-list>
     </div>
+     <div>
+    
+    </div>
     <div class="procediments">
       <procediment-list></procediment-list>
     </div>
@@ -289,6 +289,9 @@
     <div class="qrcode">
       <Qrcode-login />
     </div>
+    <div>
+      
+    </div>
     <div class="footer">
       <h1>9. Footer</h1>
       <the-footer></the-footer>
@@ -314,7 +317,7 @@ import CodeLabel from './base/CodeLabel.vue'
 import CodeMessage from './base/CodeMessage.vue'
 import CodeMenuAbas from './base/CodeMenuAbas.vue'
 import PatientLogin from './PatientLogin.vue'
-import CodeDataPicker from './base/CodeDataPicker.vue'
+/* import CodeDataPicker from './base/CodeDataPicker.vue' */
 import CodeSelect from './base/CodeSelect.vue'
 import CodeTooltip from './base/CodeTooltip.vue'
 import CodeCalendar from './base/CodeCalendar.vue'
@@ -342,7 +345,7 @@ export default {
     CodeButton,
     CodeMessage,
     CodeMenuAbas,
-    CodeDataPicker,
+   /*  CodeDataPicker, */
     CodeSelect,
     CodeLabel,
     CodeModal,
@@ -372,6 +375,9 @@ export default {
   },
   data () {
     return {
+      selectedDate: null,
+      begin: '',
+      end: '',
       modalA: false,
       modalB: false,
       value: 'rodrigo',
@@ -459,8 +465,20 @@ export default {
   },
   created () {
     console.log(this.teste)
+    console.log(this.selectedDate)
   },
   methods: {
+    getBegin (value) {
+      //value = value.replace(/\s/g, '')
+      this.begin = this.formatterDate(value)
+      //console.log(new Date(this.formatterDate(value)))
+    },
+    getEnd (value) {
+      this.end = this.formatterDate(value)
+    },
+    formatterDate (date) {
+      return date.split("/").reverse().join("").trim().replace(/\s/g, '-')
+    },
     compositeWrite (value) {
       console.log(value)
       this.valueKey = value
@@ -486,7 +504,7 @@ export default {
 <style lang="sass" scoped>
 .comp-body
   margin: 0 auto
-  width: 95%
+  width: 98%
 .container-form
   margin-top: 10px
   display: flex
@@ -582,4 +600,7 @@ export default {
   margin: 0 auto
 .pagination
   margin-top: 20px
+.calendars
+  display: flex
+  flex-direction: row
 </style>

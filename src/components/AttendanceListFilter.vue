@@ -1,9 +1,6 @@
 <template>
   <code-drop-down text="Filtrar Atendimento" dropdown>
     <template v-slot:content >
-      <div class="input__period">
-        
-      </div>
       <div class="input-health-center">
         <code-label
           label="Posto"
@@ -18,6 +15,16 @@
           :options="list"
           :hasIcon="false"
         ></code-select>
+      </div>
+      <div class="input__period">
+        <code-label
+          label="Período"
+          color="white"
+          :fontWeight="400"
+          fontSize="0.9rem"
+          fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
+        ></code-label>
+        <attendance-list-filter-period />
       </div>
       <div class="input-accomodation">
         <code-label
@@ -86,7 +93,7 @@ import CodeDropDown from './base/CodeDropDown.vue'
 import CodeSelect from './base/CodeSelect.vue'
 import CodeLabel from './base/CodeLabel.vue'
 import CodeButton from './base/CodeButton.vue'
-/* import CodeDataPicker from './base/CodeDataPicker.vue' */
+import AttendanceListFilterPeriod from './AttendanceListFilterPeriod'
 export default {
   name: 'AttendanceListFilter',
   components: {
@@ -94,7 +101,7 @@ export default {
     CodeSelect,
     CodeLabel,
     CodeDropDown,
-   /*  CodeDataPicker */
+    AttendanceListFilterPeriod
   },
   data () {
     return {
@@ -120,14 +127,18 @@ export default {
 .input-accomodation,
 .input-situation,
 .input-health-center-realizer
-  width: 19%
+  width: 15%
   @include respond-to(handhelds)
     margin: 3px 0
     width: 100%
 .button-filter
-  width: 17%
+  width: 9%
   align-self: flex-end
   @include respond-to(handhelds)
     width: 100%
     margin-top: 40px
+.input__period
+  width: 320px
+  display: flex
+  flex-direction: column
 </style>

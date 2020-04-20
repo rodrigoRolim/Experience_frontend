@@ -1,335 +1,305 @@
 <template>
-<div class="container-code-datapicker disable-select" :id="connect">
-  <div class="date-time">
-    <div class="month">
-      <i class="left" @click="updateCalendarMonth(0)"><font-awesome-icon icon="caret-left" size="2x"></font-awesome-icon></i>
-      <h1>{{calendar.month.name}}</h1>
-      <i class="right" @click="updateCalendarMonth(1)"><font-awesome-icon icon="caret-right" size="2x"></font-awesome-icon></i>
+  <div :class="'calendar ' + name" ref="calendar" >
+    <!-- <div class="calendar__selected-date" ref="selected_date" @click="showDateToggle">
+      {{selectedDate}}
+    </div> -->
+    <div class="calendar__selected-date" ref="selected_date" @click="showDateToggle">
+      <code-input
+        label="number"
+        placeholder="clique e escolha uma data"
+        :icon="icon"
+        name="number"
+        type="text"
+        :width="8"
+        :height="7"
+        v-model="selectedDate"
+      > 
+      </code-input>
     </div>
-    <div class="year">
-      <select name="year" id="year" class="list-year" @change="updateCalendarYear(year)" v-model="year">
-        <option :value="year" v-for="year of years" :key="year">{{year}}</option>
-      </select>
+    <div class="calendar__dates" :id="id" :class="{ 'calendar__dates--show': showDate, 'calendar__dates--hidden': !showDate }" ref="dates">
+      <div class="calendar__dates__month">
+        <div class="calendar__dates__month__arrows prev-mth" @click="goToPrevMonth()">&lt;</div>
+        <div class="calendar__dates__month__picked" ref="month">{{currentMonth}}</div>
+        <div class="calendar__dates__month__arrows next-mth" @click="goToNextMonth()">&gt;</div>
+      </div>
+      <div class="calendar__dates__week">
+        <div 
+        class="calendar__dates__week__day"
+        v-for="dayWeek in dayWeeks" :key="dayWeek"
+        >
+        {{dayWeek}}
+        </div>
+      </div>
+      <div class="calendar__dates__days">
+        <div 
+        class="calendar__dates__days__day"
+        :class="{ 'calendar__dates__days__day--selected': selected == day,
+                  'calendar__dates__days__day--unselectable': unselectableDates(day) }"
+        v-for="(day, i) in days" :key="i"
+        @click="selectDay(day)"
+        >
+        {{day}}
+        </div>
+      </div>
     </div>
   </div>
-  <table>
-    <thead>
-      <th v-for="(day, i) in calendar.days" v-bind:key="i">{{ day.shorthand }}</th>
-    </thead>
-    <tbody>
-      <tr v-for="(dates, i) in calendar.dates" v-bind:key="i" >
-        <td 
-          v-for="(date, j) in dates" 
-          v-bind:key="j"
-          :class="{ 
-           'smooth-date-w': weekend(j),
-           'smooth-date-p': outMonth(i, j, calendar.edger) }"
-          @click="selectDate"
-          :date="dateValue(i, j, calendar.edger, date)"
-        >
-          {{ date | dateDigits }}
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
 </template>
+
 <script>
-import { calendar } from '../../mixins/calendar'
-import { popups } from '../../mixins/popups'
+import CodeInput from './CodeInput'
 export default {
-  name: 'CodeDataPicker',
-  inheritAttrs: false,
-  mixins: [calendar, popups],
+  name: 'CodeCalendar',
+  components: {
+    CodeInput
+  },
   props: {
-    color: String,
-    bcolor: String,
-    connect: String,
-    maxYear: {
-      type: Number,
-      default: new Date().getFullYear() + 100,
-    },
-    minYear: {
-      type: Number,
-      default: new Date().getFullYear() - 100
-    },
-    padding: {
-      type: String
-    },
-    paddingIcon: {
-      type: String
-    },
-    hasIcon: Boolean,
+    name: String,
+    icon: String,
     begin: {
       type: String,
-      default: '00/00/0000'
+      default: '00-00-0000'
     },
-    end: {
-      type: String,
-      default: '1'
-    }
+    end: { 
+      type: String, 
+      default: '00-00-0000'  
+    },
+    id: String
   },
   data () {
     return {
-      calendar: null,
-      day: null,
+      showDate: false,
+      selected: -1,
       month: null,
       year: null,
-      show: false,
-      dateFormatted: null,
-      date: '',
-      position: null,
-      lastClicked: null
+      day: null,
+      weekDay: null,
+      selectedMonth: null,
+      selectedDate: null,
+      selectedDay: null,
+      selectedYear: null,
+      selectedWeekDay: null,
+      currentMonth: null,
+      months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 
+                'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 
+                'Novembro', 'Dezembro'],
+      dayWeeks: ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sab'],
+      days: []
     }
   },
   created () {
-    this.calendar = this.currentCalendar()
-    this.day = this.calendar.day
-    this.month = this.calendar.month.id
-    this.year = this.calendar.year
-  },
-  computed: {
-    years (vm) {
-      let years = []
-      for (let i = vm.minYear; i <= vm.maxYear; i++) {
-        years.push(i)
+    window.addEventListener('click', (e) => {
+      if (!this.checkEventPathForClass(e.path, this.name)) {
+        this.showDate = false
       }
-      return years
-    }
+    })
+  },
+  mounted () {
+    let date = new Date()
+    this.day = date.getDate()
+    this.month = date.getMonth()
+    this.year = date.getFullYear()
+    this.weekDay = date.getDay()
+    this.currentMonth = this.months[this.month] + ' ' + this.year
+    this.selectedYear = this.year
+    this.selectedMonth = this.month
+    this.selectedDay = this.day
+    this.selectedWeekDay = this.weekDay
+    //this.selectedDate = this.formatDate(date)
+    this.populateDates()
+    this.togglePositionCalendar()
   },
   methods: {
-    configPosition (e) {
-      let rec = e.target.getBoundingClientRect()
-      let h = e.target.clientHeight
-      return { top: (rec.top+h+4)+'px' }
-    },
-    showDate (e) {
-      this.position = this.configPosition(e)
-      this.popup(true)
-    },
-    emitSelected (value) {
+    unselectableDates (day) {
+      if (day) {
 
-      this.$emit('datepicked', value)
-    },
-    weekend (index) {
-
-      return (index%7 === 0) || (index%7 === 6)
-    },
-    dateValue (line, column, edger, date) {
+        let date = new Date(this.year + '-' + '0' + (this.month + 1) + '-' + day)
+        let begin = new Date(this.begin).getTime()
+        let end = new Date(this.end).getTime()
+        console.log(begin)
+        console.log(end)
+        return begin > date.getTime() || end < date.getTime()
+      }
       
-      let month
-      let year
-
-      if (this.leftMonth(line, column, edger)) {
+    },
+    selectDay (day) {
+      if (!this.unselectableDates(day)) {
+        this.selectedDate = this.formatDate(new Date(this.year + '-' + (this.month + 1) + '-' + day))
        
-        if (this.month === 0 && this.year === this.minYear) {
-          year = this.maxYear
-          month = 11
-        } else {
-          year = this.year
-          month = this.month - 1
-        }
-
-        return `${date}/${month}/${year}`
-      }
-      if (this.rightMonth(line, column, edger)) {
-
-        if (this.month === 11 && this.year === this.maxYear) {
-          year = this.minYear
-          month = 0
-        } else {
-          year = this.year
-          month = this.month + 1
-        }
-
-        return `${date}/${month}/${year}`
-      }
-      return `${date}/${this.month}/${this.year}`
-    },
-    leftMonth (line,column, edger) {
-
-      return line*7 + column < edger[0]
-    },
-    rightMonth (line,column, edger) {
-
-      return line*7 + column >= edger[1]
-    },
-    outMonth (line,column, edger) {
-
-      return this.leftMonth(line,column, edger) || this.rightMonth(line, column, edger)
-    },
-    dateFormatter (day, month, year) {
-
-      let resultDate = new Date(Date.UTC(year, month, day, 3, 1, 1)).toLocaleDateString('pt-br')
-      return resultDate
-    },
-    allowedKeys (el) {
-
-      if ((el.keyCode > 57 || el.keyCode < 48) && el.keyCode !== 8 && el.keyCode !== 111) {
-        el.preventDefault()
-      }
-    },
-    splitDate (date) {
-      return date.split('/')
-    },
-    signalPopup () {
-      this.$emit('popup', false)
-    },
-    unmarkClickedTd () {
-      if (this.lastClicked != null) {
-
-        this.lastClicked.target.classList.remove('clicked-td')
-      }
-    },
-   /*  limitDate (currentDate) {
-      if (this.begin ) {
-        return false
-      }
-    }, */
-    selectDate (ev) {
-     
-      
-      this.unmarkClickedTd()
-     
-      let dates = this.splitDate(ev.target.attributes.date.value)
-     /*  if () {
-
-      } */
-      let beginArr = this.splitDate(this.begin)
-      let begin = this.dateFormatter(...beginArr)
-      this.dateFormatted = this.dateFormatter(...dates)
-      console.log(begin)
-      console.log(begin < this.dateFormatted)
-      console.log(this.begin)
-      if (begin < this.dateFormatted) {
-        this.emitSelected(this.dateFormatted)
-        ev.target.classList.add('clicked-td')
-        this.lastClicked = ev
+        this.selectedDay = day
+        this.selectedMonth = this.month
+        this.selectedYear = this.year
+        this.populateDates()
       }
       
     },
-    updateLimitMonth (command) {
+    togglePositionCalendar () {
+      var targetNode = this.$refs.dates
+      var observer = new MutationObserver(() => {
 
-      if (command === 0 && --this.month === -1) {
-        this.month = 11
-        this.year--
+        if (targetNode.style.display != 'none') {
+
+          let bottom = this.$refs.calendar.getBoundingClientRect().bottom
+        
+          if (window.innerHeight - bottom <= targetNode.clientHeight) {
+            this.$refs.dates.style.bottom = '100%'
+            this.$refs.dates.style.top = ''
+          } else {
+          
+            this.$refs.dates.style.top = '100%'
+            this.$refs.dates.style.bottom = ''
+          }
+        }
+      })
+      observer.observe(targetNode, { attributes: true, childList: true })
+    },
+    showDateToggle (e) {
+      
+      
+      if (!this.checkEventPathForClass(e.path, 'calendar__dates')) {
+        console.log(e)
+        this.showDate = !this.showDate
+        
       }
-      if (command === 1 && ++this.month === 12) {
-
+    },
+    checkEventPathForClass (path, selector) {
+      for (let i = 0; i < path.length; i++) {
+        if (path[i].classList && path[i].classList.contains(selector)) {
+          return true
+        }
+      }
+      return false
+    },
+    goToNextMonth () {
+      this.month++
+      if (this.month > 11) {
         this.month = 0
         this.year++
       }
+      this.currentMonth = this.months[this.month] + ' ' + this.year
+      this.populateDates()
     },
-    updateLimitYear (command) {
-
-      if (command === 0 && this.year < this.minYear) {
-
-        this.year = this.maxYear
+    goToPrevMonth () {
+      this.month--
+      if (this.month < 0) {
+        this.month = 11
+        this.year--
       }
-      if (command === 1 && this.year > this.maxYear) {
-
-        this.year = this.minYear
-      }
+      this.currentMonth = this.months[this.month] + ' ' + this.year
+      this.populateDates()
     },
-    updateCalendarMonth (command) {
+    populateDates () {
       
-      this.unmarkClickedTd()
-      this.updateLimitMonth(command)
-      this.updateLimitYear(command)
-      this.calendar = this.buildCalendar(this.year, this.month, new Date().getDay())
+      this.days = []
+      let amount_days = this.daysInMonth(this.month, this.year)
+      this.selected = -1
+      let i = 0
+      let j = 0
+      let first_day = (new Date(this.year, this.month)).getDay()
+      console.log(this.weekDay)
+      while (i < amount_days) {
+        
+        if (j == first_day) {
+          this.days.push(i + 1)
+          i++
+        } else {
+          j++
+          this.days.push('')
+        }
+        if (this.selectedDay == (i + 1) && 
+            this.selectedYear == this.year && 
+            this.selectedMonth == this.month) {
+
+          this.selected = this.selectedDay
+        }
+       
+      }
     },
-    updateCalendarYear (year) {
-      this.year = year
-      this.calendar = this.buildCalendar(this.year, this.month, new Date().getDay())
+    leapYear (year) {
+      let isLeap = ((year % 4 == 0 && year % 100 !== 0 ) || year % 400 === 0)
+      return isLeap ? 29 : 28
+    },
+    daysInMonth(iMonth, iYear) {
+
+      return 32 - new Date(iYear, iMonth, 32).getDate();
+    },
+    formatDate (d) {
+      let day = d.getDate()
+      
+      if (day < 10) {
+        day = '0' + day
+      }
+      let month = d.getMonth() + 1
+      if (month < 10) {
+        month = '0' + month
+      }
+      let year = d.getFullYear()
+      this.$emit('datepicked', day + ' / ' + month + ' / ' + year)
+      return day + ' / ' + month + ' / ' + year
     }
   }
 }
 </script>
+
 <style lang="sass" scoped>
-@import "../../styles/_scrollbar.sass"
-@include scrollbar('#year', 2px)
-.datepicker
-  display: flex
-  flex-direction: column
-  justify-content: center
-.container-code-datapicker
-  display: flex
-  flex-direction: column
-  align-items: center
-  background-color: #368c8c
-  border: 1px solid rgba(0, 0, 0, 0)
-.date-time
-  background-color: rgba(0, 0, 0, 0)
-  color: white
+.calendar
+  position: relative
   width: 100%
-  margin-bottom: 10px
-.month
-  display: flex
-  flex-direction: row
-  justify-content: center
-  align-items: center
-  width: 100% 
-.list-year
-  text-align: center
-  margin: 4px 0
+  max-width: 320px
   cursor: pointer
-  background-color: #368c8c
-  color: white
-  font-weight: 700
-  font-size: 1.1rem
-  border: none
-  outline: none
-  padding: 0 10px
-h1
-  width: 70%
-  text-align: center
-  margin: 5px 0px
-table
-  border-collapse: collapse
-  background-color: white
-  table-layout: fixed
-  width: 300px
-  height: 280px
-  padding-top: 10px
-th
-  font-size: 1.0rem
-  color: rgba(0, 0, 0, 0.6)
-th
-  text-align: center
-  padding-top: 10px
-td
-  text-align: center
-  color: rgba(0, 0, 0, 0.8)
-  cursor: pointer
-  border-radius: 100%
-td:hover
-  font-weight: 600
-  background-color: #368c8c2f
-td:active
-  background-color: #368c8c9f
-tr
-  font-size: 0.9rem
-i
-  cursor: pointer
-.smooth-date-w
-  color: gray
-.smooth-date-p
-  color: lightgray
-.disable-select
   user-select: none
-  -webkit-user-select: none
-  -khtml-user-select: none
-  -moz-user-select: none
-  -moz-user-select: none
-.year
+.calendar .calendar__selected-date
+  width: 100%
+  height: 100%
   display: flex
-  flex-direction: row
   justify-content: center
   align-items: center
-.decr-year
-  margin-left: 5px 
-.clicked-td
-  background-color: #368c8c9f
-  color: white
+  color: #313131
+.calendar__dates
+  position: absolute
+  left: 0
+  right: 0
+  background-color: #FFF
+  width: 320px
+  z-index: 999
+.calendar__dates--hidden
+  display: none  
+.calendar__dates--show
+  display: block
+.calendar__dates__days__day.calendar__dates__days__day--unselectable
+  color: rgba(0,0,0,0.3)
+  cursor: not-allowed
+.calendar__dates__month
+  display: flex
+  justify-content: space-between
+  align-items: center
+  border-bottom: 2px solid #EEE
+.calendar__dates__month__arrows
+  width: 35px
+  height: 35px
+  display: flex
+  justify-content: center
+  align-items: center
+  color: #313131
+  font-size: 20px
+.calendar__dates__month__arrows:hover
+  background-color: #F3F3F3
+.calendar__dates__month__arrows:active
+  background-color: #00CA85
+.calendar__dates__days
+  display: grid
+  grid-template-columns: repeat(7, 1fr)
+  height: 200px
+.calendar__dates__week
+  display: grid
+  grid-template-columns: repeat(7, 1fr)
+  justify-items: center
+  align-content: center
+  height: 30px
+.calendar__dates__days__day
+  display: flex
+  justify-content: center
+  align-items: center
+  color: #313131
+.calendar__dates__days__day--selected
+  background-color: #00CA85
 </style>

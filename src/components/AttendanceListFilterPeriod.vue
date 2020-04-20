@@ -1,33 +1,17 @@
 <template>
-  <div class="period">
-    <code-date-picker
-      :width="9"
-      :height="7"
-      :hasIcon="false"
-      name="begin"
-      :normalModal="false"
-      @choosed="pickBegin"
-      
-    ></code-date-picker>
-    ate
-    <code-date-picker
-      :width="9"
-      :height="7"
-      :hasIcon="false"
-      name="end"
-      :begin="begin"
-      :normalModal="false"
-      @choosed="pickEnd"
-    ></code-date-picker>
+  <div class="calendars">
+    <code-calendar noBorderRight name="begin"/>
+    <span class="gap">até</span>
+    <code-calendar name="end" noBorderLeft/>
   </div>
 </template>
 
 <script>
-import CodeDatePicker from './base/CodeDataPicker'
+import CodeCalendar from './base/CodeCalendar'
 export default {
   name: 'AttendanceListFilterPeriod',
   components: {
-    CodeDatePicker
+    CodeCalendar
   },
   data () {
     return {
@@ -49,5 +33,14 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-
+.calendars
+  display: flex
+  flex-direction: row
+.gap
+  background-color: white
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  height: 38px
 </style>

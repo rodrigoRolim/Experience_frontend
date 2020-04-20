@@ -101,11 +101,7 @@ export default {
         })
     },
     drawBorder (width, height) {
-      
-      //let topRightCorner = [domRect.x + domRect.width, domRect.y]
-      //let bottomLeftCorner = [domRect.x, domRect.y + domRect.height]
-      //let bottomRightCorner = [domRect.x + domRect.width, domRect.y + domRect.height]
-      //this.index++
+   
       if (this.index == height) {
         this.direction = false
       }

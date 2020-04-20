@@ -2,10 +2,14 @@
 <div class="container-code-inp">
   <slot name="label"></slot>
   <div class="input">
-    <i v-if="hasIcon" :style="{padding: getSizeIcon}" :class="{'no-border': noBorder}"><slot name="icon"></slot></i>
+    <i v-if="icon" :style="{padding: getSizeIcon}" :class="{'no-border-right': noBorderRight}">
+      <font-awesome-icon :icon="icon" :style="{ color: Icolor }"/>
+    </i>
     <input 
       v-bind="$attrs"
-      :class="{ 'input-icon': hasIcon, 'input-no-icon': !hasIcon, 'no-border': noBorder }" 
+      :class="{ 'input-icon': icon, 'input-no-icon': !icon, 
+        'no-border-right': noBorderRight,
+        'no-border-left': noBorderLeft }" 
       :type="type" 
       :name="name"
       :id="name"
@@ -29,11 +33,8 @@ export default {
   props: {
     label: String,
     placeholder: String,
-    hasIcon: {
-      type: Boolean,
-      required: true,
-      default: false
-    },
+    icon: String,
+    Icolor: String,
     name: {
       type: String,
       required: true
@@ -50,9 +51,11 @@ export default {
       type: Number,
       default: 7
     },
-    noBorder: {
-      type: Boolean,
-      default: false
+    noBorderRight: {
+      type: Boolean
+    },
+    noBorderLeft: {
+      type: Boolean
     },
     size: {
       type: String,
@@ -121,8 +124,12 @@ input
   flex-direction: row
   width: 100%
   margin: 3px 0
-.no-border
-  border-radius: 0
+.no-border-right
+  border-top-right-radius: 0
+  border-bottom-right-radius: 0
+.no-border-left
+  border-top-left-radius: 0
+  border-bottom-left-radius: 0
 i
   border: 1px solid lightgray
   border-right: none
