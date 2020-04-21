@@ -1,7 +1,7 @@
 <template>
   <div class="container-drop" :style="{ backgroundColor: bcolor }">
     <div class="drop-down-up" v-if="dropdown">
-      <button @click="dropAnimation">
+      <button @click="show = !show">
         <i>
           <transition name="fade" mode="out-in">
             <font-awesome-icon icon="caret-down" size="lg" v-if="!show" key="down"/>
@@ -10,7 +10,9 @@
         </i>{{text}}
       </button>
     </div>
-    <div class="body-drop-down-up" ref="dropdown" >
+    <div class="body-drop-down-up"
+      :class="{'drop-down-an': show && dropdown, 'drop-up-an': !show && dropdown}"
+      >
       <div class="content">
         <slot name="content"></slot>
       </div>
@@ -34,62 +36,11 @@ export default {
       show: false
     }
   },
-  mounted () {
-    window.addEventListener('resize', this.resizeEvent)
-  },
-  beforeDestroy () {
-    window.removeEventListener('resize', this.resizeEvent)
+  created () {
   },
   methods: {
-    resizeEvent () {
-      let dropdown_element = this.$refs.dropdown
-      let break_condition = window.innerWidth > 768 ? 12 : 60
-      dropdown_element.style.height = break_condition + 'vh'
-      this.show = true
-    },
-    dropAnimation () {
-
+    toggleVisibility () {
       this.show = !this.show
-
-      if (this.show) {
-        this.dropdownAnimation()
-      } else {
-
-        this.dropupAnimation()
-      }
-    },
-    dropdownAnimation () {
-      this.$refs.dropdown.style.overflow = 'hidden'
-      let dropdown_element = this.$refs.dropdown
-      let height = 0
-      let id = setInterval(frame, 2)
-      let maxHeight = window.innerWidth > 768 && window.innerWidth < 1024 ? 12 : 60
-      function frame () {
-        if (height ==  maxHeight){
-          clearInterval(id)
-          console.log('oii')
-          dropdown_element.style.overflow = 'visible'
-        } else {
-          height += 6
-          dropdown_element.style.height = height + 'vh'
-        }
-      }
-    },
-    dropupAnimation () {
-
-      this.$refs.dropdown.style.overflow = 'hidden'
-      let dropdown_element = this.$refs.dropdown
-      let height = window.innerWidth > 768 && window.innerWidth < 1024 ? 12 : 60
-      console.log(height)
-      let id = setInterval(frame, 2)
-      function frame () {
-        if (height == 0) {
-          clearInterval(id)
-        } else {
-          height -= 6
-          dropdown_element.style.height = height + 'vh'
-        }
-      }
     },
     filter () {
       this.show = !this.show
@@ -138,13 +89,11 @@ button i
   margin-right: 10px
 .body-drop-down-up
   display: flex
-  height: 60vh
   flex-direction: row
   justify-content: space-between
   width: 100%
-  @include respond-to(medium-screens) 
-    height: 0
-    overflow: hidden
+  @include respond-to(wide-screens)
+    max-height: 200px
   @include respond-to(handhelds)
     flex-direction: column
 .fade-enter-active, .fade-leave-active

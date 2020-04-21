@@ -1,8 +1,8 @@
 <template>
   <div class="calendars">
-    <code-calendar noBorderRight name="begin"/>
+    <code-calendar @datepicked="getBegin" noBorderRight name="begin" :end="end"/>
     <span class="gap">até</span>
-    <code-calendar name="end" noBorderLeft/>
+    <code-calendar @datepicked="getEnd" name="end" noBorderLeft :begin="begin"/>
   </div>
 </template>
 
@@ -20,14 +20,15 @@ export default {
     }
   },
   methods: {
-    pickBegin (value) {
-
-      this.begin = value
+    getBegin (value) {
+      this.begin = this.formatterDate(value)
     },
-    pickEnd (value) {
-      
-      this.end = value
-    }
+    getEnd (value) {
+      this.end = this.formatterDate(value)
+    },
+    formatterDate (date) {
+      return date.split("/").reverse().join("").trim().replace(/\s/g, '-')
+    },
   }
 }
 </script>
@@ -42,5 +43,8 @@ export default {
   flex-direction: column
   justify-content: center
   align-items: center
-  height: 38px
+  background-color: rgba(0,0,0,0.3)
+  color: white
+  font-size: 14px
+  padding: 0 3px
 </style>

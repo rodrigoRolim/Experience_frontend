@@ -123,7 +123,6 @@ input
   display: flex
   flex-direction: row
   width: 100%
-  margin: 3px 0
 .no-border-right
   border-top-right-radius: 0
   border-bottom-right-radius: 0

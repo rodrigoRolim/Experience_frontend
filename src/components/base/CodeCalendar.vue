@@ -13,6 +13,8 @@
         :width="8"
         :height="7"
         v-model="selectedDate"
+        :noBorderRight="noBorderRight"
+        :noBorderLeft="noBorderLeft"
       > 
       </code-input>
     </div>
@@ -63,7 +65,9 @@ export default {
       type: String, 
       default: '00-00-0000'  
     },
-    id: String
+    id: String,
+    noBorderRight: Boolean,
+    noBorderLeft: Boolean
   },
   data () {
     return {
@@ -115,8 +119,7 @@ export default {
         let date = new Date(this.year + '-' + '0' + (this.month + 1) + '-' + day)
         let begin = new Date(this.begin).getTime()
         let end = new Date(this.end).getTime()
-        console.log(begin)
-        console.log(end)
+      
         return begin > date.getTime() || end < date.getTime()
       }
       
@@ -156,7 +159,7 @@ export default {
       
       
       if (!this.checkEventPathForClass(e.path, 'calendar__dates')) {
-        console.log(e)
+     
         this.showDate = !this.showDate
         
       }
@@ -195,7 +198,7 @@ export default {
       let i = 0
       let j = 0
       let first_day = (new Date(this.year, this.month)).getDay()
-      console.log(this.weekDay)
+      
       while (i < amount_days) {
         
         if (j == first_day) {
