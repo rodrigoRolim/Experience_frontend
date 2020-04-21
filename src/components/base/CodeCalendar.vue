@@ -245,6 +245,8 @@ export default {
 
 <style lang="sass" scoped>
 .calendar
+  @include respond-to(handhelds)
+    position: static
   position: relative
   width: 100%
   cursor: pointer

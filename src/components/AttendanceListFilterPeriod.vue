@@ -37,7 +37,8 @@ export default {
 .calendars
   display: flex
   flex-direction: row
-
+  @include respond-to(handhelds)
+    position: relative
 .gap
   background-color: white
   display: flex

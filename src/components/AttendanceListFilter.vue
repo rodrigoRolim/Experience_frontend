@@ -1,6 +1,16 @@
 <template>
   <code-drop-down text="Filtrar Atendimento" dropdown>
     <template v-slot:content >
+      <div class="input__period">
+        <code-label
+          label="Período"
+          color="white"
+          :fontWeight="400"
+          fontSize="0.9rem"
+          fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
+        ></code-label>
+        <attendance-list-filter-period />
+      </div>
       <div class="input-health-center">
         <code-label
           label="Posto"
@@ -62,16 +72,7 @@
           :hasIcon="false"
         ></code-select>
       </div>
-      <div class="input__period">
-        <code-label
-          label="Período"
-          color="white"
-          :fontWeight="400"
-          fontSize="0.9rem"
-          fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
-        ></code-label>
-        <attendance-list-filter-period />
-      </div>
+     
       <div class="button-filter">
         <code-button
           padding="10px 0"
