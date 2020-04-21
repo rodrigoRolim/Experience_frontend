@@ -67,6 +67,8 @@ export default {
   justify-content: space-between
   width: 100%
   padding: 12px 10px
+  @include respond-to(medium-screens)
+    flex-wrap: wrap
   @include respond-to(handhelds)
     flex-direction: column
 .drop-down-up

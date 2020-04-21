@@ -247,7 +247,6 @@ export default {
 .calendar
   position: relative
   width: 100%
-  max-width: 320px
   cursor: pointer
   user-select: none
 .calendar .calendar__selected-date
@@ -262,6 +261,8 @@ export default {
   left: 0
   right: 0
   background-color: #FFF
+  @include respond-to(handhelds)
+    width: 100%
   width: 320px
   z-index: 999
 .calendar__dates--hidden

@@ -16,16 +16,7 @@
           :hasIcon="false"
         ></code-select>
       </div>
-      <div class="input__period">
-        <code-label
-          label="Período"
-          color="white"
-          :fontWeight="400"
-          fontSize="0.9rem"
-          fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
-        ></code-label>
-        <attendance-list-filter-period />
-      </div>
+     
       <div class="input-accomodation">
         <code-label
           label="Acomodação"
@@ -71,6 +62,16 @@
           :hasIcon="false"
         ></code-select>
       </div>
+      <div class="input__period">
+        <code-label
+          label="Período"
+          color="white"
+          :fontWeight="400"
+          fontSize="0.9rem"
+          fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
+        ></code-label>
+        <attendance-list-filter-period />
+      </div>
       <div class="button-filter">
         <code-button
           padding="10px 0"
@@ -85,6 +86,7 @@
           </template>
         </code-button>
       </div>
+       
     </template>
   </code-drop-down>
 </template>
@@ -127,18 +129,28 @@ export default {
 .input-accomodation,
 .input-situation,
 .input-health-center-realizer
-  width: 15%
+  width: 16%
+  @include respond-to(medium-screens)
+    width: 24%
   @include respond-to(handhelds)
     margin: 3px 0
     width: 100%
 .button-filter
   width: 9%
   align-self: flex-end
+  @include respond-to(medium-screens)
+    width: 100%
+    margin-top: 30px
   @include respond-to(handhelds)
     width: 100%
     margin-top: 40px
 .input__period
-  width: 320px
+  width: 25%
+  @include respond-to(medium-screens)
+    width: 100%
+    margin-top: 20px
+  @include respond-to(handhelds)
+    width: 100%
   display: flex
   flex-direction: column
 </style>

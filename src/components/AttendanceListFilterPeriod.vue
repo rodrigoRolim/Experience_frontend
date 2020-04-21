@@ -37,6 +37,7 @@ export default {
 .calendars
   display: flex
   flex-direction: row
+
 .gap
   background-color: white
   display: flex
