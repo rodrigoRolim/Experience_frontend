@@ -1,5 +1,6 @@
 import VueRouter from 'vue-router'
 import Teste from '../components/teste.vue'
+import HealthCenterHome from '../views/HealthCenterHome'
 //import CodeButton from '../components/base/CodeButton.vue'
 
 const router = new VueRouter({
@@ -8,6 +9,10 @@ const router = new VueRouter({
     {
       path: '',
       component: Teste
+    },
+    {
+      path: '/posto-home',
+      component: HealthCenterHome
     }
   ]
 })

@@ -6,7 +6,7 @@
     <div class="calendar__selected-date" ref="selected_date" @click="showDateToggle">
       <code-input
         label="number"
-        placeholder="clique e escolha uma data"
+        :placeholder="placeholder"
         :icon="icon"
         name="number"
         type="text"
@@ -15,6 +15,7 @@
         v-model="selectedDate"
         :noBorderRight="noBorderRight"
         :noBorderLeft="noBorderLeft"
+        v-date
       > 
       </code-input>
     </div>
@@ -55,6 +56,7 @@ export default {
     CodeInput
   },
   props: {
+    placeholder: String,
     name: String,
     icon: String,
     begin: {
@@ -84,8 +86,8 @@ export default {
       selectedWeekDay: null,
       currentMonth: null,
       months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 
-                'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 
-                'Novembro', 'Dezembro'],
+               'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 
+               'Novembro', 'Dezembro'],
       dayWeeks: ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sab'],
       days: []
     }
@@ -112,7 +114,63 @@ export default {
     this.populateDates()
     this.togglePositionCalendar()
   },
+  directives: {
+    date: {
+      inserted: (el, _, vnode) => {
+        console.log(el)
+        el.addEventListener('input', function (e) {
+          var input = e.target.value
+          if (/\D\/$/.test(input)) { 
+
+            input = input.substr(0, input.lenght - 3)
+          }
+          var values = input.split('/').map(function(v) {
+            return v.replace(/\D/g, '')
+          });
+          if (values[0]) values[0] = vnode.context.checkValue(values[0], 31)
+          if (values[1]) values[1] = vnode.context.checkValue(values[1], 12)
+          var output = values.map(function (v, i) {
+            return v.length == 2 && i < 2 ? v + ' / ' : v
+          })
+          e.target.value = output.join('').substr(0, 14)
+        })
+        el.addEventListener('blur', function (e) {
+          console.log('blur')
+          var input = e.target.value
+          var values = input.split('/').map(function (v) {
+            return v.replace(/\D/g, '')
+          })
+          var output = ''
+          console.log(values)
+          if (values.length == 3) {
+            console.log(values[2].length)
+            var year = values[2].length !== 4 ? parseInt(values[2]) + 2000 : parseInt(values[2])
+            var month = parseInt(values[1]) - 1
+            var day = parseInt(values[0])
+            var d = new Date(year, month, day)
+            if (!isNaN(d)) {
+              var dates = [d.getDate(),d.getMonth() + 1, d.getFullYear()]
+              output = dates.map(function (v) {
+                v = v.toString()
+                return v.lenght == 1 ? '0' + v : v
+              }).join(' / ')
+
+            }
+          }
+          e.target.value = output
+        })
+      }
+    }
+  },
   methods: {
+    checkValue(str, max) {
+      if (str.charAt(0) !== '0' || str == '00') {
+        var num = parseInt(str);
+        if (isNaN(num) || num <= 0 || num > max) num = 1;
+        str = num > parseInt(max.toString().charAt(0)) && num.toString().length == 1 ? '0' + num : num.toString();
+      }
+      return str;
+    },
     unselectableDates (day) {
       if (day) {
 

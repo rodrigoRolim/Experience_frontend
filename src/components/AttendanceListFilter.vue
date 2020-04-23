@@ -149,7 +149,7 @@ export default {
   width: 25%
   @include respond-to(medium-screens)
     width: 100%
-    margin-top: 20px
+    margin: 10px 0
   @include respond-to(handhelds)
     width: 100%
   display: flex

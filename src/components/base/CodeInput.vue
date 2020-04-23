@@ -17,8 +17,9 @@
       :placeholder="placeholder"
       :style="{ padding: getSizeInput, fontSize: size, fontWeight: weight, color: color, cursor: cursor }"
       @focus="focus"
-      @blur="blur"
+      
       @keydown="keydown"
+      pattern="^[0-9]"
       />
   </div>
 </div>
@@ -72,17 +73,6 @@ export default {
     },
     value: {
       type: String
-    }
-  },
-  directives: {
-    date: {
-      inserted (el) {
-        el.addEventListener('keypress', function (e) {
-          if ((e.keyCode > 57 || e.keyCode < 48) && e.keyCode !== 8) {
-            e.preventDefault()
-          }
-        })
-      }
     }
   },
   computed: {

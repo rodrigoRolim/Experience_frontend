@@ -1,8 +1,18 @@
 <template>
   <div class="calendars">
-    <code-calendar @datepicked="getBegin" noBorderRight name="begin" :end="end"/>
+    <code-calendar 
+      @datepicked="getBegin" 
+      noBorderRight name="begin" 
+      :end="end"
+      placeholder="data início"
+    />
     <span class="gap">até</span>
-    <code-calendar @datepicked="getEnd" name="end" noBorderLeft :begin="begin"/>
+    <code-calendar 
+      @datepicked="getEnd" 
+      name="end" noBorderLeft 
+      :begin="begin"
+      placeholder="data fim"  
+    />
   </div>
 </template>
 
