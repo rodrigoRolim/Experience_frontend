@@ -3,10 +3,11 @@
    v-bind:style="getStyle"
    @click="click"
    class="button"
-   :class="[{ 'button--rounded': round }, 'button--'+size]"
+   :class="[{ 'button--rounded': round, 'button--borded': borded }, 
+   'button--'+size, 'button--'+color]"
    >
     <i v-if="nameIcon"><font-awesome-icon :icon="nameIcon" :size="sizeIcon"/></i>
-    <span v-if="!round">{{text}}</span>
+    <span v-if="!rounded">{{text}}</span>
    </button>
 </template>
 <script>
@@ -14,11 +15,13 @@ export default {
   name: 'CodeButton',
   props: {
     color: {
-      type: String
+      type: String,
+      default: 'primary',
+      validator: function (value) {
+        return ['primary', 'success', 'warning', 
+                'danger', 'info', 'dark', 'brand', 'light'].indexOf(value) !== -1
+      }
     },
-    bcolor: {
-      type: String
-    }, 
     text: {
       type: String
     },
@@ -46,7 +49,8 @@ export default {
         return ['none', 'capitalize', 'uppercase', 'lowercase'].indexOf(value) !== -1
       }
     },
-    round: Boolean
+    rounded: Boolean,
+    borded: Boolean
   },
   data () {
     return {
@@ -75,19 +79,25 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-i
-  margin-right: 10px
+
 .button
-  width: 100%
-  line-height: 1.42857143
-  border-radius: 3px
   border: 1px solid transparent
-  text-transform: capitalize
+  color: white
   font-weight: 500
+  line-height: 1.42857143
+  outline: none
+.button i
+  margin-right: 10px
 .button:active
   opacity: 0.5
+.button--borded
+  border-radius: 3px
 .button--sm
-  padding: 9px 5px
+  padding: 8px 9px
+.button--md
+  padding: 10px 12px
+.button--lg
+  padding: 12px 15px
 .button--rounded
   border-radius: 100%
   padding: 5px
@@ -96,4 +106,7 @@ i
 .button--rounded i
   margin: 0
   padding: 0
+.button--primary
+  background-color: #005b8f
+
 </style>
