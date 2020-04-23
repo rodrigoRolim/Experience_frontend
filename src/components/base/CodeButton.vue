@@ -3,8 +3,12 @@
    v-bind:style="getStyle"
    @click="click"
    class="button"
-   :class="[{ 'button--rounded': round, 'button--borded': borded }, 
-   'button--'+size, 'button--'+color]"
+   :class="[{ 'button--rounded': round, 
+              'button--borded': borded, 
+              'button--bold': bolded, 
+              'button--shading': shading,
+              'button--streched': streched }, 
+   'button--'+size, 'button--'+color, 'button--'+letters]"
    >
     <i v-if="nameIcon"><font-awesome-icon :icon="nameIcon" :size="sizeIcon"/></i>
     <span v-if="!rounded">{{text}}</span>
@@ -42,15 +46,18 @@ export default {
         return /[0-9]x$/.test(value) || ['xs', 'sm', 'lg'].indexOf(value) !== -1
       }
     },
-    case: { 
+    letters: { 
       type: String,
       default: 'none',
       validator: function (value) {
         return ['none', 'capitalize', 'uppercase', 'lowercase'].indexOf(value) !== -1
       }
     },
+    shading: Boolean,
+    bolded: Boolean,
     rounded: Boolean,
-    borded: Boolean
+    borded: Boolean,
+    streched: Boolean
   },
   data () {
     return {
@@ -58,6 +65,11 @@ export default {
   },
   created () {
     
+  },
+  filters: {
+    button (value) {
+      return 'button--'+value
+    }
   },
   computed: {
     getStyle: (vm) => {
@@ -79,13 +91,15 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-
+@import '../../styles/_colors.sass'
 .button
   border: 1px solid transparent
   color: white
   font-weight: 500
   line-height: 1.42857143
   outline: none
+.button--streched
+  width: 100%
 .button i
   margin-right: 10px
 .button:active
@@ -103,10 +117,33 @@ export default {
   padding: 5px
   width: 30px
   height: 30px
+.button--shading
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5)
+.button--bold
+  font-weight: 700
 .button--rounded i
   margin: 0
   padding: 0
 .button--primary
-  background-color: #005b8f
-
+  background-color: $primary
+.button--success
+  background-color: $success
+.button--warning
+  background-color: $warning
+.button--danger
+  background-color: $danger
+.button--info
+  background-color: $info
+.button--dark
+  background-color: $dark
+.button--brand
+  background-color: $brand
+.button--light
+  background-color: $light
+.button--uppercase
+  text-transform: uppercase
+.button--lowercase
+  text-transform: lowercase
+.button-capitalize
+  text-transform: capitalize
 </style>
