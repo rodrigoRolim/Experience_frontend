@@ -2,9 +2,11 @@
   <button 
    v-bind:style="getStyle"
    @click="click"
-   :class="{ 'rounded': round }"
+   class="button"
+   :class="[{ 'button--rounded': round }, 'button--'+size]"
    >
-    <i v-if="icon"><font-awesome-icon :icon="icon" :size="sizeIcon"/></i><span v-if="!round">{{text}}</span>
+    <i v-if="nameIcon"><font-awesome-icon :icon="nameIcon" :size="sizeIcon"/></i>
+    <span v-if="!round">{{text}}</span>
    </button>
 </template>
 <script>
@@ -20,16 +22,31 @@ export default {
     text: {
       type: String
     },
-    padding: {
+    size: {
+      type: String,
+      default: 'md',
+      validator: function (value) {
+        return ['sm', 'md', 'lg'].indexOf(value) !== -1
+      }
+    },
+    nameIcon: {
       type: String
     },
-    icon: {
-      type: String
+    sizeIcon: {
+      type: String,
+      default: '1x',
+      validator: function (value) {
+        return /[0-9]x$/.test(value) || ['xs', 'sm', 'lg'].indexOf(value) !== -1
+      }
     },
-    fontWeight: Number,
-    round: Boolean,
-    radius: String,
-    sizeIcon: String
+    case: { 
+      type: String,
+      default: 'none',
+      validator: function (value) {
+        return ['none', 'capitalize', 'uppercase', 'lowercase'].indexOf(value) !== -1
+      }
+    },
+    round: Boolean
   },
   data () {
     return {
@@ -60,27 +77,23 @@ export default {
 <style lang="sass" scoped>
 i
   margin-right: 10px
-button
+.button
   width: 100%
-  color: green
-  @include respond-to(wide-screens)
-    line-height: 1.42857143
-    font-size: 1.0rem
-  @include respond-to(medium-screens) 
-    font-size: 1.0rem
-  @include respond-to(handhelds)
-    font-size: 1.0rem
+  line-height: 1.42857143
   border-radius: 3px
   border: 1px solid transparent
-  letter-spacing: 0.2px
   text-transform: capitalize
   font-weight: 500
-button:active
+.button:active
   opacity: 0.5
-.rounded
+.button--sm
+  padding: 9px 5px
+.button--rounded
   border-radius: 100%
   padding: 5px
-.rounded i
+  width: 30px
+  height: 30px
+.button--rounded i
   margin: 0
   padding: 0
 </style>
