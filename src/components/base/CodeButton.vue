@@ -1,9 +1,11 @@
 <template>
-  <button 
-   v-bind:style="getStyle"
+  <button
    @click="click"
    class="button"
-   :class="[{ 'button--rounded': round, 
+   :class="[{ 'button--rounded': rounded,
+              'button--rounded--sm': rounded && size == 'sm',
+              'button--rounded-md': rounded && size == 'md',
+              'button--rounded-lg': rounded && size == 'lg', 
               'button--borded': borded, 
               'button--bold': bolded, 
               'button--shading': shading,
@@ -22,10 +24,11 @@ export default {
       type: String,
       default: 'primary',
       validator: function (value) {
-        return ['primary', 'success', 'warning', 
+        return ['theme','primary', 'success', 'warning', 
                 'danger', 'info', 'dark', 'brand', 'light'].indexOf(value) !== -1
       }
     },
+    pureColor: String,
     text: {
       type: String
     },
@@ -72,14 +75,9 @@ export default {
     }
   },
   computed: {
-    getStyle: (vm) => {
+    getStyle: () => {
       return { 
-        color: vm.color, 
-        backgroundColor: vm.bcolor,
-        padding: vm.padding,
-        fontWeight: vm.fontWeight,
-        height: vm.radius,
-        width: vm.radius
+       
       }
     }
   },
@@ -91,19 +89,22 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-@import '../../styles/_colors.sass'
+
 .button
   border: 1px solid transparent
   color: white
   font-weight: 500
   line-height: 1.42857143
   outline: none
+  cursor: pointer
+.button:hover
+  opacity: 0.9
 .button--streched
   width: 100%
 .button i
-  margin-right: 10px
+  margin-right: 8px
 .button:active
-  opacity: 0.5
+  opacity: 0.7
 .button--borded
   border-radius: 3px
 .button--sm
@@ -115,8 +116,15 @@ export default {
 .button--rounded
   border-radius: 100%
   padding: 5px
+.button--roudend--sm
   width: 30px
   height: 30px
+.button--rounded-md
+  width: 40px
+  height: 40px
+.button--rounded-lg
+  width: 50px
+  height: 50px
 .button--shading
   box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5)
 .button--bold
@@ -124,6 +132,8 @@ export default {
 .button--rounded i
   margin: 0
   padding: 0
+.button--theme
+  background-color: $theme
 .button--primary
   background-color: $primary
 .button--success
@@ -140,6 +150,7 @@ export default {
   background-color: $brand
 .button--light
   background-color: $light
+  color: dimgray
 .button--uppercase
   text-transform: uppercase
 .button--lowercase

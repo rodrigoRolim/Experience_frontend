@@ -46,12 +46,9 @@
           :width="9"
           :height="7"
           :weight="500"
+          icon="stethoscope"
           color="#333"
-        >
-          <template v-slot:icon>
-            <font-awesome-icon icon="stethoscope" :style="{ color: '#676a6c' }"></font-awesome-icon>
-          </template>
-        </code-input>
+        />
       </div>
       <div class="login-d-password">
         <code-label
@@ -73,11 +70,8 @@
           :height="7"
           :weight="500"
           color="#333"
-        >
-          <template v-slot:icon>
-            <font-awesome-icon icon="lock" :style="{ color: '#676a6c' }"></font-awesome-icon>
-          </template>
-        </code-input>
+          icon="lock"
+        />
       </div>
       <div class="login-d-doubt">
        
@@ -91,11 +85,15 @@
       </div>
       <div class="login-d-buttons">
         <code-button
-          padding="6px 0"
           text="acessar"
-          bcolor="#34b583"
-          color="white"
-    
+          borded
+          bolded
+          letters="uppercase"
+          color="theme"
+          size="md"
+          shading
+          streched
+          size-icon="lg"
         ></code-button>
       </div>  
     </form>

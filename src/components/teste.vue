@@ -6,7 +6,7 @@
       <code-button
         class="btn-1"
         padding="9px 0"
-        text="gerar pdf"
+        text="small"
         @click="submit"
         name-icon="question-circle"
         borded
@@ -20,7 +20,7 @@
       <code-button
         class="btn-1"
         padding="9px 0"
-        text="gerar pdf"
+        text="medium"
         @click="submit"
         name-icon="question-circle"
         borded
@@ -34,7 +34,7 @@
        <code-button
         class="btn-1"
         padding="9px 0"
-        text="gerar pdf"
+        text="large"
         @click="submit"
         name-icon="question-circle"
         borded
@@ -43,6 +43,101 @@
         size="lg"
         shading
         bolded
+        size-icon="lg"
+      />
+      <code-button
+        class="btn-1"
+        
+        text="info"
+        @click="submit"
+        name-icon="question-circle"
+        borded
+        bolded
+        letters="uppercase"
+        color="info"
+        size="md"
+        shading
+        size-icon="lg"
+      />
+      <code-button
+        class="btn-1"
+        text="dark"
+        @click="submit"
+        name-icon="question-circle"
+        borded
+        bolded
+        letters="uppercase"
+        color="dark"
+        size="md"
+        shading
+        size-icon="lg"
+      />
+      <code-button
+        class="btn-1"
+        text="brand"
+        @click="submit"
+        name-icon="question-circle"
+        borded
+        bolded
+        letters="uppercase"
+        color="brand"
+        size="md"
+        shading
+        size-icon="lg"
+      />
+      <code-button
+        class="btn-1"
+        text="light"
+        @click="submit"
+        name-icon="question-circle"
+        borded
+        bolded
+        letters="uppercase"
+        color="light"
+        size="md"
+        shading
+        size-icon="lg"
+      />
+      <code-button
+        class="btn-1"
+        text="rounded"
+        @click="submit"
+        name-icon="question-circle"
+        borded
+        bolded
+        letters="uppercase"
+        color="danger"
+        size="sm"
+        shading
+        rounded
+        size-icon="lg"
+      />
+        <code-button
+        class="btn-1"
+        text="rounded"
+        @click="submit"
+        name-icon="question-circle"
+        borded
+        bolded
+        letters="uppercase"
+        color="success"
+        size="md"
+        shading
+        rounded
+        size-icon="lg"
+      />
+        <code-button
+        class="btn-1"
+        text="rounded"
+        @click="submit"
+        name-icon="question-circle"
+        borded
+        bolded
+        letters="uppercase"
+        color="dark"
+        size="lg"
+        shading
+        rounded
         size-icon="lg"
       />
     </div>

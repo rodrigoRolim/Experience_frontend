@@ -18,11 +18,13 @@
       </div>
       <div class="dropdown__button">
         <code-button
-          padding="10px 0"
           text="Localizar"
           bcolor="white"
-          color="gray"
-          :fontWeight="600"
+          color="light"
+          letters="uppercase"
+          bolded
+          size="md"
+          streched
           icon="search"
           @click="teste"
         ></code-button>

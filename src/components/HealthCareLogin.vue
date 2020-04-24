@@ -19,11 +19,8 @@
           :height="7"
           :weight="400"
           color="#333"
-        >
-          <template v-slot:icon>
-            <font-awesome-icon icon="user" :style="{ color: '#676a6c' }"></font-awesome-icon>
-          </template>
-        </code-input>
+          icon="user"
+        /> 
       </div>
       <div class="login-hc-pass">
         <code-label
@@ -42,11 +39,8 @@
           required
           :width="9"
           :height="7"
-        >
-          <template v-slot:icon>
-            <font-awesome-icon icon="lock" :style="{ color: '#676a6c' }"></font-awesome-icon>
-          </template>
-        </code-input>
+          icon="lock"
+        />
       </div>
       <div class="login-hc-healthcares">
         <code-label
@@ -83,10 +77,15 @@
       </div>
       <div class="login-hc-buttons">
         <code-button
-          padding="6px 0"
           text="acessar"
-          bcolor="#34b583"
-          color="white"
+          borded
+          bolded
+          letters="uppercase"
+          color="theme"
+          size="md"
+          shading
+          streched
+          size-icon="lg"
         ></code-button>
       </div>  
     </form>

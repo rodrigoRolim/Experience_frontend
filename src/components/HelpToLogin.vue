@@ -41,10 +41,8 @@
       <code-button
         @click="close"
         class="help_login__buttons__ok"
-        padding="9px 0"
         text="Ok"
-        bcolor="#368c8c"
-        color="white"
+        color="primary"
       />
     </div>
   </div>
