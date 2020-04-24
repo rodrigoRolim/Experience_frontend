@@ -74,14 +74,19 @@
       </div>
      
       <div class="button-filter">
-        <code-button
-          padding="10px 0"
-          text="Filtrar"
-          bcolor="white"
-          color="gray"
-          :fontWeight="600"
-          @click="filter()"
-        >
+       <code-button
+        class="btn-1"
+        text="filtrar"
+        @click="submit"
+        name-icon="filter"
+        borded
+        bolded
+        letters="uppercase"
+        color="light"
+        size="md"
+        streched
+        size-icon="md"
+       >
           <template v-slot:icon>
             <font-awesome-icon icon="filter" size="1x"></font-awesome-icon>
           </template>
@@ -130,14 +135,14 @@ export default {
 .input-accomodation,
 .input-situation,
 .input-health-center-realizer
-  width: 16%
+  width: 15%
   @include respond-to(medium-screens)
     width: 24%
   @include respond-to(handhelds)
     margin: 3px 0
     width: 100%
 .button-filter
-  width: 9%
+  width: 11%
   align-self: flex-end
   @include respond-to(medium-screens)
     width: 100%

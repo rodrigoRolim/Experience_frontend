@@ -6,22 +6,139 @@
       <code-button
         class="btn-1"
         padding="9px 0"
-        text="gerar pdf"
-        bcolor="#ec4758"
-        color="white"
+        text="small"
         @click="submit"
-      >
-        <tamplate v-slot:icon>
-          <font-awesome-icon icon="question-circle" />
-        </tamplate>
-      </code-button>
-      <CodeButton
-        class="btn-2"
+        name-icon="question-circle"
+        borded
+        color="primary"
+        size="sm"
+        size-icon="lg"
+        letters="uppercase"
+        shading
+        bolded
+      />
+      <code-button
+        class="btn-1"
         padding="9px 0"
-        text="Acessar"
-        bcolor="#34b583"
-        color="white"
+        text="medium"
         @click="submit"
+        name-icon="question-circle"
+        borded
+        bolded
+        letters="uppercase"
+        color="success"
+        size="md"
+        shading
+        size-icon="lg"
+      />
+       <code-button
+        class="btn-1"
+        padding="9px 0"
+        text="large"
+        @click="submit"
+        name-icon="question-circle"
+        borded
+        letters="uppercase"
+        color="danger"
+        size="lg"
+        shading
+        bolded
+        size-icon="lg"
+      />
+      <code-button
+        class="btn-1"
+        
+        text="info"
+        @click="submit"
+        name-icon="question-circle"
+        borded
+        bolded
+        letters="uppercase"
+        color="info"
+        size="md"
+        shading
+        size-icon="lg"
+      />
+      <code-button
+        class="btn-1"
+        text="dark"
+        @click="submit"
+        name-icon="question-circle"
+        borded
+        bolded
+        letters="uppercase"
+        color="dark"
+        size="md"
+        shading
+        size-icon="lg"
+      />
+      <code-button
+        class="btn-1"
+        text="brand"
+        @click="submit"
+        name-icon="question-circle"
+        borded
+        bolded
+        letters="uppercase"
+        color="brand"
+        size="md"
+        shading
+        size-icon="lg"
+      />
+      <code-button
+        class="btn-1"
+        text="light"
+        @click="submit"
+        name-icon="question-circle"
+        borded
+        bolded
+        letters="uppercase"
+        color="light"
+        size="md"
+        shading
+        size-icon="lg"
+      />
+      <code-button
+        class="btn-1"
+        text="rounded"
+        @click="submit"
+        name-icon="question-circle"
+        borded
+        bolded
+        letters="uppercase"
+        color="danger"
+        size="sm"
+        shading
+        rounded
+        size-icon="lg"
+      />
+        <code-button
+        class="btn-1"
+        text="rounded"
+        @click="submit"
+        name-icon="question-circle"
+        borded
+        bolded
+        letters="uppercase"
+        color="success"
+        size="md"
+        shading
+        rounded
+        size-icon="lg"
+      />
+        <code-button
+        class="btn-1"
+        text="rounded"
+        @click="submit"
+        name-icon="question-circle"
+        borded
+        bolded
+        letters="uppercase"
+        color="dark"
+        size="lg"
+        shading
+        rounded
+        size-icon="lg"
       />
     </div>
     
@@ -549,10 +666,7 @@ export default {
 .aba
   font-size: 0.8rem
 .button
-  display: flex
-  flex-direction: column
-  background-color: white
-  margin-bottom: 10px
+   margin-bottom: 10px
 .btn-1,
 .btn-2
   margin: 5px 0
@@ -580,6 +694,8 @@ export default {
   justify-content: center
 .btn-3
   width: 20%
+[class*='btn']
+  margin-left: 5px
 .c-list-exams
   display: flex
   flex-flow: row wrap

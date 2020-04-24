@@ -64,7 +64,7 @@ export default {
 select
   border: 1px solid lightgray
   width: 100%
-  background-color: #F5F5F5
+  background-color: white
 select option
   font-size: 1.0rem
 .select-icon

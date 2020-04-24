@@ -20,11 +20,8 @@
           :height="7"
           :weight="500"
           color="#333"
-        >
-          <template v-slot:icon>
-            <font-awesome-icon icon="user" :style="{ color: '#676a6c' }"></font-awesome-icon>
-          </template>
-        </code-input>
+          icon="user"
+        />
       </div>
       <div class="login-pr-pass">
         <code-label
@@ -43,11 +40,8 @@
           required
           :width="9"
           :height="7"
-        >
-          <template v-slot:icon>
-            <font-awesome-icon icon="lock" :style="{ color: '#676a6c' }"></font-awesome-icon>
-          </template>
-        </code-input>
+          icon="lock"
+        />
       </div>
       <div class="ctrl-pr">
         <!-- <small class="keyboard"><i><font-awesome-icon icon="keyboard" size="lg"/></i></small> -->
@@ -61,10 +55,15 @@
       </div>
       <div class="login-pr-buttons">
         <code-button
-          padding="6px 0"
           text="acessar"
-          bcolor="#34b583"
-          color="white"
+          borded
+          bolded
+          letters="uppercase"
+          color="theme"
+          size="md"
+          shading
+          streched
+          size-icon="lg"
         ></code-button>
       </div>  
     </form>

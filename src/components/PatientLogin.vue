@@ -47,11 +47,8 @@
           :height="7"
           :weight="500"
           color="#333"
-        >
-          <template v-slot:icon>
-            <font-awesome-icon icon="user" :style="{ color: '#676a6c' }"></font-awesome-icon>
-          </template>
-        </code-input>
+          icon="user"
+        />
       </div>
       <div class="login-p-birthday" v-if="visibility == 'ID'">
          <code-label
@@ -73,11 +70,8 @@
           :height="7"
           :weight="500"
           color="#333"
-        >
-          <template v-slot:icon>
-            <font-awesome-icon icon="user" :style="{ color: '#676a6c' }"></font-awesome-icon>
-          </template>
-        </code-input>
+          icon="user"
+        />
       </div>
       <div class="login-p-input-att" v-else>
          <code-label
@@ -99,11 +93,8 @@
           :height="7"
           :weight="600"
           color="#333"
-        >
-          <template v-slot:icon>
-            <font-awesome-icon icon="user" :style="{ color: '#676a6c' }"></font-awesome-icon>
-          </template>
-        </code-input>
+          icon="user"
+        />
       </div>
       <div class="login-p-pass">
         <code-label
@@ -123,11 +114,8 @@
           v-model="value"
           :width="9"
           :height="7"
-        >
-          <template v-slot:icon>
-            <font-awesome-icon icon="lock" :style="{ color: '#676a6c' }"></font-awesome-icon>
-          </template>
-        </code-input>
+          icon="lock"
+        />
       </div>
       <div class="doubt-keyboard">
         <small class="keyboard">
@@ -145,10 +133,15 @@
       </div>
       <div class="login-p-buttons">
         <code-button
-          padding="6px 0"
           text="acessar"
-          bcolor="#34b583"
-          color="white"
+          borded
+          bolded
+          letters="uppercase"
+          color="theme"
+          size="md"
+          shading
+          streched
+          size-icon="lg"
         ></code-button>
       </div>
     </form>

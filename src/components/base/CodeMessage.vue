@@ -71,9 +71,9 @@ export default {
   border: 1px solid red
   color: red
 .success
-  background-color: rgba(95, 250, 141, 0.1)
-  border: 1px solid green
-  color: green
+  background-color: #00c50010
+  border: 1px solid #00c500
+  color: #00c500
 .warning
   background-color: rgba(250, 196, 95, 0.1)
   border: 1px solid orange
