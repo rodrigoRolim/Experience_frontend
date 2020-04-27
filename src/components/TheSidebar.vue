@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar">
+  <aside class="sidebar">
     <div class="sidebar__header">
       <strong>Relação de Atendimentos</strong>
     </div>
@@ -21,7 +21,7 @@
         ></code-info>
       </div>
     </div>
-  </div>
+  </aside>
 </template>
 <script>
 import CodeInfo from './base/CodeInfo'

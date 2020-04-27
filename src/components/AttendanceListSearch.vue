@@ -3,25 +3,14 @@
     <code-input
       label="pesquisar paciente"
       placeholder="digite o nome do paciente"
-      :hasIcon="true"
       name="patient"
       type="text"
       required
+      icon="search"
+      color-icon="#368c8c"
       :width="10"
       :height="7"
     >
-      <!-- <template v-slot:label>
-        <code-label
-          label="Pesquisar Paciente"
-          color="#676a6c"
-          :fontWeight="500"
-          fontSize="0.9rem"
-          fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
-        ></code-label>
-      </template> -->
-      <template v-slot:icon>
-        <font-awesome-icon icon="search"></font-awesome-icon>
-      </template>
     </code-input>
   </div>
 </template>

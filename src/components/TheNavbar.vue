@@ -1,12 +1,12 @@
 <template>
-  <div class="navbar">
+  <header class="navbar">
     <div class="navbar__logo">
       logo da empresa
     </div>
     <div class="navbar__profile">
       <user-perfil></user-perfil>
     </div>
-  </div>
+  </header>
 </template>
 <script>
 import UserPerfil from './UserPerfil'
@@ -26,6 +26,9 @@ export default {
   width: 100%
   min-height: 50px
   margin-bottom: 20px
+  -webkit-box-shadow: 0 8px 6px -8px black
+  -moz-box-shadow: 0 8px 6px -8px black
+  box-shadow: 0 8px 6px -8px black
 .navbar__logo
   display: flex
   flex-direction: row

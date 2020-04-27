@@ -81,7 +81,7 @@ export default {
   padding: 10px 0
   position: fixed
   z-index: 999
-  width: 95%
+  width: 100%
   display: flex
   flex-direction: column
   align-items: center

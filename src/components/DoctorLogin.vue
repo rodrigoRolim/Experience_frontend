@@ -2,30 +2,44 @@
   <div class="doctor-login">
     <form class="login-d-form">
       <div class="login-d-cr">
-        <code-label
-          bind="attendance"
-          label="Informações CR"
-          color="#676a6c"
-          :fontWeight="700"
-          fontSize="0.8rem"
-          fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
-        ></code-label>
-        <div class="d-selects">
+        <div class="login-cr">
+          <code-label
+            bind="attendance"
+            label="Tipo CR"
+            color="#676a6c"
+            :fontWeight="700"
+            fontSize="0.8rem"
+            fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
+          ></code-label>
           <code-select
             class="d-cr"
             :options="list"
+            name="attendance"
             option="escolha um doce"
             :width="9"
             :height="7"
             :hasIcon="false"
           ></code-select>
+        </div>
+       <div class="login-uf">
+          <code-label
+            bind="ufConselho"
+            label="UF conselho"
+            color="#676a6c"
+            :fontWeight="700"
+            fontSize="0.8rem"
+            fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
+          ></code-label>
           <code-select
             class="d-uf"
+            name="ufConselho"
             :options="ufs"
             option="escolha um doce"
             :hasIcon="false"
+            :width="9"
+            :height="7"
           ></code-select>
-        </div>
+       </div>
       </div>
       <div class="login-d-ncrm">
         <code-label
@@ -143,7 +157,14 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-
+.login-d-cr
+  display: flex
+  justify-content: space-between
+  width: 100%
+.login-cr
+  width:  48%
+.login-uf
+  width: 48%
 .doctor-login
   background-color: white
 .login-d-form
@@ -158,10 +179,6 @@ export default {
   display: flex
   flex-direction: row
   justify-content: space-between
-.d-cr
-  width: 46%
-.d-uf
-  width: 46%
 .login-d-buttons
   display: flex
   flex-direction: row

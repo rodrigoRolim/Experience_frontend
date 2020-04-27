@@ -6,7 +6,7 @@
     </div>
     
     <ul class="container__list container__list--close">
-      <li class="container__list__item selected">item 1</li>
+      <li class="container__list__item selected" @click="selected('item 1')">item 1</li>
       <li class="container__list__item">item 2</li>
       <li class="container__list__item">item 3</li>
       <li class="container__list__item">item 4</li>
@@ -45,6 +45,11 @@ export default {
         select.classList.replace('container__list--open', 'container__list--close')
       }
     })
+  },
+  methods: {
+    selected (value) {
+      this.value = value
+    }
   }
 }
 </script>

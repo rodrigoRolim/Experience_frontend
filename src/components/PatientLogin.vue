@@ -89,6 +89,7 @@
           type="text"
           required
           v-model="digit"
+          @keyup="sendToKeyboard"
           :width="9"
           :height="7"
           :weight="600"
@@ -98,20 +99,27 @@
       </div>
       <div class="login-p-pass">
         <code-label
-          bind="password"
+          bind="custom-password"
           label="Senha"
           color="#676a6c"
           :fontWeight="700"
           fontSize="0.8rem"
           fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
         ></code-label>
-        <code-input
+       <!--  <code-input
           placeholder="Senha"
           :hasIcon="true"
           name="password"
           type="password"
           required
           v-model="value"
+          :width="9"
+          :height="7"
+          icon="lock"
+        /> -->
+        <code-input-password
+          name="customPassword"
+          id="custom-password"
           :width="9"
           :height="7"
           icon="lock"
@@ -154,7 +162,7 @@ import CodeLabel from './base/CodeLabel'
 import CodeRadio from './base/CodeRadio'
 import CodeTooltip from './base/CodeTooltip'
 import CodeGroupRadios from './base/CodeGroupRadios'
-
+import CodeInputPassword from './base/CodeInputPassword'
 export default {
   name: 'LoginPatient',
   props: {
@@ -166,7 +174,8 @@ export default {
     CodeLabel,
     CodeRadio,
     CodeTooltip,
-    CodeGroupRadios
+    CodeGroupRadios,
+    CodeInputPassword
   },
   data () {
     return {
@@ -177,6 +186,9 @@ export default {
     }
   },
   methods: {
+    sendToKeyboard (value) {
+      this.$emit('input', value)
+    },
     radio (value) {
       this.valueRadio = value
     },

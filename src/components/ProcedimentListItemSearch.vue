@@ -8,7 +8,7 @@
           :width="9"
           :height="7"
           v-model="value"
-          :hasIcon="true"
+          
           placeholder="procedimento"
         >
           <template v-slot:icon>
@@ -23,9 +23,10 @@
           color="light"
           letters="uppercase"
           bolded
-          size="md"
+          size="sm"
           streched
-          icon="search"
+          borded
+          name-icon="search"
           @click="teste"
         ></code-button>
       </div>
@@ -63,11 +64,11 @@ export default {
   @include respond-to(handhelds)
     flex-direction: column
 .dropdown__search
-  width: 80%
+  width: 84%
   @include respond-to(handhelds)
     width: 100%
 .dropdown__button
-  width: 18%
+  width: 14%
   @include respond-to(handhelds)
     margin-top: 20px
     width: 100%

@@ -19,7 +19,6 @@
       />
       <code-button
         class="btn-1"
-        padding="9px 0"
         text="medium"
         @click="submit"
         name-icon="question-circle"
@@ -112,7 +111,7 @@
         rounded
         size-icon="lg"
       />
-        <code-button
+      <code-button
         class="btn-1"
         text="rounded"
         @click="submit"
@@ -126,7 +125,7 @@
         rounded
         size-icon="lg"
       />
-        <code-button
+      <code-button
         class="btn-1"
         text="rounded"
         @click="submit"
@@ -141,11 +140,54 @@
         size-icon="lg"
       />
     </div>
-    
+    <div class="checkbox">
+      <h1>checkboxs</h1>
+      <div class="list_check">
+        <code-checkbox  
+          text="imprimir"
+          none
+          color="primary"
+          size="sm"
+        />
+        <code-checkbox  
+          text="imprimir"
+          none
+          color="success"
+          size="md"
+        />
+        <code-checkbox  
+          text="imprimir"
+          none
+          color="danger"
+          size="lg"
+        />
+         <code-checkbox  
+          text="imprimir"
+          none
+          color="warning"/>
+         <code-checkbox  
+          text="imprimir"
+          none
+          color="info"/>
+        <code-checkbox  
+          text="imprimir"
+          none
+          color="dark"/>
+        <code-checkbox  
+          text="imprimir"
+          none
+          color="brand"/>
+        <code-checkbox
+          border-color="#333"  
+          text="imprimir"
+          none
+          color="light"/> 
+      </div>
+    </div>
     <div class="container-form">
       <h1>2. input</h1>
       <code-label
-       
+        bind="xxxxx"
         label="Text"
         color="#676a6c"
         :fontWeight="700"
@@ -163,11 +205,12 @@
         required
         v-model="value"
         icon="user"
-        Icolor='#676a6c'
+        color-icon='#676a6c'
       >
         
       </code-input>
       <code-label
+        bind="custom-password"
         name="password"
         label="password"
         color="#676a6c"
@@ -175,10 +218,9 @@
         fontSize="0.95rem"
         fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
       ></code-label>
-      <code-input
+     <!--  <code-input
         label="password"
         placeholder="eu sou um placeholder"
-        :hasIcon="true"
         name="examplePass"
         type="password"
         :width="9"
@@ -188,7 +230,16 @@
         icon="lock"
         Icolor='#676a6c' 
       >
-      </code-input>
+      </code-input> -->
+      <code-input-password
+        name="customPassword"
+        id="custom-password"
+        :width="9"
+        :height="7"
+        icon="lock"
+        color-icon="dimgray"
+        v-model="password"
+      />
       <code-label
         name="number"
         label="number"
@@ -208,7 +259,7 @@
         required
         v-model="value"
         icon="beer"
-        Icolor='#676a6c' 
+        color-icon='#676a6c' 
       >
        
       </code-input>
@@ -310,6 +361,7 @@
             :digit="valueKey" 
             @keyboard="displayKeyboard=!displayKeyboard"
             @helptologin="helptologin = $event"
+            @input="compositeWrite"
           ></patient-login>
           <doctor-login v-if="aba == 2"></doctor-login>
           <partner-login v-if="aba == 3"></partner-login>
@@ -428,6 +480,8 @@ import PatientList from './PatientList'
 import TheNavbar from './TheNavbar'
 import AttendanceList from './AttendanceList.vue'
 import AttendanceListSearch from './AttendanceListSearch'
+import CodeInputPassword from './base/CodeInputPassword'
+import CodeCheckbox from './base/CodeCheckbox'
 import CodeButton from './base/CodeButton.vue'
 import CodeInput from './base/CodeInput.vue'
 import CodeLabel from './base/CodeLabel.vue'
@@ -487,7 +541,9 @@ export default {
     CodeLoading,
     CodePagination,
     CodeSelectNew,
-    QrcodeLogin
+    QrcodeLogin,
+    CodeCheckbox,
+    CodeInputPassword
   /*   ChangePassword */
   },
   data () {
@@ -498,6 +554,7 @@ export default {
       modalA: false,
       modalB: false,
       value: 'rodrigo',
+      password: '',
       list: [
         {id: 1, item: 'doce de laranja'},
         {id: 2, item: 'doce de siriguela'},
@@ -719,4 +776,6 @@ export default {
 .calendars
   display: flex
   flex-direction: row
+.list_check
+  display: flex
 </style>

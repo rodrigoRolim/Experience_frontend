@@ -1,25 +1,22 @@
 <template>
 <div class="container-code-inp">
-  <slot name="label"></slot>
   <div class="input">
     <i v-if="icon" :style="{padding: getSizeIcon}" :class="{'no-border-right': noBorderRight}">
-      <font-awesome-icon :icon="icon" :style="{ color: Icolor }"/>
+      <font-awesome-icon :icon="icon" :style="{ color: colorIcon }"/>
     </i>
     <input 
       v-bind="$attrs"
       :class="{ 'input-icon': icon, 'input-no-icon': !icon, 
-        'no-border-right': noBorderRight,
-        'no-border-left': noBorderLeft }" 
+                'no-border-right': noBorderRight,
+                'no-border-left': noBorderLeft }" 
       :type="type" 
       :name="name"
       :id="name"
       v-model="inputEmitter" 
       :placeholder="placeholder"
-      :style="{ padding: getSizeInput, fontSize: size, fontWeight: weight, color: color, cursor: cursor }"
+      :style="{ padding: getSizeInput, fontSize: sizeLetter, fontWeight: weightLetter, color: color, cursor: cursor }"
       @focus="focus"
-      
-      @keydown="keydown"
-      pattern="^[0-9]"
+      @keyup="keyup"
       />
   </div>
 </div>
@@ -35,7 +32,7 @@ export default {
     label: String,
     placeholder: String,
     icon: String,
-    Icolor: String,
+    colorIcon: String,
     name: {
       type: String,
       required: true
@@ -58,11 +55,11 @@ export default {
     noBorderLeft: {
       type: Boolean
     },
-    size: {
+    sizeLetter: {
       type: String,
       default: '0.95rem'
     },
-    weight: {
+    weightLetter: {
       type: Number
     },
     color: {
@@ -92,8 +89,8 @@ export default {
     blur (e) {
       this.$emit('blur', e)
     },
-    keydown (e) {
-      this.$emit('keydown', e)
+    keyup (e) {
+      this.$emit('keyup', e.target.value)
     }
   }
 }
@@ -120,8 +117,11 @@ input
   border-top-left-radius: 0
   border-bottom-left-radius: 0
 i
+  display: flex
+  justify-content: center
   border: 1px solid lightgray
   border-right: none
   border-radius: 3px 0px 0px 3px
   background-color: white
+  max-width: 40px
 </style>

@@ -40,12 +40,9 @@
             :width="9"
             :height="7"
             required
+            icon="lock"
             v-model="currentPassword"
-          >
-            <template v-slot:icon>
-              <font-awesome-icon icon="lock" :style="{ color: '#676a6c' }"></font-awesome-icon>
-            </template>
-          </code-input>
+          />
         </div>
         <div class="inputs__new-password">
           <code-label
@@ -65,12 +62,9 @@
             :width="9"
             :height="7"
             required
+            icon="lock"
             v-model="newPassword"
-          >
-            <template v-slot:icon>
-              <font-awesome-icon icon="lock" :style="{ color: '#676a6c' }"></font-awesome-icon>
-            </template>
-          </code-input>
+          />
         </div>
         <div class="inputs__confirm-password">
           <code-label
@@ -90,22 +84,22 @@
             :width="9"
             :height="7"
             required
+            icon="lock"
             v-model="confirmPassword"
-          >
-            <template v-slot:icon>
-              <font-awesome-icon icon="lock" :style="{ color: '#676a6c' }"></font-awesome-icon>
-            </template>
-          </code-input>
+          />
         </div>
       </div>
       <div class="button">
         <code-button
           class="button__confirm"
-          padding="9px 0"
-          text="confirmar"
-          bcolor="dodgerblue"
-          color="white"
+          text="confirma"
           @click="confirm"
+          borded
+          bolded
+          letters="uppercase"
+          color="dark"
+          size="lg"
+          shading
         ></code-button>
       </div>
     </div>

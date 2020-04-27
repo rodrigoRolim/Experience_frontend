@@ -77,9 +77,12 @@ select option
   width: 100%
   margin: 3px 0
 i
+  display: flex
+  justify-content: center
   border: 1px solid lightgray
   border-right: none
   border-radius: 3px 0px 0px 3px
+  max-width: 40px
 .no-border
   border-radius: 0
 </style>

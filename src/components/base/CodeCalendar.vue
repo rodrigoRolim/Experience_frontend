@@ -12,6 +12,7 @@
         type="text"
         :width="8"
         :height="7"
+        autocomplete="off"
         v-model="selectedDate"
         :noBorderRight="noBorderRight"
         :noBorderLeft="noBorderLeft"

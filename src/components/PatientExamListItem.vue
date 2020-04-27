@@ -28,7 +28,7 @@
         v-show="situation == 'TF'"
         text="imprimir"
         none
-        color="blue"
+        color="primary"
       ></code-checkbox>
     </div>
   </div>

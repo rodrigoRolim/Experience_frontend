@@ -29,6 +29,9 @@ export default {
 .container-tool
   margin: 0
   padding: 0
+.container-tool > *:hover
+  text-decoration: underline
+  cursor: default 
 .tooltip-text
   display: none
   color: white

@@ -1,13 +1,15 @@
 <template>
-<div class="c-checkbox">
-  <label class="code-checkbox" ><span class="text-l" v-if="left && !none">{{text}}</span>
-    <input type="checkbox" :name="name" :id="name" :value="content" />
-    <div class="border-checkbox">
-      <div class="body-checkbox" :style="style">
-        <span class="checkmark"></span>
+<div class="checkbox">
+  <label class="checkbox__label" ><span class="checkbox__label__text-left" v-if="left && text">{{text}}</span>
+    <input class="checkbox__input" type="checkbox" :name="name" :id="name" :value="content" />
+    <div class="checkbox__mark" :class="getSize" :style="{borderColor}">
+      <div class="checkbox__mark__content" :class="getColor">
+        <span class="checkmark">
+          <font-awesome-icon icon="check" :style="{color: color !== 'light' ? 'white' : 'dimgray'}"/>
+        </span>
       </div>
     </div>   
-    <span class="text-r" v-if="right && !none">{{text}}</span>
+    <span class="checkbox__label__text-right" v-if="right && text">{{text}}</span>
   </label>
 </div>
 </template>
@@ -24,18 +26,22 @@ export default {
     text: String,
     left: Boolean,
     right:Boolean,
-    none: Boolean,
+    size: {
+      type: String,
+      default: 'md',
+      validator: function (value) {
+        return ['sm', 'md', 'lg'].indexOf(value) !== -1
+      }
+    },
     color: {
       type: String,
       validator: function (value) {
-        return ['red', 'blue', 'gray', 'green'].indexOf(value) !== -1
+        return ['theme','primary', 'success', 'warning', 
+                'danger', 'info', 'dark', 'brand', 'light'].indexOf(value) !== -1
       }
     },
-    size: {
-      type: String,
-      validator: function (value) {
-        return ['xs', 'sm', 'md', 'lg'].indexOf(value) !== -1
-      }
+    borderColor: {
+      type: String
     }
 
   },
@@ -45,81 +51,104 @@ export default {
     }
   },
   computed: {
-    style (vm) {
-      let bcolor = vm.getBcolor(vm.color)
-      return { backgroundColor: bcolor }
+    getColor (vm) {
+      console.log(vm.color)
+      return ['checkmark--'+vm.color]
+    },
+    getSize (vm) {
+      return ['checkbox__mark--'+vm.size]
     }
   },
   methods: {
-    getBcolor (value) {
-      switch (value) {
-        case 'red':
-          return '#DC143C'
-        case 'green':
-          return '#228B22'
-        case 'blue':
-          return '#1E90FF'
-        case 'gray':
-          return '#708090'    
-      }
-    }
+   
   }
 }
 </script>
 
 <style lang="sass" scoped>
-.code-checkbox
+.checkbox
+  display: flex
+  flex-direction: row
+  position: relative
+.checkbox__label
   display: flex
   flex-direction: row
   justify-content: center
   align-items: center
   border-radius: 2px
   margin: 10px 5px 5px 0
-.c-checkbox
+.checkbox__mark__content
   display: flex
-  flex-direction: row
-  position: relative
-.body-checkbox
+  flex-direction: column
+  justify-content: center
+  align-items: center
   position: relative
   border-radius: 2px
   display: none
-.border-checkbox
+.checkbox__mark
   border: 2px solid #708090
+  border-radius: 4px
+.checkbox__mark--md
   height: 29px
   width: 29px
-  border-radius: 4px
-input:checked ~ .border-checkbox .body-checkbox
+.checkbox__input:checked ~ .checkbox__mark--md .checkbox__mark__content
   width: 25px
   height: 25px
   display: block
-  background-color: rgb(123, 123, 123)
-input
+.checkbox__mark--sm
+  height: 24px
+  width: 24px
+.checkbox__input:checked ~ .checkbox__mark--sm .checkbox__mark__content
+  width: 20px
+  height: 20px
+  display: block
+.checkbox__mark--lg
+  height: 34px
+  width: 34px
+.checkbox__input:checked ~ .checkbox__mark--lg .checkbox__mark__content
+  height: 30px
+  width: 30px
+  display: block
+.checkbox__input
   width: 0
   height: 0
   opacity: 0
   position: absolute
-input:checked ~ .border-checkbox .body-checkbox .checkmark:after
-  content: " "
-  border: 3px solid white
-  border-top: none
-  border-left: none
-  position: absolute
-  width: 6px
-  top: 4px
-  left: 8px
-  transform: rotate(45deg)
-  -webkit-transform: rotate(45deg)
-  height: 11px
-.text-l
+.checkbox__label__text-left
   color: rgba(0,0,0,0.7)
   margin-right: 5px
   font-size: 0.9rem
   position: relative
   user-select: none
-.text-r
+.checkbox__label__text-right
   color: rgba(0,0,0,0.7)
   font-size: 0.9rem
   position: relative
   margin-left: 5px
   user-select: none
+.checkmark
+  display: flex
+  flex-direction: row
+  justify-content: center
+  align-items: center
+  height: 100% 
+.checkmark--theme
+  background-color: $theme
+.checkmark--primary
+  background-color: $primary
+.checkmark--success
+  background-color: $success
+.checkmark--warning
+  background-color: $warning
+.checkmark--danger
+  background-color: $danger
+.checkmark--info
+  background-color: $info
+.checkmark--dark
+  background-color: $dark
+.checkmark--brand
+  background-color: $brand
+.checkmark--light
+  background-color: $light
+
 </style>

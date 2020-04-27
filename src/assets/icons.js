@@ -40,7 +40,10 @@ import {
     faEnvelope,
     faBriefcaseMedical,
     faHourglass,
-    faVideo
+    faVideo,
+    faEye,
+    faEyeSlash,
+    faHandshake
   } from '@fortawesome/free-solid-svg-icons'
 
 export default {
@@ -85,5 +88,8 @@ export default {
   faEnvelope,
   faBriefcaseMedical,
   faHourglass,
-  faVideo
+  faVideo,
+  faEye,
+  faEyeSlash,
+  faHandshake
 }

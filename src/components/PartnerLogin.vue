@@ -20,7 +20,7 @@
           :height="7"
           :weight="500"
           color="#333"
-          icon="user"
+          icon="handshake"
         />
       </div>
       <div class="login-pr-pass">

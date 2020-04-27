@@ -1,9 +1,9 @@
 <template>
-  <div class="code-info" :class="{ 'bottom': bottom, 'left': left }">
-    <span><font-awesome-icon :icon="icon" :size="size" :style="{color: color}"/></span>
-    <div class="label" :class="{ 'l-bottom': bottom }">
-      <span v-if="description && !bottom" class="description">{{description}}</span>
-      <span class="info">{{info}}</span>
+  <div class="code-info" :class="{ 'code-info--bottom': bottom, 'code-info--left': left }">
+    <span class="code-info__icon"><font-awesome-icon :icon="icon" :size="size" :style="{color: color}"/></span>
+    <div class="code-info__label" :class="{ 'l-bottom': bottom }">
+      <span v-if="description && !bottom" class="code-info__label__description">{{description}}</span>
+      <span class="code-info__label__info">{{info}}</span>
     </div>
   </div>
 </template>
@@ -31,25 +31,31 @@ export default {
   @include respond-to(handhelds)
     width: 100%
     padding: 10px 0
-.icon
+.code-info__icon
+  display: flex
+  justify-content: center
+  align-items: center
   margin-right: 5px
-.label
+.code-info__label
   display: flex
   flex-direction: column
   justify-content: center
   font-size: 0.7rem
   margin-left: 5px
-.description
-  font-size: 0.65rem
-  color: rgba(0,0,0,0.8)
+.code-info__label__description
+  font-size: 0.63rem
+  color: rgba(0,0,0,0.6)
   text-transform: capitalize
-.info
+.code-info__label__info
   font-weight: 600
-.bottom
+.code-info--bottom
   display: flex
   flex-direction: column
   align-items: center
   width: 12%
+.code-info--left
+  display: flex
+  flex-direction: row-reverse
 .l-bottom
   margin-top: 3px
 </style>
