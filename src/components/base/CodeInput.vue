@@ -86,8 +86,9 @@ export default {
     focus (e) {
       this.$emit('focus', e)
     },
-    blur (e) {
-      this.$emit('blur', e)
+    blur () {
+      window.scrollTo(0,0)
+      //this.$emit('blur', e)
     },
     keyup (e) {
       this.$emit('keyup', e.target.value)
@@ -101,6 +102,7 @@ export default {
   width: 100%
 input
   border: 1px solid lightgray
+  border-left: none
   width: 100%
 .input-icon
   border-radius: 0px 3px 3px 0px
@@ -123,5 +125,5 @@ i
   border-right: none
   border-radius: 3px 0px 0px 3px
   background-color: white
-  max-width: 40px
+  max-width: 45px
 </style>
