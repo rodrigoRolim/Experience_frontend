@@ -1,22 +1,13 @@
 <template>
-  <div class="container">
-    <div class="container__input">
-      <input type="text" v-model="value" />
-      <i class="container__input__icon"><font-awesome-icon icon="caret-down"/></i>
+  <div :class="'container ' + name">
+    <div class="container__input" @click="toggleDisplaySelect" >
+      <input type="text" v-model="value" @keyup="filterInput" @blur="verifyInput" ref="input"/>
+      <i class="container__input__icon" ref="icon"><font-awesome-icon :icon="display ? 'caret-down' : 'caret-up'"/></i>
     </div>
     
-    <ul class="container__list container__list--close">
-      <li class="container__list__item selected" @click="selected('item 1')">item 1</li>
-      <li class="container__list__item">item 2</li>
-      <li class="container__list__item">item 3</li>
-      <li class="container__list__item">item 4</li>
-      <li class="container__list__item">item 5</li>
-      <li class="container__list__item">item 6</li>
-      <li class="container__list__item">item 7</li>
-      <li class="container__list__item">item 8</li>
-      <li class="container__list__item">item 9</li>
-      <li class="container__list__item">item 10</li>
-      <li class="container__list__item">item 11</li>
+    <ul class="container__list" 
+      :class="{'container__list--close': display, 'container__list--open': !display}">
+      <li v-for="item in listFilter" :key="item" @click="selected(item)">{{item}}</li>
     </ul>
   </div>
 </template>
@@ -26,30 +17,74 @@ export default {
   name: 'CodeSelectNew',
   props: {
     height: Number,
-    width: Number
+    width: Number,
+    name: String,
+    list: { 
+      type: Array,
+      default: function () { return [] } 
+    }
   },
   data () {
     return {
-      show: false,
-      value: ''
+      display: true,
+      value: '',
+      listFilter: []
     }
   },
   created () {
-    window.addEventListener('click', function (e) {
-      const container = document.querySelector('.container')
-      const select = document.querySelector('.container__list')
-      console.log(container.contains(e.target))
-      if (container.contains(e.target)) {
-        select.classList.replace('container__list--close', 'container__list--open')
-      } else {
-        select.classList.replace('container__list--open', 'container__list--close')
-      }
+    ['click', 'scroll'].forEach(event => {
+      window.addEventListener(event, (e) => {
+        if (!this.checkEventPathForClass(e.path, this.name)) {
+
+          this.display = true
+        }
+      })
     })
   },
+  mounted () {
+    this.listFilter = this.list
+  },
   methods: {
+    verifyInput () {
+      console.log(this.list.filter(item => item == this.value))
+      if (this.list.filter(item => item == this.value).length == 0) {
+        this.$refs.input.style.borderColor = 'red'
+        this.$refs.icon.style.borderColor = 'red'
+      } else {
+        this.$refs.input.style.borderColor = 'lightgray'
+        this.$refs.icon.style.borderColor = 'lightgray'
+      }
+      /* this.value = this.list.filter(item => item == this.value)
+      this.listFilter = this.list */
+    },
+    filterInput (e) {
+      this.display = false
+      let item = ''
+      item = e.target.value + item
+      let pattern = new RegExp(item)
+
+      this.listFilter = this.list.filter(it => pattern.test(it))
+      
+    },
     selected (value) {
+      //console.log(value)
       this.value = value
-    }
+      this.display = !this.display
+    },
+    toggleDisplaySelect (e) {
+      if (!this.checkEventPathForClass(e.path, 'container__list')) {
+
+        this.display = !this.display
+      }
+    },
+    checkEventPathForClass (path, selector) {
+      for (let i = 0; i < path.length; i++) {
+        if (path[i].classList && path[i].classList.contains(selector)) {
+          return true
+        }
+      }
+      return false
+    },
   }
 }
 </script>
@@ -66,7 +101,7 @@ export default {
   position: relative
   background-color: white
 .container__input__icon
-  width: 2%
+  width: 30px
   color: dimgray
   border: 1px solid lightgray
   border-left: none
@@ -74,13 +109,14 @@ export default {
   border-top-right-radius: 3px
   border-bottom-right-radius: 3px
 .container__input input
-  width: 98%
+  width: 100%
   padding: 9px 7px
   width: 100%
   border-radius: 3px
   border-top-right-radius: 0
   border-bottom-right-radius: 0
   border: 1px solid lightgray
+  font-size: 14px
   border-right: none
   outline: none
 .container__list--open
@@ -90,9 +126,12 @@ export default {
   display: none
 .container__list
   position: absolute
+  max-height: 250px
+  overflow: auto
   top: 100%
   left: 0
   right: 0
+  z-index: 999
   background-color: white
   width: 100% 
   border: 1px solid lightgray
@@ -103,7 +142,7 @@ export default {
   list-style-type: none
   position: relative
   padding: 8px 0
-  padding-left: 10px
+  padding-left: 20px
   margin-right: 0
   color: darkslategray
   cursor: pointer

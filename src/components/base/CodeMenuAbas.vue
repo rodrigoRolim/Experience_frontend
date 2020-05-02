@@ -24,6 +24,8 @@ export default {
 .code-menu-abas
   width: 100%
   user-select: none
+  @include respond-to(handhelds)
+    min-height: 500px 
 .body-abas
   width: 100%
   border: 1px solid lightgray

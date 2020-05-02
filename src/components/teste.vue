@@ -449,7 +449,8 @@
     </div>
     <div class="new-code">
       <h1>novo select customizado (em construção)</h1>
-      <code-select-new/>
+      <code-select-new name="name" :list="items"/>
+     
     </div>
     <div class="pagination">
       <h1>paginaçaõ (em construção)</h1>
@@ -555,6 +556,7 @@ export default {
       modalB: false,
       value: 'rodrigo',
       password: '',
+      items: ['todos', 'ambulatorio', 'emergencia', 'geral', 'posto luisa coelho', 'posto n. sra da conceição','todos', 'ambulatorio', 'emergencia', 'geral', 'posto luisa coelho', 'posto n. sra da conceição'],
       list: [
         {id: 1, item: 'doce de laranja'},
         {id: 2, item: 'doce de siriguela'},

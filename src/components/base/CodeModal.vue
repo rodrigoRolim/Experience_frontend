@@ -1,7 +1,7 @@
 <template>
   <div class="modal" v-if="display">
-    <div :class="{ 'c-modal-normal': normal, 'c-modal-custom': !normal }" @click.self="close">
-      <div :class="{ 'content-modal-normal': normal }">
+    <div class="modal__body" :class="{ 'modal--normal': normal, 'modal--custom': !normal }" @click.self="close">
+      <div :class="{ 'modal__body__content': normal }">
         <slot name="modal"></slot>
       </div>
     </div>
@@ -26,6 +26,7 @@ export default {
     }
   },
   updated () {
+
     if (this.display) {
       document.body.style.overflow = 'hidden'
     } else {
@@ -42,8 +43,9 @@ export default {
 </script>
 <style lang="sass" scoped>
 
-.c-modal-normal,
-.c-modal-custom
+.modal--normal,
+.modal--custom
+  overflow: auto
   margin: 0 auto
   width: 100%
   height: 100%
@@ -51,17 +53,14 @@ export default {
   z-index: 1
   top: 0
   left: 0
-  background-color: red 
-  width: 100%
-  height: 100%
+  bottom: 0
   display: flex
   flex-direction: row
   justify-content: center
-  align-items: center
-.c-modal-normal
+.modal--normal
   background-color: rgba(0,0,0,0.5)
-.c-modal-custom
+.modal--custom
   background-color: rgba(0,0,0,0)
-.content-modal-normal
-
+.modal__body__content
+  margin: 10px 0
 </style>
