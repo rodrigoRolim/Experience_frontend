@@ -87,7 +87,7 @@ export default {
       this.$emit('focus', e)
     },
     blur () {
-      window.scrollTo(0,0)
+      //window.scrollTo(0,0)
       //this.$emit('blur', e)
     },
     keyup (e) {
