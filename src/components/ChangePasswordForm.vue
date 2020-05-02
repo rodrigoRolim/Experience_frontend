@@ -5,7 +5,7 @@
         Alterar Senha de acesso
       </div>
       <div class="header__close" @click="closeModal">
-        <font-awesome-icon icon="times" size="lg" color="red"/>
+        <font-awesome-icon icon="times" size="lg" color="dimgray"/>
       </div>
     </div>
     <div class="body">
@@ -41,6 +41,7 @@
             :height="7"
             required
             icon="lock"
+            color-icon="dimgray"
             v-model="currentPassword"
           />
         </div>
@@ -63,6 +64,7 @@
             :height="7"
             required
             icon="lock"
+            color-icon="dimgray"
             v-model="newPassword"
           />
         </div>
@@ -85,6 +87,7 @@
             :height="7"
             required
             icon="lock"
+            color-icon="dimgray"
             v-model="confirmPassword"
           />
         </div>
