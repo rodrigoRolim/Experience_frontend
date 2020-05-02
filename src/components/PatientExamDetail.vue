@@ -134,8 +134,6 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-.exame 
-  
 .exame__modal
   background-color: white
   border-radius: 2px

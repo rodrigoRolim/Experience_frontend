@@ -392,8 +392,7 @@
           class="btn-3" 
           padding="9px 0"
           text="show modal"
-          bcolor="#474d5e"
-          color="white"
+          color="dark"
           @click="displayModal"
         ></code-button>
       </div>
