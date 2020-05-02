@@ -1,26 +1,29 @@
 <template>
   <div class="p-exam-list-item" :class="getSituation" @click.self="click">
-    <div class="detail-exam" @click.stop="click">
+    <div class="detail-exam" >
       <code-chip text="lic" transform="uppercase" class="chip-exam"></code-chip>
       <div class="wall"></div>
-      <div class="name-exam"  @click.stop="click">
-        <span><font-awesome-icon icon="flask" size="lg" class="icon" :style="{color: 'rgba(71, 77, 94, 1)'}"/></span>
-        <div class="label"  @click.stop="click">
-          <span>Exame</span>
-          <span class="exams">LIPODOGRAMA COMPLETO</span>
-        </div>
+      <div class="name-exam">
+         <code-info
+          icon="flask"
+          size="lg"
+          description="exame"
+          color="rgba(71, 77, 94, 1)"
+          info="LIPODOGRAMA COMPLETO"     
+         />
       </div>
     </div>
-    <div class="c-health-care"  @click.stop="click">
-      <div class="health-care">
-        <span><font-awesome-icon icon="clinic-medical" size="lg" class="icon" :style="{color: 'rgba(71, 77, 94, 0.8)'}"/></span>
-        <div class="label">
-          <span>Posto Realizante</span>
-          <span class="exams">MATRIZ</span>
-        </div>
-      </div>
+    <div class="c-health-care">
+      <code-info
+        icon="clinic-medical"
+        size="lg"
+        description="Posto Realizante"
+        color="rgba(71, 77, 94, 1)"
+        info="MATRIZ"     
+      />
+        
     </div>
-    <div class="situation-exam"  @click.stop="click">
+    <div class="situation-exam">
       <code-chip-situation :situation="situation"></code-chip-situation>
     </div>
     <div class="checkbox">
@@ -34,6 +37,7 @@
   </div>
 </template>
 <script>
+import CodeInfo from './base/CodeInfo'
 import CodeChip from "./base/CodeChip";
 import CodeChipSituation from "./base/CodeChipSituation";
 /* import CodeButton from './base/CodeButton' */
@@ -49,7 +53,8 @@ export default {
     CodeChip,
     CodeChipSituation,
     /*  CodeButton, */
-    CodeCheckbox
+    CodeCheckbox,
+    CodeInfo
   },
   data() {
     return {}
@@ -77,20 +82,25 @@ export default {
   border-radius: 2px
   min-height: 150px
   margin-bottom: 10px
+  user-select: none
 .p-exam-list-item:hover
   -webkit-box-shadow:  0 0 6px rgba(0,0,0,.3)
   box-shadow:  0 0 6px rgba(0,0,0,.3)
+  cursor: pointer
 .detail-exam
+  align-self: flex-start
   display: flex
   flex-direction: row
   justify-content: center
-.name-exam,
-.health-care
+  cursor: default
+.name-exam
   display: flex
   flex-direction: row
   align-items: center
   width: 100%
 .c-health-care
+  align-self: flex-start
+  cursor: default
   margin-top: 6px
   margin-left: 10px
   margin-bottom: 20px
@@ -105,7 +115,7 @@ export default {
   margin: 25px 0px
 .name, 
 .situation-exam
-  width: 100%
+  align-self: center
   display: flex
   flex-direction: row
   @include respond-to(medium-screens)
@@ -115,11 +125,10 @@ export default {
     flex-direction: column
     align-items: center
   justify-content: center
+  cursor: default
 .checkbox
-  display: flex
-  flex-direction: row
-  justify-content: flex-end
-  min-height: 44px 
+  align-self: flex-end
+  min-height: 44px
 .pendency
   background-color: #{$EP}08
   border-top: 1px solid $EP
