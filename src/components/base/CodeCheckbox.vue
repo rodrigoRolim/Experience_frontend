@@ -77,6 +77,7 @@ export default {
   align-items: center
   border-radius: 2px
   margin: 10px 5px 5px 0
+  cursor: pointer
 .checkbox__mark__content
   display: flex
   flex-direction: column

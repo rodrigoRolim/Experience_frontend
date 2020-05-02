@@ -61,8 +61,7 @@ export default {
   font-size: 0.8rem
   padding: 4px 10px
   border-radius: 16px
-  @include respond-to(handhelds)
-    margin-right: 70px
+
 .code-chip-el-situation
   padding: 3px 0
   border-radius: 10px

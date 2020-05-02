@@ -46,6 +46,8 @@ export default {
   font-size: 0.63rem
   color: rgba(0,0,0,0.6)
   text-transform: capitalize
+  @include respond-to(handhelds)
+    display: none
 .code-info__label__info
   font-weight: 600
 .code-info--bottom
