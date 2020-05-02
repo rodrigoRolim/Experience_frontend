@@ -95,7 +95,7 @@ export default {
       this.$emit('keyup', e.target.value)
     },
     enter (e) {
-      alert('minha pinta')
+  
       this.$emit('enter', e)
     }
   }
