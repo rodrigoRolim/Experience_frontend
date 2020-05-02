@@ -136,15 +136,16 @@ export default {
           e.target.value = output.join('').substr(0, 14)
         })
         el.addEventListener('blur', function (e) {
-          console.log('blur')
+
           var input = e.target.value
           var values = input.split('/').map(function (v) {
             return v.replace(/\D/g, '')
           })
+
           var output = ''
-          console.log(values)
+ 
           if (values.length == 3) {
-            console.log(values[2].length)
+
             var year = values[2].length !== 4 ? parseInt(values[2]) + 2000 : parseInt(values[2])
             var month = parseInt(values[1]) - 1
             var day = parseInt(values[0])
