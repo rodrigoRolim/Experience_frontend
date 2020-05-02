@@ -100,6 +100,7 @@
           color="dark"
           size="lg"
           shading
+          streched
         ></code-button>
       </div>
     </div>
@@ -147,11 +148,12 @@ export default {
 .change-password
   display: flex
   flex-direction: column
+  justify-content: center
   width: 550px
   background-color: white
   @include respond-to(handhelds)
-    width: 100vw
-    height: 100%
+    width: 95vw
+    border-radius: 6px
 .header
   width: 100%
 .header__name
@@ -162,14 +164,14 @@ export default {
   display: flex
   flex-direction: column
   width: 100%
-  padding: 30px 20px
+  padding: 6vh 20px
   @include respond-to(handhelds)
     justify-content: center
     
 .inputs__current-password,
 .inputs__new-password,
 .inputs__confirm-password
-  margin: 20px 0
+  margin: 5vh 0
   width: 100%
 .header
   background-color: white
@@ -179,13 +181,16 @@ export default {
   justify-content: space-between
   border-bottom: 1px solid lightgray
   width: 100%
+  @include respond-to(handhelds)
+    border-radius: 6px
+  border-radius: 6px
 .button
   display: flex
   flex-direction: row
   justify-content: flex-end
   width: 100%
   @include respond-to(handhelds)
-   
+    justify-content: center
 .button__confirm
   width: 20%
   @include respond-to(handhelds)
