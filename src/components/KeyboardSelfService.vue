@@ -86,6 +86,8 @@ export default {
   flex-direction: column
   align-items: center
   background-color: #015050
+  @include respond-to(handhelds)
+    display: none
 .keyboard__close
   align-self: flex-end
   margin-right: 15px
