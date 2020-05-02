@@ -17,6 +17,7 @@
       :style="{ padding: getSizeInput, fontSize: sizeLetter, fontWeight: weightLetter, color: color, cursor: cursor }"
       @focus="focus"
       @keyup="keyup"
+      @keypress.enter="enter"
       />
   </div>
 </div>
@@ -92,6 +93,10 @@ export default {
     },
     keyup (e) {
       this.$emit('keyup', e.target.value)
+    },
+    enter (e) {
+      alert('minha pinta')
+      this.$emit('enter')
     }
   }
 }
