@@ -96,7 +96,7 @@ export default {
     },
     enter (e) {
       alert('minha pinta')
-      this.$emit('enter')
+      this.$emit('enter', e)
     }
   }
 }
