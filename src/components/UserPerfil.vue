@@ -3,10 +3,17 @@
     <div class="user_perfil__button">
       <button @mouseenter="show = true" @click="show = true" class="button_perfil">
         <div class="perfil_info">
-          <span class="perfil_info__name">rodrigo rolim veras</span>
-          <span class="perfil_info__date">17/06/1992</span>
+          <code-info
+            left
+            icon="user"
+            info="rodrigo rolim veras"
+            size="lg"
+            color="lightslategray"
+          />
+          <!-- <span class="perfil_info__name">rodrigo rolim veras</span>
+          <span class="perfil_info__date">17/06/1992</span> -->
         </div>
-        <i>
+        <i class="perfil_info__icon">
           <transition name="fade" mode="out-in">
             <font-awesome-icon icon="caret-down" size="lg" v-if="!show" key="down"/>
             <font-awesome-icon icon="caret-up" size="lg" v-if="show" key="up"/>
@@ -16,6 +23,9 @@
     </div>
     <transition name="fade" mode="in-out">
       <div class="perfil__content" v-if="show">
+        <div class="perfil__content__user-info">
+          <span class="perfil__content__user-info__date">17/06/1992</span>
+        </div>
         <div class="perfil__content__pass" @click="enableModal"> 
           <i><font-awesome-icon icon="user-edit" :style="{color: 'gray'}"/></i>
           <span class="perfil__content__pass__change">alterar senha</span>
@@ -40,12 +50,14 @@
 </template>
 <script>
 import CodeModal from './base/CodeModal'
+import CodeInfo from './base/CodeInfo'
 import ChangePasswordForm from './ChangePasswordForm'
 export default {
   name: 'UserPerfil',
   components: {
     ChangePasswordForm,
-    CodeModal
+    CodeModal,
+    CodeInfo
   },
   data () {
     return {
@@ -69,16 +81,32 @@ export default {
   position: relative
   display: flex
   flex-direction: row 
+  justify-content: center
+  align-items: center
   background-color: white
   border: 1px solid lightgray
   outline: none
   border-radius: 4px
-  padding: 5px 10px
-.perfil_info
-  margin-right: 10px
+  padding: 2vh
+  @include respond-to(handhelds)
+    padding: 0 2vh
+    display: flex
+   
+.perfil__content__user-info__date
   display: flex
-  flex-direction: column
+  flex-direction: row
   justify-content: center
+  align-items: center
+  font-size: 12px
+  border-bottom: 1px solid lightgray
+  min-height: 50px
+.perfil_info
+  display: flex
+  flex-direction: row
+  justify-content: center
+.perfil_info__icon
+  color: lightslategray
+  margin-left: 13px
 .perfil__content
   right: 100px
   position: absolute
@@ -102,7 +130,9 @@ export default {
   color: rgba(0,0,0,0.8)
   margin-left: 10px
 .user_perfil__button
-  margin-bottom: 3px
+  margin-bottom: 0px
+.button__perfil
+  padding: 0
 .fade-enter-active, .fade-leave-active
   transition: opacity .3s
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ 
