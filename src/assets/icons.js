@@ -43,7 +43,11 @@ import {
     faVideo,
     faEye,
     faEyeSlash,
-    faHandshake
+    faHandshake,
+    faAngleLeft,
+    faAngleRight,
+    faLongArrowAltLeft,
+    faLongArrowAltRight
   } from '@fortawesome/free-solid-svg-icons'
 
 export default {
@@ -91,5 +95,9 @@ export default {
   faVideo,
   faEye,
   faEyeSlash,
-  faHandshake
+  faHandshake,
+  faAngleLeft,
+  faAngleRight,
+  faLongArrowAltLeft,
+  faLongArrowAltRight
 }
