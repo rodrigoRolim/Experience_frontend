@@ -6,7 +6,7 @@
     :gender="gender"
     :situation="situation"
   />
-  <code-chip-situation :situation="situation"/>
+  <code-chip-situation class="container-item__situation" :situation="situation"/>
   <attendance-list-item-detail
     :idAttendance="idAttendance"
     :agreement="agreement"
@@ -66,7 +66,12 @@ $border-pendecy: 1px solid $EP
     flex-direction: column
     padding: 0
   @include respond-to(medium-screens)
-    flex-direction: column  
+    flex-direction: column
+.container-item__situation
+  @include respond-to(handhelds)
+    align-self: center
+  @include respond-to(medium-screens)
+    margin-right: 90px
 .container-item:hover
   -webkit-box-shadow:  0 0 6px rgba(0,0,0,.3)
 .pendency

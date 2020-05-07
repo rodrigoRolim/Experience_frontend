@@ -35,7 +35,6 @@ export default {
   display: flex
   justify-content: center
   align-items: center
-  margin-right: 5px
 .code-info__label
   display: flex
   flex-direction: column
@@ -50,6 +49,8 @@ export default {
     display: none
 .code-info__label__info
   font-weight: 600
+.code-info--left .code-info__label__info
+  margin-right: 10px
 .code-info--bottom
   display: flex
   flex-direction: column

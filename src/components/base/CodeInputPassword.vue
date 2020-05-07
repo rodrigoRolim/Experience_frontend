@@ -17,6 +17,7 @@
       v-bind="$attrs"
       v-model="inputEmitter"
       @keydown="replaceByBullet"
+      @focus="focus"
       :class="{ 
                 'input-password__input--icon': icon, 'input-password__input--no-icon': !icon, 
                 'input-password--no-border-r': noBorderRight,
@@ -117,7 +118,10 @@ export default {
     },
     replaceByBullet () {
       
-    }
+    },
+    focus (e) {
+      this.$emit('focus', e)
+    },
   }
 }
 </script>

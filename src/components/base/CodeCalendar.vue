@@ -1,8 +1,5 @@
 <template>
   <div :class="'calendar ' + name" ref="calendar" >
-    <!-- <div class="calendar__selected-date" ref="selected_date" @click="showDateToggle">
-      {{selectedDate}}
-    </div> -->
     <div class="calendar__selected-date" ref="selected_date" @click="showDateToggle">
       <code-input
         label="number"
@@ -10,7 +7,7 @@
         :icon="icon"
         name="number"
         type="text"
-        :width="8"
+        :width="7"
         :height="7"
         autocomplete="off"
         v-model="selectedDate"

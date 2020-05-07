@@ -1,14 +1,19 @@
 <template>
 <div class="container-code-inp">
   <div class="input">
-    <i v-if="icon" :style="{padding: getSizeIcon}" :class="{'no-border-right': noBorderRight}">
+    <i v-if="icon" :style="{padding: getSizeIcon}" 
+      :class="{
+        'no-border-right': noBorderRight,
+        'outline-icon': outlineIcon
+      }">
       <font-awesome-icon :icon="icon" :style="{ color: colorIcon }"/>
     </i>
     <input 
       v-bind="$attrs"
       :class="{ 'input-icon': icon, 'input-no-icon': !icon, 
                 'no-border-right': noBorderRight,
-                'no-border-left': noBorderLeft }" 
+                'no-border-left': noBorderLeft,
+                'outline-input': outlineInput }" 
       :type="type" 
       :name="name"
       :id="name"
@@ -16,7 +21,9 @@
       :placeholder="placeholder"
       :style="{ padding: getSizeInput, fontSize: sizeLetter, fontWeight: weightLetter, color: color, cursor: cursor }"
       @focus="focus"
+      @blur="blur"
       @keyup="keyup"
+      @keydown="keydown"
       @keypress.enter="enter"
       />
   </div>
@@ -33,7 +40,10 @@ export default {
     label: String,
     placeholder: String,
     icon: String,
-    colorIcon: String,
+    colorIcon: {
+      type: String,
+      default: 'dimgray'
+    },
     name: {
       type: String,
       required: true
@@ -73,6 +83,12 @@ export default {
       type: String
     }
   },
+  data () {
+    return {
+      outlineInput: false,
+      outlineIcon: false
+    }
+  },
   computed: {
     inputEmitter: {
       get () {
@@ -84,15 +100,24 @@ export default {
     }
   },
   methods: {
+    putOutline (focus) {
+      this.outlineInput = focus
+      this.outlineIcon = focus
+    },
     focus (e) {
+      this.putOutline(true)
       this.$emit('focus', e)
     },
     blur () {
+      this.putOutline(false)
       //window.scrollTo(0,0)
       //this.$emit('blur', e)
     },
     keyup (e) {
-      this.$emit('keyup', e.target.value)
+      this.$emit('keyup', e)
+    },
+    keydown (e) {
+      this.$emit('keydown', e)
     },
     enter (e) {
   
@@ -109,10 +134,18 @@ input
   border: 1px solid lightgray
   border-left: none
   width: 100%
+  
+input::placeholder
+  visibility: hidden
+  @include respond-to(handhelds)
+    visibility: visible
 .input-icon
   border-radius: 0px 3px 3px 0px
 .input-no-icon
   border-radius: 3px
+.outline-icon,
+.outline-input
+  border-color: $brand
 .input
   display: flex
   flex-direction: row

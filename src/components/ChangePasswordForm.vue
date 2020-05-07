@@ -174,7 +174,7 @@ export default {
 .inputs__current-password,
 .inputs__new-password,
 .inputs__confirm-password
-  margin: 5vh 0
+  margin: 3vh 0
   width: 100%
 .header
   background-color: white

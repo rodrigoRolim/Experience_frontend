@@ -145,7 +145,7 @@ export default {
   font-weight: 700
   font-style: italic
 .exame__result
-  letter-spacing: 1px
+  letter-spacing: 0.5px
 .exame__modal__header .exame__name
   text-align: center
   margin: 0px auto
@@ -193,7 +193,7 @@ export default {
   width: 100%
   padding: 10px
 .exame__modal__button .btn-3
-  width: 30%
+  width: 20%
   @include respond-to(handhelds)
     width: 100%
 </style>

@@ -187,8 +187,8 @@
     <div class="container-form">
       <h1>2. input</h1>
       <code-label
-        bind="xxxxx"
-        label="Text"
+        bind="rodrigo"
+        label="text"
         color="#676a6c"
         :fontWeight="700"
         fontSize="0.95rem"
@@ -197,13 +197,12 @@
       <code-input
         label="Text"
         placeholder="eu sou um placeholder"
-        :hasIcon="true"
-        name="xxxxx"
+        name="rodrigo"
         type="text"
         :width="9"
         :height="7"
         required
-        v-model="value"
+        v-model="text"
         icon="user"
         color-icon='#676a6c'
       >
@@ -257,7 +256,7 @@
         :width="9"
         :height="7"
         required
-        v-model="value"
+        v-model="num"
         icon="beer"
         color-icon='#676a6c' 
       >
@@ -370,10 +369,7 @@
         </template>
       </code-menu-abas>
     </div>
-    <keyboard-self-service
-      @typed="compositeWrite" 
-      :show="displayKeyboard && aba == 1"
-      @close="displayKeyboard=false" />  
+   
     <div class="tooltip">
       <h1>7. tooltip</h1>
       <code-tooltip
@@ -501,7 +497,7 @@ import CodeModal from './base/CodeModal'
 /* import PatientExamListItem from './PatientExamListItem' */
 /* import PatientExamListHeader from './PatientExamListHeader' */
 import PatientExamList from './PatientExamList'
-import KeyboardSelfService from './KeyboardSelfService'
+/* import KeyboardSelfService from './KeyboardSelfService' */
 /* import AttendanceListFilterPeriod from './AttendanceListFilterPeriod' */
 import TheSidebar from './TheSidebar'
 import { popups } from '../mixins/popups'
@@ -526,7 +522,7 @@ export default {
     CodeTooltip,
     PartnerLogin,
     HealthCareLogin,
-    KeyboardSelfService,
+  /*   */
    /*  PatientExamListItem, */
     /* PatientExamListHeader, */
     TheFooter,
@@ -553,7 +549,8 @@ export default {
       end: '',
       modalA: false,
       modalB: false,
-      value: 'rodrigo',
+      text: '',
+      num: null,
       password: '',
       items: ['todos', 'ambulatorio', 'emergencia', 'geral', 'posto luisa coelho', 'posto n. sra da conceição','todos', 'ambulatorio', 'emergencia', 'geral', 'posto luisa coelho', 'posto n. sra da conceição'],
       list: [
@@ -724,7 +721,8 @@ export default {
 .aba
   font-size: 0.8rem
 .button
-   margin-bottom: 10px
+  margin-top: 100px
+  margin-bottom: 10px
 .btn-1,
 .btn-2
   margin: 5px 0
