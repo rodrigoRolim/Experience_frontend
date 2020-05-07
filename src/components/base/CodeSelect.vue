@@ -75,7 +75,6 @@ select option
   display: flex
   flex-direction: row
   width: 100%
-  margin: 3px 0
 i
   display: flex
   justify-content: center
