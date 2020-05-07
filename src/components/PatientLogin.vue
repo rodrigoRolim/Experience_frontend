@@ -38,11 +38,10 @@
          ></code-label>
         <code-input
           placeholder="CPF"
-          :hasIcon="true"
           name="cpf"
           type="text"
           required
-          v-model="value"
+          v-model="patient.cpf"
           :width="9"
           :height="7"
           :weight="500"
@@ -52,7 +51,7 @@
       </div>
       <div class="login-p-birthday" v-if="visibility == 'ID'">
          <code-label
-          bind="cpf"
+          bind="birthDay"
           label="Data nascimento"
           color="#676a6c"
           :fontWeight="700"
@@ -62,10 +61,10 @@
         <code-input
           placeholder="Data de nascimento"
           :hasIcon="true"
-          name="cpf"
+          name="birthDay"
           type="text"
           required
-          v-model="value"
+          v-model="patient.birthDay"
           :width="9"
           :height="7"
           :weight="500"
@@ -74,8 +73,8 @@
         />
       </div>
       <div class="login-p-input-att" v-else>
-         <code-label
-          bind="attendance"
+        <code-label
+          bind="idAttendance"
           label="Atendimento"
           color="#676a6c"
           :fontWeight="700"
@@ -83,13 +82,13 @@
           fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
          ></code-label>
         <code-input
-          placeholder="ID"
-          :hasIcon="true"
-          name="attendance"
+          ref="idAttendance"
+          placeholder="ID Atendimento"
+          name="idAttendance"
           type="text"
           required
-          v-model="digit"
-          @keyup="sendToKeyboard"
+          v-model="patient.idAttendance"
+          @focus="focusInput"
           :width="9"
           :height="7"
           :weight="600"
@@ -99,30 +98,21 @@
       </div>
       <div class="login-p-pass">
         <code-label
-          bind="custom-password"
+          bind="patient-password"
           label="Senha"
           color="#676a6c"
           :fontWeight="700"
           fontSize="0.8rem"
           fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
         ></code-label>
-       <!--  <code-input
-          placeholder="Senha"
-          :hasIcon="true"
-          name="password"
-          type="password"
-          required
-          v-model="value"
-          :width="9"
-          :height="7"
-          icon="lock"
-        /> -->
         <code-input-password
-          name="customPassword"
-          id="custom-password"
+          name="password"
+          id="patient-password"
           :width="9"
           :height="7"
           icon="lock"
+          @focus="focusInput"
+          v-model="patient.password"
         />
       </div>
       <div class="doubt-keyboard">
@@ -153,6 +143,22 @@
         ></code-button>
       </div>
     </form>
+    <div class="login-patient__softkeyboard">
+      <keyboard-self-service
+        @write="write"
+        @nextInput="nextInput"
+        @previousInput="previousInput"
+        @enter="enter"
+        @backspace="backspace"
+        @right="goRight"
+        @left="goLeft"
+        @space="space"
+
+        :show="softKeyboard"
+        :input="inputKeyboard"
+        @close="softKeyboard=false" 
+      />  
+    </div>
   </div>
 </template>
 <script>
@@ -163,6 +169,7 @@ import CodeRadio from './base/CodeRadio'
 import CodeTooltip from './base/CodeTooltip'
 import CodeGroupRadios from './base/CodeGroupRadios'
 import CodeInputPassword from './base/CodeInputPassword'
+import keyboardSelfService from './KeyboardSelfService'
 export default {
   name: 'LoginPatient',
   props: {
@@ -175,19 +182,62 @@ export default {
     CodeRadio,
     CodeTooltip,
     CodeGroupRadios,
-    CodeInputPassword
+    CodeInputPassword,
+    keyboardSelfService
   },
   data () {
     return {
+      patient: {
+        cpf: '',
+        birthDay: '',
+        idAttendance: '',
+        password: ''
+      },
       receive: '',
-      value: '',
       valueRadio: '',
-      visibility: 'CPF'
+      visibility: 'CPF',
+      softKeyboard: true,
+      inputKeyboard: '',
+      focusedInput: 'idAttendance'
     }
   },
+  mounted () {
+
+  },
   methods: {
-    sendToKeyboard (value) {
-      this.$emit('input', value)
+    nextInput () {
+      
+    },
+    previousInput () {
+
+    },
+    enter () {
+      
+    },
+    backspace () {
+      let currentValue = this.patient[this.focusedInput]
+      let length = currentValue.length
+      this.patient[this.focusedInput] = currentValue.slice(0, length - 1)
+    },
+    goRight () {
+
+    },
+    goLeft () {
+
+    },
+    space () {
+
+    },
+    write (e) {
+      this.$refs[this.focusedInput].focus()
+      // this.$refs[this.focusedInput].select()
+      this.patient[this.focusedInput] += e.target.value
+    },
+    focusInput (e) {
+      console.log(e)
+      console.log('ola')
+      //console.log(e.target.name)
+      //this.focusedInput = e.target.name
     },
     radio (value) {
       this.valueRadio = value
@@ -197,7 +247,7 @@ export default {
       this.visibility = value
     },
     displayKeyboard () {
-      this.$emit('keyboard', true)
+      this.softKeyboard = true
     },
     displayHelpToLogin () {
       this.$emit('helptologin', true)
@@ -213,6 +263,9 @@ export default {
   display: flex
   flex-direction: column
   padding: 20px
+.login-patient__softkeyboard
+  width: 100%
+  align-self: flex-start
 .login-p-input-att,
 .login-p-pass,
 .login-p-cpf
