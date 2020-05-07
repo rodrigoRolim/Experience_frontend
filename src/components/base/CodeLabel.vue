@@ -1,5 +1,5 @@
 <template>
-  <label :for="bind" v-bind:style="style">{{label}}<slot name="input"></slot></label>
+  <label class="label" :for="bind" v-bind:style="style">{{label}}<slot name="input"></slot></label>
 </template>
 
 <script>
@@ -11,6 +11,7 @@ export default {
     fontWeight: Number,
     fontFamily: String,
     fontSize: String,
+    fontStyle: String,
     bind: {
       type: String,
       default: ''
@@ -22,7 +23,8 @@ export default {
         color: this.color, 
         fontWeight: this.fontWeight, 
         fontFamily: this.fontFamily, 
-        fontSize: this.fontSize
+        fontSize: this.fontSize,
+        fontStyle: this.fontStyle
       }
     }
   }
@@ -30,5 +32,8 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-
+.label
+  margin-bottom: 3px
+  @include respond-to(handhelds)
+    display: none
 </style>
