@@ -9,7 +9,7 @@
           fontSize="0.9rem"
           fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
         ></code-label>
-        <attendance-list-filter-period />
+        <div><attendance-list-filter-period /></div>
       </div>
       <div class="input-health-center">
         <code-label
