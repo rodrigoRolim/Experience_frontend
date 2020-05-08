@@ -22,7 +22,6 @@ body
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
   background-color: #f4f3f3
-  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif
 input
   outline: none
 </style>

@@ -8,7 +8,7 @@
           </template>
           <template v-slot:radios>
             <code-radio
-              class="radio-input"
+              
               name="login"
               value="CPF"
               label="Atendimento Único"
@@ -17,6 +17,7 @@
               :visible="visibility"
             ></code-radio>
             <code-radio
+             
               name="login"
               value="ID"
               label="Histórico de Resultados"
@@ -94,6 +95,7 @@
           :weight="600"
           color="#333"
           icon="user"
+          :focused="focusedInput == 'idAttendance'"
         />
       </div>
       <div class="login-p-pass">
@@ -106,6 +108,7 @@
           fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
         ></code-label>
         <code-input-password
+          ref="password"
           name="password"
           id="patient-password"
           :width="9"
@@ -113,6 +116,7 @@
           icon="lock"
           @focus="focusInput"
           v-model="patient.password"
+          :focused="focusedInput == 'password'"
         />
       </div>
       <div class="doubt-keyboard">
@@ -143,7 +147,7 @@
         ></code-button>
       </div>
     </form>
-    <div class="login-patient__softkeyboard">
+    <div class="login-patient__softkeyboard" @click="keepFocus">
       <keyboard-self-service
         @write="write"
         @nextInput="nextInput"
@@ -196,17 +200,22 @@ export default {
       receive: '',
       valueRadio: '',
       visibility: 'CPF',
-      softKeyboard: true,
+      softKeyboard: false,
       inputKeyboard: '',
-      focusedInput: 'idAttendance'
+      focusInputList: [],
+      indexFocusedInput: 0,
+      focusedInput: ''
     }
   },
   mounted () {
-
+    this.focusInputList = Object.keys(this.$refs)
+    this.focusedInput = 'idAttendance'
   },
   methods: {
     nextInput () {
-      
+      let numInputs = this.focusInputList.length
+      this.indexFocusedInput = (++this.indexFocusedInput)%numInputs
+      this.focusedInput = this.focusInputList[this.indexFocusedInput]
     },
     previousInput () {
 
@@ -215,9 +224,9 @@ export default {
       
     },
     backspace () {
-      let currentValue = this.patient[this.focusedInput]
+      let currentValue = this.patient[this.focusInputList[this.indexFocusedInput]]
       let length = currentValue.length
-      this.patient[this.focusedInput] = currentValue.slice(0, length - 1)
+      this.patient[this.focusInputList] = currentValue.slice(0, length - 1)
     },
     goRight () {
 
@@ -228,16 +237,20 @@ export default {
     space () {
 
     },
+    keepFocus () { 
+
+    },
     write (e) {
-      this.$refs[this.focusedInput].focus()
+      console.log('oi', e)
+      this.focusedInput = this.focusInputList[this.indexFocusedInput]
+      //this.$refs[this.focusedInput].focus({target: { name: this.focusedInput }})
       // this.$refs[this.focusedInput].select()
       this.patient[this.focusedInput] += e.target.value
     },
     focusInput (e) {
-      console.log(e)
-      console.log('ola')
-      //console.log(e.target.name)
-      //this.focusedInput = e.target.name
+      console.log('oi', e)
+      console.log(e.target.name)
+      this.focusedInput = e.target.name
     },
     radio (value) {
       this.valueRadio = value

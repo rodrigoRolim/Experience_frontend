@@ -4,11 +4,14 @@
       class="input-password__icon"
       v-if="icon" 
       :style="getStyleIcon" 
-      :class="{ 'input-password--no-border-r': noBorderRight }"
+      :class="{ 'input-password--no-border-r': noBorderRight,
+                'input-password--outline': outlineInput
+              }"
     >
       <font-awesome-icon :icon="icon" :style="{ color: colorIcon }"/>
     </i>
     <input
+      ref="input"
       class="input-password__input" 
       :type="type" 
       :name="name" 
@@ -18,16 +21,20 @@
       v-model="inputEmitter"
       @keydown="replaceByBullet"
       @focus="focus"
+      @blur="blur"
       :class="{ 
                 'input-password__input--icon': icon, 'input-password__input--no-icon': !icon, 
                 'input-password--no-border-r': noBorderRight,
-                'input-password--no-border-l': noBorderLeft 
+                'input-password--no-border-l': noBorderLeft,
+                'input-password--outline': outlineInput  
               }" 
     />
-    <i class="input-password__eye" @click="togglePasswordVisibility">
+    <i class="input-password__eye" @click="togglePasswordVisibility"
+       :class="{ 'input-password--outline': outlineInput  }"
+      >
     <transition name="fade" mode="out-in">
-      <font-awesome-icon v-if="toggleIcon" icon="eye" size="md" :style="{ color: colorIcon }"/>
-      <font-awesome-icon  v-else icon="eye-slash" size="md" :style="{ color: colorIcon }"/>
+      <font-awesome-icon v-if="toggleIcon" icon="eye" :style="{ color: colorIcon }"/>
+      <font-awesome-icon  v-else icon="eye-slash"  :style="{ color: colorIcon }"/>
     </transition>
     </i>
   </div>
@@ -79,22 +86,32 @@ export default {
     },
     value: {
       type: String
+    },
+    focused: {
+      type: Boolean
     }
   },
   data () {
     return {
       type: 'password',
-      toggleIcon: false
+      toggleIcon: false,
+      outlineInput: false,
+      outlineIcon: false
+    }
+  },
+  watch: {
+    focused (value) {
+      if (value) {
+        this.$refs.input.focus()    
+      }
     }
   },
   computed: {
     inputEmitter: {
-      get () {
-
+      get () { 
         return this.value
       },
       set (value) {
-        console.log(value)
         this.$emit('input', value)
       }
     },
@@ -119,9 +136,22 @@ export default {
     replaceByBullet () {
       
     },
+    putOutline (focus) {
+      console.log(focus)
+      this.outlineInput = focus
+      if (focus) {
+        this.$refs.input.focus()
+      }
+      
+    },
     focus (e) {
+      this.putOutline(true)
       this.$emit('focus', e)
     },
+    blur (e) {
+      this.putOutline(false)
+      this.$emit('blur', e)
+    }
   }
 }
 </script>
@@ -142,13 +172,14 @@ input[type="password"]
   text-transform: none
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
-  color: dimgray
+  color: lightslategray
 input[type="text"]
   font-size: 14px
   padding: 0
 .input-password__input
   border: 1px solid lightgray
   border-right: none
+  border-left: none
   width: 100%
 .input-password__input--icon
   border-radius: 0px 0px 0px 0px
@@ -178,6 +209,9 @@ input[type="text"]
   border-left: none
   border-radius: 0px 3px 3px 0px
   background-color: white
+  color: lightslategray
+.input-password--outline
+  border-color: $brand
 .fade-enter-active, .fade-leave-active
   transition: opacity .3s
 .fade-enter, .fade-leave-to 

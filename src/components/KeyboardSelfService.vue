@@ -98,7 +98,10 @@ export default {
         
         this.capslock()
 
-      } else {
+      } else if (key == 'long-arrow-alt-right') {
+        this.nextInput()
+      }
+      else {
 
         if (this.capslockKey) {
 

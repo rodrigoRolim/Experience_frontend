@@ -9,6 +9,7 @@
       <font-awesome-icon :icon="icon" :style="{ color: colorIcon }"/>
     </i>
     <input 
+      ref="input"
       v-bind="$attrs"
       :class="{ 'input-icon': icon, 'input-no-icon': !icon, 
                 'no-border-right': noBorderRight,
@@ -81,12 +82,23 @@ export default {
     },
     value: {
       type: String
+    },
+    focused: {
+      type: Boolean
     }
   },
   data () {
     return {
       outlineInput: false,
       outlineIcon: false
+    }
+  },
+  watch: {
+    focused (value) {
+      if (value) {
+        this.$refs.input.focus()
+      }
+           
     }
   },
   computed: {
@@ -103,15 +115,19 @@ export default {
     putOutline (focus) {
       this.outlineInput = focus
       this.outlineIcon = focus
+      if (focus) {
+        this.$refs.input.focus()
+      }
+      
     },
     focus (e) {
       this.putOutline(true)
       this.$emit('focus', e)
     },
-    blur () {
+    blur (e) {
       this.putOutline(false)
       //window.scrollTo(0,0)
-      //this.$emit('blur', e)
+      this.$emit('blur', e)
     },
     keyup (e) {
       this.$emit('keyup', e)
