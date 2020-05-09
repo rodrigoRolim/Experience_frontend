@@ -99,9 +99,14 @@ export default {
         this.capslock()
 
       } else if (key == 'long-arrow-alt-right') {
+
         this.nextInput()
-      }
-      else {
+      
+      } else if (key == 'long-arrow-alt-left') {
+     
+        this.prevInput()
+      
+      } else {
 
         if (this.capslockKey) {
 

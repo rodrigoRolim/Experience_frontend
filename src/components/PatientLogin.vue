@@ -218,7 +218,10 @@ export default {
       this.focusedInput = this.focusInputList[this.indexFocusedInput]
     },
     previousInput () {
-
+      let numInputs = this.focusInputList.length
+      this.indexFocusedInput = (--this.indexFocusedInput)%numInputs
+      this.focusedInput = this.focusInputList[this.indexFocusedInput]
+      console.log(this.focusedInput)
     },
     enter () {
       
@@ -248,19 +251,21 @@ export default {
       this.patient[this.focusedInput] += e.target.value
     },
     focusInput (e) {
-      console.log('oi', e)
-      console.log(e.target.name)
+     
       this.focusedInput = e.target.name
     },
     radio (value) {
       this.valueRadio = value
     },
     group (value) {
-      console.log(value)
+     
       this.visibility = value
     },
     displayKeyboard () {
-      this.softKeyboard = true
+      this.softKeyboard = !this.softKeyboard
+      if (this.softKeyboard) {
+        
+      }
     },
     displayHelpToLogin () {
       this.$emit('helptologin', true)

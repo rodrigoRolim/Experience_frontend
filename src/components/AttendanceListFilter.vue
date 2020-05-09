@@ -139,7 +139,7 @@ export default {
   @include respond-to(medium-screens)
     width: 24%
   @include respond-to(handhelds)
-    margin: 3px 0
+    margin: 10px 0
     width: 100%
 .button-filter
   width: 11%
@@ -157,6 +157,7 @@ export default {
     margin: 10px 0
   @include respond-to(handhelds)
     width: 100%
+    margin: 10px 0
   display: flex
   flex-direction: column
 </style>
