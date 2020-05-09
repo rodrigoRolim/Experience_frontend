@@ -1,5 +1,4 @@
 <template>
-<div class="container-code-inp">
   <div class="input">
     <i v-if="icon" :style="{padding: getSizeIcon}" 
       :class="{
@@ -28,7 +27,6 @@
       @keypress.enter="enter"
       />
   </div>
-</div>
 </template>
 
 <script>
@@ -85,6 +83,9 @@ export default {
     },
     focused: {
       type: Boolean
+    },
+    caret: {
+      type: []
     }
   },
   data () {
@@ -95,10 +96,13 @@ export default {
   },
   watch: {
     focused (value) {
+      console.log(value)
       if (value) {
         this.$refs.input.focus()
-      }
-           
+      } 
+    },
+    caret (value) {
+      this.$refs.input.setSelectionRange(value[0], value[1])
     }
   },
   computed: {
@@ -150,7 +154,6 @@ input
   border: 1px solid lightgray
   border-left: none
   width: 100%
-  
 input::placeholder
   visibility: hidden
   @include respond-to(handhelds)

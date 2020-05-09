@@ -204,12 +204,13 @@ export default {
       inputKeyboard: '',
       focusInputList: [],
       indexFocusedInput: 0,
-      focusedInput: ''
+      focusedInput: '',
+      caretPosition: 0
     }
   },
   mounted () {
     this.focusInputList = Object.keys(this.$refs)
-    this.focusedInput = 'idAttendance'
+    console.log(this.$refs.idAttendance.$el.children[1])
   },
   methods: {
     nextInput () {
@@ -219,9 +220,8 @@ export default {
     },
     previousInput () {
       let numInputs = this.focusInputList.length
-      this.indexFocusedInput = (--this.indexFocusedInput)%numInputs
+      this.indexFocusedInput = -(--this.indexFocusedInput)%numInputs
       this.focusedInput = this.focusInputList[this.indexFocusedInput]
-      console.log(this.focusedInput)
     },
     enter () {
       
@@ -232,21 +232,40 @@ export default {
       this.patient[this.focusInputList] = currentValue.slice(0, length - 1)
     },
     goRight () {
+      this.caretPosition = this.$refs[this.focusedInput].$el.children[1].selectionStart
+      let positionRightLimit = this.patient[this.focusedInput].length;
+      let inputElement = this.$refs[this.focusedInput].$el.children[1];
+      if (this.caretPosition < positionRightLimit) {
+        this.caretPosition++; 
+      }
+      this.setCaretPosition(inputElement, this.caretPosition);
 
     },
     goLeft () {
-
+      this.caretPosition = this.$refs[this.focusedInput].$el.children[1].selectionStart
+      let positionLeftLimit = 0
+      let inputElement = this.$refs[this.focusedInput].$el.children[1]
+      if (this.caretPosition > positionLeftLimit) {
+        this.caretPosition--;
+      }
+      this.setCaretPosition(inputElement, this.caretPosition - 1)
     },
     space () {
 
+    },
+    setCaretPosition (el, pos) {
+      console.log(pos)
+      if (el.setSelectionRange) {
+        el.focus()
+        el.setSelectionRange(pos,pos)
+      }
     },
     keepFocus () { 
 
     },
     write (e) {
-      console.log('oi', e)
       this.focusedInput = this.focusInputList[this.indexFocusedInput]
-      //this.$refs[this.focusedInput].focus({target: { name: this.focusedInput }})
+      this.$refs[this.focusedInput].focus({target: { name: this.focusedInput }})
       // this.$refs[this.focusedInput].select()
       this.patient[this.focusedInput] += e.target.value
     },
@@ -262,9 +281,14 @@ export default {
       this.visibility = value
     },
     displayKeyboard () {
+      console.log(this.focusedInput)
       this.softKeyboard = !this.softKeyboard
+      this.focusedInput = ''
+      console.log(this.focusedInput)
+      console.log(this.softKeyboard)
       if (this.softKeyboard) {
-        
+        this.focusedInput = this.focusInputList[this.indexFocusedInput]
+        console.log(this.focusedInput)
       }
     },
     displayHelpToLogin () {

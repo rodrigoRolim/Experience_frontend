@@ -106,6 +106,10 @@ export default {
      
         this.prevInput()
       
+      } else if (key == 'angle-right') {
+        
+        this.goRight()
+        
       } else {
 
         if (this.capslockKey) {
