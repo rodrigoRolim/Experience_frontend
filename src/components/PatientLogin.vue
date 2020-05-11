@@ -210,17 +210,18 @@ export default {
   },
   mounted () {
     this.focusInputList = Object.keys(this.$refs)
-    console.log(this.$refs.idAttendance.$el.children[1])
   },
   methods: {
     nextInput () {
       let numInputs = this.focusInputList.length
       this.indexFocusedInput = (++this.indexFocusedInput)%numInputs
+      console.log(this.indexFocusedInput)
       this.focusedInput = this.focusInputList[this.indexFocusedInput]
     },
     previousInput () {
       let numInputs = this.focusInputList.length
       this.indexFocusedInput = -(--this.indexFocusedInput)%numInputs
+      console.log(this.indexFocusedInput)
       this.focusedInput = this.focusInputList[this.indexFocusedInput]
     },
     enter () {
@@ -254,7 +255,7 @@ export default {
 
     },
     setCaretPosition (el, pos) {
-      console.log(pos)
+
       if (el.setSelectionRange) {
         el.focus()
         el.setSelectionRange(pos,pos)
@@ -264,14 +265,15 @@ export default {
 
     },
     write (e) {
-      this.focusedInput = this.focusInputList[this.indexFocusedInput]
-      this.$refs[this.focusedInput].focus({target: { name: this.focusedInput }})
+      this.indexFocusedInput = this.focusInputList.indexOf(this.focusedInput)
+      this.$refs[this.focusInputList[this.indexFocusedInput]]
+        .focus({target: { name: this.focusedInput }})
       // this.$refs[this.focusedInput].select()
       this.patient[this.focusedInput] += e.target.value
     },
     focusInput (e) {
-     
-      this.focusedInput = e.target.name
+      this.indexFocusedInput = this.focusInputList.indexOf(e.target.name);
+      this.focusedInput = e.target.name;
     },
     radio (value) {
       this.valueRadio = value
@@ -281,14 +283,14 @@ export default {
       this.visibility = value
     },
     displayKeyboard () {
-      console.log(this.focusedInput)
+     /// console.log(this.focusedInput)
       this.softKeyboard = !this.softKeyboard
       this.focusedInput = ''
-      console.log(this.focusedInput)
-      console.log(this.softKeyboard)
+     // console.log(this.focusedInput)
+     // console.log(this.softKeyboard)
       if (this.softKeyboard) {
         this.focusedInput = this.focusInputList[this.indexFocusedInput]
-        console.log(this.focusedInput)
+     //   console.log(this.focusedInput)
       }
     },
     displayHelpToLogin () {

@@ -102,7 +102,7 @@ export default {
 
         this.nextInput()
       
-      } else if (key == 'long-arrow-alt-left') {
+      } else if (key == 'long-arrow-alt-left' ) {
      
         this.prevInput()
       
