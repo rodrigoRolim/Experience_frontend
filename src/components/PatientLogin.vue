@@ -234,15 +234,20 @@ export default {
       const caretPosition = this.getCaretPosition()
      
       let currentValue = this.patient[this.focusInputList[this.indexFocusedInput]];
-     
-      this.updateCurrentInput(currentValue, caretPosition);
+      const newValue = this.deleteChar(currentValue, caretPosition - 1);
+      this.patient[this.focusInputList[this.indexFocusedInput]] = newValue;
+
+      this.updateCurrentInput(newValue);
       let inputElement = this.getCurrentInput();
       this.setCaretPosition(inputElement, caretPosition - 1);
     },
-    replaceChar (str, pos, char) {
+    deleteChar (str, pos) {
       let arrStr = str.split('');
-      arrStr[pos] = char;
+      arrStr[pos] = '';
       return arrStr.join('');
+    },
+    insertChar (str, pos, char) {
+      return str.substr(0, pos) + char + str.substr(pos, str.length)
     },
     getCaretPosition () {
       let el = this.getCurrentInput();
@@ -267,15 +272,13 @@ export default {
     getCurrentInput () {
       return this.$refs[this.focusedInput].$el.children[1];
     },
-    updateCurrentInput (currentValue, caretPosition) {
-      const resultValue = this.replaceChar(currentValue, caretPosition - 1, '');
-      this.patient[this.focusInputList[this.indexFocusedInput]] = resultValue;
-      this.$refs[this.focusInputList[this.indexFocusedInput]].$el.children[1].value =  resultValue;
+    updateCurrentInput (newValue) {
+      this.$refs[this.focusInputList[this.indexFocusedInput]].$el.children[1].value = newValue;
     },
     goRight () {
       this.caretPosition = this.getCaretPosition()
       let positionRightLimit = this.patient[this.focusedInput].length;
-      let inputElement = this.getInput()
+      let inputElement = this.getCurrentInput()
       if (this.caretPosition < positionRightLimit) {
         this.caretPosition++; 
       }
@@ -315,8 +318,12 @@ export default {
       console.log('write')
       this.indexFocusedInput = this.focusInputList.indexOf(this.focusedInput)
       this.keepFocus()
-      // this.$refs[this.focusedInput].select()
-      this.patient[this.focusedInput] += e.target.value
+      let currentPositionCursor = this.getCaretPosition()
+     
+      this.patient[this.focusedInput] = this.insertChar(this.patient[this.focusedInput], currentPositionCursor, e.target.value);
+      this.updateCurrentInput(this.patient[this.focusedInput])
+      let inputElement = this.getCurrentInput()
+      this.setCaretPosition(inputElement, currentPositionCursor + 1)
     },
     focusInput (e) {
       console.log('focusInput')
