@@ -84,32 +84,36 @@ export default {
       
       if (key == 'backspace') {
 
-        this.backspace()
+        this.backspace();
         
       } else if (key == 'space') {
 
-        this.space()
+        this.space();
         
       } else if (key == 'enter') {
 
-        this.enter()
+        this.enter();
         
       } else if (key == 'angle-up') {
         
-        this.capslock()
+        this.capslock();
 
       } else if (key == 'long-arrow-alt-right') {
 
-        this.nextInput()
+        this.nextInput();
       
       } else if (key == 'long-arrow-alt-left' ) {
      
-        this.prevInput()
+        this.prevInput();
       
       } else if (key == 'angle-right') {
         
-        this.goRight()
+        this.goRight();
         
+      } else if (key == 'angle-left') {
+
+        this.goLeft();
+
       } else {
 
         if (this.capslockKey) {

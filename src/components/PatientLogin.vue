@@ -95,7 +95,6 @@
           :weight="600"
           color="#333"
           icon="user"
-          :focused="focusedInput == 'idAttendance'"
         />
       </div>
       <div class="login-p-pass">
@@ -147,7 +146,7 @@
         ></code-button>
       </div>
     </form>
-    <div class="login-patient__softkeyboard" @click="keepFocus">
+    <div class="login-patient__softkeyboard">
       <keyboard-self-service
         @write="write"
         @nextInput="nextInput"
@@ -212,6 +211,9 @@ export default {
     this.focusInputList = Object.keys(this.$refs)
   },
   methods: {
+    inputModel (e) {
+      this.patient.idAttendance = e.target.value
+    },
     nextInput () {
       let numInputs = this.focusInputList.length
       this.indexFocusedInput = (++this.indexFocusedInput)%numInputs
@@ -228,14 +230,52 @@ export default {
       
     },
     backspace () {
-      let currentValue = this.patient[this.focusInputList[this.indexFocusedInput]]
-      let length = currentValue.length
-      this.patient[this.focusInputList] = currentValue.slice(0, length - 1)
+      //this.keepFocus()
+      const caretPosition = this.getCaretPosition()
+     
+      let currentValue = this.patient[this.focusInputList[this.indexFocusedInput]];
+     
+      this.updateCurrentInput(currentValue, caretPosition);
+      let inputElement = this.getCurrentInput();
+      this.setCaretPosition(inputElement, caretPosition - 1);
+    },
+    replaceChar (str, pos, char) {
+      let arrStr = str.split('');
+      arrStr[pos] = char;
+      return arrStr.join('');
+    },
+    getCaretPosition () {
+      let el = this.getCurrentInput();
+      if (el.selectionStart) {
+        return el.selectionStart;
+      } else if (document.selection) {
+        el.focus();
+        var r =  document.selection.createRange();
+        if (r == null) {
+          return 0;
+        }
+
+        var re = el.createTextRange(),
+            rc = re.duplicate();
+        re.moveToBookmark(r.getBookmark());
+        rc.setEndPoint('EndToStart', re);
+
+        return rc.text.length;
+      }
+      return 0
+    },
+    getCurrentInput () {
+      return this.$refs[this.focusedInput].$el.children[1];
+    },
+    updateCurrentInput (currentValue, caretPosition) {
+      const resultValue = this.replaceChar(currentValue, caretPosition - 1, '');
+      this.patient[this.focusInputList[this.indexFocusedInput]] = resultValue;
+      this.$refs[this.focusInputList[this.indexFocusedInput]].$el.children[1].value =  resultValue;
     },
     goRight () {
-      this.caretPosition = this.$refs[this.focusedInput].$el.children[1].selectionStart
+      this.caretPosition = this.getCaretPosition()
       let positionRightLimit = this.patient[this.focusedInput].length;
-      let inputElement = this.$refs[this.focusedInput].$el.children[1];
+      let inputElement = this.getInput()
       if (this.caretPosition < positionRightLimit) {
         this.caretPosition++; 
       }
@@ -243,35 +283,43 @@ export default {
 
     },
     goLeft () {
-      this.caretPosition = this.$refs[this.focusedInput].$el.children[1].selectionStart
+      this.caretPosition = this.getCaretPosition()
       let positionLeftLimit = 0
       let inputElement = this.$refs[this.focusedInput].$el.children[1]
+     
       if (this.caretPosition > positionLeftLimit) {
         this.caretPosition--;
       }
-      this.setCaretPosition(inputElement, this.caretPosition - 1)
+      this.setCaretPosition(inputElement, this.caretPosition)
     },
     space () {
 
     },
     setCaretPosition (el, pos) {
-
+      /* eslint-disable no-debugger, no-console */
+      //debugger;
       if (el.setSelectionRange) {
-        el.focus()
-        el.setSelectionRange(pos,pos)
+        console.log(pos)
+        el.focus();
+        el.setSelectionRange(pos,pos);
+      } else if (el.createTextRange) {
+        var range = el.createTextRange();
+        range.moveStart('Character', pos);
+        range.select();
       }
     },
-    keepFocus () { 
-
+    keepFocus () {
+      this.$refs[this.focusInputList[this.indexFocusedInput]].$el.children[1].focus();
     },
     write (e) {
+      console.log('write')
       this.indexFocusedInput = this.focusInputList.indexOf(this.focusedInput)
-      this.$refs[this.focusInputList[this.indexFocusedInput]]
-        .focus({target: { name: this.focusedInput }})
+      this.keepFocus()
       // this.$refs[this.focusedInput].select()
       this.patient[this.focusedInput] += e.target.value
     },
     focusInput (e) {
+      console.log('focusInput')
       this.indexFocusedInput = this.focusInputList.indexOf(e.target.name);
       this.focusedInput = e.target.name;
     },
@@ -284,13 +332,11 @@ export default {
     },
     displayKeyboard () {
      /// console.log(this.focusedInput)
+      console.log('displayKeyboard')
+      this.focusedInput = this.focusInputList[this.indexFocusedInput]
       this.softKeyboard = !this.softKeyboard
-      this.focusedInput = ''
-     // console.log(this.focusedInput)
-     // console.log(this.softKeyboard)
       if (this.softKeyboard) {
-        this.focusedInput = this.focusInputList[this.indexFocusedInput]
-     //   console.log(this.focusedInput)
+        this.$refs[this.focusedInput].$el.children[1].focus();
       }
     },
     displayHelpToLogin () {
