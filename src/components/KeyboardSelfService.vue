@@ -6,7 +6,8 @@
     <div class="keyboard__row__keys" v-for="(row, i) in keyboard" v-bind:key="i">
       <button v-for="key in row" v-bind:key="key" class="keyboard__key"
         @click="digit(key)"
-        :class="{ 'space__bar': key == 'space', 
+        :class="{ 'space__bar': key == 'space',
+                  'confirm__key': key == 'check-circle',
                   'keyboard__key--wide':  wideButton(key),
                   'keyboard__key--capslock': capslockKey && key !== 'enter' && key !== 'space'
                 }"
@@ -38,7 +39,7 @@ export default {
                  ["1","2","3","4","5","6","7","8","9","0","backspace"],
                    ["q","w","e","r","t","y","u","i","o","p"],
                  ["angle-up","a","s","d","f","g","h","i","j","k","l","ç","check-circle"],
-                 ["long-arrow-alt-right","z","x","c","v","b","n","m",".",",","?"],
+                 ["long-arrow-alt-right","z","x","c","v","b","n","m",".","/","?"],
                  ["long-arrow-alt-left","space","angle-left", "angle-right"]
               ],
       valueKey: '',
@@ -59,8 +60,8 @@ export default {
     prevInput () {
       this.$emit('previousInput')
     },
-    enter () {
-      this.$emit('enter')
+    confirm () {
+      this.$emit('confirm')
     },
     backspace () {
       this.$emit('backspace')
@@ -90,9 +91,9 @@ export default {
 
         this.space();
         
-      } else if (key == 'enter') {
+      } else if (key == 'check-circle') {
 
-        this.enter();
+        this.confirm();
         
       } else if (key == 'angle-up') {
         
@@ -144,7 +145,7 @@ export default {
   display: flex
   flex-direction: column
   justify-content: center
-  background-color: #015050
+  background-color: $keyboard
   @include respond-to(handhelds)
     display: none
 .keyboard__close
@@ -161,10 +162,12 @@ export default {
   text-transform: uppercase
 .keyboard__row__keys
   width: 100%
-  height: 7.5vh
+  height: 7.7vh
+  max-height: 50px
   display: flex
   flex-direction: row
   justify-content: center
+
 .keyboard__key
   position: relative
   display: inline-flex
@@ -174,16 +177,18 @@ export default {
   margin: 3px
   width: 6%
   min-width: 20px
+  max-width: 6%
   border-radius: 5px
   border: none
   color: white
-  background-color: rgba(255,255,255, 0.4)
+  background-color: $key
   outline: none
   font-size: 16px
 .keyboard__key:active
-  background-color: rgba(255,255,255, 0.6)
+  background-color: $key-active
 .keyboard__key--wide
   width: 8%
+  max-width: 8%
   min-width: 30px
 .keyboard__key--activate::after,
 .keyboard__key--deactivate::after
@@ -196,9 +201,10 @@ export default {
   height: 10px
   align-self: flex-end
 .keyboard__key--deactivate::after
-  background-color: #015050
+  background-color: $keyboard
 .keyboard__key--activate::after
   background-color: lightgreen
 .space__bar
   width: 45%
+  max-width: 45%
 </style>
