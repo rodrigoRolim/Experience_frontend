@@ -1,4 +1,5 @@
 <template>
+<transition name="fade">
   <div v-if="show" class="keyboard" >
     <div class="keyboard__close" @click="close">
       <i><font-awesome-icon icon="times" /></i>  
@@ -25,6 +26,7 @@
       </button>
     </div>
   </div>
+</transition>
 </template>
 <script>
 export default {
@@ -207,4 +209,10 @@ export default {
 .space__bar
   width: 45%
   max-width: 45%
+.fade-enter-active, .fade-leave-active
+  transition: opacity .5s
+
+.fade-enter, .fade-leave-to
+  opacity: 0
+
 </style>
