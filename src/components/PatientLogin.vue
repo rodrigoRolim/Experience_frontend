@@ -121,7 +121,7 @@
       </div>
       <div class="doubt-keyboard">
         <small class="keyboard">
-          <i v-if="visibility !== 'ID'" @click="displayKeyboard">
+          <i v-if="visibility !== 'ID'" @click="displayKeyboard" class="keyboard__icon">
             <font-awesome-icon icon="keyboard" size="lg"/>
           </i>
         </small>
@@ -384,4 +384,7 @@ export default {
   margin: 20px 0
   cursor: pointer
   text-decoration: underline
+.keyboard__icon
+  @include respond-to(handhelds)
+    display: none
 </style>
