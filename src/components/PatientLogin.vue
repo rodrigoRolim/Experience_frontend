@@ -89,6 +89,7 @@
           type="text"
           required
           v-model="patient.idAttendance"
+          :focused="focusedInput == 'idAttendance'"
           @focus="focusInput"
           :width="9"
           :height="7"
@@ -151,7 +152,7 @@
         @write="write"
         @nextInput="nextInput"
         @previousInput="previousInput"
-        @enter="enter"
+        @confirm="confirm"
         @backspace="backspace"
         @right="goRight"
         @left="goLeft"
@@ -217,17 +218,15 @@ export default {
     nextInput () {
       let numInputs = this.focusInputList.length
       this.indexFocusedInput = (++this.indexFocusedInput)%numInputs
-      console.log(this.indexFocusedInput)
       this.focusedInput = this.focusInputList[this.indexFocusedInput]
     },
     previousInput () {
       let numInputs = this.focusInputList.length
       this.indexFocusedInput = -(--this.indexFocusedInput)%numInputs
-      console.log(this.indexFocusedInput)
       this.focusedInput = this.focusInputList[this.indexFocusedInput]
     },
-    enter () {
-      
+    confirm () {
+     
     },
     backspace () {
       //this.keepFocus()
@@ -296,13 +295,14 @@ export default {
       this.setCaretPosition(inputElement, this.caretPosition)
     },
     space () {
-
+      let e = Object.assign({ target: { value: ' ' } })
+      this.write(e)
     },
     setCaretPosition (el, pos) {
       /* eslint-disable no-debugger, no-console */
       //debugger;
       if (el.setSelectionRange) {
-        console.log(pos)
+
         el.focus();
         el.setSelectionRange(pos,pos);
       } else if (el.createTextRange) {
@@ -311,13 +311,13 @@ export default {
         range.select();
       }
     },
-    keepFocus () {
-      this.$refs[this.focusInputList[this.indexFocusedInput]].$el.children[1].focus();
+    keepFocus (index) {
+      this.$refs[this.focusInputList[index]].$el.children[1].focus();
     },
     write (e) {
-      console.log('write')
+ 
       this.indexFocusedInput = this.focusInputList.indexOf(this.focusedInput)
-      this.keepFocus()
+      this.keepFocus(this.indexFocusedInput)
       let currentPositionCursor = this.getCaretPosition()
      
       this.patient[this.focusedInput] = this.insertChar(this.patient[this.focusedInput], currentPositionCursor, e.target.value);
@@ -326,7 +326,7 @@ export default {
       this.setCaretPosition(inputElement, currentPositionCursor + 1)
     },
     focusInput (e) {
-      console.log('focusInput')
+ 
       this.indexFocusedInput = this.focusInputList.indexOf(e.target.name);
       this.focusedInput = e.target.name;
     },
@@ -338,8 +338,7 @@ export default {
       this.visibility = value
     },
     displayKeyboard () {
-     /// console.log(this.focusedInput)
-      console.log('displayKeyboard')
+
       this.focusedInput = this.focusInputList[this.indexFocusedInput]
       this.softKeyboard = !this.softKeyboard
       if (this.softKeyboard) {
