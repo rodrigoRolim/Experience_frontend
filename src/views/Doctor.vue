@@ -1,5 +1,9 @@
 <template>
-  <p>dooutor de buceta</p>
+  <div>
+    <h1>Doctor</h1>
+    <router-view />
+  </div>
+  
 </template>
 
 <script>
