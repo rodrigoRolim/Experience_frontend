@@ -229,7 +229,7 @@ export default {
      
     },
     backspace () {
-      //this.keepFocus()
+
       const caretPosition = this.getCaretPosition()
      
       let currentValue = this.patient[this.focusInputList[this.indexFocusedInput]];
@@ -259,12 +259,12 @@ export default {
           return 0;
         }
 
-        var re = el.createTextRange(),
-            rc = re.duplicate();
-        re.moveToBookmark(r.getBookmark());
-        rc.setEndPoint('EndToStart', re);
+        var rangeElement = el.createTextRange(),
+            rangeCopy = rangeElement.duplicate();
+        rangeElement.moveToBookmark(r.getBookmark());
+        rangeCopy.setEndPoint('EndToStart', rangeElement);
 
-        return rc.text.length;
+        return rangeCopy.text.length;
       }
       return 0
     },
