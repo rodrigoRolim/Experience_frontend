@@ -1,0 +1,20 @@
+@mixin an-fade ($duration, $timing-function, $delay, $it-count, $direction)
+  .fade--enter
+    -webkit-animation: fade-enter $duration $timing-function $delay $it-count, $direction
+    animation: fade-enter $duration $timing-function $delay $it-count, $direction
+  .fade--leave
+    -webkit-animation: fade-leave $duration $timing-function $delay $it-count, $direction
+    animation: fade-leave $duration $timing-function $delay $it-count, $direction
+  @include keyframes-fade()
+
+@mixin keyframes-fade ()
+  @keyframes fade-enter
+    0%
+      opacity: 0
+    100%
+      opacity: 1
+  @keyframes fade-leave
+    0%
+      opacity: 1
+    100%
+      opacity: 0
