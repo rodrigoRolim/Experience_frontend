@@ -56,7 +56,7 @@ export default {
   flex-flow: row wrap
   align-items: center
   justify-content: space-between  
-  background-color: white
+  background-color: #f4f3f3
   width: 100%
   padding: 10px
 #exams

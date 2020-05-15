@@ -67,7 +67,8 @@ export default {
 };
 </script>
 <style lang="sass" scoped>
-@import "../styles/_colors.sass"
+
+@import "../styles/colors/_status-colors.sass"
 
 .p-exam-list-item
   display: flex
@@ -130,35 +131,15 @@ export default {
   align-self: flex-end
   min-height: 44px
 .pendency
-  background-color: #{$EP}08
-  border-top: 1px solid $EP
-  border-left: 5px solid $EP
-  border-right: 1px solid $EP
-  border-bottom: 1px solid $EP
+  @include card-situation($status: "EP", $border-large: left, $transparent: true)
 .finished
-  border-top: 1px solid $TF
-  border-left: 5px solid $TF
-  border-right: 1px solid $TF
-  border-bottom: 1px solid $TF
-  background-color: #{$TF}08
+  @include card-situation($status: "TF", $border-large: left, $transparent: true)
 .partial-finished
-  border-top: 1px solid $PF
-  border-left: 5px solid $PF
-  border-right: 1px solid $PF
-  border-bottom: 1px solid $PF
-  background-color: #{$PF}08
+  @include card-situation($status: "PF", $border-large: left, $transparent: true)
 .in-progress
-  border-top: 1px solid $EA
-  border-left: 5px solid $EA
-  border-right: 1px solid $EA
-  border-bottom: 1px solid $EA 
-  background-color: #{$EA}08
+  @include card-situation($status: "EA", $border-large: left, $transparent: true)
 .unrealized
-  border-top: 1px solid $NR
-  background-color: #{$NR}08
-  border-left: 5px solid $NR
-  border-right: 1px solid $NR
-  border-bottom: 1px solid $NR
+  @include card-situation($status: "NR", $border-large: left, $transparent: true)
 .icon
   margin-right: 5px
 .label

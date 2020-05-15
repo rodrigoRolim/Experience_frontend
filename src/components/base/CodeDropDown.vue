@@ -11,7 +11,7 @@
       </button>
     </div>
     <div class="body-drop-down-up"
-      :class="{'drop-down-an': show && dropdown, 'drop-up-an': !show && dropdown}"
+      :class="{'dropdown--visible': show && dropdown, 'dropdown--hidden': !show && dropdown}"
       >
       <div class="content">
         <slot name="content"></slot>
@@ -50,7 +50,10 @@ export default {
 </script>
 <style lang="sass" scoped>
 @import "../../styles/_colors.sass"
-@import "../../styles/_animations.sass"
+@import "../../styles/animations/_dropdown.sass"
+
+@include an-dropdown($max-height: 660px, $duration-hidden: 0.6s, $duration-visible: 0.6s)
+
 .container-drop
   display: flex
   flex-direction: column

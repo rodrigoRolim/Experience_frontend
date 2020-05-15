@@ -137,7 +137,6 @@ export default {
       
     },
     putOutline (focus) {
-      console.log(focus)
       this.outlineInput = focus
       if (focus) {
         this.$refs.input.focus()

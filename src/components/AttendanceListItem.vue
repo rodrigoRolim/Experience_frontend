@@ -51,7 +51,7 @@ export default {
 </script>
 <style lang="sass" scoped>
 @import "../styles/_colors.sass"
-
+@import "../styles/colors/_status-colors.sass"
 $border-pendecy: 1px solid $EP
 
 .container-item
@@ -75,33 +75,23 @@ $border-pendecy: 1px solid $EP
 .container-item:hover
   -webkit-box-shadow:  0 0 6px rgba(0,0,0,.3)
 .pendency
-  border-left: 5px solid $EP
-  @include color-situation($EP)
+  @include card-situation($status: "EP", $border-large: left, $transparent: true)
   @include respond-to(handhelds)
-    border-top: 5px solid $EP
-    border-left: 1px solid $EP
+    @include card-situation($status: "EP", $border-large: top, $transparent: true)
 .finished
-  border-left: 5px solid $TF
-  @include color-situation($TF)
+  @include card-situation($status: "TF", $border-large: left, $transparent: true)
   @include respond-to(handhelds)
-    border-top: 5px solid $TF
-    border-left: 1px solid $TF
+    @include card-situation($status: "TF", $border-large: top, $transparent: true)
 .partial-finished
-  border-left: 5px solid $PF
-  @include color-situation($PF)
+  @include card-situation($status: "PF", $border-large: left, $transparent: true)
   @include respond-to(handhelds)
-    border-top: 5px solid $PF
-    border-left: 1px solid $PF
+    @include card-situation($status: "PF", $border-large: top, $transparent: true)
 .in-progress
-  border-left: 5px solid $EA
-  @include color-situation($EA)
+  @include card-situation($status: "EA", $border-large: left, $transparent: true)
   @include respond-to(handhelds)
-    border-top: 5px solid $EA
-    border-left: 1px solid $EA
+    @include card-situation($status: "EA", $border-large: top, $transparent: true)
 .unrealized
-  border-left: 5px solid $NR
-  @include color-situation($NR)
+  @include card-situation($status: "NR", $border-large: left, $transparent: true)
   @include respond-to(handhelds)
-    border-top: 5px solid $NR
-    border-left: 1px solid $NR
+    @include card-situation($status: "NR", $border-large: top, $transparent: true)
 </style>

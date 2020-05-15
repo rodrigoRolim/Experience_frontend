@@ -52,7 +52,6 @@ export default {
   },
   computed: {
     getColor (vm) {
-      console.log(vm.color)
       return ['checkmark--'+vm.color]
     },
     getSize (vm) {

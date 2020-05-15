@@ -41,7 +41,7 @@ export default {
 .container-list-attendances
   display: flex
   flex-direction: column
-
+  background-color: #f4f3f3
 #scrollbar-att
   max-height: 400px
   overflow-y: auto
