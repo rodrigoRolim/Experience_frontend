@@ -1,9 +1,9 @@
 <template>
-  <div class="p-exam-list-item" :class="getSituation" @click.self="click">
-    <div class="detail-exam" >
-      <code-chip text="lic" transform="uppercase" class="chip-exam"></code-chip>
-      <div class="wall"></div>
-      <div class="name-exam">
+  <div class="patient-exam" :class="getSituation" @click.self="click">
+    <div class="patient-exam__detail">
+      <code-chip text="lic" transform="uppercase" class="patient-exam__tag"></code-chip>
+      <div class="patient-exam__separator-line"></div>
+      <div class="patient-exam__name-exam">
          <code-info
           icon="flask"
           size="lg"
@@ -13,7 +13,7 @@
          />
       </div>
     </div>
-    <div class="c-health-care">
+    <div class="patient-exam__health-center">
       <code-info
         icon="clinic-medical"
         size="lg"
@@ -23,7 +23,7 @@
       />
         
     </div>
-    <div class="situation-exam">
+    <div class="patient-exam__status-exam">
       <code-chip-situation :situation="situation"></code-chip-situation>
     </div>
     <div class="checkbox">
@@ -68,9 +68,9 @@ export default {
 </script>
 <style lang="sass" scoped>
 
-@import "../styles/colors/_status-colors.sass"
+@import "../styles/colors/_status-colors.scss"
 
-.p-exam-list-item
+.patient-exam
   display: flex
   flex-direction: column
   justify-content: space-between
@@ -84,38 +84,33 @@ export default {
   min-height: 150px
   margin-bottom: 10px
   user-select: none
-.p-exam-list-item:hover
+.patient-exam:hover
   -webkit-box-shadow:  0 0 6px rgba(0,0,0,.3)
   box-shadow:  0 0 6px rgba(0,0,0,.3)
   cursor: pointer
-.detail-exam
+.patient-exam__detail
   align-self: flex-start
   display: flex
   flex-direction: row
   justify-content: center
   cursor: default
-.name-exam
+.patient-exam__name-exam
   display: flex
   flex-direction: row
   align-items: center
   width: 100%
-.c-health-care
+.patient-exam__health-center
   align-self: flex-start
   cursor: default
   margin-top: 6px
   margin-left: 10px
   margin-bottom: 20px
-.name-exam p
-  color: rgba(0,0,0, 0.8)
-  font-size: .9rem
-  margin: 0
-.wall
+.patient-exam__separator-line
   content: "|"
   display: flex
   flex-direction: column
   margin: 25px 0px
-.name, 
-.situation-exam
+.patient-exam__status-exam
   align-self: center
   display: flex
   flex-direction: row
@@ -140,16 +135,4 @@ export default {
   @include card-situation($status: "EA", $border-large: left, $transparent: true)
 .unrealized
   @include card-situation($status: "NR", $border-large: left, $transparent: true)
-.icon
-  margin-right: 5px
-.label
-  display: flex
-  flex-direction: column
-  font-size: 0.7rem
-  margin-left: 3px
-.label span:first-child
-  font-size: 0.65rem
-  color: rgba(71, 77, 94, 1)
-.label span:last-child
-  font-weight: 600
 </style>

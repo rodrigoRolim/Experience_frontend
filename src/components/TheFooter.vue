@@ -1,11 +1,11 @@
 <template>
   <footer class="footer">
-    <div class="legends">
-      <div class="c-finished"><p class="finished">Finalizado</p></div>
-      <div class="c-in-progress"><p class="in-progress">Em Andamento</p></div>
-      <div class="c-pa-finished"><p class="pa-finished">Parcialmente Finalizado</p></div>
-      <div class="c-pendencies"><p class="pendencies">Existem Pendências</p></div>
-      <div class="c-no-realized"><p class="no-realized">Não realizado</p></div>
+    <div class="footer__legends">
+      <div class="footer__legend"><p class="footer__finished">Finalizado</p></div>
+      <div class="footer__legend"><p class="footer__in-progress">Em Andamento</p></div>
+      <div class="footer__legend"><p class="footer__partial-finished">Parcialmente Finalizado</p></div>
+      <div class="footer__legend"><p class="footer__pendencies">Existem Pendências</p></div>
+      <div class="footer__legend"><p class="footer__no-realized">Não realizado</p></div>
     </div>
   </footer>
 </template>
@@ -15,11 +15,14 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-@import '../styles/_colors.sass'
-p
+.footer__finished,
+.footer__in-progress,
+.footer__partial-finished,
+.footer__pendencies,
+.footer__no-realized
   margin: 2px
   padding: 0
-.legends
+.footer__legends
   display: flex
   flex-direction: row
   @include respond-to(handhelds)
@@ -30,28 +33,19 @@ p
   background: white
   padding: 16px 20px
   width: 100%
-.finished::before,
-.in-progress::before,
-.pa-finished::before,
-.pendencies::before,
-.no-realized::before
+.footer__legend::before
   content: " "
   margin-right: 4px
-.finished::before
+.legend__finished::before
   border: 2px solid $TF
-.in-progress::before
+.legend__in-progress::before
   border: 2px solid $EA
-.pa-finished::before
+.legend__partial-finished::before
   border: 2px solid $PF
-.pendencies::before
+.legend__pendencies::before
   border: 2px solid $EP
-.no-realized::before
+.legend__no-realized::before
   border: 2px solid $NR
-.c-finished,
-.c-in-progress,
-.c-pa-finished,
-.c-pendencies,
-.c-no-realized
+.footer__legend
   margin-right: 10px
-
 </style>
