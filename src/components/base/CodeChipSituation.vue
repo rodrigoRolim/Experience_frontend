@@ -43,7 +43,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-@import '../../styles/_colors.sass'
+@import '../../styles/_colors.scss'
 .container-chip-situation
   display: flex
   flex-direction: column

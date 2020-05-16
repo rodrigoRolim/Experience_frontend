@@ -156,7 +156,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-@import '../../styles/_fonts'
+@import '../../styles/fonts/_fontello'
 .input-password
   display: flex
   flex-direction: row

@@ -24,7 +24,7 @@ export default {
 
 <style lang="sass" scoped>
 
-@import "../styles/_colors.sass"
+@import "../styles/_colors.scss"
 
 $border-value: 1px solid
 

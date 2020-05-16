@@ -50,8 +50,8 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-@import "../styles/_colors.sass"
-@import "../styles/colors/_status-colors.sass"
+@import "../styles/_colors.scss"
+@import "../styles/colors/_status-colors.scss"
 $border-pendecy: 1px solid $EP
 
 .container-item

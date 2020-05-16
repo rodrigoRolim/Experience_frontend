@@ -49,7 +49,7 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-@import "../../styles/_colors.sass"
+@import "../../styles/_colors.scss"
 @import "../../styles/animations/_dropdown.sass"
 
 @include an-dropdown($max-height: 660px, $duration-hidden: 0.6s, $duration-visible: 0.6s)
