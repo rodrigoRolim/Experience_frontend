@@ -1,9 +1,9 @@
 <template>
   <div class="patient">
     <div class="patient__perfil">
-      <strong>jacinto pinto pedroso</strong>
-      <div class="patient__perfil__info">
-        <div class="patient__perfil__info__sex">
+      <strong class="patient__name">jacinto pinto pedroso</strong>
+      <div class="patient__personal-dates">
+        <div class="patient__sex">
           <code-info 
             class="icon"
             icon="mars"
@@ -13,7 +13,7 @@
             size="lg"
           />
         </div>
-        <div class="patient__perfil__info__age">
+        <div class="patient__age">
           <code-info
             class="icon" 
             icon="birthday-cake"
@@ -26,9 +26,9 @@
       </div>
     </div>
     <div class="patient__contacts">
-      <strong>contatos</strong>
-      <div class="patient__contacts__types">
-        <div class="patient__contacts__types__phones">
+      <strong class="patient__name">contatos</strong>
+      <div class="patient__contact-items">
+        <div class="patient__phones">
           <code-info 
             class="icon"
             icon="phone"
@@ -38,7 +38,7 @@
             size="lg"
           />
         </div>
-        <div class="patient__contacts__types__email">
+        <div class="patient__email">
           <code-info
             class="icon"
             icon="envelope"
@@ -51,7 +51,7 @@
       </div>
     </div>
     <div class="patient__attendance">
-      <div class="patient__attendance__date">
+      <div class="patient__date">
         <code-info 
           icon="calendar-check"
           info="07/04/2016"
@@ -60,7 +60,7 @@
           size="lg"
         />
       </div> 
-      <div class="patient__attendance__id">
+      <div class="patient__id">
         <code-info
           icon="heartbeat"
           info="0/0012889"
@@ -105,12 +105,12 @@ export default {
     width: 100%
   @include respond-to(handhelds)
     width: 100%
-.patient__perfil strong
+.patient__name
   margin-bottom: 10px
   text-transform: uppercase
 .patient__contacts strong
   margin-bottom: 10px
-.patient__perfil__info
+.patient__personal-dates
   display: flex
   @include respond-to(handhelds)
     flex-direction: column
@@ -125,17 +125,14 @@ export default {
   @include respond-to(handhelds)
     width: 100%
     margin-top: 20px
-.patient__contacts__types
+.patient__contact-items
   display: flex
   flex-direction: row
   @include respond-to(handhelds)
     flex-direction: column
-.patient__contacts__types__phones
+.patient__phones
   display: flex
   flex-direction: row
-.patient__contacts__types__email
-.icon
-  margin: 0 10px
 .patient__attendance
   width: 25%
   @include respond-to(medium-screens)
@@ -147,18 +144,19 @@ export default {
   @include respond-to(handhelds)
     width: 100%
     margin-top: 20px
-    flex-direction: column
-    justify-content: center
+    display: flex
+    flex-wrap: wrap 
+    justify-content: space-evenly
     align-items: center
     min-height: 50px
   display: flex
   flex-direction: row
-  justify-content: space-around
+  justify-content: space-evenly
   align-items: center
   background-color: white
   border: 1px solid lightgray
-.patient__attendance__date,
-.patient__attendance__id
-  @include respond-to(handhelds)
-    min-width: 120px
+.patient__sex,
+.patient__phones
+  @include respond-to(medium-screens)
+    margin-right: 20px
 </style>

@@ -69,10 +69,6 @@ export default {
     align-items: flex-start
     margin-top: 30px
   width: 90%
-.procediment__info__material
-
-.procediment__description__acro
-
 .procediment__description
   display: flex
   flex-direction: row
