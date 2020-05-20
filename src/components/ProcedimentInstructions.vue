@@ -1,26 +1,26 @@
 <template>
-  <div class="procediment_instructions">
-    <div class="procediment_instructions__header">
-      <div class="procediment_instructions__header__titles">
-        <span class="procediment_instructions__header__titles__p">
+  <div class="procediment-instructions">
+    <div class="procediment-instructions__header">
+      <div class="procediment-instructions__titles">
+        <span class="procediment-instructions__procediment-title">
          GLICEMIA POS DEXTROSE 15 MIN APOS 75G
         </span>
-        <span class="procediment_instructions__header__titles__s">
+        <span class="procediment-instructions__instructions-title">
           Instruções de Exame
         </span>
       </div>
-      <div class="procediment_instruction__header__close">  
+      <div class="procediment-instruction__close">  
         <span @click="closeModal"><font-awesome-icon icon="times" size="lg" /></span>
       </div>
     </div>
-    <div class="procediment_instructions__body">
+    <div class="procediment-instructions__body">
        <code-menu-abas>
         <template v-slot:header>
           <div @click="aba = 1" class="aba" :class="{ 'active-aba': aba == 1 }">Instruções de Exame</div>
         </template>
         <template v-slot:body>
-          <div class="instructions" v-if="aba == 1">
-            <div class="instructions__content">aqui vai as intruções do exame</div>
+          <div class="procediment-instructions__wrap" v-if="aba == 1">
+            <div class="procediment-instructions__content">aqui vai as intruções do exame</div>
           </div>
         </template>
       </code-menu-abas>  
@@ -49,43 +49,44 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.procediment_instructions
+.procediment-instructions
   display: flex
   flex-direction: column
   background-color: white
   border-radius: 4px
-.procediment_instructions__header
+  width: 700px
+.procediment-instructions__header
   width: 100%
   display: flex
   flex-direction: row
-  align-items: center
-  justify-content: space-between
+  justify-content: center
   border-bottom: 1px solid lightgray
   padding: 10px 20px
-.instructions 
+.procediment-instructions__wrap
   height: 60vh
-.instructions__content
+.procediment-instructions__content
   padding-left: 20px
   padding-top: 20px
-.procediment_instruction__header__close
+.procediment-instruction__close
   display: flex
-  flex-direction: column
+  flex-direction: row
+  justify-content: flex-end
   align-self: flex-start
-  height: 90px
-  margin-left: 30px
-  color: red
-.procediment_instructions__header__titles
+  color: dimgray
+.procediment-instructions__titles
   display: flex
   flex-direction: column
   align-items: center
-.procediment_instructions__header__titles__p
+  justify-content: center
+  width: 100%
+.procediment-instructions__procediment-title
   font-size: 1.5rem
   font-weight: 100
   color: gray
-.procediment_instructions__header__titles__s
+.procediment-instructions__instructions-title
   margin-top: 10px
   font-size: 1.2rem
   font-weight: 600
-.procediment_instructions__body
+.procediment-instructions__body
   margin-top: 20px 
 </style>

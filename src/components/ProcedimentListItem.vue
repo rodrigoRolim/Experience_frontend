@@ -1,11 +1,11 @@
 <template>
   <div class="procediment" @click="click">
-    <div class="procediment__description">
-      <code-chip class="procediment__description__acro" text="GPD 1575" transform="uppercase" />
-      <span class="procediment__description__name">GLICEMIA POS DEXTROSE 15 MIN APOS 75G</span>
+    <div class="procediment__header">
+      <code-chip class="procediment__tag" text="GPD 1575" transform="uppercase" />
+      <span class="procediment__name">GLICEMIA POS DEXTROSE 15 MIN APOS 75G</span>
     </div>
-    <div class="procediment__info">
-      <div class="procediment__info__material space-around">
+    <div class="procediment__body">
+      <div class="procediment__material procediment__body--space-around">
         <code-info
           icon="briefcase-medical"
           info="ABSCESSO CERVICAL"
@@ -15,7 +15,7 @@
         />
        <!--  <span>Material: </span><span>ABSCESSO CERVICAL</span> -->
       </div>
-      <div class="procediment__info__lab space-around">
+      <div class="procediment__lab procediment__body--space-around">
         <code-info
           icon="clinic-medical"
           description="Laboratorio"
@@ -56,7 +56,7 @@ export default {
 .procediment:hover
   -webkit-box-shadow:  0 0 3px rgba(0,0,0,.3)
   box-shadow:  0 0 3px rgba(0,0,0,.3)
-.procediment__info
+.procediment__body
   display: flex
   flex-direction: row
   justify-content: flex-end
@@ -69,18 +69,18 @@ export default {
     align-items: flex-start
     margin-top: 30px
   width: 90%
-.procediment__description
+.procediment__header
   display: flex
   flex-direction: row
   justify-content: flex-start
   align-items: center
   @include respond-to(handhelds)
     justify-content: center
-.procediment__description__name
+.procediment__name
   font-weight: 600
   margin-left: 10px
   @include respond-to(handhelds)
     font-size: 12px
-.space-around
+.procediment__body--space-around
   margin-left: 20px
 </style>

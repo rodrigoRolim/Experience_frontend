@@ -1,28 +1,32 @@
 <template>
-  <div class="container-attendance">
-    <div class="info-attendance">
+  <div class="attendance-detail">
+    <div class="attendance-detail__infos">
       <code-info 
+        class="attendance-detail__info"
         icon="heartbeat"
         description="ID atendimento"
         :info="idAttendance"
         color="rgba(71, 77, 94, 1)"
         size="2x"
       />
-      <code-info 
+      <code-info
+        class="attendance-detail__info"
         icon="credit-card"
         description="convênio"
         :info="agreement"
         color="rgba(71, 77, 94, 1)"
         size="2x"
       />
-      <code-info 
+      <code-info
+        class="attendance-detail__info"
         icon="calendar-check"
         description="data atendimento"
         :info="dataAttendance"
         color="rgba(71, 77, 94, 1)"
         size="2x"
       />
-      <code-info 
+      <code-info
+        class="attendance-detail__info"
         icon="clock"
         description="previsão entrega"
         :info="dataDelivery"
@@ -30,9 +34,9 @@
         size="2x"
       />
     </div>
-    <hr :class="getSituation">
+    <hr :class="getSituation | situationModifiers" class="attendance-detail__trace">
     <code-info
-      class="l-exams" 
+      class="attendance-detail__exams" 
       icon="flask"
       description="exames"
       :info="exams"
@@ -64,6 +68,11 @@ export default {
     return {
 
     }
+  },
+  filters: {
+    situationModifiers (situation) {
+      return 'attendance-detail__trace--'+situation
+    }
   }
 }
 </script>
@@ -75,7 +84,7 @@ export default {
 $border-value: 1px solid
 $p-side: 12px
 $p-top-bott: 5px
-.container-attendance
+.attendance-detail
   font-size: 0.8rem
   color: #3e3f3f
   margin-top: 3px
@@ -85,10 +94,10 @@ $p-top-bott: 5px
     width: 100%
   @include respond-to(medium-screens)
     width: 100%
-.l-exams
+.attendance-detail__exams
   @include respond-to(handhelds)
     padding: 10px
-.info-attendance
+.attendance-detail__infos
   display: flex
   flex-direction: row
   justify-content: space-between
@@ -100,19 +109,19 @@ $p-top-bott: 5px
     width: 100%
   @include respond-to(medium-screens)
     width: 65%
-.pendency
+.attendance-detail__trace--pendency
   border-top: $border-value $EP
   border-left: 0 
-.finished
+.attendance-detail__trace--finished
   border-top: $border-value $TF
   border-left: 0 
-.partial-finished
+.attendance-detail__trace--partial-finished
   border-top: $border-value $PF
   border-left: 0 
-.in-progress
+.attendance-detail__trace--in-progress
   border-top: $border-value $EA
   border-left: 0 
-.unrealized
+.attendance-detail__trace--unrealized
   border-top: $border-value $NR
   border-left: 0 
 </style>

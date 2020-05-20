@@ -1,7 +1,7 @@
 <template>
-  <div class="login-partner">
-    <form class="login-pr-form">
-      <div class="login-pr-cpf">
+  <div class="partner-login">
+    <form class="partner-login__form">
+      <div class="partner-login__cpf">
         <code-label
           bind="cpf"
           label="Código Parceiro"
@@ -23,7 +23,7 @@
           icon="handshake"
         />
       </div>
-      <div class="login-pr-pass">
+      <div class="partner-login__password">
         <code-label
           bind="password"
           label="Senha"
@@ -43,17 +43,17 @@
           icon="lock"
         />
       </div>
-      <div class="ctrl-pr">
+      <div class="partner-login__utilities">
         <!-- <small class="keyboard"><i><font-awesome-icon icon="keyboard" size="lg"/></i></small> -->
         <code-tooltip
           text="Clique aqui"
         >
           <template>
-            <small>duvidas <i><font-awesome-icon icon="question-circle"/></i></small>
+            <small class="partner-login__doubt">duvidas <i><font-awesome-icon icon="question-circle"/></i></small>
           </template>
         </code-tooltip> 
       </div>
-      <div class="login-pr-buttons">
+      <div class="partner-login__buttons">
         <code-button
           text="acessar"
           borded
@@ -94,31 +94,27 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-.login-partner
+.partner-login
   background-color: white
-.login-pr-form
+.partner-login__form
   display: flex
   flex-direction: column
   padding: 20px
-.login-pr-input-att,
-.login-pr-pass,
-.login-pr-cpf
+.partner-login__password,
+.partner-login__cpf
   margin: 7px 0
-.login-pr-buttons
+.partner-login__buttons
   display: flex
   flex-direction: row
   width: 100%
-.radio-input
-  width: 100%
-.login-pr-radio
-  margin-bottom: 20px
-.ctrl-pr
+
+.partner-login__utilities
   display: flex
   flex-direction: row
   justify-content: flex-end
   align-items: baseline
   margin: 20px 0
-.ctrl-pr small
+.partner-login__doubt
   color: rgb(52, 181, 131)
   cursor: pointer
 </style>

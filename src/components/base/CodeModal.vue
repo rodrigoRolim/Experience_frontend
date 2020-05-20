@@ -1,7 +1,7 @@
 <template>
   <div class="modal" v-if="display">
-    <div class="modal__body" :class="{ 'modal--normal': normal, 'modal--custom': !normal }" @click.self="close">
-      <div :class="{ 'modal__body__content': normal }">
+    <div class="modal__wrap" :class="{ 'modal--normal': normal, 'modal--custom': !normal }" @click.self="close">
+      <div :class="{ 'modal__content': normal }">
         <slot name="modal"></slot>
       </div>
     </div>
@@ -57,10 +57,11 @@ export default {
   display: flex
   flex-direction: row
   justify-content: center
+  align-items: center
 .modal--normal
   background-color: rgba(0,0,0,0.5)
 .modal--custom
   background-color: rgba(0,0,0,0)
-.modal__body__content
+.modal__content
   margin: 10px 0
 </style>

@@ -1,51 +1,61 @@
 <template>
-  <div class="container-patient">
-    <strong>{{name}}</strong>
-    <div class="info-patient">
-      <patient-age :age="age" />
-      <patient-gender :gender="gender" />
+  <div class="attendance-patient">
+    <div class="attendance-patient__patient-info">
+      <code-info
+        class="attendance-patient__age"
+        icon="birthday-cake"
+        description="idade"
+        :info="age"
+        size="lg"
+        color="rgba(71, 77, 94, 1)"
+      />
+      <code-info
+        class="attendance-patient__sex"
+        icon="venus"
+        description="sexo"
+        :info="gender"
+        size="lg"
+        color="rgba(71, 77, 94, 1)"
+      />
+    
     </div>
   </div>
 </template>
 
 <script>
 import { situation } from '../mixins/situation'
-import PatientAge from './PatientAge'
-import PatientGender from './PatientGender'
+import CodeInfo from './base/CodeInfo'
 export default {
   name: 'AttendanceListItemProfile',
   mixins: [situation],
   props: {
-    name: String,
     age: String,
     gender: String,
+    name: String,
     situation: String
   },
   components: {
-    PatientAge,
-    PatientGender
+    CodeInfo
   }
 }
 </script>
 
 <style lang="sass" scoped>
-.container-patient
+.attendance-patient
   display: flex
   flex-direction: column
-  width: 26%
   @include respond-to(handhelds)
     width: 100%
     padding: 10px 12px
     width: 100%
   @include respond-to(medium-screens)
     width: 100%
-strong
-  font-size: 1.2rem
-  margin-bottom: 5px
-
-.info-patient
+.attendance-patient__patient-info
   display: flex
-  flex-direction: column
+  flex-direction: row
+  justify-content: space-between
+  width: 170px
+  margin-top: 15px
   @include respond-to(handhelds)
     flex-direction: row
 

@@ -1,9 +1,9 @@
 <template>
-  <div class="code-menu-abas">
-    <div class="header-abas">
+  <div class="menu-abas">
+    <div class="menu-abas__header">
       <slot name="header"></slot>
     </div>
-    <div class="body-abas">
+    <div class="menu-abas__body">
       <slot name="body"></slot>
     </div>
   </div>
@@ -21,23 +21,22 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.code-menu-abas
+.menu-abas
   width: 100%
   user-select: none
   @include respond-to(handhelds)
     min-height: 500px 
-.body-abas
+.menu-abas__header
+  display: flex
+  flex-direction: row
+  border-bottom: 1px solid lightgray
+.menu-abas__body
+  border-bottom-left-radius: 2px
   width: 100%
   border: 1px solid lightgray
   border-top: none
   border-bottom-right-radius: 2px
-  border-bottom-left-radius: 2px
-.header-abas
-  display: flex
-  flex-direction: row
-  border-bottom: 1px solid lightgray
-
-.header-abas > *
+.menu-abas__header > *
   text-align: center
   font-weight: 550
   font-size: 0.95rem

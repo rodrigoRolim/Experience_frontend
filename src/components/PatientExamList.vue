@@ -1,16 +1,16 @@
 <template>
-  <div class="patient-exam-list">
+  <div class="patient-exams">
      <patient-exam-list-header class="header"></patient-exam-list-header>
-     <div class="c-items-list" id="exams">
-        <patient-exam-list-item situation="TF" @click="show = true"></patient-exam-list-item>
-        <patient-exam-list-item situation="PF" @click="show = true"></patient-exam-list-item>
-        <patient-exam-list-item situation="NR" @click="show = true"></patient-exam-list-item>
-        <patient-exam-list-item situation="EA" @click="show = true"></patient-exam-list-item>
-        <patient-exam-list-item situation="EP" @click="show = true"></patient-exam-list-item>
-        <patient-exam-list-item situation="TF" @click="show = true"></patient-exam-list-item>
-        <patient-exam-list-item situation="EA" @click="show = true"></patient-exam-list-item>
-        <patient-exam-list-item situation="NR" @click="show = true"></patient-exam-list-item>
-        <patient-exam-list-item situation="PF" @click="show = true"></patient-exam-list-item>
+     <div class="patient-exams__list" id="exams">
+        <patient-exam-list-item situation="TF" @click="show = true" class="patient-exams__item"/>
+        <patient-exam-list-item situation="PF" @click="show = true" class="patient-exams__item"/>
+        <patient-exam-list-item situation="NR" @click="show = true" class="patient-exams__item"/>
+        <patient-exam-list-item situation="EA" @click="show = true" class="patient-exams__item"/>
+        <patient-exam-list-item situation="EP" @click="show = true" class="patient-exams__item"/>
+        <patient-exam-list-item situation="TF" @click="show = true" class="patient-exams__item"/>
+        <patient-exam-list-item situation="EA" @click="show = true" class="patient-exams__item"/>
+        <patient-exam-list-item situation="NR" @click="show = true" class="patient-exams__item"/>
+        <patient-exam-list-item situation="PF" @click="show = true" class="patient-exams__item"/>
      </div>
     <code-modal
       :normal="true"
@@ -19,7 +19,7 @@
       class="modal"
     >
       <template v-slot:modal>
-        <patient-exam-detail @close="show = false"></patient-exam-detail>
+        <patient-exam-detail @close="show = false"/>
       </template>
     </code-modal>
   </div>
@@ -51,7 +51,7 @@ export default {
 @import '../styles/_scrollbar.sass'
 @include scrollbar('#exams', 10px )
 
-.c-items-list
+.patient-exams__list
   display: flex
   flex-flow: row wrap
   align-items: center

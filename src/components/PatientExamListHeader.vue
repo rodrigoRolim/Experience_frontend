@@ -1,8 +1,8 @@
 <template>
-  <div class="patient-exam-list-header">
-    <div class="patient-info">
-      <strong>rodrigo rolim veras</strong>
-      <div class="gender-age">
+  <div class="patient-exams__header">
+    <div class="patient-exams__patient-info">
+      <strong class="patient-exams__title patient-exams__title--capitalize">rodrigo rolim veras</strong>
+      <div class="patient-exams__personal-info">
         <code-info 
           icon="birthday-cake"
           size="lg"
@@ -19,11 +19,11 @@
         />  
       </div>
     </div>
-    <code-drop-down text="detalhes" bcolor="white" class="code-drop-down" dropdown>
+    <code-drop-down text="detalhes" bcolor="white" class="patient-exams__dropdown" dropdown>
       <template v-slot:content>
-        <div class="detail-attendance">
-          <strong>detalhe atendimento</strong>
-          <div class="datas-att">
+        <div class="patient-exams__attendance-detail">
+          <strong class="patient-exams__title patient-exams__title--capitalize">detalhe atendimento</strong>
+          <div class="patient-exams__attendance-datas">
             <code-info 
               icon="calendar-check"
               size="lg"
@@ -77,7 +77,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.patient-exam-list-header
+.patient-exams__header
   display: flex
   flex-direction: row
   margin-top: 20px
@@ -88,9 +88,7 @@ export default {
     flex-direction: column
   @include respond-to(handhelds)
     flex-direction: column
-.patient-info strong
-  font-size: 1.0rem
-.patient-info
+.patient-exams__patient-info
   display: flex
   flex-direction: column
   padding: 10px
@@ -100,7 +98,12 @@ export default {
   @include respond-to(handhelds)
     width: 100%
   width: 70%
-.detail-attendance
+.patient-exams__personal-info
+  margin-top: 20px
+  display: flex
+  justify-content: space-between
+  width: 170px
+.patient-exams__attendance-detail
   @include respond-to(medium-screens)
     margin-top: 25px
     width: 95%
@@ -109,9 +112,9 @@ export default {
     width: 100%
     margin-top: 20px
   width: 95%
-.code-drop-down
+.patient-exams__dropdown
   width: 100%
-.gender-age
+.patient-exams__title
   display: flex
   flex-direction: row
   justify-content: space-between
@@ -121,14 +124,15 @@ export default {
     width: 22%
   width: 40%
   margin-top: 10px
-strong
+  font-size: 1.0rem
+.patient-exams__title--capitalize
   text-transform: capitalize
-.datas-att
+.patient-exams__attendance-datas
   display: flex
   flex-direction: row
   justify-content: space-between
   width: 100%
-  margin-top: 10px
+  margin-top: 20px
   @include respond-to(handhelds)
     flex-direction: column
 </style>

@@ -1,13 +1,15 @@
 <template>
   <div class="calendars">
-    <code-calendar 
+    <code-calendar
+      class="calendars__calendar"
       @datepicked="getBegin" 
       noBorderRight name="begin" 
       :end="end"
       placeholder="data início"
     />
-    <span class="gap">até</span>
-    <code-calendar 
+    <span class="calendars__gap">até</span>
+    <code-calendar
+      class="calendars__calendar" 
       @datepicked="getEnd" 
       name="end" noBorderLeft 
       :begin="begin"
@@ -49,7 +51,7 @@ export default {
   flex-direction: row
   @include respond-to(handhelds)
     position: relative
-.gap
+.calendars__gap
   background-color: white
   display: flex
   flex-direction: column

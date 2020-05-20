@@ -1,8 +1,8 @@
 <template>
-  <div class="container-drop" :style="{ backgroundColor: bcolor }">
-    <div class="drop-down-up" v-if="dropdown">
-      <button @click="show = !show">
-        <i>
+  <div class="dropdown" :style="{ backgroundColor: bcolor }">
+    <div class="dropdown__buttons" v-if="dropdown">
+      <button @click="show = !show" class="dropdown__button">
+        <i class="dropdown__button-icon">
           <transition name="fade" mode="out-in">
             <font-awesome-icon icon="caret-down" size="lg" v-if="!show" key="down"/>
             <font-awesome-icon icon="caret-up" size="lg" v-if="show" key="up"/>
@@ -10,10 +10,10 @@
         </i>{{text}}
       </button>
     </div>
-    <div class="body-drop-down-up"
+    <div class="dropdown__contents"
       :class="{'dropdown--visible': show && dropdown, 'dropdown--hidden': !show && dropdown}"
       >
-      <div class="content">
+      <div class="dropdown__content">
         <slot name="content"></slot>
       </div>
     </div>
@@ -54,7 +54,7 @@ export default {
 
 @include an-dropdown($max-height: 660px, $duration-hidden: 0.6s, $duration-visible: 0.6s)
 
-.container-drop
+.dropdown
   display: flex
   flex-direction: column
   justify-content: space-between
@@ -63,7 +63,7 @@ export default {
   @include respond-to(wide-screens)
     flex-direction: row
   border-radius: 4px
-.content
+.dropdown__content
   display: flex
   flex-direction: row
   align-items: center
@@ -74,7 +74,7 @@ export default {
     flex-wrap: wrap
   @include respond-to(handhelds)
     flex-direction: column
-.drop-down-up
+.dropdown__buttons
   display: none
   width: 100%
   padding: 2px
@@ -82,17 +82,17 @@ export default {
     display: block
   @include respond-to(medium-screens)
     display: block
-.drop-down-up button
+.dropdown__button
   background-color: white
   border: none
   outline: none
   color: gray
   width: 100%
-button
+.dropdown__button
   vertical-align: middle
-button i
+.dropdown__button-icon
   margin-right: 10px
-.body-drop-down-up
+.dropdown__contents
   display: flex
   flex-direction: row
   justify-content: space-between

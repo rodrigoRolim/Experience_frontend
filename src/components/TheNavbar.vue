@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
-    <span class="shadow-left"></span>
-    <header class="navbar">
+  <div class="navbar">
+    <span class="navbar__shadow-left"></span>
+    <header class="navbar__header">
       <div class="navbar__logo">
         logo da empresa
       </div>
@@ -9,7 +9,7 @@
         <user-perfil></user-perfil>
       </div>
     </header>
-    <span class="shadow-right"></span>
+    <span class="navbar__shadow-right"></span>
   </div>
   
 </template>
@@ -23,14 +23,14 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-.container
+.navbar
   display: flex
   justify-content: space-between
   position: relative
   top: 0
   left: 0
   display: flex
-.navbar
+.navbar__header
   position: absolute
   display: flex
   flex-direction: row
@@ -42,7 +42,7 @@ export default {
   top: 0
   left: 0
   
-.shadow-right
+.navbar__shadow-right
   width: 400px
   height: 40px
 
@@ -51,7 +51,7 @@ export default {
   -moz-box-shadow: 0 8px 6px 1px rgba(0,0,0,0.1)
   box-shadow: 0 8px 6px 1px rgba(0,0,0,0.1)
   transform: rotate(2deg)
-.shadow-left
+.navbar__shadow-left
   width: 400px
   height: 40px
   

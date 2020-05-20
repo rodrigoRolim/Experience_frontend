@@ -1,20 +1,27 @@
 <template>
-<div class="container-item" :class="getSituation">
-  <attendance-list-item-profile
-    :name="name"
-    :age="age"
-    :gender="gender"
-    :situation="situation"
-  />
-  <code-chip-situation class="container-item__situation" :situation="situation"/>
-  <attendance-list-item-detail
-    :idAttendance="idAttendance"
-    :agreement="agreement"
-    :dataDelivery="dataDelivery"
-    :dataAttendance="dataAttendance"
-    :exams="exams"
-    :situation="situation"
-  />
+<div class="attendance-item" :class="getSituation | situationModifier">
+  <div class="attendance-item__header">
+    <strong class="attendance-item__name-patient"> {{name}}</strong>
+  </div>
+  <div class="attendance-item__body">
+    <attendance-list-item-profile
+      class="attendance-item__profile"
+      :name="name"
+      :age="age"
+      :gender="gender"
+      :situation="situation"
+    />
+    <code-chip-situation class="attendance-item__situation" :situation="situation"/>
+    <attendance-list-item-detail
+      class="attendance-item__details"
+      :idAttendance="idAttendance"
+      :agreement="agreement"
+      :dataDelivery="dataDelivery"
+      :dataAttendance="dataAttendance"
+      :exams="exams"
+      :situation="situation"
+    />
+  </div>
 </div>
 </template>
 <script>
@@ -46,6 +53,11 @@ export default {
     return {
 
     }
+  },
+  filters: {
+    situationModifier (situation) {
+      return 'attendance-item--'+situation
+    }
   }
 }
 </script>
@@ -54,43 +66,52 @@ export default {
 @import "../styles/colors/_status-colors.scss"
 $border-pendecy: 1px solid $EP
 
-.container-item
+.attendance-item
   display: flex
-  flex-direction: row
+  flex-direction: column
   justify-content: space-between
-  padding: 10px 20px
+  padding: 20px 20px
   margin: 5px 10px
   cursor: pointer
   border-radius: 2px
+.attendance-item__name-patient
+  color: rgba(71, 77, 94, 1)
+  font-size: 1.0rem
+  margin-bottom: 5px
+.attendance-item__body
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  padding: 10px 0
   @include respond-to(handhelds)
     flex-direction: column
     padding: 0
   @include respond-to(medium-screens)
     flex-direction: column
-.container-item__situation
+.attendance-item__situation
   @include respond-to(handhelds)
     align-self: center
   @include respond-to(medium-screens)
     margin-right: 90px
-.container-item:hover
+.attendance-item:hover
   -webkit-box-shadow:  0 0 6px rgba(0,0,0,.3)
-.pendency
+.attendance-item--pendency
   @include card-situation($status: "EP", $border-large: left, $transparent: true)
   @include respond-to(handhelds)
     @include card-situation($status: "EP", $border-large: top, $transparent: true)
-.finished
+.attendance-item--finished
   @include card-situation($status: "TF", $border-large: left, $transparent: true)
   @include respond-to(handhelds)
     @include card-situation($status: "TF", $border-large: top, $transparent: true)
-.partial-finished
+.attendance-item--partial-finished
   @include card-situation($status: "PF", $border-large: left, $transparent: true)
   @include respond-to(handhelds)
     @include card-situation($status: "PF", $border-large: top, $transparent: true)
-.in-progress
+.attendance-item--in-progress
   @include card-situation($status: "EA", $border-large: left, $transparent: true)
   @include respond-to(handhelds)
     @include card-situation($status: "EA", $border-large: top, $transparent: true)
-.unrealized
+.attendance-item--unrealized
   @include card-situation($status: "NR", $border-large: left, $transparent: true)
   @include respond-to(handhelds)
     @include card-situation($status: "NR", $border-large: top, $transparent: true)

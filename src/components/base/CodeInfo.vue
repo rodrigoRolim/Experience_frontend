@@ -1,9 +1,9 @@
 <template>
-  <div class="code-info" :class="{ 'code-info--bottom': bottom, 'code-info--left': left }">
-    <span class="code-info__icon"><font-awesome-icon :icon="icon" :size="size" :style="{color: color}"/></span>
-    <div class="code-info__label" :class="{ 'l-bottom': bottom }">
-      <span v-if="description && !bottom" class="code-info__label__description">{{description}}</span>
-      <span class="code-info__label__info">{{info}}</span>
+  <div class="info" :class="{ 'info--bottom': bottom, 'info--left': left }">
+    <span class="info__icon"><font-awesome-icon :icon="icon" :size="size" :style="{color: color}"/></span>
+    <div class="info__label" :class="{ 'info__label--bottom': bottom }">
+      <span v-if="description && !bottom" class="info__description">{{description}}</span>
+      <span class="info__content">{{info}}</span>
     </div>
   </div>
 </template>
@@ -24,41 +24,41 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.code-info
+.info
   display: flex
   flex-direction: row
   vertical-align: middle
   @include respond-to(handhelds)
     width: 100%
     padding: 10px 0
-.code-info__icon
+.info__icon
   display: flex
   justify-content: center
   align-items: center
-.code-info__label
+.info__label
   display: flex
   flex-direction: column
   justify-content: center
   font-size: 0.7rem
   margin-left: 5px
-.code-info__label__description
+.info__description
   font-size: 0.63rem
   color: rgba(0,0,0,0.6)
   text-transform: capitalize
   @include respond-to(handhelds)
     display: none
-.code-info__label__info
+.info__content
   font-weight: 600
-.code-info--left .code-info__label__info
+.info--left .info__content
   margin-right: 10px
-.code-info--bottom
+.info--bottom
   display: flex
   flex-direction: column
   align-items: center
   width: 12%
-.code-info--left
+.info--left
   display: flex
   flex-direction: row-reverse
-.l-bottom
+.info__label--bottom
   margin-top: 3px
 </style>

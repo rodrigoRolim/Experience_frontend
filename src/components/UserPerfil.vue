@@ -1,8 +1,8 @@
 <template>
-  <div class="user_perfil" @mouseleave="show = false" id="user__perfil">
-    <div class="user_perfil__button">
-      <button @mouseenter="show = true" @click="show = true" class="button_perfil">
-        <div class="perfil_info">
+  <div class="user-perfil" @mouseleave="show = false" id="user__perfil">
+    <div class="user-perfil__button-wrap">
+      <button @mouseenter="show = true" @click="show = true" class="user-perfil__button">
+        <div class="user-perfil__user">
           <code-info
             left
             icon="user"
@@ -10,10 +10,10 @@
             size="lg"
             color="lightslategray"
           />
-          <!-- <span class="perfil_info__name">rodrigo rolim veras</span>
-          <span class="perfil_info__date">17/06/1992</span> -->
+          <!-- <span class="user-perfil__user__name">rodrigo rolim veras</span>
+          <span class="user-perfil__user__date">17/06/1992</span> -->
         </div>
-        <i class="perfil_info__icon">
+        <i class="user-perfil__icon">
           <transition name="fade" mode="out-in">
             <font-awesome-icon icon="caret-down" size="lg" v-if="!show" key="down"/>
             <font-awesome-icon icon="caret-up" size="lg" v-if="show" key="up"/>
@@ -22,17 +22,17 @@
       </button>
     </div>
     <transition name="fade" mode="in-out">
-      <div class="perfil__content" v-if="show">
-        <div class="perfil__content__user-info">
-          <span class="perfil__content__user-info__date">17/06/1992</span>
+      <div class="user-perfil__menu" v-if="show">
+        <div class="user-perfil__user-info">
+          <span class="user-perfil__birthdate">17/06/1992</span>
         </div>
-        <div class="perfil__content__pass" @click="enableModal"> 
+        <div class="user-perfil__change-password-wrap" @click="enableModal"> 
           <i><font-awesome-icon icon="user-edit" :style="{color: 'gray'}"/></i>
-          <span class="perfil__content__pass__change">alterar senha</span>
+          <span class="user-perfil__change-password">alterar senha</span>
         </div>
-        <div class="perfil__content__logout">
+        <div class="user-perfil__logout-wrap">
           <i><font-awesome-icon icon="sign-out-alt" :style="{color: 'gray'}"/></i>
-          <span class="perfil__content__logout__out">sair</span>
+          <span class="user-perfil__logout">sair</span>
         </div>
       </div>
     </transition>
@@ -77,7 +77,7 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-.button_perfil
+.user-perfil__button
   position: relative
   display: flex
   flex-direction: row 
@@ -92,7 +92,7 @@ export default {
     padding: 0 2vh
     display: flex
    
-.perfil__content__user-info__date
+.user-perfil__birthdate
   display: flex
   flex-direction: row
   justify-content: center
@@ -100,14 +100,14 @@ export default {
   font-size: 12px
   border-bottom: 1px solid lightgray
   min-height: 50px
-.perfil_info
+.user-perfil__user
   display: flex
   flex-direction: row
   justify-content: center
-.perfil_info__icon
+.user-perfil__icon
   color: lightslategray
   margin-left: 13px
-.perfil__content
+.user-perfil__menu
   right: 100px
   position: absolute
   background-color: white
@@ -116,20 +116,20 @@ export default {
   display: flex
   flex-direction: column
   box-shadow: 0px 0px 3px 2px rgba(0,0,0,0.02)
-.perfil__content__pass,
-.perfil__content__logout 
+.user-perfil__change-password-wrap,
+.user-perfil__logout-wrap 
   padding: 10px 14px 
   cursor: pointer
-.perfil__content__pass:hover,
-.perfil__content__logout:hover
+.user-perfil__change-password-wrap:hover,
+.user-perfil__logout-wrap:hover
   background-color: rgba(0,0,0,0.1) 
-.perfil__content__pass__change,
-.perfil__content__logout__out
+.user-perfil__change-password,
+.user-perfil__logout
   font-size: 13px
   text-transform: capitalize
   color: rgba(0,0,0,0.8)
   margin-left: 10px
-.user_perfil__button
+.user-perfil__button-wrap
   margin-bottom: 0px
 .button__perfil
   padding: 0

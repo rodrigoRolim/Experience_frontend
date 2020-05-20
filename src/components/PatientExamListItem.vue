@@ -1,5 +1,5 @@
 <template>
-  <div class="patient-exam" :class="getSituation" @click.self="click">
+  <div class="patient-exam" :class="getSituation | situationModifiers" @click.self="click">
     <div class="patient-exam__detail">
       <code-chip text="lic" transform="uppercase" class="patient-exam__tag"></code-chip>
       <div class="patient-exam__separator-line"></div>
@@ -24,9 +24,9 @@
         
     </div>
     <div class="patient-exam__status-exam">
-      <code-chip-situation :situation="situation"></code-chip-situation>
+      <code-chip-situation :situation="situation"/>
     </div>
-    <div class="checkbox">
+    <div class="patient-exam__checkbox">
       <code-checkbox
         v-show="situation == 'TF'"
         text="imprimir"
@@ -40,7 +40,6 @@
 import CodeInfo from './base/CodeInfo'
 import CodeChip from "./base/CodeChip";
 import CodeChipSituation from "./base/CodeChipSituation";
-/* import CodeButton from './base/CodeButton' */
 import CodeCheckbox from "./base/CodeCheckbox";
 import { situation } from "../mixins/situation";
 export default {
@@ -52,12 +51,16 @@ export default {
   components: {
     CodeChip,
     CodeChipSituation,
-    /*  CodeButton, */
     CodeCheckbox,
     CodeInfo
   },
   data() {
     return {}
+  },
+  filters: {
+    situationModifiers (situation) {
+      return "patient-exam--"+situation;
+    }
   },
   methods: {
     click () {
@@ -122,17 +125,17 @@ export default {
     align-items: center
   justify-content: center
   cursor: default
-.checkbox
+.patient-exam__checkbox
   align-self: flex-end
   min-height: 44px
-.pendency
+.patient-exam--pendency
   @include card-situation($status: "EP", $border-large: left, $transparent: true)
-.finished
+.patient-exam--finished
   @include card-situation($status: "TF", $border-large: left, $transparent: true)
-.partial-finished
+.patient-exam--partial-finished
   @include card-situation($status: "PF", $border-large: left, $transparent: true)
-.in-progress
+.patient-exam--in-progress
   @include card-situation($status: "EA", $border-large: left, $transparent: true)
-.unrealized
+.patient-exam--unrealized
   @include card-situation($status: "NR", $border-large: left, $transparent: true)
 </style>

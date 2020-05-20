@@ -1,5 +1,5 @@
 <template>
-  <div :class="'calendar ' + name" ref="calendar" >
+  <div :class="name | calendarName" ref="calendar" >
     <div class="calendar__selected-date" ref="selected_date" @click="showDateToggle">
       <code-input
         label="number"
@@ -18,24 +18,24 @@
       </code-input>
     </div>
     <div class="calendar__dates" :id="id" :class="{ 'calendar__dates--show': showDate, 'calendar__dates--hidden': !showDate }" ref="dates">
-      <div class="calendar__dates__month">
-        <div class="calendar__dates__month__arrows prev-mth" @click="goToPrevMonth()">&lt;</div>
-        <div class="calendar__dates__month__picked" ref="month">{{currentMonth}}</div>
-        <div class="calendar__dates__month__arrows next-mth" @click="goToNextMonth()">&gt;</div>
+      <div class="calendar__month">
+        <div class="calendar__arrow calendar_prev-mth" @click="goToPrevMonth()">&lt;</div>
+        <div class="calendar__selected-month" ref="month">{{currentMonth}}</div>
+        <div class="calendar__arrow calendar__next-mth" @click="goToNextMonth()">&gt;</div>
       </div>
-      <div class="calendar__dates__week">
+      <div class="calendar__week">
         <div 
-        class="calendar__dates__week__day"
+        class="calendar__weekday"
         v-for="dayWeek in dayWeeks" :key="dayWeek"
         >
         {{dayWeek}}
         </div>
       </div>
-      <div class="calendar__dates__days">
+      <div class="calendar__days">
         <div 
-        class="calendar__dates__days__day"
-        :class="{ 'calendar__dates__days__day--selected': selected == day,
-                  'calendar__dates__days__day--unselectable': unselectableDates(day) }"
+        class="calendar__day"
+        :class="{ 'calendar__day--selected': selected == day,
+                  'calendar__day--unselectable': unselectableDates(day) }"
         v-for="(day, i) in days" :key="i"
         @click="selectDay(day)"
         >
@@ -90,6 +90,11 @@ export default {
       days: []
     }
   },
+  filters: {
+    calendarName (name) {
+      return 'calendar ' + name
+    }
+  },
   created () {
     window.addEventListener('click', (e) => {
       if (!this.checkEventPathForClass(e.path, this.name)) {
@@ -108,14 +113,14 @@ export default {
     this.selectedMonth = this.month
     this.selectedDay = this.day
     this.selectedWeekDay = this.weekDay
-    //this.selectedDate = this.formatDate(date)
+
     this.populateDates()
     this.togglePositionCalendar()
   },
   directives: {
     date: {
       inserted: (el, _, vnode) => {
-        console.log(el)
+
         el.addEventListener('input', function (e) {
           var input = e.target.value
           if (/\D\/$/.test(input)) { 
@@ -328,15 +333,15 @@ export default {
   display: none  
 .calendar__dates--show
   display: block
-.calendar__dates__days__day.calendar__dates__days__day--unselectable
+.calendar__day.calendar__day--unselectable
   color: rgba(0,0,0,0.3)
   cursor: not-allowed
-.calendar__dates__month
+.calendar__month
   display: flex
   justify-content: space-between
   align-items: center
   border-bottom: 2px solid #EEE
-.calendar__dates__month__arrows
+.calendar__arrow
   width: 35px
   height: 35px
   display: flex
@@ -344,25 +349,25 @@ export default {
   align-items: center
   color: #313131
   font-size: 20px
-.calendar__dates__month__arrows:hover
+.calendar__arrow:hover
   background-color: #F3F3F3
-.calendar__dates__month__arrows:active
+.calendar__arrow:active
   background-color: #00CA85
-.calendar__dates__days
+.calendar__days
   display: grid
   grid-template-columns: repeat(7, 1fr)
   height: 200px
-.calendar__dates__week
+.calendar__week
   display: grid
   grid-template-columns: repeat(7, 1fr)
   justify-items: center
   align-content: center
   height: 30px
-.calendar__dates__days__day
+.calendar__day
   display: flex
   justify-content: center
   align-items: center
   color: #313131
-.calendar__dates__days__day--selected
+.calendar__day--selected
   background-color: #00CA85
 </style>

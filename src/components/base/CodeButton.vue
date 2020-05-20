@@ -2,17 +2,11 @@
   <button
    @click="click"
    class="button"
-   :class="[{ 'button--rounded': rounded,
-              'button--rounded--sm': rounded && size == 'sm',
-              'button--rounded-md': rounded && size == 'md',
-              'button--rounded-lg': rounded && size == 'lg', 
-              'button--borded': borded, 
-              'button--bold': bolded, 
-              'button--shading': shading,
-              'button--streched': streched }, 
-   'button--'+size, 'button--'+color, 'button--'+letters]"
+   :class="buttonClasses"
    >
-    <i v-if="nameIcon"><font-awesome-icon :icon="nameIcon" :size="sizeIcon"/></i>
+    <i v-if="nameIcon" class="button__icon"
+      :class="{'button__icon--rounded': rounded}"
+    ><font-awesome-icon :icon="nameIcon" :size="sizeIcon"/></i>
     <span v-if="!rounded">{{text}}</span>
    </button>
 </template>
@@ -28,7 +22,6 @@ export default {
                 'danger', 'info', 'dark', 'brand', 'light'].indexOf(value) !== -1
       }
     },
-    pureColor: String,
     text: {
       type: String
     },
@@ -69,16 +62,21 @@ export default {
   created () {
     
   },
-  filters: {
-    button (value) {
-      return 'button--'+value
-    }
-  },
   computed: {
-    getStyle: () => {
-      return { 
-       
-      }
+    buttonClasses () {
+      return [
+         { 
+            'button--rounded': this.rounded,
+            'button--rounded--sm': this.rounded && this.size == 'sm',
+            'button--rounded-md': this.rounded && this.size == 'md',
+            'button--rounded-lg': this.rounded && this.size == 'lg',   
+            'button--borded': this.borded, 
+            'button--bold': this.bolded, 
+            'button--shading': this.shading,
+            'button--streched': this.streched 
+         }, 
+          'button--'+this.size, 'button--'+this.color, 'button--'+this.letters
+      ]
     }
   },
   methods: {
@@ -101,7 +99,7 @@ export default {
   opacity: 0.9
 .button--streched
   width: 100%
-.button i
+.button__icon
   margin-right: 8px
 .button:active
   opacity: 0.7
@@ -129,7 +127,7 @@ export default {
   box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5)
 .button--bold
   font-weight: 700
-.button--rounded i
+.button__icon--rounded
   margin: 0
   padding: 0
 .button--theme

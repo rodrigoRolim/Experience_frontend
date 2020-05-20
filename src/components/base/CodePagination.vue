@@ -4,7 +4,7 @@
       <input type="text" name="search" id="search" @keypress.enter="search"/>
     </div>
     <div class="pagination__items">
-      <p v-for="item in listFiltered" v-bind:key="item">{{item}}</p>
+      <p class="pagination__item" v-for="item in listFiltered" v-bind:key="item">{{item}}</p>
     </div>
     <div class="pagination__message" v-if="show">
       <span>{{message}}</span>
@@ -92,7 +92,7 @@ export default {
   height: 300px
   width: 100%
   overflow: auto
-.pagination__items p
+.pagination__item
   text-align: center
   width: 100%
   border-bottom: 1px solid 

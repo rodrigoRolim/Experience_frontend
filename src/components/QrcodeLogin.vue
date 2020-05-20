@@ -15,17 +15,12 @@
       <canvas class="canvas" ref="canvas"/>
     </div>
     <div class="qrcode-login__output" ref="output">
-      <div class="qrcode-login__output__message" ref="outputMessage"></div>
-      <div class="qrcode-login__output__data" ref="data">
+      <div class="qrcode-login__message" ref="outputMessage"></div>
+      <div class="qrcode-login__data" ref="data">
         <b>Data:</b>
         <span ref="outputData"></span>
       </div>
     </div>
-    <!-- <div class="qrcode-login__buttons" >
-      <button @click="getCamera">iniciar</button>
-      <button @click="stopCamera">stop</button>
-    </div> -->
-    
   </div>
 </template>
 <script>

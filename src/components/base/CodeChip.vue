@@ -1,7 +1,7 @@
 <template>
-  <div class="container-chip" >
-    <span class="code-chip" :style="style">
-      <span class="code-chip-el">{{text}}</span>
+  <div class="chip">
+    <span class="chip__content" :style="style">
+      <span class="chip__element">{{text}}</span>
     </span>
   </div>
 </template>
@@ -53,19 +53,19 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.container-chip
+.chip
   display: flex
   flex-direction: column
   justify-content: center
   align-items: center
   border-radius: 16px
   min-width: 80px
-.code-chip
+.chip__content
   color: white
   font-size: 0.8rem
   padding: 4px 10px
   border-radius: 16px
-.code-chip-el
+.chip__element
   padding: 3px 0
   border-radius: 10px
   font-weight: 600

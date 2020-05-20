@@ -387,4 +387,10 @@ export default {
 .keyboard__icon
   @include respond-to(handhelds)
     display: none
+p
+  margin: 7px 0
+  padding: 0
+  font-weight: 600
+  font-size: 0.80rem
+  color: #676a6c
 </style>

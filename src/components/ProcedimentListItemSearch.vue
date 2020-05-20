@@ -8,7 +8,6 @@
           :width="9"
           :height="7"
           v-model="value"
-          
           placeholder="procedimento"
         >
           <template v-slot:icon>

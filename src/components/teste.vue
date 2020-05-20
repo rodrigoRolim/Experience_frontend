@@ -267,31 +267,31 @@
       <h1>3. messagens para o usuário</h1>
       <code-message
         message="info message"
-        typeMessage="info"
+        type="info"
         position="flex-start"
         icon="info-circle"
       />
       <code-message
         message="warning message"
-        typeMessage="warning"
+        type="warning"
         position="flex-start"
         icon="exclamation-circle"
       />
       <code-message
         message="error message"
-        typeMessage="error"
+        type="error"
         position="flex-start"
         icon="times-circle"
       />
       <code-message
         message="success message"
-        typeMessage="success"
+        type="success"
         position="flex-start"
         icon="check-circle"
       />
     <code-message
       message="carregando video..."
-      typeMessage="default"
+      type="default"
       position="flex-start"
     >
       <template>
@@ -370,7 +370,7 @@
       </code-menu-abas>
     </div>
    
-    <div class="tooltip">
+    <div class="component-tooltip">
       <h1>7. tooltip</h1>
       <code-tooltip
         text="Eu sou um tooltip"
@@ -570,7 +570,7 @@ export default {
       attendances: [
         {  
           photo:"índice.jpeg",
-          name:"Antonio de oliveira veras",
+          name:"Antonio de oliveira veras rolim de moura nogueira silva",
           age:"33 anos",
           gender:"masculino",
           idAttendance:"0/010178",
@@ -728,7 +728,7 @@ export default {
   margin: 5px 0
 .select
   background-color: white
-.tooltip
+.component-tooltip
   position: relative
   display: flex
   flex-direction: column

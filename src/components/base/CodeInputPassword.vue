@@ -4,7 +4,7 @@
       class="input-password__icon"
       v-if="icon" 
       :style="getStyleIcon" 
-      :class="{ 'input-password--no-border-r': noBorderRight,
+      :class="{ 'input-password--no-border-right': noBorderRight,
                 'input-password--outline': outlineInput
               }"
     >
@@ -24,7 +24,7 @@
       @blur="blur"
       :class="{ 
                 'input-password__input--icon': icon, 'input-password__input--no-icon': !icon, 
-                'input-password--no-border-r': noBorderRight,
+                'input-password--no-border-right': noBorderRight,
                 'input-password--no-border-l': noBorderLeft,
                 'input-password--outline': outlineInput  
               }" 
@@ -184,7 +184,7 @@ input[type="text"]
   border-radius: 0px 0px 0px 0px
 .input-password__input--no-icon
   border-radius: 3px
-.input-password--no-border-r
+.input-password--no-border-right
   border-top-right-radius: 0
   border-bottom-right-radius: 0
 .input-password--no-border-l 

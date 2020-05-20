@@ -1,9 +1,9 @@
 <template>
-  <div class="code-radio">
-    <label ref="label" class="code-radio__label">
-      <i :class="{ 'selected': visible === value, 'unselected': !visible === value }"><font-awesome-icon icon="check" size="xs" /></i>
-      <input type="radio" :name="name" :id="identifier" @click="confirm" :value="value" v-model="selected"/>
-      <span class="label-radio">{{label}}</span>
+  <div class="radio">
+    <label ref="label" class="radio__label">
+      <i class="radio__icon" :class="{ 'radio--selected': visible === value, 'radio--unselected': !visible === value }"><font-awesome-icon icon="check" size="xs" /></i>
+      <input class="radio__input" type="radio" :name="name" :id="identifier" @click="confirm" :value="value" v-model="selected"/>
+      <span class="radio__label-content">{{label}}</span>
     </label>
   </div>
 </template>
@@ -42,32 +42,31 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.code-radio
+.radio
   display: flex
   flex-direction: row
   align-items: center
   min-height: 35px
-.label-radio
+.radio__label-content
   color: #5f5e5e
   font-weight: 600
   font-size: 0.95rem
   margin-left: 5px
-label:hover
+.radio__label:hover
   cursor: pointer
-
-.selected
+.radio__icon.radio--selected
   border: none
   background-color: #368c8c
-.unselected
+.radio__icon.radio--unselected
   background-color: none
-input
+.radio__input
   display: none
   margin: 0
-.code-radio__label
+.radio__label
   display: flex
   justify-content: center
   align-items: center
-i 
+.radio__icon
   display: flex
   justify-content: center
   align-items: center

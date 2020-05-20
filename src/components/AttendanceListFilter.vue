@@ -1,18 +1,20 @@
 <template>
   <code-drop-down text="Filtrar Atendimento" dropdown>
     <template v-slot:content >
-      <div class="input__period">
+      <div class="period">
         <code-label
+          class="period__label"
           label="Período"
           color="white"
           :fontWeight="400"
           fontSize="0.9rem"
           fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
         ></code-label>
-        <div><attendance-list-filter-period /></div>
+        <div class="period__dates"><attendance-list-filter-period /></div>
       </div>
-      <div class="input-health-center">
+      <div class="health-center">
         <code-label
+          class="health-center__label"
           label="Posto"
           color="white"
           :fontWeight="400"
@@ -20,6 +22,7 @@
           fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
         ></code-label>
         <code-select
+          class="health-center__select"
           name="postos"
           option="selecione o posto"
           :options="list"
@@ -27,8 +30,9 @@
         ></code-select>
       </div>
      
-      <div class="input-accomodation">
+      <div class="accomodation">
         <code-label
+          class="accomodation__label"
           label="Acomodação"
           color="white"
           :fontWeight="400"
@@ -36,14 +40,16 @@
           fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
         ></code-label>
         <code-select
+          class="accomodation__select"
           name="acomodacoes"
           option="selecione a acomodação"
           :options="list"
           :hasIcon="false"
         ></code-select>
       </div>
-       <div class="input-situation">
+       <div class="situation">
         <code-label
+          class="situation__label"
           label="Situação"
           color="white"
           :fontWeight="400"
@@ -51,14 +57,16 @@
           fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
         ></code-label>
         <code-select
+          class="situation__select"
           name="acomodacoes"
           option="selecione a acomodação"
           :options="list"
           :hasIcon="false"
         ></code-select>
       </div>
-      <div class="input-health-center-realizer">
+      <div class="health-center-realizer">
         <code-label
+          class="health-center-realizer__label"
           label="Posto Realizante"
           color="white"
           :fontWeight="400"
@@ -66,6 +74,7 @@
           fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
         ></code-label>
         <code-select
+          class="health-center-realizer__select"
           name="acomodacoes"
           option="selecione a acomodação"
           :options="list"
@@ -73,9 +82,9 @@
         ></code-select>
       </div>
      
-      <div class="button-filter">
+      <div class="buttons">
        <code-button
-        class="btn-1"
+        class="buttons__filter"
         text="filtrar"
         @click="submit"
         name-icon="filter"
@@ -131,17 +140,17 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-.input-health-center,
-.input-accomodation,
-.input-situation,
-.input-health-center-realizer
+.health-center,
+.accomodation,
+.situation,
+.health-center-realizer
   width: 15%
   @include respond-to(medium-screens)
     width: 24%
   @include respond-to(handhelds)
     margin: 10px 0
     width: 100%
-.button-filter
+.buttons
   width: 11%
   align-self: flex-end
   @include respond-to(medium-screens)
@@ -150,7 +159,7 @@ export default {
   @include respond-to(handhelds)
     width: 100%
     margin-top: 40px
-.input__period
+.period
   width: 25%
   @include respond-to(medium-screens)
     width: 100%

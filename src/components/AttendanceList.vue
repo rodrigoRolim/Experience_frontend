@@ -1,5 +1,5 @@
 <template>
-  <div class="container-list-attendances" id="scrollbar-att">
+  <div class="attendances" id="scrollbar-att">
     <attendance-list-item
       v-for="(attendance, i) in attendances" v-bind:key="i"
       :photo="attendance.photo"
@@ -38,7 +38,7 @@ export default {
 <style lang="sass" scoped>
 @import "../styles/_scrollbar.sass"
 @include scrollbar('#scrollbar-att', 10px)
-.container-list-attendances
+.attendances
   display: flex
   flex-direction: column
   background-color: #f4f3f3

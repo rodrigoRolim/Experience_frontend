@@ -1,7 +1,7 @@
 <template>
-  <div class="login-healthcare">
-    <form class="login-hc-form">
-      <div class="login-hc-cpf">
+  <div class="healthcare-login">
+    <form class="healthcare-login__form">
+      <div class="healthcare-login__cpf">
         <code-label
           bind="user"
           label="Usuário"
@@ -22,7 +22,7 @@
           icon="user"
         /> 
       </div>
-      <div class="login-hc-pass">
+      <div class="healthcare-login__password">
         <code-label
           bind="password"
           label="Senha"
@@ -42,7 +42,7 @@
           icon="lock"
         />
       </div>
-      <div class="login-hc-healthcares">
+      <div class="healthcare-login__healtcare-select">
         <code-label
           bind="healthcares"
           label="Posto"
@@ -65,17 +65,17 @@
           </template>
         </code-select>
       </div>
-      <div class="ctrl-hc">
+      <div class="healthcare-login__doubt">
         <!-- <small class="keyboard"><i><font-awesome-icon icon="keyboard" size="lg"/></i></small> -->
         <code-tooltip
           text="Clique aqui"
         >
           <template>
-            <small>duvidas <i><font-awesome-icon icon="question-circle"/></i></small>
+            <small class="healthcare-login__doubt-button">duvidas <i><font-awesome-icon icon="question-circle"/></i></small>
           </template>
         </code-tooltip> 
       </div>
-      <div class="login-hc-buttons">
+      <div class="healthcare-login__buttons">
         <code-button
           text="acessar"
           borded
@@ -127,30 +127,26 @@ export default {
 <style lang="sass" scoped>
 .login-partner
   background-color: white
-.login-hc-form
+.healthcare-login__form
   display: flex
   flex-direction: column
   padding: 20px
 .login-hc-input-att,
-.login-hc-pass,
-.login-hc-cpf,
-.login-hc-healthcares
+.healthcare-login__password,
+.healthcare-login__cpf,
+.healthcare-login__healtcare-select
   margin: 7px 0
-.login-hc-buttons
+.healthcare-login__buttons
   display: flex
   flex-direction: row
   width: 100%
-.radio-input
-  width: 100%
-.login-hc-radio
-  margin-bottom: 20px
-.ctrl-hc
+.healthcare-login__doubt
   display: flex
   flex-direction: row
   justify-content: flex-end
   align-items: baseline
   margin: 20px 0
-.ctrl-hc small
+.healthcare-login__doubt .healthcare-login__doubt-button
   color: rgb(52, 181, 131)
   cursor: pointer
 </style>

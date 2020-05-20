@@ -1,8 +1,8 @@
 <template>
   <div class="doctor-login">
-    <form class="login-d-form">
-      <div class="login-d-cr">
-        <div class="login-cr">
+    <form class="doctor-login__form">
+      <div class="doctor-login__cr-wrap">
+        <div class="doctor-login__cr">
           <code-label
             bind="attendance"
             label="Tipo CR"
@@ -21,7 +21,7 @@
             :hasIcon="false"
           ></code-select>
         </div>
-       <div class="login-uf">
+       <div class="doctor-login__uf">
           <code-label
             bind="ufConselho"
             label="UF conselho"
@@ -31,7 +31,7 @@
             fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
           ></code-label>
           <code-select
-            class="d-uf"
+            class="doctor-login__cr-select"
             name="ufConselho"
             :options="ufs"
             option="escolha um doce"
@@ -41,7 +41,7 @@
           ></code-select>
        </div>
       </div>
-      <div class="login-d-ncrm">
+      <div class="doctor-login__crm">
         <code-label
           bind="numcrm"
           label="Número de CR"
@@ -64,7 +64,7 @@
           color="#333"
         />
       </div>
-      <div class="login-d-password">
+      <div class="doctor-login__password">
         <code-label
           bind="password"
           label="Senha"
@@ -87,17 +87,17 @@
           icon="lock"
         />
       </div>
-      <div class="login-d-doubt">
+      <div class="doctor-login__doubt">
        
         <code-tooltip
           text="Clique aqui"
         >
           <template>
-            <small>duvidas <i><font-awesome-icon icon="question-circle"/></i></small>
+            <small class="doctor-login__doubt-button">duvidas <i><font-awesome-icon icon="question-circle"/></i></small>
           </template>
         </code-tooltip> 
       </div>
-      <div class="login-d-buttons">
+      <div class="doctor-login__buttons">
         <code-button
           text="acessar"
           borded
@@ -157,39 +157,39 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.login-d-cr
+.doctor-login
+  background-color: white
+.doctor-login__cr-wrap
   display: flex
   justify-content: space-between
   width: 100%
-.login-cr
+.doctor-login__cr
   width:  48%
-.login-uf
+.doctor-login__uf
   width: 48%
-.doctor-login
-  background-color: white
-.login-d-form
+.doctor-login__form
   display: flex
   flex-direction: column
   padding: 20px
-.login-d-cr,
-.login-d-ncrm,
-.login-d-password
+.doctor-login__cr-wrap,
+.doctor-login__crm,
+.doctor-login__password
   margin: 7px 0
 .d-selects
   display: flex
   flex-direction: row
   justify-content: space-between
-.login-d-buttons
+.doctor-login__buttons
   display: flex
   flex-direction: row
   width: 100%
-.login-d-doubt
+.doctor-login__doubt
   display: flex
   flex-direction: row
   justify-content: flex-end
   align-items: baseline
   margin: 20px 0
-.login-d-doubt small
+.doctor-login__doubt .doctor-login__doubt-button
   color: rgb(52, 181, 131)
   cursor: pointer
 </style>

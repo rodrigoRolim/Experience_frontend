@@ -1,14 +1,15 @@
 <template>
-  <div class="select" ref="container">
-    <i v-if="hasIcon" :style="{padding: getSizeIcon}" :class="{'no-border': noBorder}"><slot name="icon"></slot></i>
-    <select 
+  <div class="select-wrap" ref="container">
+    <i class="select-wrap__icon" v-if="hasIcon" :style="{padding: getSizeIcon}" :class="{'select-wrap__icon--no-border': noBorder}"><slot name="icon"></slot></i>
+    <select
+      class="select-wrap__select"
      :name="name" 
      :id="name"
      :style="{padding: getSizeInput, fontSize: size}" 
-     :class="{ 'select-icon': hasIcon, 'select-no-icon': !hasIcon, 'no-border': noBorder }"
+     :class="{ 'select-wrap__select--icon': hasIcon, 'select-wrap__select--no-icon': !hasIcon, 'no-border': noBorder }"
     >
       <option  disabled v-if="option" selected>{{option}}</option>
-      <option :value="option.id" v-for="option in options" v-bind:key="option.id">{{option.item}}</option>
+      <option class="select-wrap__option" :value="option.id" v-for="option in options" v-bind:key="option.id">{{option.item}}</option>
     </select>
   </div>
 </template>
@@ -61,27 +62,27 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-select
+.select-wrap .select-wrap__select
   border: 1px solid lightgray
   width: 100%
   background-color: white
-select option
+.select-wrap__option
   font-size: 1.0rem
-.select-icon
+.select-wrap__select--icon
   border-radius: 0px 3px 3px 0px
-.select-no-icon
+.select-wrap__select--no-icon
   border-radius: 3px
-.select
+.select-wrap
   display: flex
   flex-direction: row
   width: 100%
-i
+.select-wrap__icon
   display: flex
   justify-content: center
   border: 1px solid lightgray
   border-right: none
   border-radius: 3px 0px 0px 3px
   max-width: 40px
-.no-border
+.select-wrap__icon--no-border
   border-radius: 0
 </style>

@@ -1,46 +1,46 @@
 <template>
-  <div class="help_login">
-    <div class="help_login__header"> 
-      <strong class="help_login__header__title">como acessar</strong>
-      <div class="help_login__header__close">
+  <div class="help-login">
+    <div class="help-login__header"> 
+      <strong class="help-login__title-primary">como acessar</strong>
+      <div class="help-login__close">
         <i @click="close"><font-awesome-icon icon="times" size="lg"/></i>
       </div>
     </div>
-    <div class="help_login__body">
-      <div class="help_login__body__title">
-        <h1>Instruções de acesso</h1>
+    <div class="help-login__body">
+      <div class="help-login__title-second">
+        <h1 class="help-login__title-instruct-acess">Instruções de acesso</h1>
       </div>
-      <div class="help_login__body__content">
-        <div class="help_login__body__content__att">
-          <h2>Acesso - Atendimento Único</h2>
-          <p>
+      <div class="help-login__content">
+        <div class="help-login__unique-attendance">
+          <h2 class="help-login__title-h2">Acesso - Atendimento Único</h2>
+          <p class="help-login__unique-attendance-text">
             Esse tipo de acesso permiti a visualização dos exames e resultados 
             de um único atendimento, para isso utilize das credenciais ID e Senha
-            que estão presentes no <strong id="uppercase">comprovante de resultados.</strong>
+            que estão presentes no <strong class="help-login__unique-attendance-text--uppercase">comprovante de resultados.</strong>
           </p>
-          <div class="help_login__body__content__att__image">
-            <img src="../assets/card.png"/>
+          <div class="help-login__image">
+            <img src="../assets/card.png" class="help-login__image-item"/>
           </div>
         </div>
-        <div class="help_login__body__content__results">
-          <h2>Acesso - Histórico de Resultados</h2>
-          <p>
+        <div class="help-login__historic-results">
+          <h2 class="help-login__title-h2">Acesso - Histórico de Resultados</h2>
+          <p class="help-login__historic-results-text">
             Através deste modo é possível ter acesso ao seu histórico de atendimentos, 
             e assim facilitar o comparativo com resultados anteriores. Para isso será
             necessário a solicitação de <strong>Senha Única</strong> que deverá ser cadastrada
             em qualquer das unidades.
           </p>
-          <p>
+          <p class="help-login__historic-results-text">
             Na sua próxima visita solicite a uma das nossas atendentes o cadastro da Senha
             Única e aproveite esta vantagem.
           </p>
         </div>
       </div>
     </div>
-    <div class="help_login__buttons">
+    <div class="help-login__buttons">
       <code-button
         @click="close"
-        class="help_login__buttons__ok"
+        class="help-login__ok-button"
         text="Ok"
         color="primary"
       />
@@ -62,14 +62,14 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-h1
+.help-login__title-instruct-acess
   padding: 0
   margin: 0
   font-size: 1.7rem
-h2
+.help-login__title-h2
   font-size: 1.0rem
   color: #368c8c
-.help_login
+.help-login
   display: flex
   flex-direction: column
   background-color: white
@@ -80,7 +80,7 @@ h2
     width: 100%
     height: 100vh
   border-radius: 4px
-.help_login__header
+.help-login__header
   display: flex
   flex-direction: row
   justify-content: space-between
@@ -89,11 +89,11 @@ h2
   border-bottom: 1px solid lightgray
   padding: 3% 2%
   margin-bottom: 20px
-.help_login__header__title
+.help-login__title-primary
   margin: 0 auto
-.help_login__header__close
+.help-login__close
   margin: 0px 8px 0 0
-.help_login__body__title
+.help-login__title-second
   background-color: #368c8c
   color: white
   display: flex
@@ -101,20 +101,20 @@ h2
   justify-content: center
   padding: 8px 0
   margin-bottom: 20px
-.help_login__buttons
+.help-login__buttons
   display: flex
   flex-direction: row
   justify-content: flex-end
   align-items: flex-end
   height: 12vh
   padding: 20px
-.help_login__buttons__ok
+.help-login__ok-button
   width: 20%
   @include respond-to(handhelds)
     width: 100%
-.help_login__body
+.help-login__body
   padding: 0 20px
-.help_login__body__content
+.help-login__content
   display: flex
   flex-direction: row
   max-height: 60vh
@@ -123,31 +123,36 @@ h2
     flex-direction: column
   @include respond-to(handhelds)
     flex-direction: column
-.help_login__body__content__att,
-.help_login__body__content__results
+.help-login__unique-attendance-text,
+.help-login__historic-results
   padding: 0 30px
   text-align: justify
-.help_login__body__content__att p,
-.help_login__body__content__results p
+.help-login__unique-attendance .help-login__unique-attendance-text,
+.help-login__historic-results .help-login__historic-results-text
   font-size: 0.94rem
   color: dimgray
-.help_login__body__content__att
+.help-login__unique-attendance
   width: 55%
   @include respond-to(medium-screens)
     width: 100%
   @include respond-to(handhelds)
     width: 100%
-.help_login__body__content__results
+.help-login__historic-results
   @include respond-to(medium-screens)
     width: 100%
   @include respond-to(handhelds)
     width: 100%
   width: 45%
-.help_login__body__content__att__image img
+.help-login__image
+  display: flex
+  flex-direction: row
+  justify-content: center
+.help-login__image .help-login__image-item
   @include respond-to(medium-screens)
     height: 25vh
   @include respond-to(handhelds)
     height: 25vh
-#uppercase
+.help-login__unique-attendance-text--uppercase
   text-transform: uppercase
+  font-size: 0.8rem
 </style>

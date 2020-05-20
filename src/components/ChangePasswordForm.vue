@@ -1,15 +1,15 @@
 <template>
   <form class="change-password" @keypress.prevent.enter="confirm">
-    <div class="header">
-      <div class="header__name">
+    <div class="change-password__header">
+      <div class="change-password__name">
         Alterar Senha de acesso
       </div>
-      <div class="header__close" @click="closeModal">
+      <div class="change-password__close" @click="closeModal">
         <font-awesome-icon icon="times" size="lg" color="dimgray"/>
       </div>
     </div>
-    <div class="body">
-      <div class="change-pass__message">
+    <div class="change-password__body">
+      <div class="change-password__message">
         <code-message
           v-if="show"
           message="senha inválida ou não combinantes"
@@ -21,8 +21,8 @@
           </template>
         </code-message>
       </div>
-      <div class="inputs">
-        <div class="inputs__current-password">
+      <div class="change-password__inputs">
+        <div class="change-password__current-password">
           <code-label
             label="Senha atual"
             color="#676a6c"
@@ -45,7 +45,7 @@
             v-model="currentPassword"
           />
         </div>
-        <div class="inputs__new-password">
+        <div class="change-password__new-password">
           <code-label
             label="Nova senha"
             color="#676a6c"
@@ -68,7 +68,7 @@
             v-model="newPassword"
           />
         </div>
-        <div class="inputs__confirm-password">
+        <div class="change-password__confirm-password">
           <code-label
             label="Confirmar nova senha"
             color="#676a6c"
@@ -92,9 +92,9 @@
           />
         </div>
       </div>
-      <div class="button">
+      <div class="change-password__button">
         <code-button
-          class="button__confirm"
+          class="change-password__confirm"
           text="confirma"
           @click="confirm"
           borded
@@ -154,16 +154,15 @@ export default {
   justify-content: center
   width: 550px
   background-color: white
+  border-radius: 6px
   @include respond-to(handhelds)
     width: 95vw
     border-radius: 6px
-.header
-  width: 100%
-.header__name
+.change-password__name
   color: gray
   align-self: center
   margin: 0 auto
-.body
+.change-password__body
   display: flex
   flex-direction: column
   width: 100%
@@ -171,12 +170,12 @@ export default {
   @include respond-to(handhelds)
     justify-content: center
     
-.inputs__current-password,
-.inputs__new-password,
-.inputs__confirm-password
+.change-password__current-password,
+.change-password__new-password,
+.change-password__confirm-password
   margin: 3vh 0
   width: 100%
-.header
+.change-password__header
   background-color: white
   padding: 20px
   display: flex
@@ -184,17 +183,16 @@ export default {
   justify-content: space-between
   border-bottom: 1px solid lightgray
   width: 100%
-  @include respond-to(handhelds)
-    border-radius: 6px
-  border-radius: 6px
-.button
+  border-top-left-radius: 6px
+  border-top-right-radius: 6px
+.change-password__button
   display: flex
   flex-direction: row
   justify-content: flex-end
   width: 100%
   @include respond-to(handhelds)
     justify-content: center
-.button__confirm
+.change-password__confirm
   width: 20%
   @include respond-to(handhelds)
     width: 100%

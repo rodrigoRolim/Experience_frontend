@@ -1,7 +1,7 @@
 <template>
-  <div class="container-chip-situation">
-    <span class="code-chip-situation" :class="getSituation">
-      <span class="code-chip-el-situation" :class="getSituation">{{text}}</span>
+  <div class="chip-situation">
+    <span class="chip-situation__content" :class="'chip-situation--'+getSituation">
+      <span class="chip-situation__element" :class="getSituation">{{text}}</span>
     </span>
   </div>
 </template>
@@ -44,7 +44,7 @@ export default {
 
 <style lang="sass" scoped>
 @import '../../styles/_colors.scss'
-.container-chip-situation
+.chip-situation
   display: flex
   flex-direction: column
   justify-content: center
@@ -56,24 +56,23 @@ export default {
     justify-content: flex-end
   @include respond-to(wide-screens)
     text-align: center
-.code-chip-situation
+.chip-situation__content
   color: white
   font-size: 0.8rem
   padding: 4px 10px
   border-radius: 16px
-
-.code-chip-el-situation
+.chip-situation__element
   padding: 3px 0
   border-radius: 10px
   font-weight: 600
-.pendency
+.chip-situation--pendency
   background-color: $EP 
-.finished
+.chip-situation--finished
   background-color: $TF
-.partial-finished
+.chip-situation--partial-finished
   background-color: $PF
-.in-progress
+.chip-situation--in-progress
   background-color: $EA
-.unrealized
+.chip-situation--unrealized
   background-color: $NR
 </style>

@@ -1,13 +1,14 @@
 <template>
 <div class="attendace-relations">
   <code-info
+    class="attendance-relations__date"
     icon="calendar-alt"
     :info="attendanceDate"
     description="data atendimento"
-    class="sidebar__row__date"
     size="lg"
   ></code-info>
   <code-info
+    class="attendance-relations__exams"
     icon="flask"
     :info="listExams"
     description="exames"

@@ -1,12 +1,12 @@
 <template>
-  <div class="code-group-radios">
-    <div class="header-radios">
+  <div class="radios">
+    <div class="radios__header">
       <slot name="header"></slot>
     </div>
-    <div class="radio-inputs">
+    <div class="radios__input">
       <slot name="radios"></slot>
     </div>
-    <input type="hidden" v-model="receive"/>
+    <input class="radios__input-hidden" type="hidden" v-model="receive"/>
   </div>
 </template>
 
@@ -37,20 +37,14 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.code-group-radios
+.radios
   display: flex
   flex-direction: column
-.radio-inputs,
-.header-radios
+.radios__input,
+.radios__header
   display: flex
   flex-direction: row
-.header-radios p
-  margin: 7px 0
-  padding: 0
-  font-weight: 600
-  font-size: 0.95rem
-  color: #676a6c
-.radio-inputs
+.radios__input
   justify-content: space-between
   @include respond-to(handhelds)
     flex-direction: column

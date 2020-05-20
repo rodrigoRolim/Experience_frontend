@@ -1,19 +1,21 @@
 <template>
-  <div class="input">
-    <i v-if="icon" :style="{padding: getSizeIcon}" 
+  <div class="container-input">
+    <i v-if="icon" :style="{padding: getSizeIcon}"
+      class="container-input__icon" 
       :class="{
-        'no-border-right': noBorderRight,
-        'outline-icon': outlineIcon
+        'container-input--no-border-right': noBorderRight,
+        'container-input__icon--outline': outlineIcon
       }">
       <font-awesome-icon :icon="icon" :style="{ color: colorIcon }"/>
     </i>
     <input 
       ref="input"
+      class="container-input__input"
       v-bind="$attrs"
-      :class="{ 'input-icon': icon, 'input-no-icon': !icon, 
-                'no-border-right': noBorderRight,
-                'no-border-left': noBorderLeft,
-                'outline-input': outlineInput }" 
+      :class="{ 'container-input__input--icon': icon, 'container-input__input--no-icon': !icon, 
+                'input--no-border-right': noBorderRight,
+                'container-input__icon--no-border-left': noBorderLeft,
+                'container-input__input--outline': outlineInput }" 
       :type="type" 
       :name="name"
       :id="name"
@@ -96,7 +98,7 @@ export default {
   },
   watch: {
     focused (value) {
-      console.log(value)
+
       if (value) {
         this.$refs.input.focus()
       } 
@@ -148,34 +150,30 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.container-code-inp
+.container-input
   width: 100%
-input
+.container-input__input
   border: 1px solid lightgray
   border-left: none
   width: 100%
-input::placeholder
-  visibility: hidden
-  @include respond-to(handhelds)
-    visibility: visible
-.input-icon
+.container-input__input--icon
   border-radius: 0px 3px 3px 0px
-.input-no-icon
+.container-input__input--no-icon
   border-radius: 3px
-.outline-icon,
-.outline-input
+.container-input__icon.container-input__icon--outline,
+.container-input__input--outline
   border-color: $brand
-.input
+.container-input
   display: flex
   flex-direction: row
   width: 100%
-.no-border-right
+.container-input--no-border-right
   border-top-right-radius: 0
   border-bottom-right-radius: 0
-.no-border-left
+.container-input__icon--no-border-left
   border-top-left-radius: 0
   border-bottom-left-radius: 0
-i
+.container-input__icon
   display: flex
   justify-content: center
   border: 1px solid lightgray

@@ -1,7 +1,7 @@
 <template>
-  <div class="container-tool">
+  <div class="tooltip">
     <slot></slot>
-    <div class="tooltip-text">
+    <div class="tooltip__content">
       <small>{{text}}</small>
     </div>
   </div>
@@ -26,16 +26,16 @@ export default {
 
 <style lang="sass" scoped>
 @import '../../styles/_animations.scss'
-.container-tool
+.tooltip
   margin: 0
   padding: 0
-.container-tool > *:hover
+.tooltip > *:hover
   text-decoration: underline
   cursor: default 
-.tooltip-text
+.tooltip__content
   display: none
   color: white
-.container-tool:hover .tooltip-text
+.tooltip:hover .tooltip__content
   display: block
   position: absolute
   margin-top: 5px
@@ -45,7 +45,7 @@ export default {
   z-index: 100
   background-color: #495057
   animation: enter 0.4s linear 
-.tooltip-text::after
+.tooltip__content::after
   content: " "
   position: absolute
   border-width: 5px

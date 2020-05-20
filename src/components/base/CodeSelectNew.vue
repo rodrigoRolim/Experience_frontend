@@ -7,7 +7,7 @@
     
     <ul class="container__list" 
       :class="{'container__list--close': display, 'container__list--open': !display}">
-      <li v-for="item in listFilter" :key="item" @click="selected(item)">{{item}}</li>
+      <li class="container__list__item" v-for="item in listFilter" :key="item" @click="selected(item)">{{item}}</li>
     </ul>
   </div>
 </template>
@@ -138,7 +138,7 @@ export default {
   padding-inline-start: 0
   margin-block-end: 0
   margin-block-start: 0
-.container__list li
+.container__list .container__list__item
   list-style-type: none
   position: relative
   padding: 8px 0
@@ -147,7 +147,7 @@ export default {
   color: darkslategray
   cursor: pointer
   pointer-events: all
-.container__list li:hover
+.container__list .container__list__item:hover
   background-color: rgba(0,0,0,0.08)
 
 </style>
