@@ -1,34 +1,37 @@
 <template>
-  <div class="container-input">
-    <i v-if="icon" :style="{padding: getSizeIcon}"
-      class="container-input__icon" 
-      :class="{
-        'container-input--no-border-right': noBorderRight,
-        'container-input__icon--outline': outlineIcon
-      }">
-      <font-awesome-icon :icon="icon" :style="{ color: colorIcon }"/>
-    </i>
-    <input 
-      ref="input"
-      class="container-input__input"
-      v-bind="$attrs"
-      :class="{ 'container-input__input--icon': icon, 'container-input__input--no-icon': !icon, 
-                'input--no-border-right': noBorderRight,
-                'container-input__icon--no-border-left': noBorderLeft,
-                'container-input__input--outline': outlineInput }" 
-      :type="type" 
-      :name="name"
-      :id="name"
-      v-model="inputEmitter" 
-      :placeholder="placeholder"
-      :style="{ padding: getSizeInput, fontSize: sizeLetter, fontWeight: weightLetter, color: color, cursor: cursor }"
-      @focus="focus"
-      @blur="blur"
-      @keyup="keyup"
-      @keydown="keydown"
-      @keypress.enter="enter"
-      />
+  <div class="input-wrap">
+    <div class="container-input">
+      <i v-if="icon" :style="{padding: getSizeIcon}"
+        class="container-input__icon" 
+        :class="{
+          'container-input--no-border-right': noBorderRight,
+          'container-input__icon--outline': outlineIcon
+        }">
+        <font-awesome-icon :icon="icon" :style="{ color: colorIcon }"/>
+      </i>
+      <input 
+        ref="input"
+        class="container-input__input"
+        v-bind="$attrs"
+        :class="classes" 
+        :type="type" 
+        :name="name"
+        :id="name"
+        v-model="inputEmitter" 
+        :placeholder="placeholder"
+        :style="{ padding: getSizeInput, fontSize: sizeLetter, fontWeight: weightLetter, color: color, cursor: cursor }"
+        @focus="focus"
+        @blur="blur"
+        @keyup="keyup"
+        @keydown="keydown"
+        @keypress.enter="enter"
+        />
+    </div>
+    <div class="input-wrap__message-error">
+      <small class="input-wrap__text-error">{{error}}</small>
+    </div>
   </div>
+  
 </template>
 
 <script>
@@ -88,6 +91,10 @@ export default {
     },
     caret: {
       type: []
+    },
+    error: {
+      type: String,
+      default: 'mensagem de erro'
     }
   },
   data () {
@@ -101,7 +108,9 @@ export default {
 
       if (value) {
         this.$refs.input.focus()
-      } 
+      } else {
+        this.$refs.input.blur()
+      }
     },
     caret (value) {
       this.$refs.input.setSelectionRange(value[0], value[1])
@@ -115,6 +124,12 @@ export default {
       set (value) {
         this.$emit('input', value)
       }
+    },
+    classes () {
+      return { 'container-input__input--icon': this.icon, 'container-input__input--no-icon': !this.icon, 
+                'input--no-border-right': this.noBorderRight,
+                'container-input__icon--no-border-left': this.noBorderLeft,
+                'container-input__input--outline': this.outlineInput }
     }
   },
   methods: {
@@ -150,6 +165,18 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.input-wrap
+  display: flex
+  flex-direction: column
+  width: 100%
+.input-wrap__message-error
+  display: flex
+  flex-direction: row
+  margin-left: 10px
+  margin-top: 3px
+  color: red
+.input-wrap__text-error
+  margin-bottom: 0
 .container-input
   width: 100%
 .container-input__input

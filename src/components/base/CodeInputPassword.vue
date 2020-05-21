@@ -25,7 +25,7 @@
       :class="{ 
                 'input-password__input--icon': icon, 'input-password__input--no-icon': !icon, 
                 'input-password--no-border-right': noBorderRight,
-                'input-password--no-border-l': noBorderLeft,
+                'input-password--no-border-left': noBorderLeft,
                 'input-password--outline': outlineInput  
               }" 
     />
@@ -89,6 +89,9 @@ export default {
     },
     focused: {
       type: Boolean
+    },
+    errors: {
+      type: String
     }
   },
   data () {
@@ -162,10 +165,11 @@ export default {
   flex-direction: row
   width: 100%
 input[type="password"]
-  font-family: 'fontello'
+  font-family: "fontello"
   font-style: normal
   font-weight: normal
   font-size: 12px
+  letter-spacing: 1.5px
   speak: none
   font-variant: normal
   text-transform: none
@@ -187,7 +191,7 @@ input[type="text"]
 .input-password--no-border-right
   border-top-right-radius: 0
   border-bottom-right-radius: 0
-.input-password--no-border-l 
+.input-password--no-border-left 
   border-top-left-radius: 0
   border-bottom-left-radius: 0
 .input-password__icon

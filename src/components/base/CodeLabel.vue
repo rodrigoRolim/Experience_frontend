@@ -33,7 +33,7 @@ export default {
 
 <style lang="sass" scoped>
 .label
-  margin-bottom: 3px
+  margin-left: 5px
   @include respond-to(handhelds)
     display: none
 </style>

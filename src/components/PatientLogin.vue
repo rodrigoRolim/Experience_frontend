@@ -299,8 +299,7 @@ export default {
       this.write(e)
     },
     setCaretPosition (el, pos) {
-      /* eslint-disable no-debugger, no-console */
-      //debugger;
+
       if (el.setSelectionRange) {
 
         el.focus();
@@ -311,8 +310,8 @@ export default {
         range.select();
       }
     },
-    keepFocus (index) {
-      this.$refs[this.focusInputList[index]].$el.children[1].focus();
+    keepFocus (/* index */) {
+     // this.$refs[this.focusInputList[index]].$el.children[1].focus();
     },
     write (e) {
  

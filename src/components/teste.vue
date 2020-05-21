@@ -202,7 +202,7 @@
         :width="9"
         :height="7"
         required
-        v-model="text"
+        v-model.trim="text"
         icon="user"
         color-icon='#676a6c'
       >
@@ -256,7 +256,7 @@
         :width="9"
         :height="7"
         required
-        v-model="num"
+        v-model.number="num"
         icon="beer"
         color-icon='#676a6c' 
       >
@@ -500,10 +500,10 @@ import PatientExamList from './PatientExamList'
 /* import KeyboardSelfService from './KeyboardSelfService' */
 /* import AttendanceListFilterPeriod from './AttendanceListFilterPeriod' */
 import TheSidebar from './TheSidebar'
-import { popups } from '../mixins/popups'
+import { validations } from '../mixins/validations.js'
 export default {
   name: 'teste',
-  mixins: [popups],
+  mixins: [validations],
   components: {
     AttendanceList,
     AttendanceListFilter,
@@ -638,6 +638,11 @@ export default {
   created () {
     console.log(this.teste)
     console.log(this.selectedDate)
+  },
+  watch: {
+    text (value) {
+      console.log(this.required(value))
+    }
   },
   methods: {
     getBegin (value) {
