@@ -3,17 +3,14 @@
     <div class="container-input">
       <i v-if="icon" :style="{padding: getSizeIcon}"
         class="container-input__icon" 
-        :class="{
-          'container-input--no-border-right': noBorderRight,
-          'container-input__icon--outline': outlineIcon
-        }">
-        <font-awesome-icon :icon="icon" :style="{ color: colorIcon }"/>
+        :class="iconClasses">
+        <font-awesome-icon :icon="icon" :style="{ color: !error ? colorIcon : 'red' }"/>
       </i>
       <input 
         ref="input"
         class="container-input__input"
         v-bind="$attrs"
-        :class="classes" 
+        :class="inputClasses" 
         :type="type" 
         :name="name"
         :id="name"
@@ -27,7 +24,7 @@
         @keypress.enter="enter"
         />
     </div>
-    <div class="input-wrap__message-error">
+    <div class="input-wrap__message-error"  v-if="error">
       <small class="input-wrap__text-error">{{error}}</small>
     </div>
   </div>
@@ -41,7 +38,6 @@ export default {
   inheritAttrs: false,
   mixins: [sizer],
   props: {
-    label: String,
     placeholder: String,
     icon: String,
     colorIcon: {
@@ -94,7 +90,7 @@ export default {
     },
     error: {
       type: String,
-      default: 'mensagem de erro'
+      default: ''
     }
   },
   data () {
@@ -125,11 +121,21 @@ export default {
         this.$emit('input', value)
       }
     },
-    classes () {
-      return { 'container-input__input--icon': this.icon, 'container-input__input--no-icon': !this.icon, 
-                'input--no-border-right': this.noBorderRight,
-                'container-input__icon--no-border-left': this.noBorderLeft,
-                'container-input__input--outline': this.outlineInput }
+    inputClasses () {
+      return { 
+        'container-input__input--icon': this.icon, 'container-input__input--no-icon': !this.icon, 
+        'input--no-border-right': this.noBorderRight,
+        'container-input__icon--no-border-left': this.noBorderLeft,
+        'container-input__input--outline': this.outlineInput && !this.error,
+        'container-input__input--outline-error': this.error 
+      }
+    },
+    iconClasses (){
+      return {
+        'container-input--no-border-right': this.noBorderRight,
+        'container-input__icon--outline': this.outlineIcon && !this.error,
+        'container-input__icon--outline-error': this.error
+      }
     }
   },
   methods: {
@@ -190,6 +196,9 @@ export default {
 .container-input__icon.container-input__icon--outline,
 .container-input__input--outline
   border-color: $brand
+.container-input__icon.container-input__icon--outline-error,
+.container-input__input--outline-error
+  border-color: $error
 .container-input
   display: flex
   flex-direction: row

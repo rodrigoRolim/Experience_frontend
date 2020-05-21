@@ -48,13 +48,14 @@ export default {
   display: flex
   flex-direction: row
   justify-content: center
-  padding: 5px 0
+  align-items: center
+  padding: 20px 0
   width: 100%
 .message__icon
   display: flex
   flex-direction: column
-  align-items: flex-start
-  justify-content: flex-start
+  align-items: center
+  justify-content: center
   margin-right: 10px
   margin-left: 20px
 .message__content

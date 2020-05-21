@@ -9,7 +9,10 @@
 export default {
   name: 'CodeLoading',
   props: {
-    icon: String,
+    icon: {
+      type: String,
+      default: 'flask'
+    },
     sizeIcon: String,
     range: String,
     color: String
@@ -39,6 +42,6 @@ export default {
   animation: lds-ring 1.5s linear infinite
   border-color: #368c8c rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.1)
 .container-ring__icon
+  display: flex
   position: absolute
-
 </style>

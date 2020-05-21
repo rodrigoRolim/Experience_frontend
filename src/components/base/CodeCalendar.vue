@@ -97,7 +97,8 @@ export default {
   },
   created () {
     window.addEventListener('click', (e) => {
-      if (!this.checkEventPathForClass(e.path, this.name)) {
+      let path = e.path || (e.composedPath && e.composedPath());
+      if (!this.checkEventPathForClass(path, this.name)) {
         this.showDate = false
       }
     })
@@ -219,8 +220,8 @@ export default {
     },
     showDateToggle (e) {
       
-      
-      if (!this.checkEventPathForClass(e.path, 'calendar__dates')) {
+      let path = e.path || (e.composedPath && e.composedPath());
+      if (!this.checkEventPathForClass(path, 'calendar__dates')) {
      
         this.showDate = !this.showDate
         

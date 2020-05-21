@@ -7,7 +7,7 @@
     
     <ul class="container__list" 
       :class="{'container__list--close': display, 'container__list--open': !display}">
-      <li class="container__list__item" v-for="item in listFilter" :key="item" @click="selected(item)">{{item}}</li>
+      <li class="container__list__item" v-for="(item, i) in listFilter" :key="i" @click="selected(item)">{{item}}</li>
     </ul>
   </div>
 </template>
@@ -45,18 +45,6 @@ export default {
     this.listFilter = this.list
   },
   methods: {
-    verifyInput () {
-      console.log(this.list.filter(item => item == this.value))
-      if (this.list.filter(item => item == this.value).length == 0) {
-        this.$refs.input.style.borderColor = 'red'
-        this.$refs.icon.style.borderColor = 'red'
-      } else {
-        this.$refs.input.style.borderColor = 'lightgray'
-        this.$refs.icon.style.borderColor = 'lightgray'
-      }
-      /* this.value = this.list.filter(item => item == this.value)
-      this.listFilter = this.list */
-    },
     filterInput (e) {
       this.display = false
       let item = ''

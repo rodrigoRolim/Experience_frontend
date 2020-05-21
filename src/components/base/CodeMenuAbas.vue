@@ -38,7 +38,7 @@ export default {
   border-bottom-right-radius: 2px
 .menu-abas__header > *
   text-align: center
-  font-weight: 550
+  font-weight: 700
   font-size: 0.95rem
   text-transform: capitalize
   color: #676a6c

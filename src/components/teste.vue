@@ -191,7 +191,7 @@
         label="text"
         color="#676a6c"
         :fontWeight="700"
-        fontSize="0.95rem"
+        fontSize="14px"
         fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
       ></code-label>
       <code-input
@@ -202,19 +202,18 @@
         :width="9"
         :height="7"
         required
-        v-model.trim="text"
+        v-model.trim="object.text"
         icon="user"
         color-icon='#676a6c'
-      >
-        
-      </code-input>
+        :error="validate.text"
+      />
       <code-label
         bind="custom-password"
         name="password"
         label="password"
         color="#676a6c"
         :fontWeight="700"
-        fontSize="0.95rem"
+        fontSize="14px"
         fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
       ></code-label>
      <!--  <code-input
@@ -244,7 +243,7 @@
         label="number"
         color="#676a6c"
         :fontWeight="700"
-        fontSize="0.95rem"
+        fontSize="14px"
         fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
       ></code-label>
       <code-input
@@ -444,7 +443,7 @@
     </div>
     <div class="new-code">
       <h1>novo select customizado (em construção)</h1>
-      <code-select-new name="name" :list="items"/>
+      <!-- <code-select-new name="name" :list="items"/> -->
      
     </div>
     <div class="pagination">
@@ -467,7 +466,7 @@
 <script>
 /* import ChangePassword from './ChangePasswordForm' */
 import QrcodeLogin from './QrcodeLogin'
-import CodeSelectNew from './base/CodeSelectNew'
+/* import CodeSelectNew from './base/CodeSelectNew' */
 import CodePagination from './base/CodePagination'
 import CodeLoading from './base/CodeLoading.vue'
 import HelpToLogin from './HelpToLogin'
@@ -500,10 +499,11 @@ import PatientExamList from './PatientExamList'
 /* import KeyboardSelfService from './KeyboardSelfService' */
 /* import AttendanceListFilterPeriod from './AttendanceListFilterPeriod' */
 import TheSidebar from './TheSidebar'
-import { validations } from '../mixins/validations.js'
+import { required, min, max, email } from '../mixins/validations/rules'
+import { validator } from '../mixins/validations/validator'
 export default {
   name: 'teste',
-  mixins: [validations],
+  mixins: [validator({required, min, max, email})],
   components: {
     AttendanceList,
     AttendanceListFilter,
@@ -536,7 +536,7 @@ export default {
     HelpToLogin,
     CodeLoading,
     CodePagination,
-    CodeSelectNew,
+    /* CodeSelectNew, */
     QrcodeLogin,
     CodeCheckbox,
     CodeInputPassword
@@ -544,12 +544,17 @@ export default {
   },
   data () {
     return {
+      validate: {
+        text: ''
+      },
       selectedDate: null,
       begin: '',
       end: '',
       modalA: false,
       modalB: false,
-      text: '',
+      object: {
+        text: ''
+      },
       num: null,
       password: '',
       items: ['todos', 'ambulatorio', 'emergencia', 'geral', 'posto luisa coelho', 'posto n. sra da conceição','todos', 'ambulatorio', 'emergencia', 'geral', 'posto luisa coelho', 'posto n. sra da conceição'],
@@ -635,20 +640,19 @@ export default {
       helptologin: false
     }
   },
-  created () {
-    console.log(this.teste)
-    console.log(this.selectedDate)
-  },
   watch: {
-    text (value) {
-      console.log(this.required(value))
+    object (value) {
+      console.log(value)
+      /* if (this.required(value)) {
+        this.validate.text = "campo obrigatório"
+      } else {
+        this.validate.text = ''
+      } */
     }
   },
   methods: {
     getBegin (value) {
-      //value = value.replace(/\s/g, '')
       this.begin = this.formatterDate(value)
-      //console.log(new Date(this.formatterDate(value)))
     },
     getEnd (value) {
       this.end = this.formatterDate(value)

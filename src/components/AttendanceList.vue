@@ -43,7 +43,7 @@ export default {
   flex-direction: column
   background-color: #f4f3f3
 #scrollbar-att
-  max-height: 400px
+  height: 500px
   overflow-y: auto
   overflow-x: hidden
 </style>

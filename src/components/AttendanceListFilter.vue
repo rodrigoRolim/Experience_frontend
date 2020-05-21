@@ -86,7 +86,6 @@
        <code-button
         class="buttons__filter"
         text="filtrar"
-        @click="submit"
         name-icon="filter"
         borded
         bolded
@@ -94,7 +93,7 @@
         color="light"
         size="md"
         streched
-        size-icon="md"
+        size-icon="lg"
        >
           <template v-slot:icon>
             <font-awesome-icon icon="filter" size="1x"></font-awesome-icon>

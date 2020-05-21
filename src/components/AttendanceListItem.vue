@@ -70,8 +70,8 @@ $border-pendecy: 1px solid $EP
   display: flex
   flex-direction: column
   justify-content: space-between
-  padding: 20px 20px
-  margin: 5px 10px
+  margin: 5px
+  padding: 15px 20px
   cursor: pointer
   border-radius: 2px
 .attendance-item__name-patient
