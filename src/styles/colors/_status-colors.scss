@@ -12,10 +12,11 @@ $situation-colors: (
   $color: map.get($situation-colors, $status);
   $color-status: $color;
   @if $transparent {
-    $color: transparent;
+    $color: rgba(0,0,0,0.2);
     background-color: white;
   } 
   @else {
+    $color: rgba(0,0,0,0.1);
     background-color: #{$color}08;
   }
 

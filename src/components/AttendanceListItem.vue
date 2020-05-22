@@ -64,16 +64,17 @@ export default {
 <style lang="sass" scoped>
 @import "../styles/_colors.scss"
 @import "../styles/colors/_status-colors.scss"
-$border-pendecy: 1px solid $EP
 
 .attendance-item
   display: flex
   flex-direction: column
   justify-content: space-between
   margin: 5px
-  padding: 15px 20px
+  padding: 10px
   cursor: pointer
-  border-radius: 2px
+  border-radius: 5px
+.attendance-item__header
+  height: 20px
 .attendance-item__name-patient
   color: rgba(71, 77, 94, 1)
   font-size: 1.0rem
@@ -82,7 +83,6 @@ $border-pendecy: 1px solid $EP
   display: flex
   flex-direction: row
   justify-content: space-between
-  padding: 10px 0
   @include respond-to(handhelds)
     flex-direction: column
     padding: 0

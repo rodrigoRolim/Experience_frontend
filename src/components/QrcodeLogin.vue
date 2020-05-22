@@ -166,7 +166,7 @@ export default {
   justify-content: center
   align-items: center
 .qrcode-login__canvas canvas
-  width: 70%
+  width: 30vw
   height: 40vh
 .qrcode-login__canvas--hidden
   display: none

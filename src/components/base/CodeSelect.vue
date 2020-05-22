@@ -66,6 +66,10 @@ export default {
   border: 1px solid lightgray
   width: 100%
   background-color: white
+  -webkit-appearance: none
+  -moz-appearance: none
+  appearance: none
+  outline: none
 .select-wrap__option
   font-size: 1.0rem
 .select-wrap__select--icon

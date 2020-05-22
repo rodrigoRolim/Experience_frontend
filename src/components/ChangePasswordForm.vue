@@ -193,7 +193,7 @@ export default {
   @include respond-to(handhelds)
     justify-content: center
 .change-password__confirm
-  width: 20%
+  width: 25%
   @include respond-to(handhelds)
     width: 100%
     margin-top: 30px

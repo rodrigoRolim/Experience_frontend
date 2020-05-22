@@ -201,7 +201,6 @@
         type="text"
         :width="9"
         :height="7"
-        required
         v-model.trim="object.text"
         icon="user"
         color-icon='#676a6c'
@@ -254,7 +253,6 @@
         type="number"
         :width="9"
         :height="7"
-        required
         v-model.number="num"
         icon="beer"
         color-icon='#676a6c' 
@@ -641,13 +639,15 @@ export default {
     }
   },
   watch: {
-    object (value) {
-      console.log(value)
-      /* if (this.required(value)) {
-        this.validate.text = "campo obrigatório"
-      } else {
-        this.validate.text = ''
-      } */
+    object:{
+      handler (value) {
+        if (this.required(value.text)) {
+          this.validate.text = "campo obrigatório"
+        } else {
+          this.validate.text = ''
+        }
+      },
+      deep: true
     }
   },
   methods: {

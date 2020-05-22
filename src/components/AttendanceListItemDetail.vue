@@ -34,7 +34,7 @@
         size="2x"
       />
     </div>
-    <div :class="getSituation | situationModifiers" class="attendance-detail__trace"></div>
+    <div class="attendance-detail__trace"></div>
     <code-info
       class="attendance-detail__exams" 
       icon="flask"
@@ -111,6 +111,7 @@ $p-top-bott: 5px
     width: 65%
 .attendance-detail__trace
   margin: 5px 0
+  border-top: 1px solid rgba(0,0,0,0.2)
 .attendance-detail__trace--pendency
   border-top: $border-value $EP
   border-left: 0 
