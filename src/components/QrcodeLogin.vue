@@ -87,7 +87,6 @@ export default {
     getCamera () {
       navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } })
         .then((stream) => {
-  
           this.video.srcObject = stream
           this.stream = stream
           this.video.setAttribute('playsinline', true)
@@ -118,7 +117,7 @@ export default {
       this.canvas.stroke()
     },
     tick () {
-      if (this.video.readyState === this.video.HAVE_ENOUGH_DATA) {
+      if (this.video.readyState === this.video.HAVE_ENOUGH_DATA && this.$refs.canvas) {
         this.ready = true
         this.$refs.canvas.height = this.video.videoHeight
         this.$refs.canvas.width = this.video.videoWidth
@@ -168,6 +167,9 @@ export default {
 .qrcode-login__canvas canvas
   width: 30vw
   height: 40vh
+  @include respond-to(handhelds)
+    width: 90%
+    height: 40vh
 .qrcode-login__canvas--hidden
   display: none
 .qrcode-login__canvas--show

@@ -248,12 +248,12 @@
       <code-input
         label="number"
         placeholder="digite apenas números"
-        :hasIcon="true"
         name="number"
         type="number"
         :width="9"
         :height="7"
-        v-model.number="num"
+        v-model="num"
+        numeric
         icon="beer"
         color-icon='#676a6c' 
       >
@@ -720,15 +720,16 @@ export default {
   width: 450px
   @include respond-to(handhelds)
     width: 100%
+    max-width: 450px
   @include respond-to(mediuscreen)
+    max-width: 600px
   justify-content: center
   margin: 10px auto
   background-color: white
+  min-width: 320px
 .body-list
   border-bottom: 1px solid lightgray
   padding: 10px 0
-.aba
-  font-size: 0.8rem
 .button
   margin-top: 100px
   margin-bottom: 10px

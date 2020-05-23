@@ -4,16 +4,16 @@
       <i v-if="icon" :style="{padding: getSizeIcon}"
         class="container-input__icon" 
         :class="iconClasses">
-        <font-awesome-icon :icon="icon" :style="{ color: !error ? colorIcon : 'red' }"/>
+        <font-awesome-icon :icon="icon" :style="{ color: !error ? colorIcon : '#CA0B00' }"/>
       </i>
       <input 
         ref="input"
         class="container-input__input"
         v-bind="$attrs"
         :class="inputClasses" 
-        :type="type" 
         :name="name"
         :id="name"
+        type="text"
         v-model="inputEmitter" 
         :placeholder="placeholder"
         :style="{ padding: getSizeInput, fontSize: sizeLetter, fontWeight: weightLetter, color: color, cursor: cursor }"
@@ -48,10 +48,7 @@ export default {
       type: String,
       required: true
     },
-    type: {
-      type: String,
-      default: 'text'
-    },
+    numeric: Boolean,
     width: {
       type: Number,
       default: 6
@@ -99,6 +96,9 @@ export default {
       outlineIcon: false
     }
   },
+  directives: {
+
+  },
   watch: {
     focused (value) {
 
@@ -110,6 +110,11 @@ export default {
     },
     caret (value) {
       this.$refs.input.setSelectionRange(value[0], value[1])
+    },
+    value (value) {
+      if (value && this.numeric && !/^[0-9]*$/gi.test(value)) {
+        this.inputEmitter = value.substr(0, value.length - 1)
+      }
     }
   },
   computed: {
@@ -156,7 +161,7 @@ export default {
       //window.scrollTo(0,0)
       this.$emit('blur', e)
     },
-    keyup (e) {
+    keyup (e) {      
       this.$emit('keyup', e)
     },
     keydown (e) {
@@ -179,9 +184,9 @@ export default {
   display: flex
   flex-direction: row
   margin-left: 10px
-  margin-top: 3px
   color: red
 .input-wrap__text-error
+  font-style: italic
   margin-bottom: 0
 .container-input
   width: 100%
@@ -189,6 +194,9 @@ export default {
   border: 1px solid lightgray
   border-left: none
   width: 100%
+  min-width: 20px
+  @include respond-to(handhelds)
+    width: 100vw
 .container-input__input--icon
   border-radius: 0px 3px 3px 0px
 .container-input__input--no-icon
@@ -198,7 +206,7 @@ export default {
   border-color: $brand
 .container-input__icon.container-input__icon--outline-error,
 .container-input__input--outline-error
-  border-color: $error
+  border-color: $danger
 .container-input
   display: flex
   flex-direction: row

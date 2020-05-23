@@ -47,5 +47,5 @@ export default {
 .radios__input
   justify-content: space-between
   @include respond-to(handhelds)
-    flex-direction: column
+    flex-wrap: wrap
 </style>

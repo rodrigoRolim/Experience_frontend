@@ -184,6 +184,7 @@ input[type="text"]
   border-right: none
   border-left: none
   width: 100%
+  min-width: 20px
 .input-password__input--icon
   border-radius: 0px 0px 0px 0px
 .input-password__input--no-icon

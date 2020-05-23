@@ -60,6 +60,7 @@ export default {
   justify-content: space-between
   width: 100%
   background-color: $green
+  padding: 2px
   @include respond-to(wide-screens)
     flex-direction: row
   border-radius: 4px
@@ -77,7 +78,7 @@ export default {
 .dropdown__buttons
   display: none
   width: 100%
-  padding: 2px
+
   @include respond-to(handhelds)
     display: block
   @include respond-to(medium-screens)
@@ -103,6 +104,6 @@ export default {
     flex-direction: column
 .fade-enter-active, .fade-leave-active
   transition: opacity .3s
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ 
+.fade-enter, .fade-leave-to
   opacity: 0
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="login-patient">
-    <form class="login-p-form">
-      <div class="login-p-radio">
+    <form class="login-patient__form">
+      <div class="login-patient__radio-buttons">
         <code-group-radios :receive="valueRadio" @group="group">
           <template v-slot:header>
             <p>Acessar como:</p>
@@ -28,7 +28,7 @@
           </template> 
         </code-group-radios>
       </div>
-      <div class="login-p-cpf" v-if="visibility == 'ID'">
+      <div class="login-patient__cpf" v-if="visibility == 'ID'">
         <code-label
           bind="cpf"
           label="Cpf"
@@ -50,7 +50,7 @@
           icon="user"
         />
       </div>
-      <div class="login-p-birthday" v-if="visibility == 'ID'">
+      <div class="login-patient__birthday" v-if="visibility == 'ID'">
          <code-label
           bind="birthDay"
           label="Data nascimento"
@@ -73,7 +73,7 @@
           icon="user"
         />
       </div>
-      <div class="login-p-input-att" v-else>
+      <div class="login-patient__attendance" v-else>
         <code-label
           bind="idAttendance"
           label="Atendimento"
@@ -98,7 +98,7 @@
           icon="user"
         />
       </div>
-      <div class="login-p-pass">
+      <div class="login-patient__password">
         <code-label
           bind="patient-password"
           label="Senha"
@@ -133,7 +133,7 @@
           </template>
         </code-tooltip> 
       </div>
-      <div class="login-p-buttons">
+      <div class="login-patient__buttons">
         <code-button
           text="acessar"
           borded
@@ -354,24 +354,24 @@ export default {
 .login-patient
   background-color: white
   width: 100%
-.login-p-form
+.login-patient__form
   display: flex
   flex-direction: column
   padding: 20px
 .login-patient__softkeyboard
   width: 100%
   align-self: flex-start
-.login-p-input-att,
-.login-p-pass,
-.login-p-cpf
+.login-patient__attendance,
+.login-patient__password,
+.login-patient__cpf
   margin: 7px 0
-.login-p-buttons
+.login-patient__buttons
   display: flex
   flex-direction: row
   width: 100%
 .radio-input
   width: 100%
-.login-p-radio
+.login-patient__radio-buttons
   margin-bottom: 20px
 .doubt-keyboard
   display: flex

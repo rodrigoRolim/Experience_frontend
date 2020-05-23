@@ -36,26 +36,28 @@ export default {
   border: 1px solid lightgray
   border-top: none
   border-bottom-right-radius: 2px
-.menu-abas__header > *
+.menu-abas__header > .aba
+  display: flex
+  justify-content: center
+  align-items: center
   text-align: center
   font-weight: 700
-  font-size: 0.95rem
   text-transform: capitalize
   color: #676a6c
-  padding: 10px 15px
-  @include respond-to(handhelds)
-    padding: 10px 10px
+  font-size: 0.8rem
+  padding: 1.5vh 1vw
+  width: 20%
   cursor: pointer
 .active-aba
   border: 1px solid lightgray
-  border-top-right-radius: 2px
-  border-top-left-radius: 2px
+  border-top-right-radius: 4px
+  border-top-left-radius: 4px
   border-bottom: none
   background-color: white
   margin-bottom: -1px
-  padding: 9px 14px
   @include respond-to(handhelds)
     padding: 9px 9px
   color: #5f5e5e
-
+.active-aba.aba
+  padding-bottom: 1.7vh
 </style>
