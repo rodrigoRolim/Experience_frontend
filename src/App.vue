@@ -14,16 +14,11 @@ export default {
 </script>
 
 <style lang="sass">
-body
-  padding: 0
-  margin: 0
 #app 
   font-family: Avenir, Helvetica, Arial, sans-serif
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
-  background-color: #f4f3f37a
-  overflow: auto
-  height: 100vh
+  
 input
   outline: none
 </style>

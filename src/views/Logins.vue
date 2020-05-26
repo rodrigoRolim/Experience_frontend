@@ -88,35 +88,34 @@ export default {
   flex-direction: row
   justify-content: space-evenly
 .logins__content
-  padding: 100px 0
   display: flex
   width: 90%
   justify-content: space-evenly
   @include respond-to(medium-screens)
     flex-direction: column
     align-items: center
-    padding: 10px 0
-    height: 100vh
+    margin: 0
   @include respond-to(handhelds)
     flex-direction: column
     align-items: center
     width: 100%
-
+    margin: 0
+  margin: 6% 0
 .logins__menu-abas
   width: 450px
   display: flex
   flex-direction: column
   @include respond-to(medium-screens)
     margin: 40px 0
-    height: 65vh 
   @include respond-to(handhelds)
     margin: 40px 0
     width: 75%
     min-width: 320px
-    height: 100% 
+    height: 100%
 .logins__content--up
-  margin: 10px 0
-
+  padding: 0
+  margin-top: 20px
+  height: 70vh
 .logins__banner
   max-width: 350px
   display: flex
@@ -127,6 +126,7 @@ export default {
     // position: absolute
     // top: 0
     // margin-top: 50px
+    display: none
   @include respond-to(handhelds)
     display: none
   // z-index: 1
