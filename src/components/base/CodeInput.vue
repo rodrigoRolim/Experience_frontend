@@ -4,7 +4,7 @@
       <i v-if="icon" :style="{padding: getSizeIcon}"
         class="container-input__icon" 
         :class="iconClasses">
-        <font-awesome-icon :icon="icon" :style="{ color: !error ? colorIcon : '#CA0B00' }"/>
+        <font-awesome-icon :icon="icon" />
       </i>
       <input 
         ref="input"
@@ -101,7 +101,7 @@ export default {
   },
   watch: {
     focused (value) {
-
+      console.log(value)
       if (value) {
         this.$refs.input.focus()
       } else {
@@ -132,14 +132,15 @@ export default {
         'input--no-border-right': this.noBorderRight,
         'container-input__icon--no-border-left': this.noBorderLeft,
         'container-input__input--outline': this.outlineInput && !this.error,
-        'container-input__input--outline-error': this.error 
+        'container-input--error': this.error 
       }
     },
     iconClasses (){
       return {
         'container-input--no-border-right': this.noBorderRight,
         'container-input__icon--outline': this.outlineIcon && !this.error,
-        'container-input__icon--outline-error': this.error
+        'container-input__icon--outline-error': this.error,
+        'container-input--error': this.error
       }
     }
   },
@@ -196,17 +197,18 @@ export default {
   width: 100%
   min-width: 20px
   @include respond-to(handhelds)
-    width: 100vw
+    width: 100%
 .container-input__input--icon
-  border-radius: 0px 3px 3px 0px
+  border-radius: 0px 4px 4px 0px
 .container-input__input--no-icon
-  border-radius: 3px
+  border-radius: 4px
 .container-input__icon.container-input__icon--outline,
 .container-input__input--outline
   border-color: $brand
 .container-input__icon.container-input__icon--outline-error,
-.container-input__input--outline-error
+.container-input--error
   border-color: $danger
+  color: $danger
 .container-input
   display: flex
   flex-direction: row
@@ -222,7 +224,8 @@ export default {
   justify-content: center
   border: 1px solid lightgray
   border-right: none
-  border-radius: 3px 0px 0px 3px
+  border-radius: 4px 0px 0px 4px
   background-color: white
   max-width: 45px
+  color: $icon
 </style>
