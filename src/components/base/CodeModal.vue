@@ -42,7 +42,6 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-
 .modal--normal,
 .modal--custom
   overflow: auto
@@ -50,7 +49,6 @@ export default {
   width: 100%
   height: 100%
   position: fixed
-  z-index: 1
   top: 0
   left: 0
   bottom: 0
@@ -58,6 +56,7 @@ export default {
   flex-direction: row
   justify-content: center
   align-items: center
+  z-index: 3
 .modal--normal
   background-color: rgba(0,0,0,0.5)
 .modal--custom
