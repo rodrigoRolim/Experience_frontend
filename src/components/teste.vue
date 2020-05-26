@@ -1,6 +1,10 @@
 <template>
   <div class="comp-body">
-    <the-navbar></the-navbar>
+    <the-navbar logo="logo_cedro">
+      <template v-slot:perfil>
+        <user-perfil></user-perfil>
+      </template>
+    </the-navbar>
     <div class="button">
       <h1>1. botões</h1>
       <code-button
@@ -309,14 +313,10 @@
       <code-select
         :options="list"
         option="escolha um doce"
-        :hasIcon="true"
+        icon="candy-cane"
         :width="9"
         :height="7"
-      >
-        <template v-slot:icon>
-          <font-awesome-icon icon="candy-cane"></font-awesome-icon>
-        </template>
-      </code-select>
+      />
     </div>
    
     <div class="table">
@@ -464,6 +464,7 @@
 <script>
 /* import ChangePassword from './ChangePasswordForm' */
 import QrcodeLogin from './QrcodeLogin'
+import UserPerfil from './UserPerfil'
 /* import CodeSelectNew from './base/CodeSelectNew' */
 import CodePagination from './base/CodePagination'
 import CodeLoading from './base/CodeLoading.vue'
@@ -520,6 +521,7 @@ export default {
     CodeTooltip,
     PartnerLogin,
     HealthCareLogin,
+    UserPerfil,
   /*   */
    /*  PatientExamListItem, */
     /* PatientExamListHeader, */

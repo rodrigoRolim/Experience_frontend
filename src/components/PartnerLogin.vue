@@ -95,7 +95,7 @@ export default {
 </script>
 <style lang="sass" scoped>
 .partner-login
-  background-color: white
+  width: 100%
 .partner-login__form
   display: flex
   flex-direction: column

@@ -1,12 +1,14 @@
 <template>
   <div class="select-wrap" ref="container">
-    <i class="select-wrap__icon" v-if="hasIcon" :style="{padding: getSizeIcon}" :class="{'select-wrap__icon--no-border': noBorder}"><slot name="icon"></slot></i>
+    <i class="select-wrap__icon" v-if="icon" :style="{padding: getSizeIcon}" :class="{'select-wrap__icon--no-border': noBorder}">
+      <font-awesome-icon :icon="icon"/>
+    </i>
     <select
       class="select-wrap__select"
      :name="name" 
      :id="name"
      :style="{padding: getSizeInput, fontSize: size}" 
-     :class="{ 'select-wrap__select--icon': hasIcon, 'select-wrap__select--no-icon': !hasIcon, 'no-border': noBorder }"
+     :class="{ 'select-wrap__select--icon': icon, 'select-wrap__select--no-icon': !icon }"
     >
       <option  disabled v-if="option" selected>{{option}}</option>
       <option class="select-wrap__option" :value="option.id" v-for="option in options" v-bind:key="option.id">{{option.item}}</option>
@@ -23,11 +25,6 @@ export default {
     options: Array,
     placeholder: String,
     option: String,
-    hasIcon: {
-      type: Boolean,
-      required: true,
-      default: false
-    },
     width: {
       type: Number,
       default: 7
@@ -44,6 +41,9 @@ export default {
       type: String,
       default: '0.9rem'
     },
+    icon: {
+      type: String
+    }, 
     weight: {
       type: Number
     },
@@ -62,7 +62,7 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-.select-wrap .select-wrap__select
+.select-wrap__select
   border: 1px solid lightgray
   width: 100%
   background-color: white
@@ -73,9 +73,10 @@ export default {
 .select-wrap__option
   font-size: 1.0rem
 .select-wrap__select--icon
-  border-radius: 0px 3px 3px 0px
+  border-left: none
+  border-radius: 0px 4px 4px 0px
 .select-wrap__select--no-icon
-  border-radius: 3px
+  border-radius: 4px
 .select-wrap
   display: flex
   flex-direction: row
@@ -85,8 +86,9 @@ export default {
   justify-content: center
   border: 1px solid lightgray
   border-right: none
-  border-radius: 3px 0px 0px 3px
+  border-radius: 4px 0px 0px 4px
   max-width: 40px
+  color: $icon
 .select-wrap__icon--no-border
   border-radius: 0
 </style>

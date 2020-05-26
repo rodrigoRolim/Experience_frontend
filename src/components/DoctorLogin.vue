@@ -1,7 +1,7 @@
 <template>
   <div class="doctor-login">
     <form class="doctor-login__form">
-      <div class="doctor-login__cr-wrap">
+      <div class="doctor-login__selects">
         <div class="doctor-login__cr">
           <code-label
             bind="attendance"
@@ -55,8 +55,6 @@
           :hasIcon="true"
           name="numcrm"
           type="text"
-          required
-          v-model="item"
           :width="9"
           :height="7"
           :weight="500"
@@ -78,8 +76,6 @@
           :hasIcon="true"
           name="password"
           type="password"
-          required
-          v-model="item"
           :width="9"
           :height="7"
           :weight="500"
@@ -88,7 +84,6 @@
         />
       </div>
       <div class="doctor-login__doubt">
-       
         <code-tooltip
           text="Clique aqui"
         >
@@ -158,8 +153,10 @@ export default {
 
 <style lang="sass" scoped>
 .doctor-login
+  width: 100%
+  height: 100%
   background-color: white
-.doctor-login__cr-wrap
+.doctor-login__selects
   display: flex
   justify-content: space-between
   width: 100%
@@ -171,7 +168,7 @@ export default {
   display: flex
   flex-direction: column
   padding: 20px
-.doctor-login__cr-wrap,
+.doctor-login__selects,
 .doctor-login__crm,
 .doctor-login__password
   margin: 7px 0

@@ -1,5 +1,7 @@
 <template>
-  <label class="label" :for="bind" v-bind:style="style">{{label}}<slot name="input"></slot></label>
+  <div class="label">
+    <label :for="bind" v-bind:style="style">{{label}}<slot name="input"></slot></label>
+  </div>
 </template>
 
 <script>
@@ -36,4 +38,5 @@ export default {
   margin-left: 5px
   @include respond-to(handhelds)
     display: none
+  margin-bottom: 5px
 </style>

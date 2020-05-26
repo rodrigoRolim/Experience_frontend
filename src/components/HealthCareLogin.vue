@@ -56,7 +56,7 @@
           option="Selecione um posto"
           size="0.9rem"
           name="healthcares"
-          :hasIcon="true"
+          icon="clinic-medical"
           :width="9"
           :height="7"
         >

@@ -12,7 +12,8 @@
     </i>
     <input
       ref="input"
-      class="input-password__input" 
+      class="input-password__input"
+      placeholder="senha" 
       :type="type" 
       :name="name" 
       :id="id"
@@ -168,7 +169,7 @@ input[type="password"]
   font-family: "fontello"
   font-style: normal
   font-weight: normal
-  font-size: 12px
+  font-size: 14px
   letter-spacing: 1.5px
   speak: none
   font-variant: normal
@@ -176,6 +177,7 @@ input[type="password"]
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
   color: lightslategray
+  
 input[type="text"]
   font-size: 14px
   padding: 0
@@ -185,10 +187,15 @@ input[type="text"]
   border-left: none
   width: 100%
   min-width: 20px
+.input-password__input::placeholder
+  font-family: Avenir, Helvetica, Arial, sans-serif
+  font-size: 14px
+  padding: 0
+  letter-spacing: 0px
 .input-password__input--icon
   border-radius: 0px 0px 0px 0px
 .input-password__input--no-icon
-  border-radius: 3px
+  border-radius: 4px
 .input-password--no-border-right
   border-top-right-radius: 0
   border-bottom-right-radius: 0
@@ -202,8 +209,9 @@ input[type="text"]
   align-items: center
   border: 1px solid lightgray
   border-right: none
-  border-radius: 3px 0px 0px 3px
+  border-radius: 4px 0px 0px 4px
   background-color: white
+  color: $icon
 .input-password__eye
   display: flex
   width: 60px
@@ -211,9 +219,9 @@ input[type="text"]
   align-items: center
   border: 1px solid lightgray
   border-left: none
-  border-radius: 0px 3px 3px 0px
+  border-radius: 0px 4px 4px 0px
   background-color: white
-  color: lightslategray
+  color: $icon
 .input-password--outline
   border-color: $brand
 .fade-enter-active, .fade-leave-active

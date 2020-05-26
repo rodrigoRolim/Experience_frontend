@@ -50,13 +50,13 @@ export default {
 .radio__label-content
   color: #5f5e5e
   font-weight: 600
-  font-size: 0.95rem
+  font-size: 0.86rem
   margin-left: 5px
 .radio__label:hover
   cursor: pointer
 .radio__icon.radio--selected
   border: none
-  background-color: #368c8c
+  background-color: $green
 .radio__icon.radio--unselected
   background-color: none
 .radio__input

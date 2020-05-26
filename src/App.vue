@@ -21,7 +21,9 @@ body
   font-family: Avenir, Helvetica, Arial, sans-serif
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
-  background-color: #f4f3f3
+  background-color: #f4f3f37a
+  overflow: auto
+  height: 100vh
 input
   outline: none
 </style>

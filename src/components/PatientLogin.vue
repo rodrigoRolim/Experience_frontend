@@ -1,14 +1,13 @@
 <template>
   <div class="login-patient">
     <form class="login-patient__form">
-      <div class="login-patient__radio-buttons">
+      <div class="login-patient__radio-buttons" v-if="!softKeyboard">
         <code-group-radios :receive="valueRadio" @group="group">
           <template v-slot:header>
-            <p>Acessar como:</p>
+            <p class="login-patient__radios-title">Acessar como:</p>
           </template>
           <template v-slot:radios>
             <code-radio
-              
               name="login"
               value="CPF"
               label="Atendimento Único"
@@ -119,8 +118,8 @@
           :focused="focusedInput == 'password'"
         />
       </div>
-      <div class="doubt-keyboard">
-        <small class="keyboard">
+      <div class="login-patient__actions">
+        <small class="login-patient__keyboard">
           <i v-if="visibility !== 'ID'" @click="displayKeyboard" class="keyboard__icon">
             <font-awesome-icon icon="keyboard" size="lg"/>
           </i>
@@ -129,7 +128,7 @@
           text="Clique aqui"
         >
           <template>
-            <small @click="displayHelpToLogin">duvidas <i><font-awesome-icon icon="question-circle"/></i></small>
+            <small class="login-patient__doubt" @click="displayHelpToLogin">duvidas <i><font-awesome-icon icon="question-circle"/></i></small>
           </template>
         </code-tooltip> 
       </div>
@@ -157,10 +156,9 @@
         @right="goRight"
         @left="goLeft"
         @space="space"
-
         :show="softKeyboard"
         :input="inputKeyboard"
-        @close="softKeyboard=false" 
+        @close="hiddenSoftKeyboard" 
       />  
     </div>
   </div>
@@ -205,22 +203,41 @@ export default {
       focusInputList: [],
       indexFocusedInput: 0,
       focusedInput: '',
-      caretPosition: 0
+      caretPosition: 0,
+      keyboardActive: false,
+      focusedElement: null
     }
   },
   mounted () {
     this.focusInputList = Object.keys(this.$refs)
   },
+  watch: {
+    softKeyboard (value) {
+
+      if (!value) {
+        this.focusedInput = ''
+      }
+    }
+  },
   methods: {
+    hiddenSoftKeyboard () {
+
+      this.softKeyboard = false
+      this.keyboardActive = false
+      this.$emit('keyboardActivated', this.keyboardActive)
+    },
     inputModel (e) {
+
       this.patient.idAttendance = e.target.value
     },
     nextInput () {
+
       let numInputs = this.focusInputList.length
       this.indexFocusedInput = (++this.indexFocusedInput)%numInputs
       this.focusedInput = this.focusInputList[this.indexFocusedInput]
     },
     previousInput () {
+
       let numInputs = this.focusInputList.length
       this.indexFocusedInput = -(--this.indexFocusedInput)%numInputs
       this.focusedInput = this.focusInputList[this.indexFocusedInput]
@@ -237,19 +254,22 @@ export default {
       this.patient[this.focusInputList[this.indexFocusedInput]] = newValue;
 
       this.updateCurrentInput(newValue);
-      let inputElement = this.getCurrentInput();
+      let inputElement = this.focusedElement;
       this.setCaretPosition(inputElement, caretPosition - 1);
     },
     deleteChar (str, pos) {
+
       let arrStr = str.split('');
       arrStr[pos] = '';
       return arrStr.join('');
     },
     insertChar (str, pos, char) {
+
       return str.substr(0, pos) + char + str.substr(pos, str.length)
     },
     getCaretPosition () {
-      let el = this.getCurrentInput();
+
+      let el = this.focusedElement;
       if (el.selectionStart) {
         return el.selectionStart;
       } else if (document.selection) {
@@ -259,7 +279,7 @@ export default {
           return 0;
         }
 
-        var rangeElement = el.createTextRange(),
+        let rangeElement = el.target.createTextRange(),
             rangeCopy = rangeElement.duplicate();
         rangeElement.moveToBookmark(r.getBookmark());
         rangeCopy.setEndPoint('EndToStart', rangeElement);
@@ -268,16 +288,15 @@ export default {
       }
       return 0
     },
-    getCurrentInput () {
-      return this.$refs[this.focusedInput].$el.children[1];
-    },
     updateCurrentInput (newValue) {
-      this.$refs[this.focusInputList[this.indexFocusedInput]].$el.children[1].value = newValue;
+
+      this.focusedElement.value = newValue;
     },
     goRight () {
+
       this.caretPosition = this.getCaretPosition()
       let positionRightLimit = this.patient[this.focusedInput].length;
-      let inputElement = this.getCurrentInput()
+      let inputElement = this.focusedElement
       if (this.caretPosition < positionRightLimit) {
         this.caretPosition++; 
       }
@@ -285,9 +304,10 @@ export default {
 
     },
     goLeft () {
+
       this.caretPosition = this.getCaretPosition()
       let positionLeftLimit = 0
-      let inputElement = this.$refs[this.focusedInput].$el.children[1]
+      let inputElement = this.focusedElement
      
       if (this.caretPosition > positionLeftLimit) {
         this.caretPosition--;
@@ -295,13 +315,13 @@ export default {
       this.setCaretPosition(inputElement, this.caretPosition)
     },
     space () {
+
       let e = Object.assign({ target: { value: ' ' } })
       this.write(e)
     },
     setCaretPosition (el, pos) {
 
-      if (el.setSelectionRange) {
-
+      if (el.setSelectionRange) {  
         el.focus();
         el.setSelectionRange(pos,pos);
       } else if (el.createTextRange) {
@@ -310,26 +330,24 @@ export default {
         range.select();
       }
     },
-    keepFocus (/* index */) {
-     // this.$refs[this.focusInputList[index]].$el.children[1].focus();
-    },
     write (e) {
  
       this.indexFocusedInput = this.focusInputList.indexOf(this.focusedInput)
-      this.keepFocus(this.indexFocusedInput)
       let currentPositionCursor = this.getCaretPosition()
      
       this.patient[this.focusedInput] = this.insertChar(this.patient[this.focusedInput], currentPositionCursor, e.target.value);
       this.updateCurrentInput(this.patient[this.focusedInput])
-      let inputElement = this.getCurrentInput()
+      let inputElement = this.focusedElement
       this.setCaretPosition(inputElement, currentPositionCursor + 1)
     },
     focusInput (e) {
- 
+
+      this.focusedElement = e.target
       this.indexFocusedInput = this.focusInputList.indexOf(e.target.name);
       this.focusedInput = e.target.name;
     },
     radio (value) {
+
       this.valueRadio = value
     },
     group (value) {
@@ -341,18 +359,20 @@ export default {
       this.focusedInput = this.focusInputList[this.indexFocusedInput]
       this.softKeyboard = !this.softKeyboard
       if (this.softKeyboard) {
-        this.$refs[this.focusedInput].$el.children[1].focus();
+        this.$refs[this.focusedInput].$el.focus();
       }
+      this.keyboardActive = !this.keyboardActive
+      this.$emit('keyboardActivated', this.keyboardActive)
     },
     displayHelpToLogin () {
-      this.$emit('helptologin', true)
+
+      this.$emit('modalHelp', true)
     }
   }  
 }
 </script>
 <style lang="sass" scoped>
 .login-patient
-  background-color: white
   width: 100%
 .login-patient__form
   display: flex
@@ -363,7 +383,8 @@ export default {
   align-self: flex-start
 .login-patient__attendance,
 .login-patient__password,
-.login-patient__cpf
+.login-patient__cpf,
+.login-patient__birthday
   margin: 7px 0
 .login-patient__buttons
   display: flex
@@ -373,20 +394,22 @@ export default {
   width: 100%
 .login-patient__radio-buttons
   margin-bottom: 20px
-.doubt-keyboard
+.login-patient__actions
   display: flex
   flex-direction: row
   justify-content: space-between
   align-items: baseline
-.doubt-keyboard small
+.login-patient__keyboard,
+.login-patient__doubt
   color: rgb(52, 181, 131)
   margin: 20px 0
   cursor: pointer
+.login-patient__doubt:hover
   text-decoration: underline
 .keyboard__icon
   @include respond-to(handhelds)
     display: none
-p
+.login-patient__radios-title
   margin: 7px 0
   padding: 0
   font-weight: 600

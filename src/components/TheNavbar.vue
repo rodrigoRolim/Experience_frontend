@@ -1,65 +1,78 @@
 <template>
   <div class="navbar">
-    <span class="navbar__shadow-left"></span>
+    <!-- <span class="navbar__shadow-left"></span> -->
     <header class="navbar__header">
-      <div class="navbar__logo">
-        logo da empresa
+      <div class="navbar__logo" v-if="logo">
+        <img class="navbar__image" :src="takeLogo(logo)" alt="logo da empresa">
       </div>
       <div class="navbar__profile">
-        <user-perfil></user-perfil>
+        <slot name="perfil"></slot>
       </div>
     </header>
-    <span class="navbar__shadow-right"></span>
+   <!--  <span class="navbar__shadow-right"></span> -->
   </div>
   
 </template>
 <script>
-import UserPerfil from './UserPerfil'
+
 export default {
   name: 'TheNavbar',
   components: {
-    UserPerfil
+  },
+  props: {
+    logo: String
+  },
+  data () {
+    return {
+
+    }
+  },
+  methods: {
+    takeLogo(logo) {
+      let images = require.context('../assets/', false, /(\.png$)|(\.jpeg$)|(\.gif$)/)
+      return images('./' + logo + ".png")
+    }
   }
 }
 </script>
 <style lang="sass" scoped>
 .navbar
   display: flex
-  justify-content: space-between
-  position: relative
-  top: 0
-  left: 0
-  display: flex
+  margin-bottom: 70px 
 .navbar__header
-  position: absolute
+  position: fixed
   display: flex
   flex-direction: row
-  justify-content: space-between
   background-color: white
+  justify-content: space-between
   width: 100%
-  min-height: 50px
-  z-index: 999
+  height: 60px
+  z-index: 2
   top: 0
   left: 0
-  
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+  -webkit-box-box-shadow: 0 2px 4px 1px rgba(0,0,0,0.1)
+  -moz-box-shadow: 0 2px 4px 1px rgba(0,0,0,0.1)
+  box-shadow: 0 2px 4px 1px rgba(0,0,0,0.1)
+.navbar__image
+  width: 120px
 .navbar__shadow-right
-  width: 400px
+  width: 50%
   height: 40px
-
   background-color: white
   -webkit-box-box-shadow: 0 8px 6px 1px rgba(0,0,0,0.1)
   -moz-box-shadow: 0 8px 6px 1px rgba(0,0,0,0.1)
   box-shadow: 0 8px 6px 1px rgba(0,0,0,0.1)
-  transform: rotate(2deg)
+  transform: rotate(0deg)
 .navbar__shadow-left
-  width: 400px
+  width: 50%
   height: 40px
   
   background-color: white
   -webkit-box-box-shadow: 0 8px 6px 1px rgba(0,0,0,0.1)
   -moz-box-shadow: 0 8px 6px 1px rgba(0,0,0,0.1)
   box-shadow: 0 8px 6px 1px rgba(0,0,0,0.1)
-  transform: rotate(-2deg)
+  transform: rotate(0deg)
 .navbar__logo
   display: flex
   flex-direction: row
