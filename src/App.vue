@@ -18,7 +18,7 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
-  
+  background-color: #f4f3f37a
 input
   outline: none
 </style>
