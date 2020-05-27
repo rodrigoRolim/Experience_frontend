@@ -345,11 +345,11 @@
       <h1>6. menu de abas</h1>
       <code-menu-abas>
         <template v-slot:header>
-          <div @click="aba = 1" class="aba" :class="{ 'active-aba': aba == 1 }">paciente</div>
-          <div @click="aba = 2" class="aba" :class="{ 'active-aba': aba == 2 }">medico</div>
-          <div @click="aba = 3" class="aba" :class="{ 'active-aba': aba == 3 }">parceiro</div>
-          <div @click="aba = 4" class="aba" :class="{ 'active-aba': aba == 4 }">posto</div>
-          <div @click="aba = 5" class="aba" :class="{ 'active-aba': aba == 5 }">QR code</div>
+          <div @click="aba = 1" class="aba" :class="{ 'aba--active-aba': aba == 1 }">paciente</div>
+          <div @click="aba = 2" class="aba" :class="{ 'aba--active-aba': aba == 2 }">medico</div>
+          <div @click="aba = 3" class="aba" :class="{ 'aba--active-aba': aba == 3 }">parceiro</div>
+          <div @click="aba = 4" class="aba" :class="{ 'aba--active-aba': aba == 4 }">posto</div>
+          <div @click="aba = 5" class="aba" :class="{ 'aba--active-aba': aba == 5 }">QR code</div>
         </template>
         <template v-slot:body>
           <patient-login 

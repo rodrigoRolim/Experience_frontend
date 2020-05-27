@@ -48,20 +48,24 @@ export default {
   text-transform: capitalize
   color: #676a6c90
   font-size: 0.8rem
-  padding: 1.5vh 1vw
   width: 20%
   cursor: pointer
-.active-aba
+  padding: 10px
+  @include respond-to(handhelds)
+    padding: 5px
+.aba--active-aba
+  display: flex
+  align-items: center
+  justify-content: center
   border: 1px solid lightgray
   border-top-right-radius: 4px
   border-top-left-radius: 4px
   border-bottom: none
   background-color: white
   margin-bottom: -1px
-  @include respond-to(handhelds)
-    padding: 9px 9px
-  
-.active-aba.aba
-  padding-bottom: 1.7vh
+.aba--active-aba.aba
+  padding-bottom: 12px
   color: #5f5e5e
+  @include respond-to(handhelds)
+    padding-bottom: 7px 
 </style>
