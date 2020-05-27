@@ -12,11 +12,37 @@
         <div class="logins__menu-abas">
           <code-menu-abas>
             <template v-slot:header>
-              <div @click="aba = 1" class="aba" :class="{ 'active-aba': aba == 1 }">paciente</div>
-              <div v-if="!hiddenBanner" @click="aba = 2" class="aba" :class="{ 'active-aba': aba == 2 }">medico</div>
-              <div v-if="!hiddenBanner" @click="aba = 3" class="aba" :class="{ 'active-aba': aba == 3 }">parceiro</div>
-              <div v-if="!hiddenBanner" @click="aba = 4" class="aba" :class="{ 'active-aba': aba == 4 }">posto</div>
-              <div v-if="!hiddenBanner" @click="aba = 5" class="aba" :class="{ 'active-aba': aba == 5 }">QR code</div>
+              <div @click="aba = 1" class="aba" :class="{ 'aba--active-aba': aba == 1 }">
+                <code-info
+                  icon="user"
+                  info="paciente"
+                />
+              </div>
+              <div v-if="!hiddenBanner" @click="aba = 2" class="aba" :class="{ 'aba--active-aba': aba == 2 }">
+                 <code-info
+                  icon="user-md"
+                  info="médico"
+                />
+              </div>
+              <div v-if="!hiddenBanner" @click="aba = 3" class="aba" :class="{ 'aba--active-aba': aba == 3 }">
+                <code-info
+                  icon="handshake"
+                  info="parceiro"
+                />
+                
+              </div>
+              <div v-if="!hiddenBanner" @click="aba = 4" class="aba" :class="{ 'aba--active-aba': aba == 4 }">
+                <code-info
+                  icon="clinic-medical"
+                  info="posto"
+                />
+              </div>
+              <div v-if="!hiddenBanner" @click="aba = 5" class="aba" :class="{ 'aba--active-aba': aba == 5 }">
+                <code-info
+                  icon="qrcode"
+                  info="QR code"
+                />
+              </div>
             </template>
             <template v-slot:body>
               <patient-login v-if="aba == 1" @keyboardActivated="hiddenBanner = $event" @modalHelp="helplogin = $event"></patient-login>
@@ -44,6 +70,7 @@
 </template>
 
 <script>
+import CodeInfo from '../components/base/CodeInfo'
 import CodeMenuAbas from '../components/base/CodeMenuAbas'
 import CodeModal from '../components/base/CodeModal'
 import DoctorLogin from '../components/DoctorLogin'
@@ -57,6 +84,7 @@ import TheNavbar from '../components/TheNavbar'
 export default {
   name: 'Logins',
   components: {
+    CodeInfo,
     CodeMenuAbas,
     CodeModal,
     DoctorLogin,
@@ -82,11 +110,15 @@ export default {
 .logins
   display: flex
   flex-direction: column
+  min-height: 100vh
+.logins__navbar
+  min-height: 8vh 
 .logins__main
   width: 100%
   display: flex
   flex-direction: row
   justify-content: space-evenly
+  min-height: 89vh
 .logins__content
   display: flex
   width: 90%
@@ -94,19 +126,18 @@ export default {
   @include respond-to(medium-screens)
     flex-direction: column
     align-items: center
-    margin: 0
   @include respond-to(handhelds)
     flex-direction: column
     align-items: center
     width: 100%
-    margin: 0
   margin: 6% 0
 .logins__menu-abas
-  width: 450px
+  width: 460px
   display: flex
   flex-direction: column
   @include respond-to(medium-screens)
     margin: 40px 0
+    height: 100%
   @include respond-to(handhelds)
     margin: 40px 0
     width: 75%
@@ -123,13 +154,9 @@ export default {
   align-items: center
   justify-content: flex-start
   @include respond-to(medium-screens)
-    // position: absolute
-    // top: 0
-    // margin-top: 50px
     display: none
   @include respond-to(handhelds)
     display: none
-  // z-index: 1
 .fade-enter-active, .fade-leave-active
   transition: opacity .5s
 .fade-enter, .fade-leave-to
