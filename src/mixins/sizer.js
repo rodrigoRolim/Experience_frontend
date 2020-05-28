@@ -1,10 +1,10 @@
 export const sizer = {
   computed: {
     getSizeInput (vm) {
-      return vm.width + 'px ' + vm.height + 'px'
+      return vm.height + 'px ' + vm.width + 'px'
     },
     getSizeIcon (vm) {
-      return vm.width + 'px ' + 2*vm.height + 'px'
+      return vm.height + 'px ' + 2*vm.width + 'px'
     }
   }
 }

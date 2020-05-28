@@ -253,7 +253,6 @@
         label="number"
         placeholder="digite apenas números"
         name="number"
-        type="number"
         :width="9"
         :height="7"
         v-model="num"

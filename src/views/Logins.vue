@@ -130,7 +130,8 @@ export default {
     flex-direction: column
     align-items: center
     width: 100%
-  margin: 6% 0
+  margin-top: 6%
+  margin-bottom: 2%
 .logins__menu-abas
   width: 460px
   display: flex
@@ -139,8 +140,9 @@ export default {
     margin: 40px 0
     height: 100%
   @include respond-to(handhelds)
-    margin: 40px 0
-    width: 75%
+    margin: 40px
+    width: 90%
+    max-width: 450px
     min-width: 320px
     height: 100%
 .logins__content--up
