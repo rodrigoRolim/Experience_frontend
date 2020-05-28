@@ -12,11 +12,11 @@
          ></code-label>
         <code-input
           placeholder="Usuário"
-          :hasIcon="true"
+          v-model="healthCare.user"
           name="user"
           type="text"
-          :width="9"
-          :height="7"
+          :width="7"
+          :height="9"
           :weight="400"
           color="#333"
           icon="user"
@@ -24,22 +24,21 @@
       </div>
       <div class="healthcare-login__password">
         <code-label
-          bind="password"
+          bind="healthPassword"
           label="Senha"
           color="#676a6c"
           :fontWeight="700"
           fontSize="0.8rem"
           fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
         ></code-label>
-        <code-input
-          placeholder="Senha"
-          :hasIcon="true"
-          name="password"
-          type="password"
-          required
-          :width="9"
-          :height="7"
+         <code-input-password
+          id="healthPassword"
+          name="healthPassword"
+          v-model="healthCare.password"
+          :width="7"
+          :height="9"
           icon="lock"
+          color="#333"
         />
       </div>
       <div class="healthcare-login__healtcare-select">
@@ -54,11 +53,12 @@
         <code-select
           :options="list"
           option="Selecione um posto"
+          v-model="healthCare.healthSelected"
           size="0.9rem"
           name="healthcares"
           icon="clinic-medical"
-          :width="9"
-          :height="7"
+          :width="7"
+          :height="9"
         >
           <template v-slot:icon>
             <font-awesome-icon icon="clinic-medical" :style="{ color: '#676a6c' }"></font-awesome-icon>
@@ -66,14 +66,6 @@
         </code-select>
       </div>
       <div class="healthcare-login__doubt">
-        <!-- <small class="keyboard"><i><font-awesome-icon icon="keyboard" size="lg"/></i></small> -->
-        <code-tooltip
-          text="Clique aqui"
-        >
-          <template>
-            <small class="healthcare-login__doubt-button">duvidas <i><font-awesome-icon icon="question-circle"/></i></small>
-          </template>
-        </code-tooltip> 
       </div>
       <div class="healthcare-login__buttons">
         <code-button
@@ -93,21 +85,27 @@
 </template>
 <script>
 import CodeInput from './base/CodeInput'
+import CodeInputPassword from './base/CodeInputPassword'
 import CodeButton from './base/CodeButton'
 import CodeLabel from './base/CodeLabel'
-import CodeTooltip from './base/CodeTooltip'
 import CodeSelect from './base/CodeSelect'
 export default {
   name: 'LoginPatient',
   components: {
     CodeButton,
     CodeInput,
+    CodeInputPassword,
     CodeLabel,
-    CodeTooltip,
     CodeSelect
   },
   data () {
     return {
+      healthCare: {
+        user: '',
+        password: '',
+        healthSelected: -1
+      },
+      healthSelected: 0,
       list: [
         { id: 1, item: 'fake news'},
         { id: 2, item: 'fake news'},

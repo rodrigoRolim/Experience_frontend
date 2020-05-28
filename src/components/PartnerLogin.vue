@@ -1,9 +1,9 @@
 <template>
   <div class="partner-login">
     <form class="partner-login__form">
-      <div class="partner-login__cpf">
+      <div class="partner-login__partner-code">
         <code-label
-          bind="cpf"
+          bind="partnerCode"
           label="Código Parceiro"
           color="#676a6c"
           :fontWeight="700"
@@ -12,12 +12,11 @@
         ></code-label>
         <code-input
           placeholder="Código do parceiro"
-          :hasIcon="true"
-          name="cpf"
+          name="partnerCode"
           type="text"
-          required
-          :width="9"
-          :height="7"
+          v-model="partner.code"
+          :width="7"
+          :height="9"
           :weight="500"
           color="#333"
           icon="handshake"
@@ -25,33 +24,24 @@
       </div>
       <div class="partner-login__password">
         <code-label
-          bind="password"
+          bind="partnerPassword"
           label="Senha"
           color="#676a6c"
           :fontWeight="700"
           fontSize="0.8rem"
           fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
         ></code-label>
-        <code-input
-          placeholder="Senha"
-          :hasIcon="true"
-          name="password"
-          type="password"
-          required
-          :width="9"
-          :height="7"
+         <code-input-password
+          id="partnerPassword"
+          name="partnerPassword"
+          v-model="partner.password"
+          :width="7"
+          :height="9"
           icon="lock"
+          color="#333"
         />
       </div>
       <div class="partner-login__utilities">
-        <!-- <small class="keyboard"><i><font-awesome-icon icon="keyboard" size="lg"/></i></small> -->
-        <code-tooltip
-          text="Clique aqui"
-        >
-          <template>
-            <small class="partner-login__doubt">duvidas <i><font-awesome-icon icon="question-circle"/></i></small>
-          </template>
-        </code-tooltip> 
       </div>
       <div class="partner-login__buttons">
         <code-button
@@ -71,21 +61,26 @@
 </template>
 <script>
 import CodeInput from './base/CodeInput'
+import CodeInputPassword from './base/CodeInputPassword'
 import CodeButton from './base/CodeButton'
 import CodeLabel from './base/CodeLabel'
-import CodeTooltip from './base/CodeTooltip'
+/* import CodeTooltip from './base/CodeTooltip' */
 
 export default {
   name: 'LoginPatient',
   components: {
     CodeButton,
     CodeInput,
+    CodeInputPassword,
     CodeLabel,
-    CodeTooltip
+   /*  CodeTooltip */
   },
   data () {
     return {
-      //-?(\d+|\d+\.\d+|\.\d+)([eE][-+]?\d+)?
+      partner: {
+        code: '',
+        password: ''
+      }
     }
   },
   methods: {
@@ -101,7 +96,7 @@ export default {
   flex-direction: column
   padding: 20px
 .partner-login__password,
-.partner-login__cpf
+.partner-login__partner-code
   margin: 7px 0
 .partner-login__buttons
   display: flex

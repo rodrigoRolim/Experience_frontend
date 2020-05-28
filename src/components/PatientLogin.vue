@@ -42,11 +42,12 @@
           type="text"
           required
           v-model="patient.cpf"
-          :width="9"
-          :height="7"
+          :width="7"
+          :height="9"
           :weight="500"
           color="#333"
           icon="user"
+          :error="validate.cpf"
         />
       </div>
       <div class="login-patient__birthday" v-if="visibility == 'ID'">
@@ -65,11 +66,12 @@
           type="text"
           required
           v-model="patient.birthDay"
-          :width="9"
-          :height="7"
+          :width="7"
+          :height="9"
           :weight="500"
           color="#333"
           icon="user"
+          :error="validate.birthDay"
         />
       </div>
       <div class="login-patient__attendance" v-else>
@@ -90,11 +92,12 @@
           v-model="patient.idAttendance"
           :focused="focusedInput == 'idAttendance'"
           @focus="focusInput"
-          :width="9"
-          :height="7"
+          :width="7"
+          :height="9"
           :weight="600"
           color="#333"
           icon="user"
+          :error="validate.idAttendance"
         />
       </div>
       <div class="login-patient__password">
@@ -110,12 +113,13 @@
           ref="password"
           name="password"
           id="patient-password"
-          :width="9"
-          :height="7"
+          :width="7"
+          :height="9"
           icon="lock"
           @focus="focusInput"
           v-model="patient.password"
           :focused="focusedInput == 'password'"
+          :error="validate.password"
         />
       </div>
       <div class="login-patient__actions">
@@ -172,8 +176,11 @@ import CodeTooltip from './base/CodeTooltip'
 import CodeGroupRadios from './base/CodeGroupRadios'
 import CodeInputPassword from './base/CodeInputPassword'
 import keyboardSelfService from './KeyboardSelfService'
+import { required } from '../mixins/validations/rules'
+import { validator } from '../mixins/validations/validator'
 export default {
   name: 'LoginPatient',
+  mixins: [validator({required})],
   props: {
     digit: String
   },
@@ -195,6 +202,12 @@ export default {
         idAttendance: '',
         password: ''
       },
+      validate: {
+        cpf: '',
+        birthDay: '',
+        idAttendance: '',
+        password: ''
+      },
       receive: '',
       valueRadio: '',
       visibility: 'CPF',
@@ -211,11 +224,53 @@ export default {
   mounted () {
     this.focusInputList = Object.keys(this.$refs)
   },
+  computed: {
+    cpf () {
+      return this.patient.cpf
+    },
+    birthDay () {
+      return this.patient.birthDay
+    },
+    idAttendance () {
+      return this.patient.idAttendance
+    },
+    password () {
+      return this.patient.password
+    }
+  },
   watch: {
     softKeyboard (value) {
 
       if (!value) {
         this.focusedInput = ''
+      }
+    },
+    cpf (value) {
+      if (this.required(value)) {
+        this.validate.cpf = 'campo obrigatório'
+      } else {
+        this.validate.cpf = ''
+      }
+    },
+    birthDay (value) {
+      if (this.required(value)) {
+        this.validate.birthDay = 'campo obrigatório'
+      } else {
+        this.validate.birthDay = ''
+      }
+    },
+    idAttendance (value) {
+      if (this.required(value)) {
+        this.validate.idAttendance = 'campo obrigatório'
+      } else {
+        this.validate.idAttendance = ''
+      }
+    },
+    password (value) {
+      if (this.required(value)) {
+        this.validate.password = 'campo obrigatório'
+      } else {
+        this.validate.password = ''
       }
     }
   },

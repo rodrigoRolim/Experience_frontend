@@ -5,7 +5,7 @@
         <div class="doctor-login__cr">
           <code-label
             bind="attendance"
-            label="Tipo CR"
+            label="Conselho Profissional"
             color="#676a6c"
             :fontWeight="700"
             fontSize="0.8rem"
@@ -13,12 +13,12 @@
           ></code-label>
           <code-select
             class="d-cr"
-            :options="list"
+            :options="crs"
             name="attendance"
-            option="escolha um doce"
-            :width="9"
-            :height="7"
-            :hasIcon="false"
+            option="conselho profissional"
+            v-model="doctor.professionalCouncil"
+            :width="7"
+            :height="9"
           ></code-select>
         </div>
        <div class="doctor-login__uf">
@@ -34,63 +34,54 @@
             class="doctor-login__cr-select"
             name="ufConselho"
             :options="ufs"
-            option="escolha um doce"
+            option="UF conselho"
+            v-model="doctor.profissionalUF"
             :hasIcon="false"
-            :width="9"
-            :height="7"
+            :width="7"
+            :height="9"
           ></code-select>
        </div>
       </div>
       <div class="doctor-login__crm">
         <code-label
           bind="numcrm"
-          label="Número de CR"
+          label="Número Conselho Profissional"
           color="#676a6c"
           :fontWeight="700"
           fontSize="0.8rem"
           fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
         ></code-label>
         <code-input
-          placeholder="CR"
-          :hasIcon="true"
+          placeholder="Número Conselho Profissional"
           name="numcrm"
-          type="text"
-          :width="9"
-          :height="7"
+          :width="7"
+          :height="9"
           :weight="500"
           icon="stethoscope"
+          v-model="doctor.numeberCr"
           color="#333"
+          numeric
         />
       </div>
       <div class="doctor-login__password">
         <code-label
-          bind="password"
+          bind="doctorPassword"
           label="Senha"
           color="#676a6c"
           :fontWeight="700"
           fontSize="0.8rem"
           fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
         ></code-label>
-        <code-input
-          placeholder="Senha"
-          :hasIcon="true"
-          name="password"
-          type="password"
-          :width="9"
-          :height="7"
-          :weight="500"
-          color="#333"
+        <code-input-password
+          id="doctorPassword"
+          name="doctorPassword"
+          :width="7"
+          :height="9"
           icon="lock"
+          v-model="doctor.password"
         />
       </div>
       <div class="doctor-login__doubt">
-        <code-tooltip
-          text="Clique aqui"
-        >
-          <template>
-            <small class="doctor-login__doubt-button">duvidas <i><font-awesome-icon icon="question-circle"/></i></small>
-          </template>
-        </code-tooltip> 
       </div>
       <div class="doctor-login__buttons">
         <code-button
@@ -112,40 +103,88 @@
 <script>
 import CodeSelect from './base/CodeSelect'
 import CodeInput from './base/CodeInput'
+import CodeInputPassword from './base/CodeInputPassword'
 import CodeLabel from './base/CodeLabel'
 import CodeButton from './base/CodeButton'
-import CodeTooltip from './base/CodeTooltip'
+import store from '../store'
+import { required } from '../mixins/validations/rules'
+import { validator } from '../mixins/validations/validator'
 export default {
   name: 'DoctorLogin',
+  mixins: [validator({required})],
   components: {
     CodeSelect,
     CodeInput,
+    CodeInputPassword,
     CodeLabel,
-    CodeButton,
-    CodeTooltip
+    CodeButton
   },
   data () {
     return {
-      list: [
-        { id: 1, item: 'CRM' },
-        { id: 2, item: 'COREN' },
-        { id: 3, item: 'CRBIO' },
-        { id: 4, item: 'CRBM' },
-        { id: 5, item: 'CREFITO' },
-        { id: 6, item: 'CRF' },
-        { id: 7, item: 'CRFA' }
-      ],
-      ufs: [
-        { id: 1, item: 'MA'},
-        { id: 2, item: 'MA'},
-        { id: 3, item: 'MA'},
-        { id: 4, item: 'MA'},
-        { id: 5, item: 'MA'},
-        { id: 6, item: 'MA'},
-        { id: 7, item: 'MA'},
-        { id: 8, item: 'MA'},
-        { id: 9, item: 'MA'},
-      ]
+      typeCode: -1,
+      uf: 0,
+      doctor: {
+        professionalCouncil: -1,
+        profissionalUF: -1,
+        numberCr: '',
+        password: ''
+      },
+      validate: {
+        professionalCouncil: '',
+        profissionalUF: '',
+        numberCr: '',
+        password: ''
+      }
+    }
+  },
+  computed: {
+    ufs () {
+      return store.ufs
+    },
+    crs () {
+      return store.crs
+    },
+    professionalCouncil () {
+      return this.doctor.professionalCouncil
+    },
+    profissionalUF () {
+      return this.doctor.profissionalUF
+    },
+    numberCr () {
+      return this.doctor.numberCr
+    },
+    password () {
+      return this.doctor.password
+    }
+  },
+  watch: {
+    professionalCouncil (value) {
+      if (this.required(value)) {
+        this.validate.professionalCouncil = 'campo obrigatório'
+      } else {
+        this.validate.professionalCouncil = ''
+      }
+    },
+    profissionalUF (value) {
+      if (this.required(value)) {
+        this.validate.profissionalUF = 'campo obrigatório'
+      } else {
+        this.validate.profissionalUF = ''
+      }
+    },
+    numberCr (value) {
+      if (this.required(value)) {
+        this.validate.numberCr = 'campo obrigatório'
+      } else {
+        this.validate.numberCr = ''
+      }
+    },
+    password (value) {
+      if (this.require(value)) {
+        this.validate.password = 'campo obrigatório'
+      } else {
+        this.validate.password = ''
+      }
     }
   }
 }
@@ -158,19 +197,26 @@ export default {
   background-color: white
 .doctor-login__selects
   display: flex
+  flex-wrap: wrap
   justify-content: space-between
   width: 100%
 .doctor-login__cr
   width:  48%
+  @include respond-to(handhelds)
+    width: 100%
 .doctor-login__uf
   width: 48%
+  @include respond-to(handhelds)
+    width: 100%
 .doctor-login__form
   display: flex
   flex-direction: column
   padding: 20px
 .doctor-login__selects,
 .doctor-login__crm,
-.doctor-login__password
+.doctor-login__password,
+.doctor-login__uf,
+.doctor-login__cr
   margin: 7px 0
 .d-selects
   display: flex

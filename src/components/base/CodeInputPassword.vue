@@ -1,44 +1,55 @@
 <template>
-  <div class="input-password">
-    <i 
-      class="input-password__icon"
-      v-if="icon" 
-      :style="getStyleIcon" 
-      :class="{ 'input-password--no-border-right': noBorderRight,
-                'input-password--outline': outlineInput
-              }"
-    >
-      <font-awesome-icon :icon="icon" :style="{ color: colorIcon }"/>
-    </i>
-    <input
-      ref="input"
-      class="input-password__input"
-      placeholder="senha" 
-      :type="type" 
-      :name="name" 
-      :id="id"
-      :style="getStyleInput" 
-      v-bind="$attrs"
-      v-model="inputEmitter"
-      @keydown="replaceByBullet"
-      @focus="focus"
-      @blur="blur"
-      :class="{ 
-                'input-password__input--icon': icon, 'input-password__input--no-icon': !icon, 
-                'input-password--no-border-right': noBorderRight,
-                'input-password--no-border-left': noBorderLeft,
-                'input-password--outline': outlineInput  
-              }" 
-    />
-    <i class="input-password__eye" @click="togglePasswordVisibility"
-       :class="{ 'input-password--outline': outlineInput  }"
+<div class="input-password__wrap">
+   <div class="input-password">
+      <i 
+        class="input-password__icon"
+        v-if="icon" 
+        :style="getStyleIcon" 
+        :class="{ 'input-password--no-border-right': noBorderRight,
+                  'input-password--outline': outlineInput && !error,
+                  'input-password--error': error
+                }"
       >
-    <transition name="fade" mode="out-in">
-      <font-awesome-icon v-if="toggleIcon" icon="eye" :style="{ color: colorIcon }"/>
-      <font-awesome-icon  v-else icon="eye-slash"  :style="{ color: colorIcon }"/>
-    </transition>
-    </i>
-  </div>
+        <font-awesome-icon :icon="icon"/>
+      </i>
+      <input
+        ref="input"
+        class="input-password__input"
+        placeholder="senha" 
+        :type="type" 
+        :name="name" 
+        :id="id"
+        :style="getStyleInput" 
+        v-bind="$attrs"
+        v-model="inputEmitter"
+        @keydown="replaceByBullet"
+        @focus="focus"
+        @blur="blur"
+        :class="{ 
+                  'input-password__input--icon': icon, 'input-password__input--no-icon': !icon, 
+                  'input-password--no-border-right': noBorderRight,
+                  'input-password--no-border-left': noBorderLeft,
+                  'input-password--outline': outlineInput && !error,
+                  'input-password--error': error
+                }" 
+      />
+      <i class="input-password__eye" @click="togglePasswordVisibility"
+        :class="{ 
+          'input-password--outline': outlineInput && !error,
+          'input-password--error': error  
+          }"
+        >
+        <transition name="fade" mode="out-in">
+          <font-awesome-icon v-if="toggleIcon" icon="eye" :style="{ color: colorIcon }"/>
+          <font-awesome-icon  v-else icon="eye-slash"  :style="{ color: colorIcon }"/>
+        </transition>
+      </i>
+    </div>
+    <div class="input-password-wrap__message-error"  v-if="error">
+        <small class="input-password-wrap__text-error">{{error}}</small>
+    </div>
+</div>
+
 </template>
 
 <script>
@@ -76,9 +87,6 @@ export default {
       default: '0.95rem'
     },
     bolded: Boolean,
-    color: {
-      type: String
-    },
     colorIcon: {
       type: String
     },
@@ -91,7 +99,7 @@ export default {
     focused: {
       type: Boolean
     },
-    errors: {
+    error: {
       type: String
     }
   },
@@ -121,9 +129,9 @@ export default {
     },
     getStyleInput (vm) {
       return {
-        padding: vm.getSizeInput, 
-        color: vm.color, 
-        cursor: vm.cursor
+        padding: vm.getSizeInput,
+        cursor: vm.cursor,
+        fontSize: vm.fontSize
       }
     },
     getStyleIcon (vm) {
@@ -169,7 +177,6 @@ input[type="password"]
   font-family: "fontello"
   font-style: normal
   font-weight: normal
-  font-size: 14px
   letter-spacing: 1.5px
   speak: none
   font-variant: normal
@@ -177,10 +184,7 @@ input[type="password"]
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
   color: lightslategray
-  
-input[type="text"]
-  font-size: 14px
-  padding: 0
+  font-size: 1.05rem !important
 .input-password__input
   border: 1px solid lightgray
   border-right: none
@@ -189,9 +193,9 @@ input[type="text"]
   min-width: 20px
 .input-password__input::placeholder
   font-family: Avenir, Helvetica, Arial, sans-serif
-  font-size: 14px
-  padding: 0
-  letter-spacing: 0px
+  text-transform: capitalize
+  letter-spacing: 0.1px
+  font-size: 0.95rem !important
 .input-password__input--icon
   border-radius: 0px 0px 0px 0px
 .input-password__input--no-icon
@@ -224,6 +228,17 @@ input[type="text"]
   color: $icon
 .input-password--outline
   border-color: $brand
+.input-password--error
+  border-color: $danger
+  color: $danger
+.input-password-wrap__message-error
+  display: flex
+  flex-direction: row
+  margin-left: 10px
+  color: $danger
+.input-password-wrap__text-error
+  font-style: italic
+  margin-bottom: 0
 .fade-enter-active, .fade-leave-active
   transition: opacity .3s
 .fade-enter, .fade-leave-to 

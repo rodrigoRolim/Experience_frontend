@@ -16,7 +16,7 @@
         type="text"
         v-model="inputEmitter" 
         :placeholder="placeholder"
-        :style="{ padding: getSizeInput, fontSize: sizeLetter, fontWeight: weightLetter, color: color, cursor: cursor }"
+        :style="{ padding: getSizeInput, fontSize: sizeLetter, fontWeight: weightLetter, cursor: cursor }"
         @focus="focus"
         @blur="blur"
         @keyup="keyup"
@@ -69,9 +69,6 @@ export default {
     },
     weightLetter: {
       type: Number
-    },
-    color: {
-      type: String
     },
     cursor: {
       type: String
@@ -185,7 +182,7 @@ export default {
   display: flex
   flex-direction: row
   margin-left: 10px
-  color: red
+  color: $danger
 .input-wrap__text-error
   font-style: italic
   margin-bottom: 0

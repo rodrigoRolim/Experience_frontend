@@ -132,10 +132,8 @@ export default {
           this.drawLine(code.location.topRightCorner, code.location.bottomRightCorner, '#FF3B58')
           this.drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, '#FF3B58')
           this.drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, '#FF3B58')
-          //this.$refs.outputMessage.innerText = 'QRCode detectado'
           this.$refs.outputData.innerText = code.data
         } else {
-          //this.$refs.outputMessage.innerText = 'Nenhum QRcode detectado'
           this.$refs.outputData.innerText = ''
           this.drawBorder(imageData.width, imageData.height)
         }
