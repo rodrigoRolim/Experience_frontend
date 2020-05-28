@@ -3121,5 +3121,25 @@ export default {
     "message": "Recebido com sucesso",
     "data": "<span style='font-size: 12px;'>1)</span><span style='font-size: 12px;'>&Uacute;</span><span style='font-size: 12px;'>LTIMA ATUALIZA</span><span style='font-size: 12px;'>&Ccedil;</span><span style='font-size: 12px;'>&Atilde;</span><span style='font-size: 12px;'>O:</span><span style='font-size: 12px;'> 18/10/2006</span><p><span style='font-size: 12px;'>2)</span><span style='font-size: 16px;'> </span><span style='font-size: 16px;'>PALAVRAS CHAVES</span><span style='font-size: 16px;'>;GLICOSE</span><span style='font-size: 16px;'>3) </span><span style='font-size: 16px;'>'c1REA:</span><span style='font-size: 16px;'>BIOQUIMICA I</span><p><span style='font-size: 16px;'>4)</span><span style='font-size: 16px;'> </span><span style='font-size: 16px;'>CONDI</span><span style='font-size: 16px;'>&Ccedil;</span><span style='font-size: 16px;'>&Otilde;</span><span style='font-size: 16px;'>ES</span><span style='font-size: 16px;'> :</span><span style='font-size: 12px;'>soro ou plasma (fluoreto).</span><p><span style='font-weight:bold;font-size: 12px;'>TEMPO DE JEJUM</span><span style='font-size: 16px;'> </span><p><span style='font-size: 12px;'>JO 8h ou C.O.M. </span><p><span style='font-size: 12px;'>5)</span><span style='font-weight:bold;font-size: 12px;'>POSTO REALIZANTE</span><p><span style='font-size: 12px;'>MATRIZ E POSTOS DE COLETA</span><p><span style='font-size: 12px;'>6)</span><span style='font-weight:bold;font-size: 12px;'>INSTRU</span><span style='font-weight:bold;font-size: 12px;'>&Ccedil;</span><span style='font-weight:bold;font-size: 12px;'>&Otilde;</span><span style='font-weight:bold;font-size: 12px;'>ES</span><p><p><span style='font-size: 16px;'> 7</span><span style='font-size: 12px;'>)</span><span style='font-weight:bold;font-size: 12px;'>COMENT</span><span style='font-weight:bold;font-size: 12px;'>&Aacute;</span><span style='font-weight:bold;font-size: 12px;'>RIOS</span><span style='font-size: 16px;'> </span><p><span style='font-size: 12px;'>A presenca de um dos criterios abaixo (retirados da American Diabetes Association) e sua confirmacao num dia subsequente indica o diagnostico de diabetes melito: </span><p><span style='font-size: 12px;'>1. Sintomas de diabetes melito com glicemia independente do jejum maior ou igual a 200 mg/dL). </span><p><span style='font-size: 12px;'>2. Glicemia de jejum maior ou igual a 126 mg/dL. </span><p><span style='font-size: 12px;'>3. Glicemia maior ou igual a 200 mg/dL, durante teste de tolerancia a glicose, 2 horas apos 75g de glicose anidra dissolvida em agua. </span><p><span style='font-size: 12px;'>OBS.: Pacientes com glicemia de jejum entre 100 e 125 mg/dL sao classificados como portadores de glicemia de jejum alterada. Pacientes com glicemia maior ou igual a 140 mg/ dL, 2 horas apos 75g de glicose anidra dissolvida em agua,sao considerados intolerantes a glicose. </span><p><span style='font-size: 12px;'>Leucocitose, hemolise e glicolise em amostras submetidas ao calor podem determinar hipoglicemia espuria. </span><p><span style='font-size: 16px;'>8)PREVIS</span><span style='font-size: 16px;'>&Atilde;</span><span style='font-size: 16px;'>O DE ENTREGA</span><p><span style='font-size: 16px;'>1 dia.</span><p><p><span style='font-size: 16px;'>9) COBERTURA</span><p><p><span style='font-size: 16px;'>PARTICULAR E TODOS OS CONV</span><span style='font-size: 16px;'>&Ecirc;</span><span style='font-size: 16px;'>NIOS</span><p><p><p><span style='font-size: 19px;'>testandotestando</span><p>"
   },
+  crs: [
+    { id: 1, item: 'CRM' },
+    { id: 2, item: 'COREN' },
+    { id: 3, item: 'CRBIO' },
+    { id: 4, item: 'CRBM' },
+    { id: 5, item: 'CREFITO' },
+    { id: 6, item: 'CRF' },
+    { id: 7, item: 'CRFA' }
+  ],
+  ufs: [
+    { id: 1, item: 'MA'},
+    { id: 2, item: 'MA'},
+    { id: 3, item: 'MA'},
+    { id: 4, item: 'MA'},
+    { id: 5, item: 'MA'},
+    { id: 6, item: 'MA'},
+    { id: 7, item: 'MA'},
+    { id: 8, item: 'MA'},
+    { id: 9, item: 'MA'},
+  ],  
   pdfPath: '/pdf/example.pdf'
 }
