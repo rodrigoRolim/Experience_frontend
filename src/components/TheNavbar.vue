@@ -38,7 +38,7 @@ export default {
 <style lang="sass" scoped>
 .navbar
   display: flex
-  margin-bottom: 70px 
+  height: 9vh
 .navbar__header
   position: fixed
   display: flex
@@ -46,7 +46,7 @@ export default {
   background-color: white
   justify-content: space-between
   width: 100%
-  height: 60px
+  min-height: 9vh
   z-index: 2
   top: 0
   left: 0

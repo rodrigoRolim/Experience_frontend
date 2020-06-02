@@ -19,6 +19,7 @@
             v-model="doctor.professionalCouncil"
             :width="7"
             :height="9"
+            :error="validate.professionalCouncil"
           ></code-select>
         </div>
        <div class="doctor-login__uf">
@@ -36,9 +37,9 @@
             :options="ufs"
             option="UF conselho"
             v-model="doctor.profissionalUF"
-            :hasIcon="false"
             :width="7"
             :height="9"
+            :error="validate.profissionalUF"
           ></code-select>
        </div>
       </div>
@@ -58,9 +59,10 @@
           :height="9"
           :weight="500"
           icon="stethoscope"
-          v-model="doctor.numeberCr"
+          v-model="doctor.numberCr"
           color="#333"
           numeric
+          :error="validate.numberCr"
         />
       </div>
       <div class="doctor-login__password">
@@ -79,6 +81,7 @@
           :height="9"
           icon="lock"
           v-model="doctor.password"
+          :error="validate.password"
         />
       </div>
       <div class="doctor-login__doubt">
@@ -94,6 +97,7 @@
           shading
           streched
           size-icon="lg"
+          @click.prevent="confirm"
         ></code-button>
       </div>  
     </form>
@@ -145,10 +149,10 @@ export default {
       return store.crs
     },
     professionalCouncil () {
-      return this.doctor.professionalCouncil
+      return this.doctor.professionalCouncil < 0 ? '' : this.doctor.professionalCouncil
     },
     profissionalUF () {
-      return this.doctor.profissionalUF
+      return this.doctor.profissionalUF < 0 ? '' : this.doctor.profissionalUF
     },
     numberCr () {
       return this.doctor.numberCr
@@ -180,11 +184,27 @@ export default {
       }
     },
     password (value) {
-      if (this.require(value)) {
+      if (this.required(value)) {
         this.validate.password = 'campo obrigatório'
       } else {
         this.validate.password = ''
       }
+    }
+  },
+  methods: {
+    validateAll () {
+      let fields = Object.keys(this.doctor).filter(el => this.doctor[el] == '' || this.doctor[el] == -1)
+      fields.forEach(element => {
+        this.validate[element] = 'campo obrigatório'
+      })
+      return fields.length > 0
+    },
+    confirm () {
+      let validated = this.validateAll()
+      this.messageValidation(validated)
+    },
+    messageValidation (validated) {
+      this.$emit('error', {error: validated, message: 'corrija ou preencha os campos abaixo'})
     }
   }
 }

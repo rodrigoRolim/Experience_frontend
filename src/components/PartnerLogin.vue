@@ -20,6 +20,7 @@
           :weight="500"
           color="#333"
           icon="handshake"
+          :error="validate.code"
         />
       </div>
       <div class="partner-login__password">
@@ -39,6 +40,7 @@
           :height="9"
           icon="lock"
           color="#333"
+          :error="validate.password"
         />
       </div>
       <div class="partner-login__utilities">
@@ -54,6 +56,7 @@
           shading
           streched
           size-icon="lg"
+          @click.prevent="confirm"
         ></code-button>
       </div>  
     </form>
@@ -64,27 +67,68 @@ import CodeInput from './base/CodeInput'
 import CodeInputPassword from './base/CodeInputPassword'
 import CodeButton from './base/CodeButton'
 import CodeLabel from './base/CodeLabel'
-/* import CodeTooltip from './base/CodeTooltip' */
-
+import { required } from '../mixins/validations/rules'
+import { validator } from '../mixins/validations/validator' 
 export default {
-  name: 'LoginPatient',
+  name: 'PartnerLogin',
+  mixins: [validator({required})],
   components: {
     CodeButton,
     CodeInput,
     CodeInputPassword,
-    CodeLabel,
-   /*  CodeTooltip */
+    CodeLabel
   },
   data () {
     return {
       partner: {
         code: '',
         password: ''
+      },
+      validate: {
+        code: '',
+        password: ''
+      }
+    }
+  },
+  computed: {
+    code () {
+      return this.partner.code
+    },
+    password () {
+      return this.partner.password
+    }
+  },
+  watch: {
+    code (value) {
+      if (this.required(value)) {
+        this.validate.code = 'campo obrigatório'
+      } else {
+        this.validate.code = ''
+      }
+    },
+    password (value) {
+      if (this.required(value)) {
+        this.validate.password = 'campo obrigatório'
+      } else {
+        this.validate.password = ''
       }
     }
   },
   methods: {
-   
+    validateAll () {
+      let fields = Object.keys(this.partner).filter(el => this.partner[el] == '' || this.partner[el] == -1)
+      fields.forEach(element => {
+        this.validate[element] = 'campo obrigatório'
+      })
+      return fields.length > 0
+    },
+    confirm () {
+      let validated = this.validateAll()
+      this.messageValidation(validated)
+    },
+    messageValidation (validated) {
+      this.$emit('error', {error: validated, message: 'corrija ou preencha os campos abaixo'})
+    }
   }  
 }
 </script>

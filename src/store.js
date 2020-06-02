@@ -1,5 +1,22 @@
 export default {
   user: null,
+  patient: {
+    cpf: '05446737350',
+    birthDay: '17/06/1992',
+    idAttendance: '001/010011',
+    password: 'abc1cde'
+  },
+  doctor: {
+    professionalCouncil: 'COREN',
+    councilUF: 'MA',
+    numberCR: '545',
+    password: 'abcde'
+  },
+  partner: {
+    code: '001',
+    password: 'abcde'
+  },
+  qrcode: '001/010011',
   attendances: {
     "message": "Recebido com sucesso.",
     "data": [

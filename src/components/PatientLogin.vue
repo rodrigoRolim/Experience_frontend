@@ -16,7 +16,6 @@
               :visible="visibility"
             ></code-radio>
             <code-radio
-             
               name="login"
               value="ID"
               label="Histórico de Resultados"
@@ -61,10 +60,8 @@
          ></code-label>
         <code-input
           placeholder="Data de nascimento"
-          :hasIcon="true"
           name="birthDay"
           type="text"
-          required
           v-model="patient.birthDay"
           :width="7"
           :height="9"
@@ -147,6 +144,7 @@
           shading
           streched
           size-icon="lg"
+          @click.prevent="confirm"
         ></code-button>
       </div>
     </form>
@@ -239,6 +237,12 @@ export default {
     }
   },
   watch: {
+    visibility () {
+      this.validate.cpf = ''
+      this.validate.birthDay = ''
+      this.validate.idAttendance = ''
+      this.validate.password = ''
+    },
     softKeyboard (value) {
 
       if (!value) {
@@ -297,8 +301,22 @@ export default {
       this.indexFocusedInput = -(--this.indexFocusedInput)%numInputs
       this.focusedInput = this.focusInputList[this.indexFocusedInput]
     },
+    validateAll () {
+      let fields = Object.keys(this.patient).filter(el => this.patient[el] == '')
+      if (this.visibility !== 'ID') {
+        fields = fields.filter(el => el !== 'cpf' && el !== 'birthDay')
+      }
+      fields.forEach(element => {
+        this.validate[element] = 'campo obrigatório'
+      })
+      return fields.length > 0
+    },
     confirm () {
-     
+      let res = this.validateAll()
+      this.messageValidation(res)
+    },
+    messageValidation (value) {
+      this.$emit('error', {error: value, message: 'corrija ou preencha os campos abaixo'})
     },
     backspace () {
 

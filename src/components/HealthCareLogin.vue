@@ -20,6 +20,7 @@
           :weight="400"
           color="#333"
           icon="user"
+          :error="validate.user"
         /> 
       </div>
       <div class="healthcare-login__password">
@@ -39,6 +40,7 @@
           :height="9"
           icon="lock"
           color="#333"
+          :error="validate.password"
         />
       </div>
       <div class="healthcare-login__healtcare-select">
@@ -59,6 +61,7 @@
           icon="clinic-medical"
           :width="7"
           :height="9"
+          :error="validate.healthSelected"
         >
           <template v-slot:icon>
             <font-awesome-icon icon="clinic-medical" :style="{ color: '#676a6c' }"></font-awesome-icon>
@@ -78,6 +81,7 @@
           shading
           streched
           size-icon="lg"
+          @click.prevent="confirm"
         ></code-button>
       </div>  
     </form>
@@ -89,8 +93,11 @@ import CodeInputPassword from './base/CodeInputPassword'
 import CodeButton from './base/CodeButton'
 import CodeLabel from './base/CodeLabel'
 import CodeSelect from './base/CodeSelect'
+import { required } from '../mixins/validations/rules'
+import { validator } from '../mixins/validations/validator'
 export default {
   name: 'LoginPatient',
+  mixins: [validator({required})],
   components: {
     CodeButton,
     CodeInput,
@@ -105,20 +112,71 @@ export default {
         password: '',
         healthSelected: -1
       },
-      healthSelected: 0,
+      validate: {
+        user: '',
+        password: '',
+        healthSelected: ''
+      },
       list: [
-        { id: 1, item: 'fake news'},
-        { id: 2, item: 'fake news'},
-        { id: 3, item: 'fake news'},
-        { id: 4, item: 'fake news'},
-        { id: 5, item: 'fake news'},
-        { id: 6, item: 'fake news'},
-        { id: 7, item: 'fake news'},
+        { id: 1, item: 'fake news' },
+        { id: 2, item: 'fake news' },
+        { id: 3, item: 'fake news' },
+        { id: 4, item: 'fake news' },
+        { id: 5, item: 'fake news' },
+        { id: 6, item: 'fake news' },
+        { id: 7, item: 'fake news' },
       ]
     }
   },
+  computed: {
+    user () {
+      return this.healthCare.user
+    },
+    password () {
+      return this.healthCare.password
+    },
+    healthSelected () {
+      return this.healthCare.healthSelected < 0 ? '' : this.healthCare.healthSelected 
+    }
+  },
+  watch: {
+    user (value) {
+      if (this.required(value)) {
+        this.validate.user = 'campo obrigatório'
+      } else {
+        this.validate.use = ''
+      }
+    },
+    password (value) {
+      if (this.required(value)) {
+        this.validate.password = 'campo obrigatório'
+      } else {
+        this.validate.password = ''
+      }
+    },
+    healthSelected (value) {
+       if (this.required(value)) {
+        this.validate.healthSelected = 'campo obrigatório'
+      } else {
+        this.validate.healthSelected = ''
+      }
+    }
+  },
   methods: {
-   
+    validateAll () {
+      let fields = Object.keys(this.healthCare).filter(el => this.healthCare[el] == '' || this.healthCare[el] == -1)
+      fields.forEach(element => {
+        this.validate[element] = 'campo obrigatório'
+      })
+      return fields.length > 0
+    },
+    confirm () {
+      let validated = this.validateAll()
+      this.messageValidation(validated)
+    },
+    messageValidation (validated) {
+      this.$emit('error', {error: validated, message: 'corrija ou preencha os campos abaixo'})
+    }
   }  
 }
 </script>

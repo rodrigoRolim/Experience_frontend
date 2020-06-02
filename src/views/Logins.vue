@@ -3,12 +3,23 @@
     <div class="logins__navbar" v-if="!hiddenBanner">
       <the-navbar logo="logo_cedro"/>
     </div>
+    <transition name="slide-fade">
+      <div class="logins__messages"  v-if="showMessage">
+        <code-message
+        
+          class="logins__message"
+          :message="contentMessage"
+          type="error"
+          position="flex-start"
+          icon="times-circle"
+        />
+      </div>
+    </transition>
     <div class="logins__main">
       <div class="logins__content" :class="{'logins__content--up': hiddenBanner}">
          <div class="logins__banner" v-if="!hiddenBanner">
           <laboratory-banner logo="logo_cedro"></laboratory-banner>
         </div>
-
         <div class="logins__menu-abas">
           <code-menu-abas>
             <template v-slot:header>
@@ -45,10 +56,10 @@
               </div>
             </template>
             <template v-slot:body>
-              <patient-login v-if="aba == 1" @keyboardActivated="hiddenBanner = $event" @modalHelp="helplogin = $event"></patient-login>
-              <doctor-login v-if="aba == 2"></doctor-login>
-              <partner-login v-if="aba == 3"></partner-login>
-              <health-care-login v-if="aba == 4"></health-care-login>
+              <patient-login v-if="aba == 1" @error="messages" @keyboardActivated="hiddenBanner = $event" @modalHelp="helplogin = $event"></patient-login>
+              <doctor-login @error="messages" v-if="aba == 2"></doctor-login>
+              <partner-login @error="messages" v-if="aba == 3"></partner-login>
+              <health-care-login @error="messages" v-if="aba == 4"></health-care-login>
               <Qrcode-login v-if="aba == 5" :play="aba == 5 ? true : false"></Qrcode-login>
             </template>
           </code-menu-abas>
@@ -71,6 +82,7 @@
 
 <script>
 import CodeInfo from '../components/base/CodeInfo'
+import CodeMessage from '../components/base/CodeMessage'
 import CodeMenuAbas from '../components/base/CodeMenuAbas'
 import CodeModal from '../components/base/CodeModal'
 import DoctorLogin from '../components/DoctorLogin'
@@ -87,6 +99,7 @@ export default {
     CodeInfo,
     CodeMenuAbas,
     CodeModal,
+    CodeMessage,
     DoctorLogin,
     HealthCareLogin,
     HelpToLogin,
@@ -100,25 +113,61 @@ export default {
     return {
       aba: 1,
       hiddenBanner: false,
-      helplogin: false
+      helplogin: false,
+      showMessage: false,
+      contentMessage: ''
+    }
+  },
+  created () {
+    
+  },
+  watch: {
+    aba () {
+      this.showMessage = false
+      this.contentMessage = ''
+    }
+  },
+  methods: {
+    messages (value) {
+      this.showMessage = value.error
+      this.contentMessage = value.message
+      setTimeout(() => {
+        this.showMessage = false
+        this.contentMessage = ''
+      }, 6000)
     }
   }
 }
 </script>
 
 <style lang="sass" scoped>
+@import '../styles/transitions/__slide_fade.scss'
+@import '../styles/transitions/__fade.scss'
 .logins
   display: flex
   flex-direction: column
   min-height: 100vh
-.logins__navbar
-  min-height: 8vh 
 .logins__main
   width: 100%
   display: flex
   flex-direction: row
   justify-content: space-evenly
   min-height: 89vh
+.logins__messages
+  position: fixed
+  top: 80px
+  box-shadow: 0px 2px 5px 3px rgba(0, 0, 0, 0.1)
+  align-self: flex-end
+  width: 35%
+  right: 30px
+  @include respond-to(medium-screens)
+    width: 100%
+    right: 0
+    left: 0
+    top: 62px
+.logins__message
+  width: 100%
+  min-height: 10vh
 .logins__content
   display: flex
   width: 90%
@@ -130,7 +179,7 @@ export default {
     flex-direction: column
     align-items: center
     width: 100%
-  margin-top: 6%
+  margin-top: 7%
   margin-bottom: 2%
 .logins__menu-abas
   width: 460px
@@ -159,8 +208,6 @@ export default {
     display: none
   @include respond-to(handhelds)
     display: none
-.fade-enter-active, .fade-leave-active
-  transition: opacity .5s
-.fade-enter, .fade-leave-to
-  opacity: 0
+
+
 </style>

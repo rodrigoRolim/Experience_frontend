@@ -80,8 +80,8 @@ export default {
     }
   },
   methods: {
-    click () {
-      this.$emit("click")
+    click (e) {
+      this.$emit("click", e)
     }
   } 
 }
