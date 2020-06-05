@@ -1,13 +1,24 @@
 @mixin an-dropdown($max-height, $duration-hidden, $duration-visible)
   .dropdown--visible
-    max-height: $max-height
-    -webkit-animation: dropdown-visible $duration-visible ease-in
-    animation: dropdown-visible $duration-visible ease-in
+    @include respond-to(medium-screens)
+      max-height: $max-height
+      -webkit-animation: dropdown-visible $duration-visible ease-in
+      animation: dropdown-visible $duration-visible ease-in
+    @include respond-to(handhelds)
+      max-height: $max-height
+      -webkit-animation: dropdown-visible $duration-visible ease-in
+      animation: dropdown-visible $duration-visible ease-in
   .dropdown--hidden
-    max-height: 0
-    overflow: hidden
-    -webkit-animation: dropdown-hidden $duration-hidden ease-out
-    animation: dropdown-hidden $duration-hidden ease-out
+    @include respond-to(medium-screens)
+      max-height: 0
+      overflow: hidden
+      -webkit-animation: dropdown-hidden $duration-hidden ease-out
+      animation: dropdown-hidden $duration-hidden ease-out
+    @include respond-to(handhelds)
+      max-height: 0
+      overflow: hidden
+      -webkit-animation: dropdown-hidden $duration-hidden ease-out
+      animation: dropdown-hidden $duration-hidden ease-out
 
   @include keyframes-dropown($max-height-key: $max-height)
 
