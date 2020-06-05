@@ -88,10 +88,6 @@ export default {
   outline: none
   border-radius: 4px
   padding: 2vh
-  @include respond-to(handhelds)
-    padding: 0 2vh
-    display: flex
-   
 .user-perfil__birthdate
   display: flex
   flex-direction: row

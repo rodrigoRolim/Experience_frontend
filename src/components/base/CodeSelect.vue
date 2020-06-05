@@ -20,7 +20,7 @@
       }"
      v-model="selected"
     >
-      <option class="select-content__option"  disabled v-if="option" :value="-1">{{option}}</option>
+      <option class="select-content__option" disabled v-if="option" :value="-1">{{option}}</option>
       <option class="select-content__option" :value="option.id" v-for="option in options" v-bind:key="option.id">{{option.item}}</option>
     </select>
   </div>

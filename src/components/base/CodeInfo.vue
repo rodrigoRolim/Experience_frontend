@@ -30,9 +30,6 @@ export default {
   vertical-align: middle
   @include respond-to(handhelds)
     width: 100%
-    flex-direction: column
-    justify-content: space-between
-    height: 3.8vh
 .info__icon
   display: flex
   justify-content: center

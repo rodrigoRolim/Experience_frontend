@@ -9,8 +9,8 @@
       required
       icon="search"
       color-icon="#368c8c"
-      :width="10"
-      :height="7"
+      :width="9"
+      :height="10"
     />
   </div>
 </template>
@@ -32,5 +32,6 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-
+.searcher
+  width: 100%
 </style>

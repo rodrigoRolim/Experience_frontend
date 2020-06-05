@@ -1,11 +1,11 @@
 <template>
   <footer class="footer">
     <div class="footer__legends">
-      <div class="footer__legend"><p class="footer__finished">Finalizado</p></div>
-      <div class="footer__legend"><p class="footer__in-progress">Em Andamento</p></div>
-      <div class="footer__legend"><p class="footer__partial-finished">Parcialmente Finalizado</p></div>
-      <div class="footer__legend"><p class="footer__pendencies">Existem Pendências</p></div>
-      <div class="footer__legend"><p class="footer__no-realized">Não realizado</p></div>
+      <div class="footer__legend"><p class="footer__finished footer--before">Finalizado</p></div>
+      <div class="footer__legend"><p class="footer__in-progress footer--before">Em Andamento</p></div>
+      <div class="footer__legend"><p class="footer__partial-finished footer--before">Parcialmente Finalizado</p></div>
+      <div class="footer__legend"><p class="footer__pendencies footer--before">Existem Pendências</p></div>
+      <div class="footer__legend"><p class="footer__no-realized footer--before">Não realizado</p></div>
     </div>
   </footer>
 </template>
@@ -15,6 +15,9 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+.footer
+  max-height: 15vh
+  border-top: 1px solid ligthgray
 .footer__finished,
 .footer__in-progress,
 .footer__partial-finished,
@@ -31,20 +34,20 @@ export default {
   width: 100%
 .footer
   background: white
-  padding: 16px 20px
+  padding: 10px 20px
   width: 100%
-.footer__legend::before
+.footer--before::before
   content: " "
   margin-right: 4px
-.legend__finished::before
+.footer__finished::before
   border: 2px solid $TF
-.legend__in-progress::before
+.footer__in-progress::before
   border: 2px solid $EA
-.legend__partial-finished::before
+.footer__partial-finished::before
   border: 2px solid $PF
-.legend__pendencies::before
+.footer__pendencies::before
   border: 2px solid $EP
-.legend__no-realized::before
+.footer__no-realized::before
   border: 2px solid $NR
 .footer__legend
   margin-right: 10px

@@ -8,7 +8,7 @@
         name="number"
         type="text"
         :width="7"
-        :height="7"
+        :height="8"
         autocomplete="off"
         v-model="selectedDate"
         :noBorderRight="noBorderRight"

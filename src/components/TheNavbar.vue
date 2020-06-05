@@ -51,19 +51,13 @@ export default {
   top: 0
   left: 0
   border-bottom: 1px solid rgba(0, 0, 0, 0.1)
-  -webkit-box-box-shadow: 0 2px 4px 1px rgba(0,0,0,0.1)
-  -moz-box-shadow: 0 2px 4px 1px rgba(0,0,0,0.1)
-  box-shadow: 0 2px 4px 1px rgba(0,0,0,0.1)
+  
 .navbar__image
   width: 120px
 .navbar__shadow-right
   width: 50%
   height: 40px
   background-color: white
-  -webkit-box-box-shadow: 0 8px 6px 1px rgba(0,0,0,0.1)
-  -moz-box-shadow: 0 8px 6px 1px rgba(0,0,0,0.1)
-  box-shadow: 0 8px 6px 1px rgba(0,0,0,0.1)
-  transform: rotate(0deg)
 .navbar__shadow-left
   width: 50%
   height: 40px
