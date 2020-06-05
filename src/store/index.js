@@ -8,5 +8,5 @@ export default new Vuex.Store({
   modules: {
     attendances
   },
-  strict: debug
+  strict: process.env.NODE_ENV !== 'production'
 })
