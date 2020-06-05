@@ -33,7 +33,7 @@ export default {
   },
   data () {
     return {
-      show: true
+      show: false
     }
   },
   created () {
@@ -63,7 +63,6 @@ export default {
   padding: 2px
   @include respond-to(wide-screens)
     flex-direction: row
-  border-radius: 4px
 .dropdown__content
   display: flex
   flex-direction: row
