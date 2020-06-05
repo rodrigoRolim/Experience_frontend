@@ -34,9 +34,11 @@ export default {
   methods: {
     getBegin (value) {
       this.begin = this.formatterDate(value)
+      this.$emit('begin', value)
     },
     getEnd (value) {
       this.end = this.formatterDate(value)
+      this.$emit('end', value) 
     },
     formatterDate (date) {
       return date.split("/").reverse().join("").trim().replace(/\s/g, '-')

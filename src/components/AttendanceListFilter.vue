@@ -10,7 +10,12 @@
           fontSize="0.9rem"
           fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
         ></code-label>
-        <div class="period__dates"><attendance-list-filter-period /></div>
+        <div class="period__dates">
+          <attendance-list-filter-period 
+            @begin="filters.begin = $event" 
+            @end="filters.end = $event"
+          />
+        </div>
       </div>
       <div class="health-center">
         <code-label
@@ -26,10 +31,11 @@
           name="postos"
           option="selecione o posto"
           :options="list"
-          :hasIcon="false"
+          :width="7"
+          :height="8"
+          v-model="filters.healthCenter"
         ></code-select>
       </div>
-     
       <div class="accomodation">
         <code-label
           class="accomodation__label"
@@ -44,7 +50,9 @@
           name="acomodacoes"
           option="selecione a acomodação"
           :options="list"
-          :hasIcon="false"
+          :width="7"
+          :height="8"
+          v-model="filters.accomodation"
         ></code-select>
       </div>
        <div class="situation">
@@ -58,10 +66,12 @@
         ></code-label>
         <code-select
           class="situation__select"
-          name="acomodacoes"
-          option="selecione a acomodação"
+          name="situation"
+          option="selecione a situação"
           :options="list"
-          :hasIcon="false"
+          :width="7"
+          :height="8"
+          v-model="filters.situation"
         ></code-select>
       </div>
       <div class="health-center-realizer">
@@ -75,32 +85,33 @@
         ></code-label>
         <code-select
           class="health-center-realizer__select"
-          name="acomodacoes"
-          option="selecione a acomodação"
+          name="realizer"
+          option="selecione posto realizante"
           :options="list"
-          :hasIcon="false"
+          :width="7"
+          :height="8"
+          v-model="filters.realizer"
         ></code-select>
       </div>
-     
       <div class="buttons">
-       <code-button
-        class="buttons__filter"
-        text="filtrar"
-        name-icon="filter"
-        borded
-        bolded
-        letters="uppercase"
-        color="light"
-        size="md"
-        streched
-        size-icon="lg"
-       >
+        <code-button
+          class="buttons__filter"
+          text="filtrar"
+          name-icon="filter"
+          borded
+          bolded
+          letters="uppercase"
+          color="light"
+          size="md"
+          streched
+          size-icon="lg"
+          @click.prevent="confirm"
+        >
           <template v-slot:icon>
             <font-awesome-icon icon="filter" size="1x"></font-awesome-icon>
           </template>
         </code-button>
       </div>
-       
     </template>
   </code-drop-down>
 </template>
@@ -121,7 +132,15 @@ export default {
   },
   data () {
     return {
-       list: [
+      filters: {
+        begin: '',
+        end: '',
+        healthCenter: -1,
+        accomodation: -1,
+        situation: -1,
+        realizer: -1
+      },
+      list: [
         {id: 1, item: 'doce de laranja'},
         {id: 2, item: 'doce de siriguela'},
         {id: 3, item: 'doce de morango'},
@@ -132,7 +151,7 @@ export default {
   created () {
   },
   methods: {
-    filter () {
+    confirm () {
 
     }
   }
