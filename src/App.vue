@@ -19,6 +19,9 @@ export default {
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
   background-color: #f4f3f37a
+  min-height: 100vh
+  width: 100%
+  position: absolute
 input
   outline: none
 </style>
