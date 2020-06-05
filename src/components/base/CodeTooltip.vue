@@ -29,7 +29,6 @@ export default {
 .tooltip
   margin: 0
   padding: 0
- 
 .tooltip > *:hover
   text-decoration: underline
   cursor: default
@@ -39,7 +38,6 @@ export default {
   position: absolute
 .tooltip:hover .tooltip__content
   display: block
- 
   margin-top: 5px
   margin-left: 10px
   padding: 10px 15px

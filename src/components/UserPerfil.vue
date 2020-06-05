@@ -109,11 +109,20 @@ export default {
   background-color: white
   border: 1px solid lightgray
   border-radius: 4px
+  margin-top: 5px
   display: flex
   flex-direction: column
   box-shadow: 0px 0px 3px 2px rgba(0,0,0,0.02)
+.user-perfil__menu::after
+  content: " "
+  position: absolute
+  border-width: 6px
+  right: 5px
+  top: -12px
+  border-style: solid
+  border-color: transparent transparent lightgray transparent
 .user-perfil__change-password-wrap,
-.user-perfil__logout-wrap 
+.user-perfil__logout-wrap
   padding: 10px 14px 
   cursor: pointer
 .user-perfil__change-password-wrap:hover,
