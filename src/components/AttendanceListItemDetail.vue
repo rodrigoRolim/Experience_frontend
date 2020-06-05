@@ -109,6 +109,9 @@ $p-top-bott: 5px
     width: 100%
   @include respond-to(medium-screens)
     width: 65%
+.attendance-detail__info
+  @include respond-to(handhelds)
+    margin: 10px 0
 .attendance-detail__trace
   margin: 5px 0
   border-top: 1px solid rgba(0,0,0,0.2)
