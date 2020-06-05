@@ -1,5 +1,5 @@
 <template>
-  <div class="attendances" id="scrollbar-att">
+  <div class="attendances" >
     <attendance-list-item
       v-for="(attendance, i) in attendances" v-bind:key="i"
       :photo="attendance.photo"
@@ -41,7 +41,7 @@ export default {
 .attendances
   display: flex
   flex-direction: column
-  background-color: #f4f3f3
+
 #scrollbar-att
   height: 500px
   overflow-y: auto
