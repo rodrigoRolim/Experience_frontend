@@ -5,7 +5,7 @@
       enter-active-class="dropdown--hidden"
       leave-active-class="dropdown--visible"
     > -->
-      <div class="navbar" v-if="displayHeader">
+      <div class="navbar">
         <the-navbar logo="logo_cedro">
           <template v-slot:perfil>
             <user-perfil></user-perfil>
@@ -17,11 +17,23 @@
       <div class="filter__options">
         <attendance-list-filter />
       </div>
-      <div class="filter__searcher">
-        <attendance-list-search @hiddenHeader="hiddenHeader" />
+      <div class="filter__searcher" :class="{'filter__searcher--modal': searcherInModal}">
+        <div class="filter__content">
+          <i 
+            class="searcher__arrow-back" 
+            :class="{'searcher__arrow-back--hidden': !searcherInModal, 'searcher__arrow-back--show': searcherInModal}"
+          >
+            <font-awesome-icon icon="arrow-left" size="lg" color="lightslategray"/>
+          </i>
+          <attendance-list-search
+            :class="{'filter__input': searcherInModal}"
+            @focus="searcherInModal = true"
+            @blur="searcherInModal = false"
+          />
+        </div>
       </div>
     </div>
-    <div class="main" :class="{'main--hidden-header': hiddenHeader}">
+    <div class="main">
       <router-view />
     </div>
     <!-- <div class="footer">
@@ -47,39 +59,36 @@ export default {
   },
   data () {
     return {
-      displayHeader: true
+      displayHeader: true,
+      searcherInModal: true
     }
   },
   methods: {
-    hiddenHeader (value) {
+  /*   hiddenHeader (value) {
       this.displayHeader = value
-    }
+    } */
   }
 }
 </script>
 
 <style lang="sass" scoped>
 @import "../styles/animations/_dropdown.sass"
-
-@include an-dropdown($max-height: 9vh, $duration-hidden: 0.6s, $duration-visible: 0.6s)
-
+.navbar
+  position: fixed
+  z-index: 5
+  top: 0
+  left: 0
+  width: 100%
 .main
   overflow: hidden
-  margin-top: 24vh
-  @include respond-to(medium-screens)
-    margin-top: 15vh
-  @include respond-to(handhelds)
-    margin-top: 15vh
+  margin-top: 9vh
 .main--hidden-header
   margin-top: 0
   padding-top: 15vh
-.footer
-  position: fixed
-  bottom: 0
-  width: 100%
 .filter
   position: fixed
   width: 100%
+  z-index: 6
 .filter__searcher
   display: flex
   align-items: center
@@ -90,4 +99,35 @@ export default {
   -webkit-box-box-shadow: 0 2px 4px 1px rgba(0,0,0,0.1)
   -moz-box-shadow: 0 2px 4px 1px rgba(0,0,0,0.1)
   box-shadow: 0 2px 4px 1px rgba(0,0,0,0.1)
+.filter__content
+  width: 100%
+  display: flex
+  justify-content: space-around
+  align-items: center
+.searcher__arrow-back
+  width: 2%
+.searcher__arrow-back--hidden
+  display: none
+.searcher__arrow-back--show
+  display: none
+  @include respond-to(handhelds)
+    display: block
+.filter__searcher--modal
+  @include respond-to(handhelds)
+    align-items: flex-start
+    overflow: auto
+    margin: 0 auto
+    width: 100%
+    height: 100%
+    position: fixed
+    top: 0
+    left: 0
+    bottom: 0
+    z-index: 4
+    background-color: white
+    display: flex
+    justify-content: center
+.filter__input
+  @include respond-to(handhelds)
+    width: 90%
 </style>

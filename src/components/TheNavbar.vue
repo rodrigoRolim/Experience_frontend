@@ -14,7 +14,7 @@
   
 </template>
 <script>
-
+/* import { bus } from '../main' */
 export default {
   name: 'TheNavbar',
   components: {
@@ -26,6 +26,11 @@ export default {
     return {
 
     }
+  },
+  created () {
+  /*   bus.$on('hiddenHeader', (data) => {
+
+    }) */
   },
   methods: {
     takeLogo(logo) {
@@ -40,18 +45,13 @@ export default {
   display: flex
   height: 9vh
 .navbar__header
-  position: fixed
   display: flex
   flex-direction: row
   background-color: white
   justify-content: space-between
-  width: 100%
   min-height: 9vh
-  z-index: 2
-  top: 0
-  left: 0
   border-bottom: 1px solid rgba(0, 0, 0, 0.1)
-  
+  width: 100%
 .navbar__image
   width: 120px
 .navbar__shadow-right
@@ -61,7 +61,6 @@ export default {
 .navbar__shadow-left
   width: 50%
   height: 40px
-  
   background-color: white
   -webkit-box-box-shadow: 0 8px 6px 1px rgba(0,0,0,0.1)
   -moz-box-shadow: 0 8px 6px 1px rgba(0,0,0,0.1)

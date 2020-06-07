@@ -1,5 +1,6 @@
 import { 
-    faUser, 
+    faUser,
+    faArrowLeft,
     faInfoCircle, 
     faExclamationCircle, 
     faTimesCircle,
@@ -54,6 +55,7 @@ import {
 
 export default {
   faCandyCane,
+  faArrowLeft,
   faCheckCircle,
   faUser, 
   faInfoCircle, 

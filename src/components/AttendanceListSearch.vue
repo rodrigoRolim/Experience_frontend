@@ -11,8 +11,8 @@
       color-icon="#368c8c"
       :width="9"
       :height="10"
-      @focus="hiddenHeader(false)"
-      @blur="hiddenHeader(true)"
+      @focus="focus"
+      @blur="blur"
     />
   </div>
 </template>
@@ -29,12 +29,15 @@ export default {
   },
   data () {
     return {
-
+      modal: false
     }
   },
   methods: {
-    hiddenHeader (display) {
-      this.$emit('hiddenHeader', display)
+    focus (e) {
+      this.$emit('focus', e)
+    },
+    blur (e) {
+      this.$emit('blur', e)
     }
   }
 }
@@ -42,4 +45,7 @@ export default {
 <style lang="sass" scoped>
 .searcher
   width: 100%
+.searcher--modal .searcher__input
+  @include respond-to(handhelds)
+    width: 90%
 </style>
