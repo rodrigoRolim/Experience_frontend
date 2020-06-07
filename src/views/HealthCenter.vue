@@ -60,7 +60,7 @@ export default {
   data () {
     return {
       displayHeader: true,
-      searcherInModal: true
+      searcherInModal: false
     }
   },
   methods: {
