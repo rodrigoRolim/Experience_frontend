@@ -49,8 +49,6 @@ export default {
     display: none
 .info__content
   font-weight: 600
-  @include respond-to(handhelds)
-    margin-left: 10px
 .info--left .info__content
   margin-right: 10px
 .info--bottom

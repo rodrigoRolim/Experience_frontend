@@ -11,11 +11,14 @@
       color-icon="#368c8c"
       :width="9"
       :height="10"
+      @focus="hiddenHeader(false)"
+      @blur="hiddenHeader(true)"
     />
   </div>
 </template>
 <script>
 import CodeInput from './base/CodeInput'
+/* import { bus } from '../main' */
 export default {
   name: 'AttendanceListSearch',
   props: {
@@ -27,6 +30,11 @@ export default {
   data () {
     return {
 
+    }
+  },
+  methods: {
+    hiddenHeader (display) {
+      this.$emit('hiddenHeader', display)
     }
   }
 }

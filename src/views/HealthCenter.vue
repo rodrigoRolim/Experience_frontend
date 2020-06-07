@@ -1,21 +1,27 @@
 <template>
-  <div class="health-center-home">
-    <div class="navbar">
-      <the-navbar logo="logo_cedro">
-      <template v-slot:perfil>
-        <user-perfil></user-perfil>
-      </template>
-    </the-navbar>
-    </div>
+  <div class="health-center">
+ <!--    <transition 
+      name="dropdown-transition"
+      enter-active-class="dropdown--hidden"
+      leave-active-class="dropdown--visible"
+    > -->
+      <div class="navbar" v-if="displayHeader">
+        <the-navbar logo="logo_cedro">
+          <template v-slot:perfil>
+            <user-perfil></user-perfil>
+          </template>
+        </the-navbar>
+      </div>
+    <!-- </transition> -->
     <div class="filter">
       <div class="filter__options">
-        <attendance-list-filter></attendance-list-filter>
+        <attendance-list-filter />
       </div>
       <div class="filter__searcher">
-        <attendance-list-search></attendance-list-search>
+        <attendance-list-search @hiddenHeader="hiddenHeader" />
       </div>
     </div>
-    <div class="main">
+    <div class="main" :class="{'main--hidden-header': hiddenHeader}">
       <router-view />
     </div>
     <!-- <div class="footer">
@@ -37,12 +43,26 @@ export default {
     /* TheFooter, */
     UserPerfil,
     AttendanceListFilter,
-    AttendanceListSearch
+    AttendanceListSearch,
+  },
+  data () {
+    return {
+      displayHeader: true
+    }
+  },
+  methods: {
+    hiddenHeader (value) {
+      this.displayHeader = value
+    }
   }
 }
 </script>
 
 <style lang="sass" scoped>
+@import "../styles/animations/_dropdown.sass"
+
+@include an-dropdown($max-height: 9vh, $duration-hidden: 0.6s, $duration-visible: 0.6s)
+
 .main
   overflow: hidden
   margin-top: 24vh
@@ -50,6 +70,9 @@ export default {
     margin-top: 15vh
   @include respond-to(handhelds)
     margin-top: 15vh
+.main--hidden-header
+  margin-top: 0
+  padding-top: 15vh
 .footer
   position: fixed
   bottom: 0
