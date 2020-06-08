@@ -13,7 +13,7 @@
         </the-navbar>
       </div>
     <!-- </transition> -->
-    <div class="filter">
+    <div class="filter" :class="{'filter--modal': searcherInModal}">
       <div class="filter__options">
         <attendance-list-filter />
       </div>
@@ -36,15 +36,11 @@
     <div class="main">
       <router-view />
     </div>
-    <!-- <div class="footer">
-      <the-footer />
-    </div> -->
   </div>
 </template>
 
 <script>
 import TheNavbar from '../components/TheNavbar'
-/* import TheFooter from '../components/TheFooter' */
 import UserPerfil from '../components/UserPerfil'
 import AttendanceListFilter from '../components/AttendanceListFilter'
 import AttendanceListSearch from '../components/AttendanceListSearch'
@@ -52,7 +48,6 @@ export default {
   name: 'HealthCenterHome',
   components: {
     TheNavbar,
-    /* TheFooter, */
     UserPerfil,
     AttendanceListFilter,
     AttendanceListSearch,
@@ -64,9 +59,7 @@ export default {
     }
   },
   methods: {
-  /*   hiddenHeader (value) {
-      this.displayHeader = value
-    } */
+
   }
 }
 </script>
@@ -82,12 +75,19 @@ export default {
 .main
   overflow: hidden
   margin-top: 9vh
+  padding-top: 24vh
+  @include respond-to(handhelds)
+    padding-top: 15vh
+  @include respond-to(medium-screens)
+    padding-top: 15vh
 .main--hidden-header
   margin-top: 0
   padding-top: 15vh
 .filter
-  position: fixed
   width: 100%
+  position: fixed
+  z-index: 4
+.filter--modal
   z-index: 6
 .filter__searcher
   display: flex
@@ -106,6 +106,7 @@ export default {
   align-items: center
 .searcher__arrow-back
   width: 2%
+  margin-right: 10px
 .searcher__arrow-back--hidden
   display: none
 .searcher__arrow-back--show

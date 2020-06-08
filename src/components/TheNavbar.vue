@@ -54,6 +54,8 @@ export default {
   width: 100%
 .navbar__image
   width: 120px
+  @include respond-to(handhelds)
+    width: 80px
 .navbar__shadow-right
   width: 50%
   height: 40px
