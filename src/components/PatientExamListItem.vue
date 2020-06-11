@@ -77,16 +77,15 @@ export default {
   display: flex
   flex-direction: column
   justify-content: space-between
-  flex-basis: 32%
+  flex-basis: 48.9%
   @include respond-to(handhelds)
     flex-basis: 100%
-  @include respond-to(medium-screens)
-    flex-basis: 48.8%
   padding-left: 20px
   border-radius: 2px
-  min-height: 150px
+  min-height: 200px
   margin-bottom: 10px
   user-select: none
+
 .patient-exam:hover
   -webkit-box-shadow:  0 0 6px rgba(0,0,0,.3)
   box-shadow:  0 0 6px rgba(0,0,0,.3)
