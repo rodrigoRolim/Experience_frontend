@@ -12,6 +12,7 @@ library.add(icons)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(VueRouter)
 Vue.config.productionTip = false
+export const bus = new Vue();
 
 new Vue({
   router,
