@@ -1,7 +1,6 @@
 <template>
   <div class="patient-exams">
-     <patient-exam-list-header class="header"></patient-exam-list-header>
-     <div class="patient-exams__list" id="exams">
+     <div class="patient-exams__list">
         <patient-exam-list-item situation="TF" @click="show = true" class="patient-exams__item"/>
         <patient-exam-list-item situation="PF" @click="show = true" class="patient-exams__item"/>
         <patient-exam-list-item situation="NR" @click="show = true" class="patient-exams__item"/>
@@ -26,7 +25,6 @@
 </template>
 <script>
 import CodeModal from './base/CodeModal'
-import PatientExamListHeader from './PatientExamListHeader'
 import PatientExamListItem from './PatientExamListItem'
 import PatientExamDetail from './PatientExamDetail'
 export default {
@@ -36,7 +34,6 @@ export default {
   },
   components: {
     CodeModal,
-    PatientExamListHeader,
     PatientExamListItem,
     PatientExamDetail
   },
@@ -56,8 +53,8 @@ export default {
   flex-flow: row wrap
   align-items: center
   justify-content: space-between  
-  background-color: #f4f3f3
   width: 100%
+  height: 100vh
   padding: 10px
 #exams
   max-height: 400px
