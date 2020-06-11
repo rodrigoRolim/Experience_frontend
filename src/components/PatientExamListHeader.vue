@@ -1,16 +1,18 @@
 <template>
   <div class="patient-exams__header">
-    <div class="patient-exams__patient-info">
-      <strong class="patient-exams__title patient-exams__title--capitalize">rodrigo rolim veras</strong>
-      <div class="patient-exams__personal-info">
+    <strong class="patient-exams__name patient-exams__title--capitalize">rodrigo rolim veras</strong>
+    <div class="patient-exams__body">
+      <div class="patient-exams__patient-info">
         <code-info 
+          class="patient-exams__age"
           icon="birthday-cake"
           size="lg"
           description="idade"
           info="27 anos"
           color="rgba(71, 77, 94, 1)"
         />
-        <code-info 
+        <code-info
+          class="patient-exams__gender"
           icon="mars"
           size="lg"
           description="sexo"
@@ -18,44 +20,48 @@
           color="rgba(71, 77, 94, 1)"
         />  
       </div>
+      <code-drop-down text="detalhes" bcolor="white" class="patient-exams__dropdown" dropdown>
+        <template v-slot:content>
+          <div class="patient-exams__attendance-detail">
+            <strong class="patient-exams__title patient-exams__title--capitalize">detalhe atendimento</strong>
+            <div class="patient-exams__attendance-datas">
+              <code-info
+                class="patient-exams__icon"
+                icon="calendar-check"
+                size="lg"
+                description="data atendimento"
+                info="12/03/1998"
+                color="rgba(71, 77, 94, 1)"
+              />
+              <code-info 
+                icon="clock"
+                size="lg"
+                class="patient-exams__icon"
+                description="previsão entrega"
+                info="15/10/2020"
+                color="rgba(71, 77, 94, 1)"
+              />
+              <code-info 
+                class="patient-exams__icon"
+                icon="heartbeat"
+                size="lg"
+                description="ID atendimento"
+                info="0/198901"
+                color="rgba(71, 77, 94, 1)"
+              />
+              <code-info
+                class="patient-exams__icon"
+                icon="user-md"
+                size="lg"
+                description="médico solicitante"
+                info="Dr. Alexandre Magno de Carvalo"
+                color="rgba(71, 77, 94, 1)"
+              />
+            </div> 
+          </div>
+        </template>
+      </code-drop-down>
     </div>
-    <code-drop-down text="detalhes" bcolor="white" class="patient-exams__dropdown" dropdown>
-      <template v-slot:content>
-        <div class="patient-exams__attendance-detail">
-          <strong class="patient-exams__title patient-exams__title--capitalize">detalhe atendimento</strong>
-          <div class="patient-exams__attendance-datas">
-            <code-info 
-              icon="calendar-check"
-              size="lg"
-              description="data atendimento"
-              info="12/03/1998"
-              color="rgba(71, 77, 94, 1)"
-            />
-            <code-info 
-              icon="clock"
-              size="lg"
-              description="previsão entrega"
-              info="15/10/2020"
-              color="rgba(71, 77, 94, 1)"
-            />
-            <code-info 
-              icon="heartbeat"
-              size="lg"
-              description="ID atendimento"
-              info="0/198901"
-              color="rgba(71, 77, 94, 1)"
-            />
-            <code-info 
-              icon="user-md"
-              size="lg"
-              description="médico solicitante"
-              info="Dr. Alexandre Magno de Carvalo"
-              color="rgba(71, 77, 94, 1)"
-            />
-          </div> 
-        </div>
-      </template>
-    </code-drop-down>
   </div>
 </template>
 
@@ -79,52 +85,55 @@ export default {
 <style lang="sass" scoped>
 .patient-exams__header
   display: flex
-  flex-direction: row
-  margin-top: 20px
-  margin-bottom: 5px
+  flex-direction: column
   background-color: white
-  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.5) 
+  @include respond-to(medium-screens)
+    flex-direction: column
+  @include respond-to(handhelds)
+    flex-direction: column
+  border-bottom: 1px solid rgba(0,0,0,0.1)
+  padding: 15px 10px
+.patient-exams__age,
+.patient-exams__gender
+  margin: 10px
+.patient-exams__body
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
   @include respond-to(medium-screens)
     flex-direction: column
   @include respond-to(handhelds)
     flex-direction: column
 .patient-exams__patient-info
   display: flex
-  flex-direction: column
-  padding: 10px
+  flex-direction: row
+  align-items: flex-start
   @include respond-to(medium-screens)
     width: 95%
-    margin: 0 auto
+    padding: 4px 19px
   @include respond-to(handhelds)
     width: 100%
-  width: 70%
-.patient-exams__personal-info
-  margin-top: 20px
-  display: flex
-  justify-content: space-between
-  width: 170px
+    flex-direction: column
+  width: 34%
 .patient-exams__attendance-detail
   @include respond-to(medium-screens)
     margin-top: 25px
     width: 95%
     margin: 25px auto 0 auto
   @include respond-to(handhelds)
-    width: 100%
     margin-top: 20px
-  width: 95%
+  width: 100%
 .patient-exams__dropdown
   width: 100%
 .patient-exams__title
   display: flex
   flex-direction: row
-  justify-content: space-between
-  @include respond-to(handhelds)
-    flex-direction: column
-  @include respond-to(medium-screens)
-    width: 22%
-  width: 40%
-  margin-top: 10px
   font-size: 1.0rem
+.patient-exams__name
+  margin-left: 10px
+  font-size: 1.0rem
+  @include respond-to(medium-screens)
+    padding: 4px 19px
 .patient-exams__title--capitalize
   text-transform: capitalize
 .patient-exams__attendance-datas
@@ -132,7 +141,10 @@ export default {
   flex-direction: row
   justify-content: space-between
   width: 100%
-  margin-top: 20px
+  margin-top: 15px
   @include respond-to(handhelds)
     flex-direction: column
+.patient-exams__icon
+  @include respond-to(handhelds)
+    margin: 10px 0
 </style>
