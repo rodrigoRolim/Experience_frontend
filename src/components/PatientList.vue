@@ -1,7 +1,7 @@
 <template>
   <div class="patients">
     <div class="patients__header">
-      <span>foram encontrados {{1}} atendimentos para as datas selecionadas</span>
+      <span class="patients__number">foram encontrados {{1}} atendimentos para as datas selecionadas</span>
     </div>
     <div class="patient__body" id="patient__list">
       <patient-list-item class="patitent__body__item"></patient-list-item>
@@ -24,9 +24,6 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-@import '../styles/_scrollbar.sass'
-@include scrollbar($el: '#patient__list', $w: 10px)
-
 .patients
   display: flex
   flex-direction: column
@@ -35,6 +32,8 @@ export default {
 .patients__header
   margin-bottom: 40px
   color: #368c8c
+.patients__number
+  margin-left: 15px
 .patient__body
   display: flex
   flex-direction: row
@@ -42,7 +41,6 @@ export default {
   flex-wrap: wrap
   max-height: 500px
   padding: 0 10px
-  overflow: auto
 .patitent__body__item
   margin: 5px
   width: 100%
