@@ -3,6 +3,9 @@
     <!-- <span class="navbar__shadow-left"></span> -->
     <header class="navbar__header">
       <div class="navbar__logo" v-if="logo">
+        <div class="navbar__collapser">
+          <slot name="collapser"></slot>
+        </div>
         <img class="navbar__image" :src="takeLogo(logo)" alt="logo da empresa">
       </div>
       <div class="navbar__profile">
@@ -47,7 +50,7 @@ export default {
 .navbar__header
   display: flex
   flex-direction: row
-  background-color: white
+  background-color: #f9f9f9
   justify-content: space-between
   min-height: 9vh
   border-bottom: 1px solid rgba(0, 0, 0, 0.1)
@@ -71,9 +74,14 @@ export default {
 .navbar__logo
   display: flex
   flex-direction: row
-  justify-content: center
+  justify-content: space-between
   align-items: center
   margin-left: 20px
+  width: 15%
+.navbar__collapser
+  margin-right: 20px
+  @include respond-to(wide-screens)
+    display: none
 .navbar__profile
   display: flex
   flex-direction: row
