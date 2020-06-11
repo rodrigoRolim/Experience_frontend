@@ -5,13 +5,13 @@
       enter-active-class="dropdown--hidden"
       leave-active-class="dropdown--visible"
     > -->
-      <div class="navbar">
-        <the-navbar logo="logo_cedro">
-          <template v-slot:perfil>
-            <user-perfil></user-perfil>
-          </template>
-        </the-navbar>
-      </div>
+    <div class="navbar">
+      <the-navbar logo="logo_cedro">
+        <template v-slot:perfil>
+          <user-perfil></user-perfil>
+        </template>
+      </the-navbar>
+    </div>
     <!-- </transition> -->
     <div class="filter" :class="{'filter--modal': searcherInModal}">
       <div class="filter__options">
