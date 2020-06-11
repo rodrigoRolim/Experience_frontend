@@ -10,10 +10,11 @@
           icon="calendar-alt"
           info="12/09/2017"
           description="data atendimento"
-          class="sidebar__row__date"
+          class="sidebar__date"
           size="lg"
         ></code-info>
         <code-info
+          class="sidebar__exams"
           icon="flask"
           info="T3 T3L TSH T4 T4L POT SOD T3 T3L TSH T4 T4L POT SOD T3 T3L TSH T4 T4L POT SOD T3 T3L TSH T4 T4L POT SOD"
           description="exames"
@@ -29,16 +30,23 @@ export default {
   name: 'TheSidebar',
   components: {
     CodeInfo
+  },
+  data () {
+    return {
+     
+    }
   }
 }
 </script>
 <style lang="sass" scoped>
+
 .sidebar
   display: flex
   flex-direction: column
-  background-color: #368c8c
-  width: 300px
-  height: 90vh
+  background-color: $green
+  height: 100vh
+  width: 320px
+  border-right: 1px solid rgba(0,0,0,0.01)
 .sidebar__header
   display: flex
   flex-direction: row
@@ -47,7 +55,7 @@ export default {
   background-color: rgba(255,255,255, 0.5)
   height: 12vh
   color: white 
-.sidebar__row__date
+.sidebar__date
   margin-bottom: 20px
 .sidebar__body
   display: flex
@@ -58,6 +66,9 @@ export default {
   flex-flow: row wrap
   background-color: white
   margin-left: 10px
-  color: #368c8c
-  padding: 20px 10px 
+  color: $green
+  padding: 20px 10px
+.sidebar__date,
+.sidebar__exams
+  overflow: hidden 
 </style>

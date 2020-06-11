@@ -69,6 +69,7 @@ export default {
   display: flex
   flex-direction: row
   position: relative
+  z-index: 1
 .checkbox__label
   display: flex
   flex-direction: row
