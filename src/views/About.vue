@@ -72,11 +72,13 @@ export default {
 .about__title
   color: $green
   margin-bottom: 10px
+  font-weight: 200
+  font-size: 1.7rem
 .about__version
   display: flex
   justify-content: center
   align-items: center
-  margin: 30px 0
+  margin: 20px 0
 .about__section
   margin: 10px 0
   line-height: 22px
