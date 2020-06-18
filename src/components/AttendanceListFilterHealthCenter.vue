@@ -55,7 +55,7 @@
           v-model="filters.accomodation"
         ></code-select>
       </div>
-       <div class="situation">
+      <div class="situation">
         <code-label
           class="situation__label"
           label="Situação"
@@ -106,11 +106,7 @@
           streched
           size-icon="lg"
           @click.prevent="confirm"
-        >
-          <template v-slot:icon>
-            <font-awesome-icon icon="filter" size="1x"></font-awesome-icon>
-          </template>
-        </code-button>
+        />
       </div>
     </template>
   </code-drop-down>
