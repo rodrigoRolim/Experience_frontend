@@ -5,8 +5,8 @@
         <code-input 
           name="procediment"
           type="text"
-          :width="9"
-          :height="7"
+          :width="12"
+          :height="10"
           v-model="value"
           placeholder="procedimento"
         >
@@ -31,7 +31,6 @@
       </div>
     </template>
   </code-drop-down>
-  
 </template>
 <script>
 import CodeInput from './base/CodeInput'
@@ -60,6 +59,9 @@ export default {
 .dropdown
   display: flex
   flex-direction: row
+  position: fixed
+  top: 9vh
+  width: 100%
   @include respond-to(handhelds)
     flex-direction: column
 .dropdown__search

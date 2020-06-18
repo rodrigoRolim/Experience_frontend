@@ -50,7 +50,6 @@
       />
       <code-button
         class="btn-1"
-        
         text="info"
         @click="submit"
         name-icon="question-circle"
@@ -330,7 +329,7 @@
       <h1>5. lista de atendimentos</h1>
       <div class="header-list">
         <div class="filter">
-          <attendance-list-filter></attendance-list-filter>
+          <attendance-list-filter-health-center></attendance-list-filter-health-center>
         </div>
         <div class="search">
           <attendance-list-search></attendance-list-search>
@@ -485,7 +484,7 @@ import PatientLogin from './PatientLogin.vue'
 import CodeSelect from './base/CodeSelect.vue'
 import CodeTooltip from './base/CodeTooltip.vue'
 import CodeCalendar from './base/CodeCalendar.vue'
-import AttendanceListFilter from './AttendanceListFilter.vue'
+import AttendanceListFilterHealthCenter from './AttendanceListFilterHealthCenter.vue'
 import PartnerLogin from './PartnerLogin'
 import DoctorLogin from './DoctorLogin'
 import HealthCareLogin from './HealthCareLogin'
@@ -504,7 +503,7 @@ export default {
   mixins: [validator({required, min, max, email})],
   components: {
     AttendanceList,
-    AttendanceListFilter,
+    AttendanceListFilterHealthCenter,
     AttendanceListSearch,
     CodeInput,
     CodeButton,

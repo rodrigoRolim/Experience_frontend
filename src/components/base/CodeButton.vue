@@ -53,7 +53,8 @@ export default {
     bolded: Boolean,
     rounded: Boolean,
     borded: Boolean,
-    streched: Boolean
+    streched: Boolean,
+    transparent: Boolean
   },
   data () {
     return {
@@ -73,7 +74,8 @@ export default {
             'button--borded': this.borded, 
             'button--bold': this.bolded, 
             'button--shading': this.shading,
-            'button--streched': this.streched 
+            'button--streched': this.streched,
+            'button--transparent': this.transparent 
          }, 
           'button--'+this.size, 'button--'+this.color, 'button--'+this.letters
       ]
@@ -155,4 +157,36 @@ export default {
   text-transform: lowercase
 .button-capitalize
   text-transform: capitalize
+.button--theme.button--transparent
+  background-color: transparent
+  color: $theme
+  border: 1px solid $theme
+.button--primary.button--transparent
+  background-color: transparent
+  color: $primary
+  border: 1px solid $primary
+.button--success.button--transparent
+  background-color: transparent
+  color: $success
+  border: 1px solid $success
+.button--warning.button--transparent
+  background-color: transparent
+  color: $warning
+  border: 1px solid $warning
+.button--danger.button--transparent
+  background-color: transparent
+  color: $danger
+  border: 1px solid $danger
+.button--info.button--transparent
+  background-color: transparent
+  color: $info
+  border: 1px solid $info
+.button--dark.button--transparent
+  background-color: transparent
+  color: $dark
+  border: 1px solid $dark
+.button--transparent-brand
+  background-color: transparent
+  color: $brand
+  border: 1px solid $brand
 </style>

@@ -6,7 +6,7 @@
           <code-button-collapser />
         </template>
         <template v-slot:perfil>
-          <user-perfil></user-perfil>
+          <user-perfil />
         </template>
       </the-navbar>
     </div>
@@ -37,12 +37,7 @@ export default {
   top: 0
   left: 0
   z-index: 3
-.filter
-  position: fixed
-  width: 100%
-  top: 9vh
-  left: 0
-  z-index: 0
+
 .navabar__collapser-btn
   @include respond-to(wide-screen)
     display: none

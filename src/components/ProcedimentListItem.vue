@@ -82,5 +82,5 @@ export default {
   @include respond-to(handhelds)
     font-size: 12px
 .procediment__body--space-around
-  margin-left: 20px
+  margin: 10px 20px
 </style>
