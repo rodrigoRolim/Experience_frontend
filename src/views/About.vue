@@ -50,6 +50,11 @@ export default {
   display: flex
   justify-content: center
   align-items: center
+.about__img
+  @include respond-to(medium-screens)
+    width: 90%
+  @include respond-to(handhelds)
+    width: 80%
 .about__text
   display: flex
   flex-direction: column
@@ -57,6 +62,12 @@ export default {
   justify-content: center
   align-items: center
   width: 80%
+  font-size: 1.0rem
+  @include respond-to(medium-screens)
+    font-size: 0.9rem
+    width: 90%
+  @include respond-to(handhelds)
+    font-size: 0.8rem
   margin-bottom: 30px
   color: dimgray
 .about__codemed
@@ -66,14 +77,19 @@ export default {
   align-items: center
 .about__title-img
   display: flex
+  justify-content: center
   margin-bottom: 10px
   color: gray
-  font-size: 12px
+  font-size: 0.8rem
 .about__title
   color: $green
   margin-bottom: 10px
   font-weight: 200
   font-size: 1.7rem
+  @include respond-to(medium-screens)
+    font-size: 1.5rem
+  @include respond-to(handhelds)
+    font-size: 1.0rem
 .about__version
   display: flex
   justify-content: center
