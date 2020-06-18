@@ -1,7 +1,21 @@
 <template>
   <div class="logins">
     <div class="logins__navbar" v-if="!hiddenBanner">
-      <the-navbar logo="logo_cedro"/>
+      <the-navbar logo="logo_cedro">
+        <template v-slot:perfil>
+          <div class="logins__menu">
+            <code-button
+              class="logins__manual"
+              text="manuais"
+              borded
+              letters="uppercase"
+              size="md"
+              transparent
+              @click="redirectToProcediments"
+            />
+          </div>
+        </template>
+      </the-navbar>
     </div>
     <transition name="slide-fade">
       <div class="logins__messages"  v-if="showMessage">
@@ -81,6 +95,7 @@
 </template>
 
 <script>
+import CodeButton from '../components/base/CodeButton'
 import CodeInfo from '../components/base/CodeInfo'
 import CodeMessage from '../components/base/CodeMessage'
 import CodeMenuAbas from '../components/base/CodeMenuAbas'
@@ -96,6 +111,7 @@ import TheNavbar from '../components/TheNavbar'
 export default {
   name: 'Logins',
   components: {
+    CodeButton,
     CodeInfo,
     CodeMenuAbas,
     CodeModal,
@@ -135,6 +151,9 @@ export default {
         this.showMessage = false
         this.contentMessage = ''
       }, 6000)
+    },
+    redirectToProcediments () {
+      this.$router.push({path: '/manuais'})
     }
   }
 }
