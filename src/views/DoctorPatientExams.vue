@@ -1,58 +1,19 @@
 <template>
-  <div class="doctor-patient-exams">
-    <div class="doctor-patient-exams__sidebar" 
-      :class="{
-        'sidebar--hidden': hidden, 
-        'sidebar--show': show,
-        'sidebar--modal': show,
-        'sidebar--initial': !hidden && !show
-      }"
-      @click.self="closeSidebar"
-      >
-      <the-sidebar />
-    </div>
-    <div class="doctor-patient-exams__main">
-      <div class="doctor-patient-exams__patient">
-        <patient-exams-list-header></patient-exams-list-header>
-      </div>
-      <div class="doctor-patient-exams__exams">
-        <patient-exam-list />
-      </div>
-    </div>
-  </div>
+  <patient-exams></patient-exams>
 </template>
 
 <script>
-import PatientExamsListHeader from '../components/PatientExamListHeader'
-import PatientExamList from '../components/PatientExamList'
-import TheSidebar from '../components/TheSidebar'
-import { bus } from '../main'
+import PatientExams from '../components/PatientExams'
 export default {
   name: 'DoctorPatientExams',
   components: {
-    PatientExamsListHeader,
-    TheSidebar,
-    PatientExamList
+    PatientExams
   },
   data () {
     return {
-      show: false,
-      hidden: false
-    }
-  },
-  created () {
-    bus.$on('collapser', (data) => {
-      this.show = data
-      this.hidden = !data
-    })
-  },
-  methods: {
-    closeSidebar () {
-      this.show = false
-      this.hidden = true
-      bus.$emit('uncollapser', false)
     }
   }
+
 }
 </script>
 
