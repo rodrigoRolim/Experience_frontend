@@ -46,7 +46,7 @@ export default {
 <style lang="sass" scoped>
 .navbar
   display: flex
-  height: 9vh
+  height: 60px
 .navbar__header
   display: flex
   flex-direction: row

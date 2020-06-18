@@ -59,7 +59,7 @@ export default {
 @import '../styles/animations/__dropside'
 .patient-exams
   display: flex
-  margin-top: 9vh
+  margin-top: 60px
 .patient-exams__main
   display: flex
   flex-direction: column
@@ -67,10 +67,10 @@ export default {
   width: 100%
 .patient-exams__exams
   width: calc( 100% - 320px )
-  margin-top: 18vh
+  margin-top: 120px
   @include respond-to(medium-screens)
     width: 100%
-    margin-top: 12vh
+    margin-top: 90px
   @include respond-to(handhelds)
     width: 100%
     margin-top: 15vh

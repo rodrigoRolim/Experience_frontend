@@ -57,10 +57,9 @@ export default {
   justify-content: center
   align-items: center
   z-index: 3
+  min-height: 100vh
 .modal--normal
   background-color: rgba(0,0,0,0.5)
 .modal--custom
   background-color: rgba(0,0,0,0)
-.modal__content
-  margin: 10px 0
 </style>
