@@ -3,7 +3,7 @@
     <span class="info__icon"><font-awesome-icon :icon="icon" :size="size" :style="{color: color}"/></span>
     <div class="info__label" :class="{ 'info__label--bottom': bottom }">
       <span v-if="description && !bottom" class="info__description">{{description}}</span>
-      <span class="info__content">{{info}}</span>
+      <span class="info__content" :class="{'info__content--hidden': mobileHidden}">{{info}}</span>
     </div>
   </div>
 </template>
@@ -18,7 +18,8 @@ export default {
     info: String,
     description: String,
     left: Boolean,
-    bottom: Boolean
+    bottom: Boolean,
+    mobileHidden: Boolean
   }
 }
 </script>
@@ -55,10 +56,14 @@ export default {
   display: flex
   flex-direction: column
   align-items: center
-  width: 12%
+  width: 100%
 .info--left
   display: flex
   flex-direction: row-reverse
 .info__label--bottom
   margin-top: 3px
+  margin-right: 3px
+.info__content--hidden
+  @include respond-to(handhelds)
+    display: none
 </style>
