@@ -91,6 +91,8 @@ export default {
     flex-direction: column
   @include respond-to(handhelds)
     flex-direction: column
+    min-height: 85vh
+    width: 100%
   border-bottom: 1px solid rgba(0,0,0,0.1)
   padding: 15px 10px
 .patient-exams__age,
@@ -104,6 +106,9 @@ export default {
     flex-direction: column
   @include respond-to(handhelds)
     flex-direction: column
+    align-items: center
+    justify-content: center
+    width: 100%
 .patient-exams__patient-info
   display: flex
   flex-direction: row
@@ -114,6 +119,7 @@ export default {
   @include respond-to(handhelds)
     width: 100%
     flex-direction: column
+    justify-content: space-between
   width: 34%
 .patient-exams__attendance-detail
   @include respond-to(medium-screens)
@@ -134,6 +140,8 @@ export default {
   font-size: 1.0rem
   @include respond-to(medium-screens)
     padding: 4px 19px
+  @include respond-to(handhelds)
+    text-align: center
 .patient-exams__title--capitalize
   text-transform: capitalize
 .patient-exams__attendance-datas
