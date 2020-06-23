@@ -9,6 +9,7 @@
             info="rodrigo rolim veras"
             size="lg"
             color="lightslategray"
+            mobile-hidden
           />
           <!-- <span class="user-perfil__user__name">rodrigo rolim veras</span>
           <span class="user-perfil__user__date">17/06/1992</span> -->
@@ -24,6 +25,7 @@
     <transition name="fade" mode="in-out">
       <div class="user-perfil__menu" v-if="show">
         <div class="user-perfil__user-info">
+          <span class="user-perfil__name">rodrigo rolim veras</span>
           <span class="user-perfil__birthdate">17/06/1992</span>
         </div>
         <div class="user-perfil__change-password-wrap" @click="enableModal"> 
@@ -91,14 +93,20 @@ export default {
   @include respond-to(handhelds)
     border: none
     background-color: transparent
-.user-perfil__birthdate
-  display: flex
+.user-perfil__birthdate,
+.user-perfil__name
   flex-direction: row
   justify-content: center
   align-items: center
   font-size: 12px
   border-bottom: 1px solid lightgray
   min-height: 50px
+.user-perfil__birthdate
+  display: flex
+.user-perfil__name
+  @include respond-to(handhelds)
+    display: flex
+  display: none
 .user-perfil__user
   display: flex
   flex-direction: row
@@ -108,6 +116,8 @@ export default {
   margin-left: 13px
 .user-perfil__menu
   right: 100px
+  @include respond-to(handhelds)
+    right: 70px
   position: absolute
   background-color: white
   border: 1px solid lightgray
