@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view></router-view>
-  </div>
+  </div> 
 </template>
 
 <script>
@@ -14,14 +14,21 @@ export default {
 </script>
 
 <style lang="sass">
+body
+  padding: 0
+  margin: 0
 #app 
-  font-family: Avenir, Helvetica, Arial, sans-serif
+  font-size: 100%
+  line-height: 1.1
+  background-color: #f4f3f37a
+  font-family: Roboto, Arial, sans-serif
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
-  background-color: #f4f3f37a
-  min-height: 100vh
-  width: 100%
+  min-height: 100%
   position: absolute
+  top: 0
+  right: 0
+  width: 100%
 input
   outline: none
 </style>
