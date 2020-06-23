@@ -55,11 +55,14 @@ export default {
   min-height: 9vh
   border-bottom: 1px solid rgba(0, 0, 0, 0.1)
   width: 100%
+.navbar__collapser
+  display: none
+  @include respond-to(medium-screens)
+    display: flex
 .navbar__image
   width: 120px
   @include respond-to(handhelds)
     width: 80px
-    display: none
 .navbar__shadow-right
   width: 50%
   height: 40px
