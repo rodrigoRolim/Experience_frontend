@@ -2,55 +2,31 @@
   @include respond-to(medium-screens)
     max-width: 0
     overflow: hidden
-    animation: hidden-sidebar 0.4s linear
-  @include respond-to(handhelds)
-    max-width: 0
-    overflow: hidden
-    animation: hidden-sidebar 0.4s linear
+    animation: hidden-sidebar 0.5s linear
 .sidebar--show
-  max-width: 100%
   @include respond-to(medium-screens)
-    max-width: 100%
     overflow: hidden
-    animation: show-sidebar 0.4s linear
-  @include respond-to(handhelds)
-    max-width: 100%
-    overflow: hidden
-    animation: show-sidebar 0.4s linear
+    animation: show-sidebar 0.5s linear
+
 .sidebar--modal
   @include respond-to(medium-screens)
     width: 100%
     height: 100%
-    position: fixed
-    top: 60px
-    left: 0
-    bottom: 0
-    right: 0
     background-color: rgba(0,0,0,0.5)
-  @include respond-to(handhelds)
-    width: 100%
-    height: 100%
-    position: fixed
-    top: 60px
-    left: 0
-    bottom: 0
-    right: 0
-    background-color: rgba(0,0,0,0.5)
+
 .sidebar--initial
   @include respond-to(medium-screens)
     max-width: 0
     overflow: hidden
-  @include respond-to(handhelds)
-    max-width: 0
-    overflow: hidden
+
 @keyframes show-sidebar
   0% 
     max-width: 0
   100%
-    max-width: 100%
+    max-width: 360px
     
 @keyframes hidden-sidebar
   0%
-    max-width: 100%
+    max-width: 360px
   100%
-    max-width: 0%
+    max-width: 0
