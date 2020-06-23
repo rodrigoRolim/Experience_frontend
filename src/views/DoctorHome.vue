@@ -3,7 +3,9 @@
     <div class="doctor-home__filter">
       <patient-list-filter />
     </div>
-    <patient-list />
+    <div>
+      <patient-list />
+    </div>
   </div>
 </template>
 
