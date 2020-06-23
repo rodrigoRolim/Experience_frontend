@@ -201,7 +201,7 @@ export default {
   border-radius: 4px
 .container-input__icon.container-input__icon--outline,
 .container-input__input--outline
-  border-color: $brand
+  border-color: $primary
 .container-input__icon.container-input__icon--outline-error,
 .container-input--error
   border-color: $danger
