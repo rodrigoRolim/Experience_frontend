@@ -11,6 +11,13 @@
       <patient-list-item class="patitent__body__item"></patient-list-item>
       <patient-list-item class="patitent__body__item"></patient-list-item>
       <patient-list-item class="patitent__body__item"></patient-list-item>
+      <patient-list-item class="patitent__body__item"></patient-list-item>
+      <patient-list-item class="patitent__body__item"></patient-list-item>
+      <patient-list-item class="patitent__body__item"></patient-list-item>
+      <patient-list-item class="patitent__body__item"></patient-list-item>
+      <patient-list-item class="patitent__body__item"></patient-list-item>
+      <patient-list-item class="patitent__body__item"></patient-list-item>
+      <patient-list-item class="patitent__body__item"></patient-list-item>
     </div>
   </div>
 </template>
