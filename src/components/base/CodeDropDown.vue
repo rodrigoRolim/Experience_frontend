@@ -88,6 +88,8 @@ export default {
   outline: none
   color: gray
   width: 100%
+  @include respond-to(handhelds)
+    display: none
 .dropdown__button
   vertical-align: middle
 .dropdown__button-icon
