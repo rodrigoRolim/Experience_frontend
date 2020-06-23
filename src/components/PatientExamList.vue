@@ -1,5 +1,5 @@
 <template>
-  <div class="patient-exams">
+  <div class="patient-exams__container">
      <div class="patient-exams__list">
         <patient-exam-list-item situation="TF" @click="show = true" class="patient-exams__item"/>
         <patient-exam-list-item situation="PF" @click="show = true" class="patient-exams__item"/>
@@ -54,7 +54,7 @@ export default {
   align-items: center
   justify-content: space-between  
   width: 100%
-  height: 100vh
+  min-height: 100vh
   padding: 10px
 #exams
   max-height: 400px
