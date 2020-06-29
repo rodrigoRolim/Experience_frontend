@@ -1,5 +1,5 @@
 <template>
-  <span class="code-button-collapser" @click="motion">
+  <span class="code-button-collapser" @click="toggleSidebar">
     <div class="code-button-collapser__line-top" 
     :class="{
       'code-button-collapser__line-top--rotate': play, 
@@ -19,24 +19,24 @@
 </template>
 
 <script>
-import { bus } from '../../main'
+import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'CodeButtonCollapser',
   data () {
     return {
-      play: false
+      
     }
   },
   created () {
-    bus.$on('uncollapser', (data) => {
-      this.play = data
-    })
+    
   },
+  computed: mapState('patientExams', {
+    play: state => state.attendancesDisplay
+  }),
   methods: {
-    motion () {
-      this.play = !this.play
-      bus.$emit('collapser', this.play)
-    }
+    ...mapMutations('patientExams', [
+      'toggleSidebar'
+    ])
   }
 }
 </script>

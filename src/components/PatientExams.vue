@@ -1,15 +1,19 @@
 <template>
   <div class="patient-exams">
-    <div class="patient-exams__sidebar" 
-      :class="{'sidebar--hidden': !attendances, 'sidebar--show': attendances}"
-    v-if="attendancesMobile">
-      <the-sidebar />
-    </div>
-    <div class="patient-exams__main" v-if="patientMobile || examsMobile">
-      <div class="patient-exams__patient" v-if="patientMobile">
+    <transition
+      name="dropside"
+      enter-active-class="sidebar--show"
+      leave-active-class="sidebar--hidden"
+    >
+      <div class="patient-exams__sidebar" v-if="attendances">
+        <the-sidebar />
+      </div>
+    </transition>
+    <div class="patient-exams__main" v-if="patient || exams">
+      <div class="patient-exams__patient" v-if="patient">
         <patient-exams-list-header></patient-exams-list-header>
       </div>
-      <div class="patient-exams__exams" v-if="examsMobile">
+      <div class="patient-exams__exams" v-if="exams">
         <patient-exam-list />
       </div>
     </div>
@@ -19,7 +23,7 @@
 import PatientExamsListHeader from './PatientExamListHeader'
 import PatientExamList from './PatientExamList'
 import TheSidebar from './TheSidebar'
-import { bus } from '../main'
+import { mapMutations, mapState } from 'vuex'
 export default {
   name: 'PatientExams',
   components: {
@@ -29,64 +33,31 @@ export default {
   },
   data () {
     return {
-      attendances: false,
-      patient: false,
-      exams: true
+  
     }
   },
   created () {
+    this.buildView()
     this.initResize()
-    bus.$on('collapser', (data) => {
-      this.attendances = data
-    })
-    if (this.detectHandhelds()) {
-      bus.$on('attendances', (data) => {
-        this.attendances = data
-        this.patient = !data
-        this.exams = !data
-      })
-      bus.$on('patient', (data) => {
-        this.attendances = !data
-        this.patient = data
-        this.exams = !data
-      })
-      bus.$on('exams', (data) => {
-        this.attendances = !data
-        this.patient = !data
-        this.exams = data
-      })
-    }
   },
   beforeDestroy () {
+
     this.destroyResize()
-    bus.$off('collapser')
-    if (this.detectHandhelds()) {
-      bus.$off('attendances')
-      bus.$off('patient')
-      bus.$off('exams')
-    }
   },
   computed: {
-    attendancesMobile () {
-      if (this.detectHandhelds() || this.detectMediumScreens()) {
-        return this.attendances
-      }
-      return true
-    },
-    patientMobile () {
-      if (this.detectHandhelds()) {
-        return this.patient
-      }
-      return true
-    },
-    examsMobile () {
-      if (this.detectHandhelds()) {
-        return this.exams
-      }
-      return true
-    }
+    ...mapState('patientExams', {
+      attendances: state => state.attendancesDisplay,
+      exams: state => state.examsDisplay,
+      patient: state => state.patientDisplay
+    })
   },
   methods: {
+    ...mapMutations('patientExams', [
+      'setCollapser',
+      'setAttendances',
+      'setExams',
+      'setPatient'
+    ]), 
     detectHandhelds () {
       return ( window.innerWidth <= 768 )
     },
@@ -97,21 +68,29 @@ export default {
       return  (window.innerWidth > 1023 )
     },
     initResize () {
-      window.addEventListener('resize', this.rebuildView)
+      window.addEventListener('resize', this.buildView)
     },
     destroyResize () {
-      window.removeEventListener('resize', this.rebuildView)
+      window.removeEventListener('resize', this.buildView)
     },
-    rebuildView () {
+    buildView () {
+      if (this.detectHandhelds()) {
+    
+        this.setAttendances({value: false})
+        this.setPatient({value: false})
+        this.setExams({value: true})
+      }
       if (this.detectMediumScreens()) {
-        this.attendances = false
-        this.patient = true
-        this.exams = true
+
+        this.setAttendances({value: false})
+        this.setPatient({value: true})
+        this.setExams({value: true})
       }
       if (this.detectWideScreen()) {
-        this.attendances = true
-        this.patient = true
-        this.exams = true
+
+        this.setAttendances({value: true})
+        this.setPatient({value: true})
+        this.setExams({value: true})
       }
       
     }
@@ -134,21 +113,20 @@ export default {
   flex-direction: column
   align-items: flex-end
   @include respond-to(medium-screens)
-    margin-top: 0
     margin-left: 0
     width: 100%
   @include respond-to(handhelds)
     margin-top: 0
     margin-left: 0
     width: 100%
-  margin-top: 60px
   margin-left: 360px
+  
 .patient-exams__exams
   width: 100%
   margin-top: 180px
   @include respond-to(medium-screens)
     width: 100%
-    margin-top: 190px
+    margin-top: 140px
   @include respond-to(handhelds)
     width: 100%
     margin-top: 0
@@ -157,7 +135,6 @@ export default {
 .patient-exams__sidebar
   position: fixed
   width: 360px
-  margin-top: 60px
   overflow-y: auto
   height: 100vh
   z-index: 4
@@ -168,13 +145,13 @@ export default {
     margin-top: 0px
     height: auto
     position: relative
-    z-index: 0  
+    z-index: 0
+  
 .patient-exams__patient
   width: calc(100% - 360px)
   z-index: 2
   @include respond-to(medium-screens)
     width: 100%
-    margin-top: 60px
   @include respond-to(handhelds)
     width: 100%
    
