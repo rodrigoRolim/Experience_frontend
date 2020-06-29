@@ -45,8 +45,7 @@ export default {
 .modal--normal,
 .modal--custom
   overflow: auto
-  margin: 0 auto
-  width: 100%
+  width: 100vw
   height: 100%
   position: fixed
   top: 0
@@ -56,7 +55,7 @@ export default {
   flex-direction: row
   justify-content: center
   align-items: center
-  z-index: 3
+  z-index: 999
   min-height: 100vh
 .modal--normal
   background-color: rgba(0,0,0,0.5)

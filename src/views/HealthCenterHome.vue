@@ -32,7 +32,6 @@
 import AttendanceList from '../components/AttendanceList'
 import AttendanceListFilterHealthCenter from '../components/AttendanceListFilterHealthCenter'
 import AttendanceListSearch from '../components/AttendanceListSearch'
-/* import store from '../store' */
 export default {
   name: 'HealthCenterHome',
   components: {
@@ -123,12 +122,17 @@ export default {
   flex-direction: column
   align-items: center
   justify-content: center
+  margin-top: 230px
+  @include respond-to(handhelds)
+    margin-top: 180px
+  @include respond-to(medium-screens)
+    margin-top: 170px
 .health-center__attendances
   width: 98%
 .health-center__filter
   width: 100%
   position: fixed
-  top: 9vh
+  top: 60px
   z-index: 4
 .filter--modal
   z-index: 6
@@ -164,7 +168,7 @@ export default {
     width: 100%
     height: 100%
     position: fixed
-    top: 9vh
+    top: 60px
     left: 0
     bottom: 0
     z-index: 4

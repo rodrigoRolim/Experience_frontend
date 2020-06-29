@@ -9,6 +9,7 @@
       <input 
         ref="input"
         class="container-input__input"
+        autocomplete="off"
         v-bind="$attrs"
         :class="inputClasses" 
         :name="name"

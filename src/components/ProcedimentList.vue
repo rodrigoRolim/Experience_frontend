@@ -8,6 +8,18 @@
       <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
       <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
       <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
+      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
+      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
+      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
+      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
+      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
+      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
+      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
+      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
+      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
+      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
+      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
+      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>    
     </div>
     <div class="modal_instructions">
       <code-modal
@@ -50,8 +62,10 @@ export default {
   display: flex
   flex-direction: column
   background-color: white
-  height: 100vh
+  min-height: 100vh
 .procediments__header
+  position: fixed
+  top: 60px
   display: flex
   flex-direction: column
   width: 100%
@@ -60,7 +74,11 @@ export default {
   flex-direction: column
   align-items: center
   padding: 10px
-  margin-top: 130px
+  @include respond-to(wide-screens)
+    margin-top: 100px
+  margin-top: 120px
 .procediments__body__item
   margin: 5px
+.modal_instructions
+  width: 100%
 </style>

@@ -114,7 +114,11 @@ export default {
   position: fixed
   width: 100%
 .partner-home__attendances
-  margin-top: 25vh
+  margin-top: 155px
+  @include respond-to(handhelds)
+    margin-top: 100px
+  @include respond-to(medium-screens)
+    margin-top: 100px
 .filter
   width: 100%
   position: fixed
@@ -126,7 +130,7 @@ export default {
   align-items: center
   width: 100%
   padding: 10px 10px
-  height: 10vh
+  height: 60px
   background-color: white
   -webkit-box-box-shadow: 0 2px 4px 1px rgba(0,0,0,0.1)
   -moz-box-shadow: 0 2px 4px 1px rgba(0,0,0,0.1)
@@ -153,7 +157,7 @@ export default {
     width: 100%
     height: 100%
     position: fixed
-    top: 0
+    top: 60px
     left: 0
     bottom: 0
     z-index: 4

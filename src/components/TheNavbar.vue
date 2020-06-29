@@ -52,7 +52,7 @@ export default {
   flex-direction: row
   background-color: #f9f9f9
   justify-content: space-between
-  min-height: 9vh
+  min-height: 60px
   border-bottom: 1px solid rgba(0, 0, 0, 0.1)
   width: 100%
 .navbar__collapser

@@ -27,7 +27,9 @@
         </template>
       </the-navbar>
     </div>
-    <procediment-list />
+    <div class="procediments__list">
+      <procediment-list />
+    </div>
   </div>
 </template>
 
@@ -61,8 +63,10 @@ export default {
   top: 0
   left: 0
   width: 100%
-.procediments__manual
-
 .procediments__sign
   margin-right: 15px
+.procediments__list
+  margin-top: 30px
+  @include respond-to(handhelds)
+    margin-top: 70px
 </style>

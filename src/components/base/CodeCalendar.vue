@@ -5,7 +5,7 @@
         label="number"
         :placeholder="placeholder"
         :icon="icon"
-        name="number"
+        :name="name"
         type="text"
         :width="7"
         :height="8"

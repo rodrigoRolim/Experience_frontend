@@ -37,6 +37,6 @@ export default {
 .label
   margin-left: 5px
   @include respond-to(handhelds)
-    display: none
+   
   margin-bottom: 5px
 </style>

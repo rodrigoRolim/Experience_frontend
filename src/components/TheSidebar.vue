@@ -120,6 +120,7 @@ export default {
   flex-direction: column
   background-color: $green
   padding-bottom: 50px
+  min-height: 100vh
   @include respond-to(medium-screens)
     width: 345px
   @include respond-to(handhelds)
@@ -131,7 +132,7 @@ export default {
   justify-content: center
   align-items: center
   background-color: $green
-  height: 12vh
+  height: 100px
   color: white
   @include respond-to(handhelds)
     width:100%

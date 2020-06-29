@@ -59,8 +59,6 @@ export default {
 .dropdown
   display: flex
   flex-direction: row
-  position: fixed
-  top: 9vh
   width: 100%
   @include respond-to(handhelds)
     flex-direction: column

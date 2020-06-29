@@ -54,7 +54,9 @@ export default {
   flex-direction: column
   background-color: white
   border-radius: 4px
-  width: 700px
+  width: 750px
+  @include respond-to(handhelds)
+    width: 98vw
 .procediment-instructions__header
   width: 100%
   display: flex
@@ -83,6 +85,8 @@ export default {
   font-size: 1.5rem
   font-weight: 100
   color: gray
+  @include respond-to(handhelds)
+    font-size: 1.0rem
 .procediment-instructions__instructions-title
   margin-top: 10px
   font-size: 1.2rem

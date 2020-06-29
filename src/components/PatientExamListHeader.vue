@@ -20,7 +20,8 @@
           color="rgba(71, 77, 94, 1)"
         />  
       </div>
-      <code-drop-down text="detalhes" bcolor="white" class="patient-exams__dropdown" dropdown>
+      <code-drop-down text="detalhes" bcolor="white" class="patient-exams__dropdown" 
+      :dropdown="noDropdownMobile">
         <template v-slot:content>
           <div class="patient-exams__attendance-detail">
             <strong class="patient-exams__title patient-exams__title--capitalize">detalhe atendimento</strong>
@@ -78,6 +79,11 @@ export default {
     return {
 
     }
+  },
+  computed: {
+    noDropdownMobile () {
+      return !( window.innerWidth <= 768 )
+    }
   }
 }
 </script>
@@ -91,8 +97,8 @@ export default {
     flex-direction: column
   @include respond-to(handhelds)
     flex-direction: column
-    min-height: 85vh
     width: 100%
+    min-height: calc(100vh - 105px)
   border-bottom: 1px solid rgba(0,0,0,0.1)
   padding: 15px 10px
 .patient-exams__age,

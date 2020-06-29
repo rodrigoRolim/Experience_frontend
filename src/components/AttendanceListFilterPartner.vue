@@ -1,6 +1,6 @@
 <template>
   <div class="attendances-filter-partner">
-    <code-drop-down>
+    <code-drop-down dropdown>
       <template v-slot:content>
         <div class="attendances-filter-partner__period">
           <code-label
@@ -26,7 +26,7 @@
           />
           <code-select
             class="attendances-filter-partner__select"
-            name="acomodacoes"
+            name="acomodations"
             option="selecione a acomodação"
             :options="list"
             :width="9"
@@ -106,7 +106,7 @@ export default {
   },
   data () {
     return {
-
+      list: []
     }
   }
 }
@@ -117,12 +117,15 @@ export default {
 .attendances-filter-partner__situation
   width: 15%
   @include respond-to(medium-screens)
-    width: 24%
+    width: 27%
   @include respond-to(handhelds)
-    margin: 10px 0
     width: 100%
+    margin: 5px 0
 .attendances-filter-partner__patient-name
   width: 30%
+  @include respond-to(handhelds)
+    width: 100%
+    margin: 5px 0
 .attendances-filter-partner__buttons
   width: 10%
   align-self: flex-end
@@ -139,7 +142,7 @@ export default {
     margin: 10px 0
   @include respond-to(handhelds)
     width: 100%
-    margin: 10px 0
+    margin: 5px 0
   display: flex
   flex-direction: column
 </style>

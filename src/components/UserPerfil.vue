@@ -89,7 +89,7 @@ export default {
   border: 1px solid lightgray
   outline: none
   border-radius: 4px
-  padding: 2vh
+  padding: 15px
   @include respond-to(handhelds)
     border: none
     background-color: transparent

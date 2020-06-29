@@ -27,12 +27,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.doctor-home
-  margin-top: 25vh
-  @include respond-to(handhelds)
-    margin-top: 18vh
-  @include respond-to(medium-screens)
-    margin-top: 18vh
+
 .doctor-home__filter
   position: fixed
   width: 100%

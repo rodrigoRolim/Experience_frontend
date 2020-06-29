@@ -1,7 +1,7 @@
 <template>
   <div class="dropdown" :style="{ backgroundColor: bcolor }">
     <div class="dropdown__buttons" v-if="dropdown">
-      <button @click="show = !show" class="dropdown__button">
+      <button @click="show = !show" class="dropdown__button" :class="{'dropdown__button--hidden': !dropdown}">
         <i class="dropdown__button-icon">
           <transition name="fade" mode="out-in">
             <font-awesome-icon icon="caret-down" size="lg" v-if="!show" key="down"/>
@@ -88,8 +88,8 @@ export default {
   outline: none
   color: gray
   width: 100%
-  @include respond-to(handhelds)
-    display: none
+.dropdown__button--hidden
+  display: none
 .dropdown__button
   vertical-align: middle
 .dropdown__button-icon
