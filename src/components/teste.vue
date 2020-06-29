@@ -242,7 +242,7 @@
       />
       <code-label
         name="number"
-        label="number"
+        label="number2"
         color="#676a6c"
         :fontWeight="700"
         fontSize="14px"
@@ -251,7 +251,7 @@
       <code-input
         label="number"
         placeholder="digite apenas números"
-        name="number"
+        name="number2"
         :width="9"
         :height="7"
         v-model="num"
