@@ -4,9 +4,17 @@
       max-height: $max-height
       -webkit-animation: dropdown-visible $duration-visible ease-in
       animation: dropdown-visible $duration-visible ease-in
-   
+    @include respond-to(handhelds)
+      max-height: $max-height
+      -webkit-animation: dropdown-visible $duration-visible ease-in
+      animation: dropdown-visible $duration-visible ease-in
   .dropdown--hidden
     @include respond-to(medium-screens)
+      max-height: 0
+      overflow: hidden
+      -webkit-animation: dropdown-hidden $duration-hidden ease-out
+      animation: dropdown-hidden $duration-hidden ease-out
+    @include respond-to(handhelds)
       max-height: 0
       overflow: hidden
       -webkit-animation: dropdown-hidden $duration-hidden ease-out
