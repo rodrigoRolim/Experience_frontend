@@ -1,5 +1,7 @@
 <template>
-<div class="attendance-item" :class="getSituation | situationModifier">
+<div class="attendance-item" :class="getSituation | situationModifier"
+  @click="patientExamsView"
+>
   <div class="attendance-item__header">
     <strong class="attendance-item__name-patient"> {{name}}</strong>
   </div>
@@ -57,6 +59,11 @@ export default {
   filters: {
     situationModifier (situation) {
       return 'attendance-item--'+situation
+    }
+  },
+  methods: {
+    patientExamsView () {
+      this.$router.push('/parceiro/paciente/1/1')
     }
   }
 }
