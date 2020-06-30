@@ -1,5 +1,5 @@
 <template>
-  <div class="patient-exam" :class="getSituation | situationModifiers" @click.self="click">
+  <div class="patient-exam" :class="getSituation | situationModifiers">
     <div class="patient-exam__detail">
       <code-chip text="lic" transform="uppercase" class="patient-exam__tag"></code-chip>
       <div class="patient-exam__separator-line"></div>
@@ -63,9 +63,7 @@ export default {
     }
   },
   methods: {
-    click () {
-      this.$emit('click')
-    }
+    
   }
 };
 </script>

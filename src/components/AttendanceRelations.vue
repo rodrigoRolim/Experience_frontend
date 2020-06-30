@@ -38,4 +38,5 @@ export default {
   margin-left: 10px
   color: #368c8c
   padding: 20px 10px
+  
 </style>

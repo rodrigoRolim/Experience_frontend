@@ -153,6 +153,8 @@ export default {
     border-radius: 4px
   color: $green
   padding: 20px 10px
+  cursor: pointer
+  user-select: none
 .sidebar__date,
 .sidebar__exams
   overflow: hidden 

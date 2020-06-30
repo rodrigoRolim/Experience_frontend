@@ -1,5 +1,5 @@
 <template>
-  <div class="patient">
+  <div class="patient" @click="patientExamsView">
     <div class="patient__header">
       <strong class="patient__name">jacinto pinto pedroso</strong>
     </div>
@@ -82,6 +82,12 @@ export default {
   name: 'PatientListItem',
   components: {
     CodeInfo
+  },
+  methods: {
+    patientExamsView () {
+      console.log('as')
+      this.$router.push('/medico/paciente/1/1')
+    }
   }
 }
 </script>
