@@ -23,7 +23,7 @@ const router = new VueRouter({
       component: () => import(/* webpackChunkName: 'Doctor' */ '@/views/Doctor'),
       children: [
         {
-          path: '',
+          path: '/medico',
           name: 'doctorHome',
           component: () => import(/* webpackChunkName:  'Doctor' */ '@/views/DoctorHome')
         },
@@ -40,7 +40,7 @@ const router = new VueRouter({
       component: () => import(/* webpackChunkName: 'Partner' */ '@/views/Partner'),
       children: [
         {
-          path: '',
+          path: '/parceiro',
           name: 'partnerHome',
           component: () => import(/* webpackChunkName: 'Partner' */ '@/views/PartnerHome')
         },
@@ -55,14 +55,22 @@ const router = new VueRouter({
     {
       path: '/paciente',
       name: 'patient',
-      component: () => import(/* webpackChunkName: 'Patient' */ '@/views/Patient')
+      component: () => import(/* webpackChunkName: 'Patient' */ '@/views/Patient'),
+      children: [
+        {
+          path: '/paciente',
+          name: 'patientHome',
+          component: () => import(/* webpackChunkName: 'Patient' */ '@/views/PatientHome'),
+          props: true
+        }
+      ]
     },
     {
       path: '/posto',
       component: () => import(/* webpackChunkName: 'HealthCenter' */ '@/views/HealthCenter'),
       children: [
         {
-          path: '',
+          path: '/posto',
           name: 'healthCenterHome',
           component: () => import(/* webpackChunkName: 'HealthCenter' */ '@/views/HealthCenterHome'),
         },

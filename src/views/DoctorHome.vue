@@ -3,7 +3,7 @@
     <div class="doctor-home__filter">
       <patient-list-filter />
     </div>
-    <div>
+    <div class="doctor-home__list">
       <patient-list />
     </div>
   </div>
@@ -31,7 +31,9 @@ export default {
 .doctor-home__filter
   position: fixed
   width: 100%
-  top: 9vh
+  top: 60px
   left: 0
   z-index: 0
+.doctor-home__list
+  padding-top: 40px
 </style>

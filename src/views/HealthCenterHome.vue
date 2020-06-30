@@ -133,7 +133,7 @@ export default {
   width: 100%
   position: fixed
   top: 60px
-  z-index: 4
+  z-index: 2
 .filter--modal
   z-index: 6
 .filter__searcher

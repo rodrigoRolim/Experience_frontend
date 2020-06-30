@@ -10,98 +10,18 @@
     <div class="partner__main">
       <router-view />
     </div>
-    <div class="partner__footer">
-      <the-footer>
-        <template>
-          <div class="partner__exams" @click="showExams">
-            <code-info 
-              icon="notes-medical"
-              info="exames"
-              color="rgba(71, 77, 94, 1)"
-              size="1x"
-              bottom
-            />
-          </div>
-          <div class="partner__patient" @click="showPatient">
-            <code-info 
-              icon="user-injured"
-              info="paciente"
-              color="rgba(71, 77, 94, 1)"
-              size="1x"
-              bottom
-            />
-          </div>
-        </template>
-      </the-footer>
-    </div>
   </div>
 </template>
 
 <script>
 import TheNavbar from '../components/TheNavbar'
 import UserPerfil from '../components/UserPerfil'
-import TheFooter from '../components/TheFooter'
-import CodeInfo from '../components/base/CodeInfo'
-import { mapMutations } from 'vuex'
 export default {
   name: 'Partner',
   components: {
     TheNavbar,
-    UserPerfil,
-    TheFooter,
-    CodeInfo
+    UserPerfil
   },
-  created () {
-    this.buildView()
-    this.initResize()
-  },
-  beforeDestroy () {
-
-    this.destroyResize()
-  },
-  methods: {
-   ...mapMutations('patientExams', [
-      'showExams',
-      'showPatient',
-      'setCollapser',
-      'setAttendances',
-      'setExams',
-      'setPatient'
-    ]),
-    detectHandhelds () {
-      return ( window.innerWidth <= 768 )
-    },
-    detectMediumScreens () {
-      return ( window.innerWidth > 768 && window.innerWidth < 1023 )
-    },
-    detectWideScreen () {
-      return  (window.innerWidth > 1023 )
-    },
-    initResize () {
-      window.addEventListener('resize', this.buildView)
-    },
-    destroyResize () {
-      window.removeEventListener('resize', this.buildView)
-    },
-    buildView () {
-      if (this.detectHandhelds()) {
-
-        this.setPatient({value: false})
-        this.setExams({value: true})
-      }
-      if (this.detectMediumScreens()) {
-
-        this.setPatient({value: true})
-        this.setExams({value: true})
-      }
-      if (this.detectWideScreen()) {
-
-        this.setPatient({value: true})
-        this.setExams({value: true})
-      }
-      
-    }
-  }
 }
 </script>
 

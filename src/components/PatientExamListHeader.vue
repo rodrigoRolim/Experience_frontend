@@ -98,7 +98,7 @@ export default {
   @include respond-to(handhelds)
     flex-direction: column
     width: 100%
-    min-height: calc(100vh - 105px)
+    min-height: calc(100vh - 100px)
   border-bottom: 1px solid rgba(0,0,0,0.1)
   padding: 15px 10px
 .patient-exams__age,

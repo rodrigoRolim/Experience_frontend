@@ -114,7 +114,8 @@ export default {
   position: fixed
   width: 100%
 .partner-home__attendances
-  margin-top: 155px
+  margin: 155px auto 0px auto 
+  width: 98%
   @include respond-to(handhelds)
     margin-top: 100px
   @include respond-to(medium-screens)
