@@ -67,7 +67,8 @@ export default {
   },
   data () {
     return {
-      viewport: -1
+      viewport: null,
+      screen: -1
     }
   },
   created () {
@@ -79,9 +80,6 @@ export default {
 
     this.destroyResize()
   },
-  watch: {
-   
-  },
   methods: {
     ...mapMutations('patientExams', [
       'showExams',
@@ -92,15 +90,17 @@ export default {
       'setExams',
       'setPatient'
     ]),
-
     detectViewport () {
-      if (window.innerWidth <= 768 ) {
+      if (window.innerWidth <= 768 && this.screen !== 0) {
+        this.screen = 0
         return 'handhelds'
       }
-      if (window.innerWidth > 768 && window.innerWidth < 1023) {
+      if ((window.innerWidth > 768 && window.innerWidth < 1023) && this.screen !== 1) {
+        this.screen = 1
         return 'medium-screens'
       }
-      if (window.innerWidth > 1023) {
+      if (window.innerWidth > 1023 && this.screen !== 2) {
+        this.screen = 2
         return 'wide-screens'
       }
     },
@@ -113,7 +113,7 @@ export default {
     },
     buildView () {
       this.viewport = this.detectViewport()
-      
+
       if (this.viewport === 'handhelds') {
         
         this.setAttendances({value: false})
