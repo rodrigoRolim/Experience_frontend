@@ -10,7 +10,7 @@
     <div class="partner__main">
       <router-view />
     </div>
-    <div class="partner__footer">
+    <div class="partner__footer" v-if="$route.path !== '/parceiro'">
       <the-footer>
         <template>
           <div class="partner__exams" @click="showExams">

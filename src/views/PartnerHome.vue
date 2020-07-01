@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="partner-home__attendances">
-      <attendance-list :attendances="attendances"/>
+      <attendance-list :attendances="attendances" route="parceiro"/>
     </div>
   </div>
 </template>
