@@ -13,7 +13,7 @@
     <div class="doctor__main">
       <router-view />
     </div>
-    <div class="doctor__footer">
+    <div class="doctor__footer" v-if="$route.path !== '/medico'">
       <the-footer>
         <template>
           <div class="doctor__attendances" @click="showAttendances">
@@ -65,6 +65,12 @@ export default {
     TheFooter,
     CodeInfo
   },
+  data () {
+    return {
+      viewport: null,
+      screen: -1
+    }
+  },
   created () {
     this.buildView()
     this.initResize()
@@ -83,14 +89,19 @@ export default {
       'setExams',
       'setPatient'
     ]),
-    detectHandhelds () {
-      return ( window.innerWidth <= 768 )
-    },
-    detectMediumScreens () {
-      return ( window.innerWidth > 768 && window.innerWidth < 1023 )
-    },
-    detectWideScreen () {
-      return  (window.innerWidth > 1023 )
+    detectViewport () {
+      if (window.innerWidth <= 768 && this.screen !== 0) {
+        this.screen = 0
+        return 'handhelds'
+      }
+      if ((window.innerWidth > 768 && window.innerWidth < 1023) && this.screen !== 1) {
+        this.screen = 1
+        return 'medium-screens'
+      }
+      if (window.innerWidth > 1023 && this.screen !== 2) {
+        this.screen = 2
+        return 'wide-screens'
+      }
     },
     initResize () {
       window.addEventListener('resize', this.buildView)
@@ -99,26 +110,27 @@ export default {
       window.removeEventListener('resize', this.buildView)
     },
     buildView () {
-      if (this.detectHandhelds()) {
-    
-        this.setAttendances({value: false})
+      this.viewport = this.detectViewport()
+
+      if (this.viewport === 'handhelds') {
+        
+        // this.setAttendances({value: false})
         this.setPatient({value: false})
         this.setExams({value: true})
       }
-      if (this.detectMediumScreens()) {
+      if (this.viewport === 'medium-screens') {
 
-        this.setAttendances({value: false})
+        // this.setAttendances({value: false})
         this.setPatient({value: true})
         this.setExams({value: true})
       }
-      if (this.detectWideScreen()) {
+      if (this.viewport === 'wide-screens') {
 
-        this.setAttendances({value: true})
+        // this.setAttendances({value: true})
         this.setPatient({value: true})
         this.setExams({value: true})
       }
-      
-    }
+    } 
   }
 }
 </script>

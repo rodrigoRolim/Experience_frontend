@@ -12,6 +12,7 @@
       :dataDelivery="attendance.dataDelivery"
       :exams="attendance.exams"
       :situation="attendance.situation"
+      :route="route"
     ></attendance-list-item>
   </div>
 </template>
@@ -23,7 +24,8 @@ export default {
   props: {
     attendances: {
       type: Array
-    } 
+    },
+    route: String 
   },
   components: {
     AttendanceListItem

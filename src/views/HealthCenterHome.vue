@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="health-center__attendances">
-      <attendance-list :attendances="attendances"/>
+      <attendance-list :attendances="attendances" route="posto"/>
     </div>
   </div>
 </template>

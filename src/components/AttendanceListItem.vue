@@ -44,7 +44,8 @@ export default {
     dataAttendance: String,
     dataDelivery: String,
     exams: String,
-    situation: String
+    situation: String,
+    route: String
   },
   components: {
     AttendanceListItemDetail,
@@ -63,7 +64,7 @@ export default {
   },
   methods: {
     patientExamsView () {
-      this.$router.push('/parceiro/paciente/1/1')
+      this.$router.push(`/${this.route}/paciente/1/1`)
     }
   }
 }
