@@ -1,19 +1,21 @@
 <template>
   <div class="doctor-patient">
-    <transition
+   <!--  <transition
       name="dropside"
       enter-active-class="sidebar--show"
       leave-active-class="sidebar--hidden"
-    >
-      <div class="doctor-patient__sidebar" v-if="attendances">
+    > -->
+      <div class="doctor-patient__sidebar" 
+        :class="{ 'sidebar--show': attendances, 'sidebar--hidden': !attendances }"
+      >
         <the-sidebar />
       </div>
-    </transition>
-    <div class="doctor-patient__main" v-if="patient || exams">
-      <div class="doctor-patient__patient" v-if="patient">
+   <!--  </transition> -->
+    <div class="doctor-patient__main">
+      <div class="doctor-patient__patient">
         <patient-exams-list-header></patient-exams-list-header>
       </div>
-      <div class="doctor-patient__exams" v-if="exams">
+      <div class="doctor-patient__exams">
         <patient-exam-list />
       </div>
     </div>
@@ -24,7 +26,7 @@
 import PatientExamsListHeader from '../components/PatientExamListHeader'
 import PatientExamList from '../components/PatientExamList'
 import TheSidebar from '../components/TheSidebar'
-import { mapState } from 'vuex'
+import { bus } from '../main'
 export default {
   name: 'DoctorPatientExams',
   components: {
@@ -35,13 +37,12 @@ export default {
   },
   data () {
     return {
+      attendances: false
     }
   },
-  computed: {
-    ...mapState('patientExams', {
-      attendances: state => state.attendancesDisplay,
-      exams: state => state.examsDisplay,
-      patient: state => state.patientDisplay
+  created () {
+    bus.$on('sidebar', (data) => {
+      this.attendances = data
     })
   }
 }
@@ -70,29 +71,26 @@ export default {
     width: 100%
 .doctor-patient__exams
   width:  calc( 100% - 360px )
-  margin-top: 180px
+  margin-top: 100px
   @include respond-to(medium-screens)
     width: 100%
-    margin-top: 140px
+    margin-top: 60px
   @include respond-to(handhelds)
     width: 100%
-    margin-top: 0
+    margin-top: 50px
 .doctor-patient__sidebar,
 .doctor-patient__patient
   position: fixed
 .doctor-patient__sidebar
+  @include respond-to(wide-screens)
+    display: block
+  position: fixed
   width: 360px
   overflow-y: auto
   height: 100vh
   z-index: 4
   @include respond-to(medium-screens)
     overflow-x: hidden
-  @include respond-to(handhelds)
-    width: 100%
-    margin-top: 0px
-    height: auto
-    position: relative
-    z-index: 0
 .doctor-patient__patient
   width: calc( 100% - 360px )
   z-index: 2

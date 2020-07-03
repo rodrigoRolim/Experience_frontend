@@ -19,24 +19,22 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { bus } from '../../main'
 export default {
   name: 'CodeButtonCollapser',
   data () {
     return {
-      
+      play: false
     }
   },
   created () {
     
   },
-  computed: mapState('patientExams', {
-    play: state => state.attendancesDisplay
-  }),
   methods: {
-    ...mapMutations('patientExams', [
-      'toggleSidebar'
-    ])
+    toggleSidebar () {
+      this.play = !this.play
+      bus.$emit('sidebar', this.play)
+    }
   }
 }
 </script>

@@ -10,46 +10,19 @@
     <div class="health-center__main">
       <router-view />
     </div>
-    <div class="health-center__footer" v-if="$route.path !== '/posto'">
-      <the-footer>
-        <template>
-          <div class="health-center__exams" @click="showExams">
-            <code-info 
-              icon="notes-medical"
-              info="exames"
-              color="rgba(71, 77, 94, 1)"
-              size="1x"
-              bottom
-            />
-          </div>
-          <div class="health-center__patient" @click="showPatient">
-            <code-info 
-              icon="user-injured"
-              info="paciente"
-              color="rgba(71, 77, 94, 1)"
-              size="1x"
-              bottom
-            />
-          </div>
-        </template>
-      </the-footer>
-    </div>
+    
   </div>
 </template>
 
 <script>
 import TheNavbar from '../components/TheNavbar'
-import TheFooter from '../components/TheFooter'
-import CodeInfo from '../components/base/CodeInfo'
 import UserPerfil from '../components/UserPerfil'
 import { mapMutations } from 'vuex'
 export default {
   name: 'HealthCenterHome',
   components: {
     TheNavbar,
-    TheFooter,
-    UserPerfil,
-    CodeInfo
+    UserPerfil
   },
   data () {
     return {

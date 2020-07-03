@@ -1,19 +1,20 @@
 <template>
   <div class="patient-exams">
-    <transition
+    <!-- <transition
       name="dropside"
       enter-active-class="sidebar--show"
       leave-active-class="sidebar--hidden"
-    >
-      <div class="patient-exams__sidebar" v-if="attendances">
+    > -->
+      <div class="patient-exams__sidebar" 
+        :class="{ 'sidebar--show': attendances, 'sidebar--hidden': !attendances }">
         <the-sidebar />
       </div>
-    </transition>
-    <div class="patient-exams__main" v-if="patient || exams">
-      <div class="patient-exams__patient" v-if="patient">
+    <!-- </transition> -->
+    <div class="patient-exams__main">
+      <div class="patient-exams__patient">
         <patient-exams-list-header></patient-exams-list-header>
       </div>
-      <div class="patient-exams__exams" v-if="exams">
+      <div class="patient-exams__exams">
         <patient-exam-list />
       </div>
     </div>
@@ -24,7 +25,7 @@
 import PatientExamsListHeader from '../components/PatientExamListHeader'
 import PatientExamList from '../components/PatientExamList'
 import TheSidebar from '../components/TheSidebar'
-import { mapState } from 'vuex'
+import { bus } from '../main'
 export default {
   name: 'PatientExams',
   components: {
@@ -34,14 +35,12 @@ export default {
   },
   data () {
     return {
-  
+      attendances: false
     }
   },
-  computed: {
-    ...mapState('patientExams', {
-      attendances: state => state.attendancesDisplay,
-      exams: state => state.examsDisplay,
-      patient: state => state.patientDisplay
+  created () {
+    bus.$on('sidebar', (data) => {
+      this.attendances = data
     })
   }
 }
@@ -70,16 +69,19 @@ export default {
   margin-left: 360px
 .patient-exams__exams
   width: 100%
-  margin-top: 180px
+  margin-top: 100px
   @include respond-to(medium-screens)
     width: 100%
-    margin-top: 140px
+    margin-top: 60px
   @include respond-to(handhelds)
     width: 100%
     margin-top: 0
+    margin-top: 50px
 .patient-exams__patient
   position: fixed
 .patient-exams__sidebar
+  @include respond-to(wide-screens)
+    display: block
   position: fixed
   width: 360px
   overflow-y: auto
@@ -87,12 +89,6 @@ export default {
   z-index: 4
   @include respond-to(medium-screens)
     overflow-x: hidden
-  @include respond-to(handhelds)
-    width: 100%
-    margin-top: 0px
-    height: auto
-    position: relative
-    z-index: 0
   
 .patient-exams__patient
   width: calc(100% - 360px)

@@ -1,10 +1,10 @@
 <template>
   <div class="health-center-patient">
-    <div class="health-center-patient__main" v-if="patient || exams">
-      <div class="health-center-patient__patient" v-if="patient">
+    <div class="health-center-patient__main" >
+      <div class="health-center-patient__patient" >
         <patient-exams-list-header></patient-exams-list-header>
       </div>
-      <div class="health-center-patient__exams" v-if="exams">
+      <div class="health-center-patient__exams" >
         <patient-exam-list />
       </div>
     </div>
@@ -14,18 +14,11 @@
 <script>
 import PatientExamsListHeader from '../components/PatientExamListHeader'
 import PatientExamList from '../components/PatientExamList'
-import { mapState } from 'vuex'
 export default {
   name: 'health-center-patientExams',
   components: {
     PatientExamsListHeader,
     PatientExamList
-  },
-  computed: {
-    ...mapState('patientExams', {
-      exams: state => state.examsDisplay,
-      patient: state => state.patientDisplay
-    })
   }
 }
 </script>
@@ -52,13 +45,13 @@ export default {
     width: 100%
 .health-center-patient__exams
   width:  100%
-  margin-top: 180px
+  margin-top: 100px
   @include respond-to(medium-screens)
     width: 100%
-    margin-top: 140px
+    margin-top: 60px
   @include respond-to(handhelds)
     width: 100%
-    margin-top: 0
+    margin-top: 50px
 .health-center-patient__sidebar,
 .health-center-patient__patient
   position: fixed
