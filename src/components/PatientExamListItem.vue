@@ -5,34 +5,34 @@
       <div class="patient-exam__separator-line"></div>
       <div class="patient-exam__name-exam">
          <code-info
-          icon="flask"
           size="lg"
-          description="exame"
           color="rgba(71, 77, 94, 1)"
           info="LIPODOGRAMA COMPLETO"     
          />
       </div>
     </div>
-    <div class="patient-exam__health-center">
-      <code-info
-        icon="clinic-medical"
-        size="lg"
-        description="Posto Realizante"
-        color="rgba(71, 77, 94, 1)"
-        info="MATRIZ"     
-      />
+    <div class="patient-exam__content">
+      <div class="patient-exam__health-center">
+        <code-info
+          icon="clinic-medical"
+          size="lg"
+          description="Posto Realizante"
+          color="rgba(71, 77, 94, 1)"
+          info="MATRIZ"     
+        />
         
-    </div>
-    <div class="patient-exam__status-exam">
-      <code-chip-situation :situation="situation"/>
-    </div>
-    <div class="patient-exam__checkbox">
-      <code-checkbox
-        v-show="situation == 'TF'"
-        text="imprimir"
-        none
-        color="primary"
-      ></code-checkbox>
+      </div>
+      <div class="patient-exam__status-exam">
+        <code-chip-situation :situation="situation"/>
+      </div>
+      <div class="patient-exam__checkbox">
+        <code-checkbox
+          v-show="situation == 'TF'"
+          text="imprimir"
+          none
+          color="primary"
+        ></code-checkbox>
+      </div>
     </div>
   </div>
 </template>
@@ -78,10 +78,9 @@ export default {
   flex-basis: 48.9%
   @include respond-to(handhelds)
     flex-basis: 100%
-  padding-left: 20px
+  padding-left: 10px
   border-radius: 2px
-  min-height: 200px
-  margin-bottom: 10px
+  min-height: 120px
   user-select: none
 
 .patient-exam:hover
@@ -94,6 +93,9 @@ export default {
   flex-direction: row
   justify-content: center
   cursor: default
+.patient-exam__content
+  display: flex
+  justify-content: space-between
 .patient-exam__name-exam
   display: flex
   flex-direction: row
@@ -102,16 +104,15 @@ export default {
 .patient-exam__health-center
   align-self: flex-start
   cursor: default
-  margin-top: 6px
-  margin-left: 10px
-  margin-bottom: 20px
+  margin-left: 20px
+  
 .patient-exam__separator-line
   content: "|"
   display: flex
   flex-direction: column
   margin: 25px 0px
 .patient-exam__status-exam
-  align-self: center
+  align-self: flex-start
   display: flex
   flex-direction: row
   @include respond-to(medium-screens)
