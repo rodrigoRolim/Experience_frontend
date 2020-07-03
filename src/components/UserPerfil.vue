@@ -11,8 +11,6 @@
             color="lightslategray"
             mobile-hidden
           />
-          <!-- <span class="user-perfil__user__name">rodrigo rolim veras</span>
-          <span class="user-perfil__user__date">17/06/1992</span> -->
         </div>
         <i class="user-perfil__icon">
           <transition name="fade" mode="out-in">

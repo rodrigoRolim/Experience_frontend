@@ -3,7 +3,11 @@
     <span class="info__icon" v-if="icon"><font-awesome-icon :icon="icon" :size="size" :style="{color: color}"/></span>
     <div class="info__label" :class="{ 'info__label--bottom': bottom }">
       <span v-if="description && !bottom" class="info__description">{{description}}</span>
-      <span class="info__content" :class="{'info__content--hidden': mobileHidden}">{{info}}</span>
+      <span 
+        class="info__content" 
+        :class="{ 'info__content--hidden': mobileHidden }"
+        :style="{ 'font-size': sizeInfo }"
+      >{{info}}</span>
     </div>
   </div>
 </template>
@@ -22,7 +26,8 @@ export default {
     description: String,
     left: Boolean,
     bottom: Boolean,
-    mobileHidden: Boolean
+    mobileHidden: Boolean,
+    sizeInfo: String
   }
 }
 </script>
@@ -50,6 +55,12 @@ export default {
   height: 12px
   @include respond-to(handhelds)
     display: none
+.info__description--sm
+  font-size: 0.7rem
+.info__description--md
+  font-size: 0.9rem
+.info__description--lg
+  font-size: 1.0rem
 .info__content
   font-weight: 600
 .info--left .info__content

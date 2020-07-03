@@ -1,6 +1,12 @@
 <template>
   <div class="patient-exams__header">
-    <strong class="patient-exams__name patient-exams__title--capitalize">rodrigo rolim veras</strong>
+    <code-info
+      size="lg"
+      description="paciente"
+      info="RODRIGO ROLIM VERAS"
+      color="rgba(71, 77, 94, 1)"
+      size-info="0.9rem"
+    />
     <code-drop-down bcolor="white" text="detalhes" dropdown>
       <template v-slot:content>
         <div class="patient-exams__patient-info">
