@@ -1,16 +1,16 @@
 <template>
   <div class="patient-exams__container">
-     <div class="patient-exams__list">
-        <patient-exam-list-item situation="TF" @click="show = true" class="patient-exams__item"/>
-        <patient-exam-list-item situation="PF" @click="show = true" class="patient-exams__item"/>
-        <patient-exam-list-item situation="NR" @click="show = true" class="patient-exams__item"/>
-        <patient-exam-list-item situation="EA" @click="show = true" class="patient-exams__item"/>
-        <patient-exam-list-item situation="EP" @click="show = true" class="patient-exams__item"/>
-        <patient-exam-list-item situation="TF" @click="show = true" class="patient-exams__item"/>
-        <patient-exam-list-item situation="EA" @click="show = true" class="patient-exams__item"/>
-        <patient-exam-list-item situation="NR" @click="show = true" class="patient-exams__item"/>
-        <patient-exam-list-item situation="PF" @click="show = true" class="patient-exams__item"/>
-     </div>
+    <div class="patient-exams__list">
+      <patient-exam-list-item situation="TF" @click="show = true" class="patient-exams__item"/>
+      <patient-exam-list-item situation="PF" @click="show = true" class="patient-exams__item"/>
+      <patient-exam-list-item situation="NR" @click="show = true" class="patient-exams__item"/>
+      <patient-exam-list-item situation="EA" @click="show = true" class="patient-exams__item"/>
+      <patient-exam-list-item situation="EP" @click="show = true" class="patient-exams__item"/>
+      <patient-exam-list-item situation="TF" @click="show = true" class="patient-exams__item"/>
+      <patient-exam-list-item situation="EA" @click="show = true" class="patient-exams__item"/>
+      <patient-exam-list-item situation="NR" @click="show = true" class="patient-exams__item"/>
+      <patient-exam-list-item situation="PF" @click="show = true" class="patient-exams__item"/>
+    </div>
     <code-modal
       :normal="true"
       :display="show"
@@ -56,6 +56,8 @@ export default {
   width: 100%
   min-height: 100vh
   padding: 10px
+.patient-exams__item
+  margin: 5px 0
 #exams
   max-height: 400px
   overflow-y: auto
