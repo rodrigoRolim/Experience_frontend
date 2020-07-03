@@ -123,10 +123,9 @@ export default {
   
 .patient-exams__exams
   width: 100%
-  margin-top: 180px
+  margin-top: 50px
   @include respond-to(medium-screens)
     width: 100%
-    margin-top: 140px
   @include respond-to(handhelds)
     width: 100%
     margin-top: 0

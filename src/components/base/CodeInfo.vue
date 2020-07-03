@@ -1,6 +1,6 @@
 <template>
   <div class="info" :class="{ 'info--bottom': bottom, 'info--left': left }">
-    <span class="info__icon"><font-awesome-icon :icon="icon" :size="size" :style="{color: color}"/></span>
+    <span class="info__icon" v-if="icon"><font-awesome-icon :icon="icon" :size="size" :style="{color: color}"/></span>
     <div class="info__label" :class="{ 'info__label--bottom': bottom }">
       <span v-if="description && !bottom" class="info__description">{{description}}</span>
       <span class="info__content" :class="{'info__content--hidden': mobileHidden}">{{info}}</span>
@@ -12,7 +12,10 @@
 export default {
   name: 'CodeInfo',
   props: {
-    icon: String,
+    icon: {
+      type: String,
+      default: ''
+    },
     size: String,
     color: String,
     info: String,
@@ -43,7 +46,6 @@ export default {
   margin-left: 5px
 .info__description
   font-size: 0.63rem
-  color: rgba(0,0,0,0.6)
   text-transform: capitalize
   height: 12px
   @include respond-to(handhelds)

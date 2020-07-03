@@ -1,7 +1,7 @@
 <template>
   <div class="patient" @click="patientExamsView">
     <div class="patient__header">
-      <strong class="patient__name">jacinto pinto pedroso</strong>
+      <strong class="patient__name">madalena meretriz aids</strong>
     </div>
     <div class="patient__body">
       <div class="patient__perfil">

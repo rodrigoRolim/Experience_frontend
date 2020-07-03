@@ -55,8 +55,8 @@ export default {
   flex-direction: row
   justify-content: center
   align-items: center
-  z-index: 999
   min-height: 100vh
+  z-index: 999
 .modal--normal
   background-color: rgba(0,0,0,0.5)
 .modal--custom

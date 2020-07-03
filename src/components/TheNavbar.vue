@@ -17,7 +17,7 @@
   
 </template>
 <script>
-/* import { bus } from '../main' */
+
 export default {
   name: 'TheNavbar',
   components: {
@@ -31,9 +31,7 @@ export default {
     }
   },
   created () {
-  /*   bus.$on('hiddenHeader', (data) => {
-
-    }) */
+    
   },
   methods: {
     takeLogo(logo) {
@@ -56,9 +54,7 @@ export default {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1)
   width: 100%
 .navbar__collapser
-  display: none
-  @include respond-to(medium-screens)
-    display: flex
+  display: flex
 .navbar__image
   width: 120px
   @include respond-to(handhelds)
