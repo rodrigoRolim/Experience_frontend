@@ -3,8 +3,19 @@
     <div class="custom-select__select" tabindex="0">
       <input type="text" class="custom-select__input">
       <span class="custom-select__icon">
-        <div class="custom-select__line-l"></div>
-        <div class="custom-select__line-r"></div>
+        <div 
+          class="custom-select__line-l"
+          :class="{
+            'custom-select__line-l--select-down': !lineAnimation,
+            'custom-select__line-l--select-up': lineAnimation
+          }"
+        ></div>
+        <div class="custom-select__line-r"
+          :class="{
+            'custom-select__line-r--select-down': !lineAnimation,
+            'custom-select__line-r--select-up': lineAnimation
+          }"
+        ></div>
       </span>
     </div>
     <ul tabindex="1" class="custom-select__list" v-if="showList">
@@ -28,7 +39,8 @@ export default {
   data () {
     return {
       digiteds: '',
-      showList: false
+      showList: false,
+      lineAnimation: false
     }
   },
   momunted () {
@@ -59,7 +71,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
- .custom-select 
+.custom-select 
   position: relative
 .custom-select__list
   display: block
@@ -78,16 +90,10 @@ export default {
   list-style-type: none
   cursor: pointer
   margin: 5px 0px
-.custom-select__container-input
+.custom-select__select
   display: flex
-.custom-select__container-input:focus
+.custom-select__select:focus
   outline: none
-.custom-select__container-input:focus .custom-select__input
-  border: 1.5px solid rgb(206, 3, 206)
-  border-right: 0
-.custom-select__container-input:focus .custom-select__icon
-  border: 1.5px solid rgb(206, 3, 206)
-  border-left: 0
 .custom-select__input
   width: 100%
   margin: 0
@@ -128,6 +134,5 @@ export default {
   border-top-right-radius: 4px
   border-bottom-right-radius: 4px
   width: 35px
-.custom-select__item--hidden
-  display: none
+
 </style>
