@@ -1,135 +1,133 @@
 <template>
-<div class="select-container">
-  <div class="select-content" ref="container">
-    <i class="select-content__icon" v-if="icon" :style="{padding: getSizeIcon}" 
-      :class="{
-        'select-content__icon--no-border': noBorder,
-        'select-content--error': error
-      }">
-      <font-awesome-icon :icon="icon"/>
-    </i>
-    <select
-      class="select-content__select"
-     :name="name" 
-     :id="name"
-     :style="{padding: getSizeInput, fontSize: size}" 
-     :class="{ 
-       'select-content__select--icon': icon, 
-       'select-content__select--no-icon': !icon,
-       'select-content--error': error
-      }"
-     v-model="selected"
-    >
-      <option class="select-content__option" disabled v-if="option" :value="-1">{{option}}</option>
-      <option class="select-content__option" :value="option.id" v-for="option in options" v-bind:key="option.id">{{option.item}}</option>
-    </select>
+  <div class="custom-select" id="custom-select">
+    <div class="custom-select__select" tabindex="0">
+      <input type="text" class="custom-select__input">
+      <span class="custom-select__icon">
+        <div class="custom-select__line-l"></div>
+        <div class="custom-select__line-r"></div>
+      </span>
+    </div>
+    <ul tabindex="1" class="custom-select__list" v-if="showList">
+      <li 
+        v-for="option in options" 
+        :key="option.id" 
+        class="custom-select__option"
+      >
+        {{option.name}}
+      </li>
+    </ul>
   </div>
-  <div class="select-container__message-error"  v-if="error">
-    <small class="select-container__text-error">{{error}}</small>
-  </div>
-</div>
 </template>
+
 <script>
-import { sizer } from '../../mixins/sizer'
 export default {
   name: 'CodeSelect',
-  mixins: [sizer],
   props: {
-    name: String,
-    options: Array,
-    placeholder: String,
-    option: String,
-    width: {
-      type: Number,
-      default: 7
-    },
-    height: {
-      type: Number,
-      default: 7
-    },
-    noBorder: {
-      type: Boolean,
-      default: false
-    },
-    size: {
-      type: String,
-      default: '0.9rem'
-    },
-    icon: {
-      type: String
-    }, 
-    weight: {
-      type: Number
-    },
-    color: {
-      type: String
-    },
-    value: {
-      type: Number
-    },
-    error: {
-      type: String
-    }
+    options: Array
   },
   data () {
     return {
-
+      digiteds: '',
+      showList: false
     }
   },
+  momunted () {
+    this.dropDown()
+  },
   computed: {
-    selected: {
-      get () {
-        return this.value
+    filterOptions: {
+      set: function (e) {
+        this.digiteds = e.target.value
       },
-      set (value) {
-        this.$emit('input', value)
+      get: function () {
+        return this.options.filter((option) => option.name.includes(this.digiteds))
       }
     }
   },
   methods: {
-
+    dropDown () {
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('#custom-select')) {
+          this.showList = true
+        } else {
+          this.showList = false
+        }
+      })
+    }
   }
 }
 </script>
+
 <style lang="sass" scoped>
-.select-content__select
-  border: 1px solid lightgray
-  width: 100%
-  background-color: white
-  -webkit-appearance: none
-  -moz-appearance: none
-  appearance: none
-  outline: none
-.select-content__option
-  font-size: 1.0rem
-.select-content__select--icon
-  border-left: none
-  border-radius: 0px 4px 4px 0px
-.select-content__select--no-icon
-  border-radius: 4px
-.select-content
+ .custom-select 
+  position: relative
+.custom-select__list
+  display: block
+  border: 1px solid transparent
+  position: absolute
+  padding: 10px 30px
+  left: 0
+  margin: 0
+  min-width: 150px
+  z-index: 999
+  box-shadow: 0 0 0 1px rgba(0,0,0,.15), 0 2px 3px rgba(0,0,0,.2)
+  border-bottom-left-radius: 2px
+  border-bottom-right-radius: 2px
+  color: #58595a
+.custom-select__option
+  list-style-type: none
+  cursor: pointer
+  margin: 5px 0px
+.custom-select__container-input
   display: flex
-  flex-direction: row
+.custom-select__container-input:focus
+  outline: none
+.custom-select__container-input:focus .custom-select__input
+  border: 1.5px solid rgb(206, 3, 206)
+  border-right: 0
+.custom-select__container-input:focus .custom-select__icon
+  border: 1.5px solid rgb(206, 3, 206)
+  border-left: 0
+.custom-select__input
   width: 100%
-.select-content__icon
+  margin: 0
+  padding: 9px 7px
+  border-top-left-radius: 4px
+  border-bottom-left-radius: 4px
+  border: 1.5px solid purple
+  border-right: none
+  outline: none
+.custom-select__line-l
+  width: 10px
+  position: relative
+  right: -2px
+  border-bottom: 2px solid purple
+  transition: transform 0.5s
+  margin: 0
+.custom-select__line-r
+  width: 10px
+  position: relative
+  left: -2px
+  transition: transform 0.5s
+  border-bottom: 2px solid purple
+  margin: 0
+.custom-select__line-l--select-down
+  transform: rotateZ(45deg)
+.custom-select__line-r--select-down
+  transform: rotateZ(-45deg)
+.custom-select__line-l--select-up
+  transform: rotateZ(-45deg)
+.custom-select__line-r--select-up
+  transform: rotateZ(45deg)
+.custom-select__icon
   display: flex
   justify-content: center
-  border: 1px solid lightgray
-  border-right: none
-  border-radius: 4px 0px 0px 4px
-  max-width: 40px
-  color: $icon
-.select-content__icon--no-border
-  border-radius: 0
-.select-content--error
-  border-color: $danger
-  color: $danger
-.select-container__message-error
-  display: flex
-  flex-direction: row
-  margin-left: 10px
-  color: $danger
-.select-container__text-error
-  font-style: italic
-  margin-bottom: 0
+  align-items: center
+  border: 1.5px solid purple
+  border-left: none
+  border-top-right-radius: 4px
+  border-bottom-right-radius: 4px
+  width: 35px
+.custom-select__item--hidden
+  display: none
 </style>
