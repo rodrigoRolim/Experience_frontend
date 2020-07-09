@@ -69,7 +69,7 @@ export default {
   margin-left: 360px
 .patient-exams__exams
   width: 100%
-  margin-top: 100px
+  margin-top: 110px
   @include respond-to(medium-screens)
     width: 100%
     margin-top: 60px

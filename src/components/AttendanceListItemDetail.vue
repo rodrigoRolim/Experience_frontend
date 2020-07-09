@@ -6,7 +6,7 @@
         icon="heartbeat"
         description="ID atendimento"
         :info="idAttendance"
-        color="rgba(71, 77, 94, 1)"
+        color="#778899"
         size="2x"
       />
       <code-info
@@ -14,7 +14,7 @@
         icon="credit-card"
         description="convênio"
         :info="agreement"
-        color="rgba(71, 77, 94, 1)"
+        color="#778899"
         size="2x"
       />
       <code-info
@@ -22,7 +22,7 @@
         icon="calendar-check"
         description="data atendimento"
         :info="dataAttendance"
-        color="rgba(71, 77, 94, 1)"
+        color="#778899"
         size="2x"
       />
       <code-info
@@ -30,7 +30,7 @@
         icon="clock"
         description="previsão entrega"
         :info="dataDelivery"
-        color="rgba(71, 77, 94, 1)"
+        color="#778899"
         size="2x"
       />
     </div>
@@ -40,7 +40,7 @@
       icon="flask"
       description="exames"
       :info="exams"
-      color="rgba(71, 77, 94, 1)"
+      color="#778899"
       size="2x"
     />
   </div>

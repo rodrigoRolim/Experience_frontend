@@ -7,7 +7,7 @@
         description="idade"
         :info="age"
         size="lg"
-        color="rgba(71, 77, 94, 1)"
+        color="#778899"
       />
       <code-info
         class="attendance-patient__sex"
@@ -15,7 +15,7 @@
         description="sexo"
         :info="gender"
         size="lg"
-        color="rgba(71, 77, 94, 1)"
+        color="#778899"
       />
     
     </div>

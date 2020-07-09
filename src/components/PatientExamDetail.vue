@@ -154,6 +154,7 @@ export default {
   flex-direction: column
   justify-content: space-between
   max-height: 75vh
+  padding: 5px 10px
   overflow: auto
 .exame__header
   display: flex

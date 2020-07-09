@@ -1,7 +1,7 @@
 <template>
   <div class="input-wrap">
     <div class="container-input">
-      <i v-if="icon" :style="{padding: getSizeIcon}"
+      <i v-if="icon"
         class="container-input__icon" 
         :class="iconClasses">
         <font-awesome-icon :icon="icon" />
@@ -17,7 +17,6 @@
         type="text"
         v-model="inputEmitter" 
         :placeholder="placeholder"
-        :style="{ padding: getSizeInput, fontSize: sizeLetter, fontWeight: weightLetter, cursor: cursor }"
         @focus="focus"
         @blur="blur"
         @keyup="keyup"
@@ -33,11 +32,10 @@
 </template>
 
 <script>
-import { sizer } from '../../mixins/sizer'
+
 export default {
   name: 'CodeInput',
   inheritAttrs: false,
-  mixins: [sizer],
   props: {
     placeholder: String,
     icon: String,
@@ -99,7 +97,7 @@ export default {
   },
   watch: {
     focused (value) {
-      console.log(value)
+
       if (value) {
         this.$refs.input.focus()
       } else {
@@ -157,7 +155,6 @@ export default {
     },
     blur (e) {
       this.putOutline(false)
-      //window.scrollTo(0,0)
       this.$emit('blur', e)
     },
     keyup (e) {      
@@ -190,6 +187,7 @@ export default {
 .container-input
   width: 100%
 .container-input__input
+  padding: 9px 7px
   border: 1px solid lightgray
   border-left: none
   width: 100%
@@ -224,6 +222,7 @@ export default {
   border-right: none
   border-radius: 4px 0px 0px 4px
   background-color: white
+  padding: 9px 7px
   max-width: 45px
   color: $icon
 </style>

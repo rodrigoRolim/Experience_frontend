@@ -71,7 +71,7 @@ export default {
     width: 100%
 .doctor-patient__exams
   width:  calc( 100% - 360px )
-  margin-top: 100px
+  margin-top: 110px
   @include respond-to(medium-screens)
     width: 100%
     margin-top: 60px
