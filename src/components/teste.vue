@@ -450,7 +450,10 @@
       <Qrcode-login />
     </div>
     <div>
-      
+      <code-select-new
+        icon="candy-cane"
+        name="example"
+        :options="[{id: 0, name: 'rodrigo'}, {id: 1, name: 'rodrigo rolim'}, {id: 2, name: 'sabrina keito junior'}]"/>
     </div>
     <div class="footer">
       <h1>9. Footer</h1>
@@ -461,6 +464,7 @@
 
 <script>
 /* import ChangePassword from './ChangePasswordForm' */
+import CodeSelectNew from '../components/base/CodeSelect'
 import QrcodeLogin from './QrcodeLogin'
 import UserPerfil from './UserPerfil'
 /* import CodeSelectNew from './base/CodeSelectNew' */
@@ -509,6 +513,7 @@ export default {
     CodeButton,
     CodeMessage,
     CodeMenuAbas,
+    CodeSelectNew,
    /*  CodeDataPicker, */
     CodeSelect,
     CodeLabel,

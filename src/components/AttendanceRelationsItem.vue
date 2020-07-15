@@ -24,7 +24,7 @@
         :info="listExams"
         description="exames"
         size="lg"
-      ></code-info>
+      />
     </div>
   </div>  
 </template>
@@ -68,7 +68,9 @@ export default {
   margin-bottom: 10px
 .attendance-relation-item__line
   border-bottom: 1px solid
+  max-width: 250px
 .attendance-relation-item__body
   margin-top: 10px
-  
+  width: 100%
+  max-width: 250px
 </style>

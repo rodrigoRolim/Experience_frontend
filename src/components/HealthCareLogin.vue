@@ -55,18 +55,15 @@
         <code-select
           :options="list"
           option="Selecione um posto"
-          v-model="healthCare.healthSelected"
+          @selected="healthCare.healthSelected = value"
           size="0.9rem"
           name="healthcares"
           icon="clinic-medical"
           :width="7"
           :height="9"
           :error="validate.healthSelected"
-        >
-          <template v-slot:icon>
-            <font-awesome-icon icon="clinic-medical" :style="{ color: '#676a6c' }"></font-awesome-icon>
-          </template>
-        </code-select>
+        />
+          
       </div>
       <div class="healthcare-login__doubt">
       </div>
@@ -118,13 +115,13 @@ export default {
         healthSelected: ''
       },
       list: [
-        { id: 1, item: 'fake news' },
-        { id: 2, item: 'fake news' },
-        { id: 3, item: 'fake news' },
-        { id: 4, item: 'fake news' },
-        { id: 5, item: 'fake news' },
-        { id: 6, item: 'fake news' },
-        { id: 7, item: 'fake news' },
+        { id: 1, name: 'fake news' },
+        { id: 2, name: 'fake news' },
+        { id: 3, name: 'fake news' },
+        { id: 4, name: 'fake news' },
+        { id: 5, name: 'fake news' },
+        { id: 6, name: 'fake news' },
+        { id: 7, name: 'fake news' },
       ]
     }
   },
@@ -176,6 +173,9 @@ export default {
     },
     messageValidation (validated) {
       this.$emit('error', {error: validated, message: 'corrija ou preencha os campos abaixo'})
+    },
+    getValue (value) {
+      console.log(value)
     }
   }  
 }
@@ -200,7 +200,7 @@ export default {
   display: flex
   flex-direction: row
   justify-content: flex-end
-  align-items: baseline
+  align-names: baseline
   margin: 20px 0
 .healthcare-login__doubt .healthcare-login__doubt-button
   color: rgb(52, 181, 131)

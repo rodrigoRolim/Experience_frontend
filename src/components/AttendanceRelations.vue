@@ -1,18 +1,17 @@
 <template>
-<div class="attendace-relations">
-  <div class="attendance-relations-item"
-    v-for="attendance in attendances"
-    :key="attendance.atendimento"
-    :id="attendance.atendimento"
-    @click="highlight(attendance.atendimento)"
-  >
-    <attendance-relations-item
-      
-      :attendance-date="attendance.data_atd"
-      :list-exams="attendance.mnemonicos"
-    />
+  <div class="attendance-relations">
+    <div class="attendance-relations__item"
+      v-for="attendance in attendances"
+      :key="attendance.atendimento"
+      :id="attendance.atendimento"
+      @click="highlight(attendance.atendimento)"
+    >
+      <attendance-relations-item
+        :attendance-date="attendance.data_atd"
+        :list-exams="attendance.mnemonicos"
+      />
+    </div>
   </div>
-</div>
 </template>
 <script>
 import AttendanceRelationsItem from './AttendanceRelationsItem'
@@ -42,17 +41,17 @@ export default {
       let currentItem
       if (this.lastClicked) {
         currentItem = document.getElementById(this.lastClicked)
-        currentItem.classList.remove('attendance-relations-item--active')
+        currentItem.classList.remove('attendance-relations__item--active')
       }
       let item = document.getElementById(value)
-      item.classList.add('attendance-relations-item--active')
+      item.classList.add('attendance-relations__item--active')
       this.lastClicked = value
     }
   }
 }
 </script>
 <style lang="sass" scoped>
-.attendance-relations-item
+.attendance-relations__item
   display: flex
   flex-flow: row wrap
   margin-left: 10px
@@ -64,7 +63,8 @@ export default {
   padding: 20px 10px
   cursor: pointer
   user-select: none
-.attendance-relations-item--active
+  max-width: 350px
+.attendance-relations__item--active
   background-color: white
   color: $green
 

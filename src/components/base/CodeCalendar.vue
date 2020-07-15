@@ -25,21 +25,21 @@
       </div>
       <div class="calendar__week">
         <div 
-        class="calendar__weekday"
-        v-for="dayWeek in dayWeeks" :key="dayWeek"
+          class="calendar__weekday"
+          v-for="dayWeek in dayWeeks" :key="dayWeek"
         >
         {{dayWeek}}
         </div>
       </div>
       <div class="calendar__days">
         <div 
-        class="calendar__day"
-        :class="{ 'calendar__day--selected': selected == day,
+          class="calendar__day"
+          :class="{ 'calendar__day--selected': selected == day,
                   'calendar__day--unselectable': unselectableDates(day) }"
-        v-for="(day, i) in days" :key="i"
-        @click="selectDay(day)"
+          v-for="(day, i) in days" :key="i"
+          @click="selectDay(day)"
         >
-        {{day}}
+          {{day}}
         </div>
       </div>
     </div>
@@ -189,10 +189,9 @@ export default {
     },
     selectDay (day) {
       if (!this.unselectableDates(day)) {
-        this.selectedDate = this.formatDate(new Date(this.year + '-' + (this.month + 1) + '-' + day))
-       
+        this.selectedDate = this.formatDate(new Date(this.year, this.month, day))
         this.selectedDay = day
-        this.selectedMonth = this.month
+        this.selectedMonth = this.month + 1
         this.selectedYear = this.year
         this.populateDates()
       }
@@ -290,7 +289,7 @@ export default {
     },
     formatDate (d) {
       let day = d.getDate()
-      
+      console.log(d)
       if (day < 10) {
         day = '0' + day
       }

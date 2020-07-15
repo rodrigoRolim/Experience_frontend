@@ -53,39 +53,26 @@
           </div>
         </div>
       </div>
-      <div class="patient__attendance">
-        <div class="patient__date">
-          <code-info 
-            icon="calendar-check"
-            info="07/04/2016"
-            description="data atendimento"
-            color="rgb(71, 77, 94)"
-            size="lg"
-          />
-        </div> 
-        <div class="patient__id">
-          <code-info
-            icon="heartbeat"
-            info="0/0012889"
-            description="ID atendimento"
-            color="rgb(71, 77, 94)"
-            size="lg"
-          />
-        </div>  
+      <div class="patient-list-attendances">
+        <patient-list-item-attendances />
+        <patient-list-item-attendances />
+        <patient-list-item-attendances />
+        <patient-list-item-attendances />
       </div>
     </div>
   </div>
 </template>
 <script>
 import CodeInfo from './base/CodeInfo'
+import PatientListItemAttendances from './PatientListItemAttendances'
 export default {
   name: 'PatientListItem',
   components: {
-    CodeInfo
+    CodeInfo,
+    PatientListItemAttendances
   },
   methods: {
     patientExamsView () {
-      console.log('as')
       this.$router.push('/medico/paciente/1/1')
     }
   }
@@ -95,7 +82,6 @@ export default {
 .patient
   display: flex
   flex-direction: column
-
   width: 100%
   border: 1px solid lightgray
   border-radius: 4px
@@ -119,7 +105,35 @@ export default {
     width: 30%
   @include respond-to(medium-screens)
     flex-direction: row
-
+.patient-list-attendances
+  min-height: 70px
+  border-radius: 4px
+  padding: 2px 10px
+  @include respond-to(medium-screens)
+    width: 100%
+    margin-top: 20px
+    justify-content: center
+    min-height: 50px
+    align-self: center
+  @include respond-to(handhelds)
+    width: 100%
+    margin-top: 20px
+    display: flex
+    flex-wrap: wrap
+    justify-content: space-evenly
+    align-items: center
+    min-height: 50px
+  display: flex
+  flex-direction: row 
+  justify-content: space-evenly
+  align-items: center
+  background-color: white
+  border: 1px solid lightgray
+.patient-list-attendances__item
+  display: flex
+  align-items: center
+  justify-content: center
+  width: 100%
 .patient__name
   color: rgb(71, 77, 94)
   font-size: 0.9rem
@@ -149,28 +163,6 @@ export default {
 .patient__phones
   display: flex
   flex-direction: row
-.patient__attendance
-  width: 25%
-  @include respond-to(medium-screens)
-    width: 70%
-    margin-top: 20px
-    justify-content: space-evenly
-    min-height: 50px
-    align-self: center
-  @include respond-to(handhelds)
-    width: 100%
-    margin-top: 20px
-    display: flex
-    flex-wrap: wrap 
-    justify-content: space-evenly
-    align-items: center
-    min-height: 50px
-  display: flex
-  flex-direction: row
-  justify-content: space-evenly
-  align-items: center
-  background-color: white
-  border: 1px solid lightgray
 .patient--margin
   margin: 10px 20px 10px 0
   @include respond-to(handhelds)
