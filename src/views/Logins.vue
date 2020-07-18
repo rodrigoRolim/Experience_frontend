@@ -45,7 +45,7 @@
               </div>
               <div v-if="!hiddenBanner" @click="aba = 2" class="aba" :class="{ 'aba--active-aba': aba == 2 }">
                  <code-info
-                  icon="user-md"
+                  icon="stethoscope"
                   info="médico"
                 />
               </div>
