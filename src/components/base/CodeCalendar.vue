@@ -2,17 +2,14 @@
   <div :class="name | calendarName" ref="calendar" >
     <div class="calendar__selected-date" ref="selected_date" @click="showDateToggle">
       <code-input
-        label="number"
         :placeholder="placeholder"
         :icon="icon"
         :name="name"
-        type="text"
-        :width="7"
-        :height="8"
         autocomplete="off"
         v-model="selectedDate"
         :noBorderRight="noBorderRight"
         :noBorderLeft="noBorderLeft"
+        bolder
         v-date
       > 
       </code-input>
@@ -123,10 +120,12 @@ export default {
       inserted: (el, _, vnode) => {
 
         el.addEventListener('input', function (e) {
+
           var input = e.target.value
+        
           if (/\D\/$/.test(input)) { 
 
-            input = input.substr(0, input.lenght - 3)
+            input = input.substr(0, input.length - 3)
           }
           var values = input.split('/').map(function(v) {
             return v.replace(/\D/g, '')
@@ -137,10 +136,12 @@ export default {
             return v.length == 2 && i < 2 ? v + ' / ' : v
           })
           e.target.value = output.join('').substr(0, 14)
+
         })
         el.addEventListener('blur', function (e) {
 
           var input = e.target.value
+ 
           var values = input.split('/').map(function (v) {
             return v.replace(/\D/g, '')
           })
@@ -289,7 +290,6 @@ export default {
     },
     formatDate (d) {
       let day = d.getDate()
-      console.log(d)
       if (day < 10) {
         day = '0' + day
       }
