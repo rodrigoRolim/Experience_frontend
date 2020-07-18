@@ -1,7 +1,9 @@
 <template>
   <div class="patients">
     <div class="patients__header">
-      <span class="patients__number">foram encontrados {{1}} atendimentos para as datas selecionadas</span>
+      <span class="patients__number">
+        foram encontrados {{1}} atendimentos para as datas selecionadas
+      </span>
     </div>
     <div class="patient__body" id="patient__list">
       <patient-list-item class="patitent__body__item"></patient-list-item>
