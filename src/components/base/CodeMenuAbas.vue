@@ -50,8 +50,6 @@ export default {
   width: 20%
   cursor: pointer
   padding: 10px
-  @include respond-to(handhelds)
-    padding: 5px
 .aba--active-aba
   display: flex
   align-items: center
@@ -65,6 +63,4 @@ export default {
 .aba--active-aba.aba
   padding-bottom: 12px
   color: #5f5e5e
-  @include respond-to(handhelds)
-    padding-bottom: 7px 
 </style>
