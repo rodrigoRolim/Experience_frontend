@@ -11,7 +11,7 @@
       <template v-slot:content>
         <div class="patient-exams__patient-info">
           <code-info 
-            class="patient-exams--margin"
+            class="patient-exams--margin patient-exams__info"
             icon="birthday-cake"
             size="lg"
             description="idade"
@@ -19,7 +19,7 @@
             color="rgba(71, 77, 94, 1)"
           />
           <code-info
-            class="patient-exams--margin"
+            class="patient-exams--margin patient-exams__info"
             icon="mars"
             size="lg"
             description="sexo"
@@ -29,13 +29,13 @@
           <code-info 
             icon="clock"
             size="lg"
-            class="patient-exams--margin"
+            class="patient-exams--margin patient-exams__info"
             description="previsão entrega"
             info="15/10/2020"
             color="rgba(71, 77, 94, 1)"
           />
           <code-info
-            class="patient-exams--margin"
+            class="patient-exams--margin patient-exams__info"
             icon="user-md"
             size="lg"
             description="médico solicitante"
@@ -83,6 +83,7 @@ export default {
   flex-direction: row
   align-items: flex-start
   justify-content: space-between
+  width: 100%
   @include respond-to(medium-screens)
     width: 100%
     padding: 4px 19px
@@ -90,7 +91,6 @@ export default {
     width: 100%
     flex-direction: column
     justify-content: space-between
-  width: 95%
 .patient-exams__title
   display: flex
   flex-direction: row
