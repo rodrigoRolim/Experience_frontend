@@ -98,7 +98,6 @@ export default {
   -webkit-box-shadow:  0 0 3px rgba(0,0,0,.3)
 .patient__perfil
   display: flex
-  width: 100%
   flex-direction: column
   @include respond-to(wide-screens)
     flex-direction: row
@@ -109,11 +108,10 @@ export default {
   min-height: 70px
   border-radius: 4px
   padding: 2px 10px
+  width: 60%
   @include respond-to(medium-screens)
     width: 100%
     margin-top: 20px
-    justify-content: center
-    min-height: 50px
     align-self: center
   @include respond-to(handhelds)
     width: 100%
@@ -121,7 +119,6 @@ export default {
     display: flex
     flex-wrap: wrap
     justify-content: space-evenly
-    align-items: center
     min-height: 50px
   display: flex
   flex-direction: row 
@@ -148,7 +145,7 @@ export default {
 .patient__contacts
   display: flex
   flex-direction: column
-  width: 45%
+  width: 40%
   @include respond-to(medium-screens)
     width: 100%
     margin-top: 20px
@@ -166,5 +163,5 @@ export default {
 .patient--margin
   margin: 10px 20px 10px 0
   @include respond-to(handhelds)
-    margin: 0
+    margin: 5px 0
 </style>
