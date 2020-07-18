@@ -37,9 +37,9 @@ export default {
   display: flex
   flex-direction: row
   vertical-align: middle
-  min-width: 110px 
   @include respond-to(handhelds)
     width: 100%
+    
 .info__icon
   display: flex
   justify-content: center
