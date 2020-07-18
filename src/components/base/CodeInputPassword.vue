@@ -227,7 +227,7 @@ input[type="password"]
   background-color: white
   color: $icon
 .input-password--outline
-  border-color: $brand
+  border-color: $primary
 .input-password--error
   border-color: $danger
   color: $danger
