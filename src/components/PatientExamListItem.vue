@@ -1,5 +1,5 @@
 <template>
-  <div class="patient-exam" :class="getSituation | situationModifiers" @click="click">
+  <div class="patient-exam" :class="getSituation | situationModifiers" @click.self="click">
     <div class="patient-exam__detail">
       <code-chip text="lic" transform="uppercase" class="patient-exam__tag"></code-chip>
       <div class="patient-exam__separator-line"></div>
@@ -25,7 +25,7 @@
       <div class="patient-exam__status-exam">
         <code-chip-situation :situation="situation"/>
       </div>
-      <div class="patient-exam__checkbox">
+      <div class="patient-exam__checkbox" >
         <code-checkbox
           v-show="situation == 'TF'"
           text="imprimir"
@@ -84,7 +84,6 @@ export default {
   border-radius: 2px
   min-height: 120px
   user-select: none
-
 .patient-exam:hover
   -webkit-box-shadow:  0 0 6px rgba(0,0,0,.3)
   box-shadow:  0 0 6px rgba(0,0,0,.3)
