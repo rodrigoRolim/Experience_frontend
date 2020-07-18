@@ -32,15 +32,12 @@ export default {
   background-color: $green
   padding-bottom: 50px
   min-height: 100vh
-  @include respond-to(medium-screens)
-    width: 345px
-  @include respond-to(handhelds)
-    width: 100%
+  width: 321px
   border-right: 1px solid rgba(0,0,0,0.01)
 .sidebar__header
   display: flex
   position: fixed
-  width: 345px
+  width: 321px
   flex-direction: row
   justify-content: center
   align-items: center
@@ -60,12 +57,9 @@ export default {
   flex-flow: row wrap
   background-color: white
   margin-left: 10px
-  margin-top: 10px
   @include respond-to(handhelds)
-    margin-right: 10px
     border-radius: 4px
   color: $green
-  padding: 20px 10px
   cursor: pointer
   user-select: none
 .sidebar__date,
