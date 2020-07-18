@@ -28,7 +28,6 @@ export default {
   display: flex
   @include respond-to(handhelds)
     margin-top: 60px
-    margin-bottom: 40px
   min-height: 100vh
 .health-center-patient__main
   width: 100%
