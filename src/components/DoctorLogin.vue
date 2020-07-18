@@ -110,7 +110,6 @@ import CodeInput from './base/CodeInput'
 import CodeInputPassword from './base/CodeInputPassword'
 import CodeLabel from './base/CodeLabel'
 import CodeButton from './base/CodeButton'
-import store from '../store'
 import { required } from '../mixins/validations/rules'
 import { validator } from '../mixins/validations/validator'
 export default {
@@ -126,7 +125,10 @@ export default {
   data () {
     return {
       typeCode: -1,
-      uf: 0,
+      ufs: [{
+        id: 1, name: 'MA'
+      }],
+      crs: [{id: 1, name: 'CRM'}],
       doctor: {
         professionalCouncil: -1,
         profissionalUF: -1,
@@ -142,12 +144,6 @@ export default {
     }
   },
   computed: {
-    ufs () {
-      return store.ufs
-    },
-    crs () {
-      return store.crs
-    },
     professionalCouncil () {
       return this.doctor.professionalCouncil < 0 ? '' : this.doctor.professionalCouncil
     },
