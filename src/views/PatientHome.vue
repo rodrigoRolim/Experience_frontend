@@ -1,15 +1,9 @@
 <template>
   <div class="patient-exams">
-    <!-- <transition
-      name="dropside"
-      enter-active-class="sidebar--show"
-      leave-active-class="sidebar--hidden"
-    > -->
       <div class="patient-exams__sidebar" 
         :class="{ 'sidebar--show': attendances, 'sidebar--hidden': !attendances }">
         <the-sidebar />
       </div>
-    <!-- </transition> -->
     <div class="patient-exams__main">
       <div class="patient-exams__patient">
         <patient-exams-list-header></patient-exams-list-header>
@@ -55,7 +49,7 @@ export default {
     margin-bottom: 40px
   min-height: 100vh
 .patient-exams__main
-  width: calc( 100% - 360px )
+  width: calc( 100% - 321px )
   display: flex
   flex-direction: column
   align-items: flex-end
@@ -66,7 +60,7 @@ export default {
     margin-top: 0
     margin-left: 0
     width: 100%
-  margin-left: 360px
+  margin-left: 321px
 .patient-exams__exams
   width: 100%
   margin-top: 110px
@@ -83,7 +77,7 @@ export default {
   @include respond-to(wide-screens)
     display: block
   position: fixed
-  width: 360px
+  width: 321px
   overflow-y: auto
   height: 100vh
   z-index: 4
@@ -91,7 +85,7 @@ export default {
     overflow-x: hidden
   
 .patient-exams__patient
-  width: calc(100% - 360px)
+  width: calc(100% - 321px)
   z-index: 2
   @include respond-to(medium-screens)
     width: 100%
