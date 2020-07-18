@@ -41,18 +41,21 @@
                 <code-info
                   icon="user"
                   info="paciente"
+                  mobile-hidden
                 />
               </div>
               <div v-if="!hiddenBanner" @click="aba = 2" class="aba" :class="{ 'aba--active-aba': aba == 2 }">
                  <code-info
                   icon="stethoscope"
                   info="médico"
+                  mobile-hidden
                 />
               </div>
               <div v-if="!hiddenBanner" @click="aba = 3" class="aba" :class="{ 'aba--active-aba': aba == 3 }">
                 <code-info
                   icon="handshake"
                   info="parceiro"
+                  mobile-hidden
                 />
                 
               </div>
@@ -60,12 +63,14 @@
                 <code-info
                   icon="clinic-medical"
                   info="posto"
+                  mobile-hidden
                 />
               </div>
               <div v-if="!hiddenBanner" @click="aba = 5" class="aba" :class="{ 'aba--active-aba': aba == 5 }">
                 <code-info
                   icon="qrcode"
                   info="QR code"
+                  mobile-hidden
                 />
               </div>
             </template>
