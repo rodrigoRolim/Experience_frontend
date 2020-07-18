@@ -1,11 +1,18 @@
 <template>
-  <div class="info" :class="{ 'info--bottom': bottom, 'info--left': left }">
+  <div class="info" 
+    :class="{ 
+      'info--bottom': bottom, 
+      'info--left': left,
+      'info__content--hidden': mobileHidden  
+    }">
     <span class="info__icon" v-if="icon"><font-awesome-icon :icon="icon" :size="size" :style="{color: color}"/></span>
-    <div class="info__label" :class="{ 'info__label--bottom': bottom }">
+    <div class="info__label" 
+      :class="{
+        'info__label--bottom': bottom
+      }">
       <span v-if="description && !bottom" class="info__description">{{description}}</span>
       <span 
         class="info__content" 
-        :class="{ 'info__content--hidden': mobileHidden }"
         :style="{ 'font-size': sizeInfo }"
       >{{info}}</span>
     </div>
@@ -39,7 +46,6 @@ export default {
   vertical-align: middle
   @include respond-to(handhelds)
     width: 100%
-    
 .info__icon
   display: flex
   justify-content: center
@@ -78,6 +84,9 @@ export default {
   margin-top: 3px
   margin-right: 3px
 .info__content--hidden
+  justify-content: center
+  align-items: center
+.info__content--hidden .info__label .info__content
   @include respond-to(handhelds)
-    display: none
+    display: none 
 </style>
