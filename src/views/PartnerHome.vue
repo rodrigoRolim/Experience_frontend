@@ -11,7 +11,7 @@
             <font-awesome-icon icon="arrow-left" size="lg" color="lightslategray"/>
           </i>
           <attendance-list-search
-            :class="{'filter__input': searcherInModal}"
+            :class="{ 'filter__input': searcherInModal }"
             @focus="searcherInModal = true"
             @blur="searcherInModal = false"
           />
@@ -113,6 +113,7 @@ export default {
 .partner-home__filter
   position: fixed
   width: 100%
+  z-index: 5
 .partner-home__attendances
   margin: 155px auto 0px auto 
   width: 98%
@@ -120,12 +121,6 @@ export default {
     margin-top: 100px
   @include respond-to(medium-screens)
     margin-top: 100px
-.filter
-  width: 100%
-  position: fixed
-  z-index: 4
-.filter--modal
-  z-index: 6
 .filter__searcher
   display: flex
   align-items: center
@@ -158,10 +153,9 @@ export default {
     width: 100%
     height: 100%
     position: fixed
-    top: 60px
+    top: 0
     left: 0
     bottom: 0
-    z-index: 4
     background-color: white
     display: flex
     justify-content: center

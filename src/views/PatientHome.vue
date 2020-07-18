@@ -83,7 +83,6 @@ export default {
   z-index: 4
   @include respond-to(medium-screens)
     overflow-x: hidden
-  
 .patient-exams__patient
   width: calc(100% - 321px)
   z-index: 2
@@ -91,5 +90,4 @@ export default {
     width: 100%
   @include respond-to(handhelds)
     width: 100%
-   
 </style>

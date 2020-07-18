@@ -64,8 +64,6 @@
             class="attendances-filter-partner__input"
             placeholder="digite o nome do paciente"
             name="patientName"
-            :width="9"
-            :height="8" 
           />
         </div>
         <div class="attendances-filter-partner__buttons">
