@@ -48,26 +48,11 @@ export default {
       required: true
     },
     numeric: Boolean,
-    width: {
-      type: Number,
-      default: 6
-    },
-    height: {
-      type: Number,
-      default: 7
-    },
     noBorderRight: {
       type: Boolean
     },
     noBorderLeft: {
       type: Boolean
-    },
-    sizeLetter: {
-      type: String,
-      default: '0.95rem'
-    },
-    weightLetter: {
-      type: Number
     },
     cursor: {
       type: String
@@ -75,9 +60,7 @@ export default {
     value: {
       type: String
     },
-    focused: {
-      type: Boolean
-    },
+    bolder: Boolean,
     caret: {
       type: []
     },
@@ -128,7 +111,8 @@ export default {
         'input--no-border-right': this.noBorderRight,
         'container-input__icon--no-border-left': this.noBorderLeft,
         'container-input__input--outline': this.outlineInput && !this.error,
-        'container-input--error': this.error 
+        'container-input--error': this.error,
+        'container-input--bold': this.bolder
       }
     },
     iconClasses (){
@@ -218,11 +202,14 @@ export default {
 .container-input__icon
   display: flex
   justify-content: center
+  align-items: center
   border: 1px solid lightgray
   border-right: none
   border-radius: 4px 0px 0px 4px
   background-color: white
-  padding: 9px 7px
+  padding: 9px 14px
   max-width: 45px
   color: $icon
+.container-input--bold
+  font-weight: 700
 </style>
