@@ -40,7 +40,6 @@ export default {
 .patient-list-item-attendances__date,
 .patient-list-item-attendances__id
   display: flex
-  justify-content: flex-start
-  align-items: flex-start
-  margin: 5px 10px
+  margin: 8px 0px
+
 </style>
