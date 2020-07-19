@@ -39,7 +39,7 @@ export default {
   width: 100%
   top: 0
   left: 0
-  z-index: 3
+  z-index: 4
 .partner__main
   margin-top: 60px
 .partner__footer

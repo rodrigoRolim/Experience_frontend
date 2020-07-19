@@ -1,15 +1,10 @@
 <template>
   <div class="partner-home">
-    <div class="partner-home__filter">
+    <div class="partner-home__filter" 
+      :class="{'partner-home__filter--index-up': searcherInModal}">
       <attendance-list-filter-partner />
       <div class="filter__searcher" :class="{'filter__searcher--modal': searcherInModal}">
         <div class="filter__content">
-          <i 
-            class="searcher__arrow-back" 
-            :class="{'searcher__arrow-back--hidden': !searcherInModal, 'searcher__arrow-back--show': searcherInModal}"
-          >
-            <font-awesome-icon icon="arrow-left" size="lg" color="lightslategray"/>
-          </i>
           <attendance-list-search
             :class="{ 'filter__input': searcherInModal }"
             @focus="searcherInModal = true"
@@ -110,10 +105,11 @@ export default {
 .partner-home
   display: flex
   flex-direction: column
+.partner-home__filter--index-up
+  z-index: 5
 .partner-home__filter
   position: fixed
   width: 100%
-  z-index: 5
 .partner-home__attendances
   margin: 155px auto 0px auto 
   width: 98%
@@ -161,5 +157,5 @@ export default {
     justify-content: center
 .filter__input
   @include respond-to(handhelds)
-    width: 90%
+    width: 98%
 </style>

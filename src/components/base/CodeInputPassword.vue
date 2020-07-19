@@ -53,11 +53,10 @@
 </template>
 
 <script>
-import { sizer } from '../../mixins/sizer'
+
 export default {
   name: 'CodeInputPassword',
   inheritAttrs: false,
-  mixins: [sizer],
   props: {
     icon: String,
     name: {

@@ -11,8 +11,7 @@
         :noBorderLeft="noBorderLeft"
         bolder
         v-date
-      > 
-      </code-input>
+      /> 
     </div>
     <div class="calendar__dates" :id="id" :class="{ 'calendar__dates--show': showDate, 'calendar__dates--hidden': !showDate }" ref="dates">
       <div class="calendar__month">

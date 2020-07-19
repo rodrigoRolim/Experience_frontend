@@ -108,7 +108,7 @@ export default {
     inputClasses () {
       return { 
         'container-input__input--icon': this.icon, 'container-input__input--no-icon': !this.icon, 
-        'input--no-border-right': this.noBorderRight,
+        'container-input--no-border-right': this.noBorderRight,
         'container-input__icon--no-border-left': this.noBorderLeft,
         'container-input__input--outline': this.outlineInput && !this.error,
         'container-input--error': this.error,
