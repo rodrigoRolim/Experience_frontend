@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     showContent () {
-      document.body.style.overflow = 'hidden'
+      document.body.style.overflow = (!this.show) ? 'hidden' : 'auto'
       this.show = !this.show
     },
     filter () {
