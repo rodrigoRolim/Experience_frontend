@@ -6,7 +6,8 @@
         v-if="icon">
         <font-awesome-icon :icon="icon" />
       </i>
-      <input 
+      <input
+        list="options"
         @input="filterOptions = $event" 
         class="custom-select__input"
         :class="{'custom-select__input--icon': icon}" 
@@ -30,16 +31,16 @@
         <small class="custom-select__text-error">{{error}}</small>
       </div>
     </div>
-    <ul tabindex="1" class="custom-select__list" v-if="showList">
-      <li 
+    <datalist tabindex="1"  id="options">
+      <option 
         v-for="option in filterOptions" 
         :key="option.id" 
         class="custom-select__option"
         @click="selected(option)"
       >
         {{option.name}}
-      </li>
-    </ul>
+      </option>
+    </datalist>
   </div>
 </template>
 
@@ -99,6 +100,8 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+input::-webkit-calendar-picker-indicator
+  display: none
 .custom-select 
   position: relative
 .custom-select__list

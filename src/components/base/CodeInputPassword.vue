@@ -19,7 +19,6 @@
         :type="type" 
         :name="name" 
         :id="id"
-        :style="getStyleInput" 
         v-bind="$attrs"
         v-model="inputEmitter"
         @keydown="replaceByBullet"
@@ -125,18 +124,6 @@ export default {
       set (value) {
         this.$emit('input', value)
       }
-    },
-    getStyleInput (vm) {
-      return {
-        padding: vm.getSizeInput,
-        cursor: vm.cursor,
-        fontSize: vm.fontSize
-      }
-    },
-    getStyleIcon (vm) {
-      return {
-        padding: vm.getSizeIcon
-      }
     }
   },
   methods: {
@@ -185,6 +172,7 @@ input[type="password"]
   color: lightslategray
   font-size: 1.05rem !important
 .input-password__input
+  padding: 9px 7px
   border: 1px solid lightgray
   border-right: none
   border-left: none
@@ -214,6 +202,7 @@ input[type="password"]
   border-right: none
   border-radius: 4px 0px 0px 4px
   background-color: white
+  padding: 9px 14px
   color: $icon
 .input-password__eye
   display: flex

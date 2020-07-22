@@ -131,7 +131,6 @@ export default {
       if (focus) {
         this.$refs.input.focus()
       }
-      
     },
     focus (e) {
       this.putOutline(true)

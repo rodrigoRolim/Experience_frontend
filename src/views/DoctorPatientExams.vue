@@ -5,13 +5,14 @@
       enter-active-class="sidebar--show"
       leave-active-class="sidebar--hidden"
     > -->
-      <div class="doctor-patient__sidebar" 
+      <div class="doctor-patient__sidebar"
+        id="scrollbar" 
         :class="{ 'sidebar--show': attendances, 'sidebar--hidden': !attendances }"
       >
         <the-sidebar />
       </div>
    <!--  </transition> -->
-    <div class="doctor-patient__main">
+    <div class="doctor-patient__main" >
       <div class="doctor-patient__patient">
         <patient-exams-list-header></patient-exams-list-header>
       </div>
@@ -50,6 +51,9 @@ export default {
 
 <style lang="sass" scoped>
 @import '../styles/animations/__dropside'
+@import '../styles/_scrollbar'
+@include scrollbar($el: '#scrollbar', $w: 15px)
+
 .doctor-patient
   display: flex
   @include respond-to(handhelds)
@@ -70,7 +74,7 @@ export default {
     margin-left: 0
     width: 100%
 .doctor-patient__exams
-  width:  calc( 100% - 360px )
+  width:  calc( 100% - 321px )
   margin-top: 110px
   @include respond-to(medium-screens)
     width: 100%
@@ -85,14 +89,14 @@ export default {
   @include respond-to(wide-screens)
     display: block
   position: fixed
-  width: 360px
+  width: 321px
   overflow-y: auto
   height: 100vh
   z-index: 4
   @include respond-to(medium-screens)
     overflow-x: hidden
 .doctor-patient__patient
-  width: calc( 100% - 360px )
+  width: calc( 100% - 321px )
   z-index: 2
   @include respond-to(medium-screens)
     width: 100%

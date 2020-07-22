@@ -26,7 +26,9 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+
 .sidebar
+  position: relative
   display: flex
   flex-direction: column
   background-color: $green
@@ -37,12 +39,12 @@ export default {
 .sidebar__header
   display: flex
   position: fixed
-  width: 321px
+  width: 306px
   flex-direction: row
   justify-content: center
   align-items: center
   background-color: $green
-  border-bottom: 1px solid
+
   height: 100px
   color: white
 .sidebar__date

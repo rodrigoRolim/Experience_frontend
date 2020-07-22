@@ -10,11 +10,11 @@
       :class="{
         'info__label--bottom': bottom
       }">
-      <span v-if="description && !bottom" class="info__description">{{description}}</span>
-      <span 
+      <sup v-if="description && !bottom" class="info__description">{{description}}</sup>
+      <sub
         class="info__content" 
         :style="{ 'font-size': sizeInfo }"
-      >{{info}}</span>
+      >{{info}}</sub>
     </div>
   </div>
 </template>
@@ -70,6 +70,7 @@ export default {
   font-size: 1.0rem
 .info__content
   font-weight: 600
+  font-size: 0.72rem
 .info--left .info__content
   margin-right: 10px
 .info--bottom

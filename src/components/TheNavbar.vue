@@ -1,19 +1,15 @@
 <template>
-  <div class="navbar">
-    <!-- <span class="navbar__shadow-left"></span> -->
-    <header class="navbar__header">
-      <div class="navbar__logo" v-if="logo">
-        <div class="navbar__collapser">
-          <slot name="collapser"></slot>
-        </div>
-        <img class="navbar__image" :src="takeLogo(logo)" alt="logo da empresa">
+  <header class="navbar__header">
+    <div class="navbar__logo" v-if="logo">
+      <div class="navbar__collapser">
+        <slot name="collapser"></slot>
       </div>
-      <div class="navbar__profile">
-        <slot name="perfil"></slot>
-      </div>
-    </header>
-   <!--  <span class="navbar__shadow-right"></span> -->
-  </div>
+      <img class="navbar__image" :src="takeLogo(logo)" alt="logo da empresa">
+    </div>
+    <div class="navbar__profile">
+      <slot name="perfil"></slot>
+    </div>
+  </header>
   
 </template>
 <script>
@@ -42,9 +38,6 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-.navbar
-  display: flex
-  height: 60px
 .navbar__header
   display: flex
   flex-direction: row
