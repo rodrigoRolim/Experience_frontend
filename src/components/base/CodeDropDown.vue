@@ -1,7 +1,7 @@
 <template>
   <div class="dropdown" :style="{ backgroundColor: bcolor }">
     <div class="dropdown__buttons" v-if="dropdown">
-      <button @click="show = !show" class="dropdown__button" :class="{'dropdown__button--hidden': !dropdown}">
+      <button @click="showContent" class="dropdown__button" :class="{'dropdown__button--hidden': !dropdown}">
         <i class="dropdown__button-icon">
           <transition name="fade" mode="out-in">
             <font-awesome-icon icon="caret-down" size="lg" v-if="!show" key="down"/>
@@ -39,7 +39,8 @@ export default {
   created () {
   },
   methods: {
-    toggleVisibility () {
+    showContent () {
+      document.body.style.overflow = 'hidden'
       this.show = !this.show
     },
     filter () {
@@ -77,7 +78,6 @@ export default {
 .dropdown__buttons
   display: none
   width: 100%
-
   @include respond-to(handhelds)
     display: block
   @include respond-to(medium-screens)
@@ -103,6 +103,8 @@ export default {
     max-height: 200px
   @include respond-to(handhelds)
     flex-direction: column
+    height: 70vh
+    overflow-y: auto
 .fade-enter-active, .fade-leave-active
   transition: opacity .3s
 .fade-enter, .fade-leave-to

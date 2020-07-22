@@ -137,10 +137,10 @@ export default {
         realizer: -1
       },
       list: [
-        {id: 1, item: 'doce de laranja'},
-        {id: 2, item: 'doce de siriguela'},
-        {id: 3, item: 'doce de morango'},
-        {id: 4, item: 'doce de abobora'}
+        {id: 1, name: 'doce de laranja'},
+        {id: 2, name: 'doce de siriguela'},
+        {id: 3, name: 'doce de morango'},
+        {id: 4, name: 'doce de abobora'}
       ]
     }
   },
