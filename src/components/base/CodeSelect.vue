@@ -26,9 +26,9 @@
           }"
         ></div>
       </span>
-      <div class="custom-select__message-error"  v-if="error">
+    </div>
+    <div class="custom-select__message-error"  v-if="error">
         <small class="custom-select__text-error">{{error}}</small>
-      </div>
     </div>
     <div tabindex="1" class="custom-select__list" v-if="showList">
       <option 
@@ -101,6 +101,7 @@ export default {
 <style lang="sass" scoped>
 .custom-select 
   position: relative
+ 
 .custom-select__list
   display: block
   border: 1px solid transparent
@@ -125,6 +126,7 @@ export default {
   outline: none
 .custom-select__input
   width: 100%
+  min-width: 20px
   margin: 0
   padding: 9px 7px
   border-top-left-radius: 4px

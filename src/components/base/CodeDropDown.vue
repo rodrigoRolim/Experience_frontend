@@ -13,9 +13,9 @@
     <div class="dropdown__contents"
       :class="{'dropdown--visible': show && dropdown, 'dropdown--hidden': !show && dropdown}"
       >
-      <div class="dropdown__content">
+     <!--  <div class="dropdown__content"> -->
         <slot name="content"></slot>
-      </div>
+     <!--  </div> -->
     </div>
   </div>
 </template>
@@ -64,17 +64,6 @@ export default {
   padding: 2px
   @include respond-to(wide-screens)
     flex-direction: row
-.dropdown__content
-  display: flex
-  flex-direction: row
-  align-items: center
-  justify-content: space-between
-  width: 100%
-  padding: 12px 10px
-  @include respond-to(medium-screens)
-    flex-wrap: wrap
-  @include respond-to(handhelds)
-    flex-direction: column
 .dropdown__buttons
   display: none
   width: 100%
@@ -94,17 +83,6 @@ export default {
   vertical-align: middle
 .dropdown__button-icon
   margin-right: 10px
-.dropdown__contents
-  display: flex
-  flex-direction: row
-  justify-content: space-between
-  width: 100%
-  @include respond-to(wide-screens)
-    max-height: 200px
-  @include respond-to(handhelds)
-    flex-direction: column
-    height: 70vh
-    overflow-y: auto
 .fade-enter-active, .fade-leave-active
   transition: opacity .3s
 .fade-enter, .fade-leave-to
