@@ -10,7 +10,7 @@
         :noBorderRight="noBorderRight"
         :noBorderLeft="noBorderLeft"
         bolder
-        v-date
+       
       /> 
     </div>
     <div class="calendar__dates" :id="id" :class="{ 'calendar__dates--show': showDate, 'calendar__dates--hidden': !showDate }" ref="dates">
@@ -117,36 +117,49 @@ export default {
   directives: {
     date: {
       inserted: (el, _, vnode) => {
-
         el.addEventListener('input', function (e) {
+         
+          e = e || window.event 
+          let target = e.target || e.srcElement
+          var input = target.value
 
-          var input = e.target.value
-        
           if (/\D\/$/.test(input)) { 
 
             input = input.substr(0, input.length - 3)
+          
           }
           var values = input.split('/').map(function(v) {
             return v.replace(/\D/g, '')
           });
+          console.log(values)
           if (values[0]) values[0] = vnode.context.checkValue(values[0], 31)
           if (values[1]) values[1] = vnode.context.checkValue(values[1], 12)
           var output = values.map(function (v, i) {
             return v.length == 2 && i < 2 ? v + ' / ' : v
           })
+          console.log(output.join('').substr(0, 14))
           e.target.value = output.join('').substr(0, 14)
-
         })
-        el.addEventListener('blur', function (e) {
+      }
+    },
+    blur: {
+      inserted: (el, _, vnode) => {
 
-          var input = e.target.value
- 
+        vnode.context.$children[0].blur = function (e) {
+
+          e = e || window.event 
+          let target = e.target || e.srcElement
+          var input = target.value
+          if (/\D\/$/.test(input)) { 
+
+            input = input.substr(0, input.length - 3)
+          
+          }
           var values = input.split('/').map(function (v) {
             return v.replace(/\D/g, '')
           })
 
           var output = ''
- 
           if (values.length == 3) {
 
             var year = values[2].length !== 4 ? parseInt(values[2]) + 2000 : parseInt(values[2])
@@ -162,9 +175,33 @@ export default {
 
             }
           }
+          console.log(output)
           e.target.value = output
-        })
+        }
       }
+    }
+  },
+  watch: {
+    selectedDate (value) {
+      
+      var input = value
+
+      if (/\D\/$/.test(input)) { 
+
+        input = input.substr(0, input.length - 3)
+      
+      }
+      var values = input.split('/').map(function(v) {
+        return v.replace(/\D/g, '')
+      });
+
+      if (values[0]) values[0] = this.checkValue(values[0], 31)
+      if (values[1]) values[1] = this.checkValue(values[1], 12)
+      var output = values.map(function (v, i) {
+        return v.length == 2 && i < 2 ? v + ' / ' : v
+      })
+
+     this.selectedDate =  output.join('').substr(0, 14)
     }
   },
   methods: {
@@ -325,6 +362,7 @@ export default {
   right: 0
   background-color: #FFF
   @include respond-to(handhelds)
+    display: none
     width: 100%
   width: 320px
   z-index: 999
@@ -332,6 +370,8 @@ export default {
   display: none  
 .calendar__dates--show
   display: block
+  @include respond-to(handhelds)
+    display: none
 .calendar__day.calendar__day--unselectable
   color: rgba(0,0,0,0.3)
   cursor: not-allowed
