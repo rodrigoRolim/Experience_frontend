@@ -54,11 +54,8 @@ export default {
 .attendance-relations__item
   display: flex
   flex-flow: row wrap
-  margin-left: 10px
-  margin-top: 10px
-  @include respond-to(handhelds)
-    margin-right: 10px
-    border-radius: 4px
+  border-radius: 4px
+  margin: 0 15px
   color: white
   padding: 20px 10px
   cursor: pointer
