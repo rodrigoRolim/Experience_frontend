@@ -100,8 +100,6 @@ export default {
   top: 0
   left: 0
   z-index: 3
-.health-center__main
-  margin-top: 60px
 .health-center__footer
   display: none
   @include respond-to(handhelds)

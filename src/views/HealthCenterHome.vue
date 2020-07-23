@@ -124,7 +124,7 @@ export default {
   justify-content: center
   margin-top: 230px
   @include respond-to(handhelds)
-    margin-top: 180px
+    margin-top: 150px
   @include respond-to(medium-screens)
     margin-top: 170px
 .health-center__attendances
@@ -141,7 +141,7 @@ export default {
   align-items: center
   width: 100%
   padding: 10px 10px
-  height: 10vh
+  height: 60px
   background-color: white
   -webkit-box-box-shadow: 0 2px 4px 1px rgba(0,0,0,0.1)
   -moz-box-shadow: 0 2px 4px 1px rgba(0,0,0,0.1)
