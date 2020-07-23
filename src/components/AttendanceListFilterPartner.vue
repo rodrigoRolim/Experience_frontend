@@ -1,7 +1,7 @@
 <template>
-  <div class="attendances-filter-partner">
-    <code-drop-down dropdown>
-      <template v-slot:content>
+  <code-drop-down dropdown>
+    <template v-slot:content>
+      <div class="attendances-filter-partner">
         <div class="attendances-filter-partner__period">
           <code-label
             class="attendances-filter-partner__label"
@@ -80,9 +80,10 @@
             size-icon="lg"
           />
         </div>
-      </template>
-    </code-drop-down>
-  </div>
+      </div>
+    </template>
+  </code-drop-down>
+
 </template>
 
 <script>
@@ -111,6 +112,21 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.attendances-filter-partner
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  width: 100%
+  padding: 12px 10px
+  @include respond-to(medium-screens)
+    max-height: 250px
+    flex-wrap: wrap
+  @include respond-to(handhelds)
+    flex-direction: column
+    height: 75vh
+    max-height: 450px
+    overflow-y: auto
+    width: 100%
 .attendances-filter-partner__accomodation,
 .attendances-filter-partner__situation
   width: 15%

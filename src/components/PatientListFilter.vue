@@ -1,7 +1,7 @@
 <template>
-  <div class="patient-list-filter">
-    <code-drop-down text="Filtrar pacientes" dropdown>
-      <template v-slot:content>
+  <code-drop-down text="Filtrar pacientes" dropdown>
+    <template v-slot:content>
+      <div class="patient-list-filter">
         <div class="patient-list-filter__period">
           <code-label 
             class="patient-list-filter__label"
@@ -46,9 +46,9 @@
             size-icon="lg"
           />
         </div>
-      </template>
-    </code-drop-down>
-  </div>
+      </div>
+    </template>
+  </code-drop-down>
 </template>
 
 <script>
@@ -70,6 +70,21 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.patient-list-filter
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  width: 100%
+  padding: 12px 10px
+  @include respond-to(medium-screens)
+    max-height: 250px
+    flex-wrap: wrap
+  @include respond-to(handhelds)
+    flex-direction: column
+    height: 60vh
+    max-height: 250px
+    overflow-y: auto
+    width: 100%
 .patient-list-filter__name-patient
   width: 50%
 .patient-list-filter__period
@@ -79,7 +94,7 @@ export default {
   align-items: flex-end
   justify-content: center
   width: 18%
-  height: 8.5vh
+  height: 60px
 .patient-list-filter__name-patient,
 .patient-list-filter__period,
 .patient-list-filter__buttons

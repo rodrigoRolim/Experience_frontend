@@ -4,11 +4,11 @@ import store from '../store'
 const router = new VueRouter({
   mode: 'history',
   routes: [
-    {
-      path: '/store',
-      name: 'teste',
-      component: () => import(/* webpackChunkName: 'Teste' */ '@/components/teste.vue')
-    },
+    //{
+     // path: '/store',
+     // name: 'teste',
+      ///component: () => import(/* webpackChunkName: 'Teste' */ '@/components/teste.vue')
+    //},
     {
       path: '',
       redirect: { name: 'logins' }

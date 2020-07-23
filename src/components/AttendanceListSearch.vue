@@ -9,8 +9,6 @@
       required
       icon="search"
       color-icon="#368c8c"
-      :width="9"
-      :height="10"
       @focus="focus"
       @blur="blur"
     />
