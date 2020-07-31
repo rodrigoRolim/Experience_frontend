@@ -170,11 +170,13 @@ export default {
 .container-input
   width: 100%
 .container-input__input
-  padding: 9px 7px
+  padding: 10px 7px
   border: 1px solid lightgray
   border-left: none
   width: 100%
   min-width: 20px
+  font-size: 14px
+  font-weight: 600
   @include respond-to(handhelds)
     width: 100%
 .container-input__input--icon

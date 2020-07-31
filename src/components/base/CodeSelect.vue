@@ -1,16 +1,23 @@
 <template>
-  <div class="custom-select" :id="name">
-    <div class="custom-select__select" tabindex="0">
+  <div class="custom-select" :id="name" ref="box">
+    <div class="custom-select__select" ref="containerInput">
       <i 
         class="custom-select__icon" 
         v-if="icon">
         <font-awesome-icon :icon="icon" />
       </i>
-      <input 
+      <input
+        ref="input"
+        :name="name"
         @input="filterOptions = $event" 
         class="custom-select__input"
-        :class="{'custom-select__input--icon': icon}" 
-        v-model="selectedInput" />
+        autocomplete="off"
+        :class="{
+          'custom-select__input--icon': icon, 
+          'custom-select__input--invalid': invalidOption
+        }"
+        v-model="selectedInput" 
+      />
       <span class="custom-select__arrow">
         <div 
           class="custom-select__line-l"
@@ -28,18 +35,29 @@
       </span>
     </div>
     <div class="custom-select__message-error"  v-if="error">
-        <small class="custom-select__text-error">{{error}}</small>
+      <small class="custom-select__text-error">{{ error }}</small>
     </div>
-    <div tabindex="1" class="custom-select__list" v-if="showList">
-      <option 
-        v-for="option in filterOptions" 
-        :key="option.id" 
+    <ul
+      ref="list"
+      class="custom-select__list" 
+      :class="{'custom-select__list--invalid': invalidOption}"
+      v-show="showList || invalidOption" 
+      role="list">
+      <li class="custom-select__invalid-option" v-show="invalidOption">opção inválida</li>
+      <li 
+        ref="items"
+        role="listitem"
+        v-for="(option, i) in filterOptions" 
+        :key="option.id"
+        :data-value="option.id"
+        :data-selected="i" 
         class="custom-select__option"
-        @click="selected(option)"
+        @click="selectItem(option)"
+        :class="{'custom-select__option--focused': i == currentOption}"
       >
         {{option.name}}
-      </option>
-    </div>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -50,50 +68,175 @@ export default {
     options: Array,
     icon: String,
     name: String,
-    error: String
+    error: String,
+    value: [Object, String]
   },
   data () {
     return {
       digiteds: '',
       showList: false,
       lineAnimation: false,
-      selectedInput: ''
+      invalidOption: false,
+      currentOption: -1,
+      DOWN_ARROW_KEY_CODE: 40,
+      UP_ARROW_KEY_CODE: 38,
+      ENTER_KEY_CODE: 13,
+      TAB_KEY_CODE: 9
     }
   },
   mounted () {
-    this.dropDown()
+    this.dropDownEvent()
+    this.keyEvents()
+    this.checkListPosition()
   },
   computed: {
+    selectedInput: {
+      set: function (value) {
+        this.$emit('input', value)
+        this.$emit('key', value?.id)
+      },
+      get: function () {
+        return this.value?.name || this.value
+      }
+    },
     filterOptions: {
       set: function (e) {
         this.digiteds = e.target.value
-        let isOption = this.options.filter((option) => option.name === this.digiteds)
+        let isOption = this.searchOptionByName(this.digiteds)
 
-        if (!isOption) {
-          this.$emit('selected', this.digiteds)
+        if (isOption.length > 0) {
+          this.selectItem(this.digiteds)
+          return
         }
       },
       get: function () {
-        return this.options.filter((option) => option.name.includes(this.digiteds))
+        return this.filterOptionsByKeys
       }
+    },
+    selectName: function () {
+      return '#' + this.name 
+    },
+    filterOptionsByKeys: function () {
+      return this.options.filter((option) => option.name.includes(this.digiteds))
+    },
+  },
+  watch: {
+    filterOptionsByKeys () {
+      this.currentOption = -1
+    },
+    digiteds () {
+      this.triggerInternalError(false)
     }
   },
   methods: {
-    dropDown () {
-      document.addEventListener('click', (e) => {
-        if (e.target.closest('#'+this.name)) {
-          this.showList = true
-          this.lineAnimation = true
-        } else {
-          this.showList = false
-          this.lineAnimation = false
+    dropDownEvent () {
+      document.addEventListener('click', this.toggleListByClick)
+      this.$refs.input.addEventListener('focus', this.openList)
+    },
+    keyEvents () {
+      this.$refs.input.addEventListener('keydown', this.pickerOptions)
+    },
+    toggleListByClick (e) {
+      if (e.target.closest(this.selectName)) {
+        this.openList()
+      } else {
+        this.closeList()
+      }
+    },
+    selectItem (option) {
+      let isOption = null
+      let selectOption = option?.name || option
+      if (selectOption) {
+        isOption = this.searchOptionByName(selectOption)
+      }
+      if (!isOption || isOption.length > 0) {
+        this.triggerInternalError(false)
+        if (typeof option === 'object')
+          this.selectedInput = option
+        this.closeList()
+        return
+      }
+      this.triggerInternalError(true)
+    },
+    closeList () {
+      this.showList = false
+      this.lineAnimation = false
+    },
+    openList () {
+      this.showList = true
+      this.lineAnimation = true
+    },
+    valideOption (optionName) {
+
+      let isOption = this.searchOptionByName(optionName)
+
+      if (isOption.length > 0) {
+        this.triggerInternalError(false)
+      } else {
+        this.triggerInternalError(true)
+      }
+    },
+    searchOptionByName (optionName) {
+      return this.filterOptionsByKeys.filter((option) => option.name === optionName)
+    },
+    nextItem () {
+      this.currentOption++
+      if (this.filterOptionsByKeys.length === this.currentOption)
+        this.currentOption = 0
+    },
+    previousItem () {
+      if (this.currentOption === 0)
+        this.currentOption = this.filterOptionsByKeys.length
+      this.currentOption--
+    },
+    pickerOptions (e) {
+      if (!this.showList)
+        this.openList()
+
+      switch (e.keyCode) {
+        case this.DOWN_ARROW_KEY_CODE:
+          this.nextItem()
+          return
+        case this.UP_ARROW_KEY_CODE:
+          this.previousItem()    
+          return
+        case this.ENTER_KEY_CODE:
+          if (this.currentOption > -1 && this.filterOptionsByKeys.length > 0) {
+            this.selectItem(this.filterOptionsByKeys[this.currentOption])
+          } else {
+            this.selectItem(this.digiteds)
+          }
+          this.closeList()
+          return
+        case this.TAB_KEY_CODE:
+          this.closeList()
+          this.triggerInternalError(false)
+          return
+      }
+    },
+    triggerInternalError (value) {
+      this.invalidOption = value
+    },
+    checkListPosition () {
+      var targetNode = this.$refs.list
+      var observer = new MutationObserver(() => {
+
+        if (targetNode.style.display != 'none') {
+
+          let bottom = this.$refs.box.getBoundingClientRect().bottom
+        
+          if (window.innerHeight - bottom <= targetNode.clientHeight) {
+            this.$refs.list.style.bottom = '100%'
+            this.$refs.list.style.top = ''
+          } else {
+          
+            this.$refs.list.style.top = '100%'
+            this.$refs.list.style.bottom = ''
+          }
         }
       })
+      observer.observe(targetNode, { attributes: true, childList: true })
     },
-    selected (option) {
-      this.selectedInput = option.name
-      this.$emit('selected', this.selectedInput)
-    }
   }
 }
 </script>
@@ -101,25 +244,33 @@ export default {
 <style lang="sass" scoped>
 .custom-select 
   position: relative
- 
 .custom-select__list
   display: block
   border: 1px solid transparent
   background-color: white
   position: absolute
-  padding: 10px 30px
   left: 0
   margin: 0
-  min-width: 150px
-  z-index: 999
+  min-width: 250px
+  max-height: 200px
+  overflow: auto
   box-shadow: 0 0 0 1px rgba(0,0,0,.15), 0 2px 3px rgba(0,0,0,.2)
   border-bottom-left-radius: 2px
   border-bottom-right-radius: 2px
   color: #58595a
-.custom-select__option
+  z-index: 9
+.custom-select__list--invalid
+  background-color: #ffcbcb !important
+.custom-select__option,
+.custom-select__invalid-option
   list-style-type: none
   cursor: pointer
   margin: 5px 0px
+  padding: 5px 30px
+.custom-select__invalid-option
+  color: white
+  background-color: red
+  margin: 0
 .custom-select__select
   display: flex
 .custom-select__select:focus
@@ -128,12 +279,16 @@ export default {
   width: 100%
   min-width: 20px
   margin: 0
-  padding: 9px 7px
+  padding: 10px 7px
+  font-size: 14px
+  text-transform: uppercase
   border-top-left-radius: 4px
   border-bottom-left-radius: 4px
   border: 1px solid lightgray
   border-right: none
   outline: none
+.custom-select__option--focused
+  background-color: rgba(0, 0, 0, 0.09)
 .custom-select__input--icon
   border-left: none
   border-top-left-radius: 0
@@ -189,4 +344,6 @@ export default {
 .custom-select__text-error
   font-style: italic
   margin-bottom: 0
+.custom-select__input--invalid
+  background-color: #ffcbcb
 </style>

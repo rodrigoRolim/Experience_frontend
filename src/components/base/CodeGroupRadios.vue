@@ -27,11 +27,6 @@ export default {
     receive (value) {
       this.$emit('group', value)
     }
-  },
-  methods: {
-    getValue () {
-      console.log('ASD')
-    }
   }
 }
 </script>

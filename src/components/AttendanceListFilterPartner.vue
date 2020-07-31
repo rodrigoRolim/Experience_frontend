@@ -1,5 +1,5 @@
 <template>
-  <code-drop-down dropdown>
+  <code-drop-down dropdown text="filtrar atendimento">
     <template v-slot:content>
       <div class="attendances-filter-partner">
         <div class="attendances-filter-partner__period">
@@ -137,6 +137,8 @@ export default {
     margin: 5px 0
 .attendances-filter-partner__patient-name
   width: 30%
+  @include respond-to(medium-screens)
+    width: 43%
   @include respond-to(handhelds)
     width: 100%
     margin: 5px 0

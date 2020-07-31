@@ -1,5 +1,5 @@
 <template>
-  <div class="patient-list-filter-period">
+  <div class="calendars">
      <code-calendar
       class="calendars__calendar"
       @datepicked="getBegin" 
@@ -48,7 +48,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.patient-list-filter-period
+.calendars
   display: flex
   @include respond-to(handhelds)
     position: relative

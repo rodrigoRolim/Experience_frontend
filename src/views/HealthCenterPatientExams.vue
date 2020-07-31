@@ -26,6 +26,7 @@ export default {
 <style lang="sass" scoped>
 .health-center-patient
   display: flex
+  margin-top: 60px
   @include respond-to(handhelds)
     margin-top: 60px
   min-height: 100vh
@@ -44,7 +45,7 @@ export default {
     width: 100%
 .health-center-patient__exams
   width:  100%
-  margin-top: 110px
+  margin-top: 90px
   @include respond-to(medium-screens)
     width: 100%
     margin-top: 60px

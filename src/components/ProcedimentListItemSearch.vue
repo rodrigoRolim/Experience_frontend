@@ -1,33 +1,32 @@
 <template>
   <code-drop-down class="dropdown">
     <template v-slot:content>
-      <div class="dropdown__search">
-        <code-input 
-          name="procediment"
-          type="text"
-          :width="12"
-          :height="10"
-          v-model="value"
-          placeholder="procedimento"
-        >
-          <template v-slot:icon>
-            <font-awesome-icon icon="search" :style="{ color:'#676a6c' }"/>
-          </template>
-        </code-input>
-      </div>
-      <div class="dropdown__button">
-        <code-button
-          text="Localizar"
-          bcolor="white"
-          color="light"
-          letters="uppercase"
-          bolded
-          size="sm"
-          streched
-          borded
-          name-icon="search"
-          @click="teste"
-        ></code-button>
+      <div class="dropdown__procediment">
+        <div class="dropdown__search">
+          <code-input 
+            name="procediment"
+            type="text"
+            :width="12"
+            :height="10"
+            v-model="value"
+            icon="search"
+            placeholder="procedimento"
+          />
+        </div>
+        <div class="dropdown__button">
+          <code-button
+            text="Localizar"
+            bcolor="white"
+            color="light"
+            letters="uppercase"
+            bolded
+            size="sm"
+            streched
+            borded
+            name-icon="search"
+            @click="teste"
+          ></code-button>
+        </div>
       </div>
     </template>
   </code-drop-down>
@@ -62,6 +61,11 @@ export default {
   width: 100%
   @include respond-to(handhelds)
     flex-direction: column
+.dropdown__procediment
+  display: flex
+  justify-content: space-around
+  padding: 10px
+  width: 100%
 .dropdown__search
   width: 84%
   @include respond-to(handhelds)

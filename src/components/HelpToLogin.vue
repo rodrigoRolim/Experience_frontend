@@ -67,6 +67,7 @@ export default {
   margin: 0
   font-size: 1.7rem
 .help-login__title-h2
+  margin-bottom: 10px
   font-size: 1.0rem
   color: #368c8c
 .help-login
@@ -123,7 +124,7 @@ export default {
     flex-direction: column
   @include respond-to(handhelds)
     flex-direction: column
-.help-login__unique-attendance-text,
+.help-login__unique-attendance,
 .help-login__historic-results
   padding: 0 30px
   text-align: justify

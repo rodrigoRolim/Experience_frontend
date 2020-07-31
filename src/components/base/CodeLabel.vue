@@ -1,6 +1,6 @@
 <template>
-  <div class="label">
-    <label :for="bind" v-bind:style="style">{{label}}<slot name="input"></slot></label>
+  <div class="code-label">
+    <label class="code-label__label" :for="bind" v-bind:style="style">{{label}}<slot name="input"></slot></label>
   </div>
 </template>
 
@@ -34,9 +34,9 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.label
+.code-label
   margin-left: 5px
-  @include respond-to(handhelds)
-   
   margin-bottom: 5px
+.code-label__label
+  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif
 </style>

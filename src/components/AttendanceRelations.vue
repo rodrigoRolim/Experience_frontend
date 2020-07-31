@@ -33,9 +33,6 @@ export default {
       lastClicked: ''
     }
   },
-  created () {
-    console.log(this.attendances)
-  },
   methods: {
     highlight (value) {
       let currentItem

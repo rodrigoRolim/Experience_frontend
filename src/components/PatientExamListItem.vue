@@ -1,6 +1,6 @@
 <template>
   <div class="patient-exam" :class="getSituation | situationModifiers" @click.self="click">
-    <div class="patient-exam__detail">
+    <div class="patient-exam__detail" @click.self="click">
       <code-chip text="lic" transform="uppercase" class="patient-exam__tag"></code-chip>
       <div class="patient-exam__separator-line"></div>
       <div class="patient-exam__name-exam">
@@ -11,7 +11,7 @@
          />
       </div>
     </div>
-    <div class="patient-exam__content">
+    <div class="patient-exam__content" @click.self="click">
       <div class="patient-exam__health-center">
         <code-info
           icon="clinic-medical"
@@ -22,7 +22,7 @@
         />
         
       </div>
-      <div class="patient-exam__status-exam">
+      <div class="patient-exam__status-exam" @click.self="click">
         <code-chip-situation :situation="situation"/>
       </div>
       <div class="patient-exam__checkbox" >

@@ -7,11 +7,7 @@
     <div class="keyboard__row__keys" v-for="(row, i) in keyboard" v-bind:key="i">
       <button v-for="key in row" v-bind:key="key" class="keyboard__key"
         @click="digit(key)"
-        :class="{ 'space__bar': key == 'space',
-                  'confirm__key': key == 'check-circle',
-                  'keyboard__key--wide':  wideButton(key),
-                  'keyboard__key--capslock': capslockKey && key !== 'enter' && key !== 'space'
-                }"
+        :class="configKeys"
       >
         <span 
           :class="{ 
@@ -47,6 +43,16 @@ export default {
       valueKey: '',
       capslockKey: false,
       inputCopy: this.input
+    }
+  },
+  computed: {
+    configKeys () {
+      return { 
+        'space__bar': this.key == 'space',
+        'confirm__key': this.key == 'check-circle',
+        'keyboard__key--wide':  this.wideButton(this.key),
+        'keyboard__key--capslock': this.capslockKey && this.key !== 'enter' && this.key !== 'space'
+      }
     }
   },
   methods: {

@@ -10,23 +10,11 @@
     </div>
     <div class="exam__modal__body">
       <div class="exame__content">
-        <div class="exame__content__row">
-          <div class="name__exame">LIPOGRAMA COMPLETO</div>
-          <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
+        <div class="exame__content__row" v-for="item in db" :key="item.id">
+          <div class="name__exame">{{item.exam}}</div>
+          <div class="exame__result">{{item.value}}<span class="exame__result__unity">{{item.measurement}}</span></div>
         </div>
-        <div class="exame__content__row">
-          <div class="name__exame">LIPOGRAMA COMPLETO</div>
-          <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
-        </div>
-        <div class="exame__content__row">
-          <div class="name__exame">LIPOGRAMA COMPLETO</div>
-          <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
-        </div>
-          <div class="exame__content__row">
-          <div class="name__exame">LIPOGRAMA COMPLETO</div>
-          <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
-        </div>
-        <div class="exame__content__row">
+       <!--  <div class="exame__content__row">
           <div class="name__exame">LIPOGRAMA COMPLETO</div>
           <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
         </div>
@@ -94,6 +82,18 @@
           <div class="name__exame">LIPOGRAMA COMPLETO</div>
           <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
         </div>
+          <div class="exame__content__row">
+          <div class="name__exame">LIPOGRAMA COMPLETO</div>
+          <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
+        </div>
+        <div class="exame__content__row">
+          <div class="name__exame">LIPOGRAMA COMPLETO</div>
+          <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
+        </div>
+        <div class="exame__content__row">
+          <div class="name__exame">LIPOGRAMA COMPLETO</div>
+          <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
+        </div> -->
       </div>
     </div>
     <div class="exame__button">
@@ -121,7 +121,16 @@ export default {
   },
   data () {
     return {
-      
+      db: [
+        { id: 0, exam: 'LIPOGRAMA COMPLETO', value: '90', measurement: 'mg/dl' },
+        { id: 1, exam: 'LIPOGRAMA COMPLETO', value: '90', measurement: 'mg/dl' },
+        { id: 2, exam: 'LIPOGRAMA COMPLETO', value: '90', measurement: 'mg/dl' },
+        { id: 3, exam: 'LIPOGRAMA COMPLETO', value: '90', measurement: 'mg/dl' },
+        { id: 4, exam: 'LIPOGRAMA COMPLETO', value: '90', measurement: 'mg/dl' },
+        { id: 5, exam: 'LIPOGRAMA COMPLETO', value: '90', measurement: 'mg/dl' },
+        { id: 6, exam: 'LIPOGRAMA COMPLETO', value: '90', measurement: 'mg/dl' },
+        { id: 7, exam: 'LIPOGRAMA COMPLETO', value: '90', measurement: 'mg/dl' }, 
+      ]
     }
   },
   methods: {
@@ -142,6 +151,7 @@ export default {
     border-radius: 6px
 .exame__result__unity
   font-weight: 700
+  margin-left: 5px
   font-style: italic
 .exame__result
   letter-spacing: 0.5px
@@ -154,6 +164,7 @@ export default {
   flex-direction: column
   justify-content: space-between
   max-height: 75vh
+  height: 600px
   padding: 5px 10px
   overflow: auto
 .exame__header

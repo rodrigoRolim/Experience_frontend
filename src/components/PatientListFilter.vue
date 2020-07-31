@@ -9,7 +9,6 @@
             color="white"
             :font-weight="400"
             font-size="0.9rem"
-            font-family='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
           />
           <div class="patient-list-filter__calendars">
             <patient-list-filter-period></patient-list-filter-period>
@@ -23,7 +22,6 @@
             color="white"
             :font-weight="400"
             font-size="0.9rem"
-            font-family='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
           />
           <code-input 
             placeholder="digite o nome do paciente"
@@ -101,5 +99,4 @@ export default {
   @include respond-to(handhelds)
     width: 100%
     margin: 10px 0
-
 </style>

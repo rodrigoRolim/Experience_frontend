@@ -10,12 +10,11 @@
         </i>{{text}}
       </button>
     </div>
-    <div class="dropdown__contents"
+    <div
+      class="dropdown__contents"
       :class="{'dropdown--visible': show && dropdown, 'dropdown--hidden': !show && dropdown}"
       >
-     <!--  <div class="dropdown__content"> -->
-        <slot name="content"></slot>
-     <!--  </div> -->
+      <slot name="content"></slot>
     </div>
   </div>
 </template>
@@ -23,9 +22,6 @@
 
 export default {
   name: 'AttendanceListFilter',
-  components: {
-
-  },
   props: {
     text: String,
     bcolor: String,
@@ -40,17 +36,14 @@ export default {
   },
   methods: {
     showContent () {
-      document.body.style.overflow = (!this.show) ? 'hidden' : 'auto'
-      this.show = !this.show
-    },
-    filter () {
+      // document.body.style.overflow = (!this.show) ? 'hidden' : 'auto'
+
       this.show = !this.show
     }
   }
 }
 </script>
 <style lang="sass" scoped>
-@import "../../styles/_colors.scss"
 @import "../../styles/animations/_dropdown.sass"
 
 @include an-dropdown($max-height: 660px, $duration-hidden: 0.6s, $duration-visible: 0.6s)
@@ -83,6 +76,8 @@ export default {
   vertical-align: middle
 .dropdown__button-icon
   margin-right: 10px
+.dropdown__contents
+  width: 100%
 .fade-enter-active, .fade-leave-active
   transition: opacity .3s
 .fade-enter, .fade-leave-to

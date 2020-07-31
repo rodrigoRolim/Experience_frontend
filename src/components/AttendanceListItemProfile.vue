@@ -23,16 +23,13 @@
 </template>
 
 <script>
-import { situation } from '../mixins/situation'
 import CodeInfo from './base/CodeInfo'
 export default {
   name: 'AttendanceListItemProfile',
-  mixins: [situation],
   props: {
     age: String,
     gender: String,
-    name: String,
-    situation: String
+    name: String
   },
   components: {
     CodeInfo

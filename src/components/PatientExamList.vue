@@ -45,8 +45,6 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-@import '../styles/_scrollbar.sass'
-@include scrollbar('#exams', 10px )
 
 .patient-exams__list
   display: flex

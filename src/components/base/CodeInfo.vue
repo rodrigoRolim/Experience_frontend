@@ -1,10 +1,6 @@
 <template>
   <div class="info" 
-    :class="{ 
-      'info--bottom': bottom, 
-      'info--left': left,
-      'info__content--hidden': mobileHidden  
-    }">
+    :class="positionDescription">
     <span class="info__icon" v-if="icon"><font-awesome-icon :icon="icon" :size="size" :style="{color: color}"/></span>
     <div class="info__label" 
       :class="{
@@ -35,6 +31,15 @@ export default {
     bottom: Boolean,
     mobileHidden: Boolean,
     sizeInfo: String
+  },
+  computed: {
+    positionDescription () {
+      return { 
+        'info--bottom': this.bottom, 
+        'info--left': this.left,
+        'info__content--hidden': this.mobileHidden  
+      }
+    }
   }
 }
 </script>

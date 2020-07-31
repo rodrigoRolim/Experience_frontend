@@ -66,8 +66,6 @@ export default {
         return 
       }
       this.listFiltered = this.readByValue(event.target.value)
-        
-        //this.listFiltered = this.listClient
  
     },
     readByValue (value) {

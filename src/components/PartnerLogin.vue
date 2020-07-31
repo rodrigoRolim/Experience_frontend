@@ -8,7 +8,6 @@
           color="#676a6c"
           :fontWeight="700"
           fontSize="0.8rem"
-          fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
         ></code-label>
         <code-input
           placeholder="Código do parceiro"
@@ -30,7 +29,6 @@
           color="#676a6c"
           :fontWeight="700"
           fontSize="0.8rem"
-          fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
         ></code-label>
          <code-input-password
           id="partnerPassword"

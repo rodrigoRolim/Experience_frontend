@@ -9,7 +9,6 @@
             color="#676a6c"
             :fontWeight="700"
             fontSize="0.8rem"
-            fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
           ></code-label>
           <code-select
             class="d-cr"
@@ -29,7 +28,6 @@
             color="#676a6c"
             :fontWeight="700"
             fontSize="0.8rem"
-            fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
           ></code-label>
           <code-select
             class="doctor-login__cr-select"
@@ -50,7 +48,7 @@
           color="#676a6c"
           :fontWeight="700"
           fontSize="0.8rem"
-          fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
+          
         ></code-label>
         <code-input
           placeholder="Número Conselho Profissional"
@@ -72,7 +70,6 @@
           color="#676a6c"
           :fontWeight="700"
           fontSize="0.8rem"
-          fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
         ></code-label>
         <code-input-password
           id="doctorPassword"
@@ -124,14 +121,13 @@ export default {
   },
   data () {
     return {
-      typeCode: -1,
       ufs: [{
         id: 1, name: 'MA'
       }],
       crs: [{id: 1, name: 'CRM'}],
       doctor: {
-        professionalCouncil: -1,
-        profissionalUF: -1,
+        professionalCouncil: null,
+        profissionalUF: null,
         numberCr: '',
         password: ''
       },

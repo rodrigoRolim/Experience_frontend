@@ -48,17 +48,14 @@
 
 <script>
 import CodeInfo from './base/CodeInfo'
-import { situation } from '../mixins/situation'
 export default {
   name: 'AttendanceListItemDetail',
-  mixins: [situation],
   props: {
     agreement: String,
     idAttendance: String,
     dataAttendance: String,
     dataDelivery: String,
     exams: String,
-    situation: String,
     AttendanceExams: String
   },
   components: {
@@ -67,11 +64,6 @@ export default {
   data () {
     return {
 
-    }
-  },
-  filters: {
-    situationModifiers (situation) {
-      return 'attendance-detail__trace--'+situation
     }
   }
 }

@@ -10,7 +10,7 @@
         :noBorderRight="noBorderRight"
         :noBorderLeft="noBorderLeft"
         bolder
-       
+        v-blur
       /> 
     </div>
     <div class="calendar__dates" :id="id" :class="{ 'calendar__dates--show': showDate, 'calendar__dates--hidden': !showDate }" ref="dates">
@@ -115,33 +115,6 @@ export default {
     this.togglePositionCalendar()
   },
   directives: {
-    date: {
-      inserted: (el, _, vnode) => {
-        el.addEventListener('input', function (e) {
-         
-          e = e || window.event 
-          let target = e.target || e.srcElement
-          var input = target.value
-
-          if (/\D\/$/.test(input)) { 
-
-            input = input.substr(0, input.length - 3)
-          
-          }
-          var values = input.split('/').map(function(v) {
-            return v.replace(/\D/g, '')
-          });
-          console.log(values)
-          if (values[0]) values[0] = vnode.context.checkValue(values[0], 31)
-          if (values[1]) values[1] = vnode.context.checkValue(values[1], 12)
-          var output = values.map(function (v, i) {
-            return v.length == 2 && i < 2 ? v + ' / ' : v
-          })
-          console.log(output.join('').substr(0, 14))
-          e.target.value = output.join('').substr(0, 14)
-        })
-      }
-    },
     blur: {
       inserted: (el, _, vnode) => {
 
@@ -175,7 +148,7 @@ export default {
 
             }
           }
-          console.log(output)
+
           e.target.value = output
         }
       }

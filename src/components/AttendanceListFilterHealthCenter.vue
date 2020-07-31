@@ -123,10 +123,10 @@ export default {
       filters: {
         begin: '',
         end: '',
-        healthCenter: -1,
-        accomodation: -1,
-        situation: -1,
-        realizer: -1
+        healthCenter: null,
+        accomodation: null,
+        situation: null,
+        realizer: null
       },
       list: [
         {id: 1, name: 'doce de laranja'},
@@ -158,7 +158,7 @@ export default {
   @include respond-to(handhelds)
     flex-direction: column
     height: 75vh
-    max-height: 450px
+    max-height: 500px
     overflow-y: auto
     width: 100%
 .attendance-list-filter-healthcenter__health-center,

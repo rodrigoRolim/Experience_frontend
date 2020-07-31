@@ -4,11 +4,7 @@
       <i 
         class="input-password__icon"
         v-if="icon" 
-        :style="getStyleIcon" 
-        :class="{ 'input-password--no-border-right': noBorderRight,
-                  'input-password--outline': outlineInput && !error,
-                  'input-password--error': error
-                }"
+        :class="iconBorder"
       >
         <font-awesome-icon :icon="icon"/>
       </i>
@@ -24,13 +20,7 @@
         @keydown="replaceByBullet"
         @focus="focus"
         @blur="blur"
-        :class="{ 
-                  'input-password__input--icon': icon, 'input-password__input--no-icon': !icon, 
-                  'input-password--no-border-right': noBorderRight,
-                  'input-password--no-border-left': noBorderLeft,
-                  'input-password--outline': outlineInput && !error,
-                  'input-password--error': error
-                }" 
+        :class="inputBorder" 
       />
       <i class="input-password__eye" @click="togglePasswordVisibility"
         :class="{ 
@@ -80,10 +70,6 @@ export default {
     noBorderLeft: {
       type: Boolean
     },
-    fontSize: {
-      type: String,
-      default: '0.95rem'
-    },
     bolded: Boolean,
     colorIcon: {
       type: String
@@ -123,6 +109,22 @@ export default {
       },
       set (value) {
         this.$emit('input', value)
+      }
+    },
+    iconBorder () {
+      return { 
+        'input-password--no-border-right': this.noBorderRight,
+        'input-password--outline': this.outlineInput && !this.error,
+        'input-password--error': this.error
+      }
+    },
+    inputBorder () {
+      return { 
+        'input-password__input--icon': this.icon, 'input-password__input--no-icon': !this.icon, 
+        'input-password--no-border-right': this.noBorderRight,
+        'input-password--no-border-left': this.noBorderLeft,
+        'input-password--outline': this.outlineInput && !this.error,
+        'input-password--error': this.error
       }
     }
   },
@@ -170,7 +172,9 @@ input[type="password"]
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
   color: lightslategray
-  font-size: 1.05rem !important
+  font-size: 0.8rem !important
+input[type="text"]
+  font-size: 14px
 .input-password__input
   padding: 9px 7px
   border: 1px solid lightgray

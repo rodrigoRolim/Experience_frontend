@@ -16,7 +16,6 @@
 </template>
 <script>
 import CodeInput from './base/CodeInput'
-/* import { bus } from '../main' */
 export default {
   name: 'AttendanceListSearch',
   props: {

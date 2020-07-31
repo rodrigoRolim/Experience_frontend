@@ -33,7 +33,6 @@
           color="#676a6c"
           :fontWeight="700"
           fontSize="0.8rem"
-          fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
          ></code-label>
         <code-input
           placeholder="CPF"
@@ -56,7 +55,6 @@
           color="#676a6c"
           :fontWeight="700"
           fontSize="0.8rem"
-          fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
          ></code-label>
         <code-input
           placeholder="Data de nascimento"
@@ -78,7 +76,6 @@
           color="#676a6c"
           :fontWeight="700"
           fontSize="0.8rem"
-          fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
          ></code-label>
         <code-input
           ref="idAttendance"
@@ -104,7 +101,6 @@
           color="#676a6c"
           :fontWeight="700"
           fontSize="0.8rem"
-          fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
         ></code-label>
         <code-input-password
           ref="password"

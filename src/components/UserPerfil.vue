@@ -1,7 +1,7 @@
 <template>
-  <div class="user-perfil" @mouseleave="show = false" id="user__perfil">
+  <div class="user-perfil"  id="user-perfil" >
     <div class="user-perfil__button-wrap">
-      <button @mouseenter="show = true" @click="show = true" class="user-perfil__button">
+      <button class="user-perfil__button">
         <div class="user-perfil__user">
           <code-info
             left
@@ -37,7 +37,6 @@
       </div>
     </transition>
     <code-modal
-     
       :normal="true"
       :display="showModal"
       @display="showModal = $event"
@@ -66,9 +65,20 @@ export default {
     }
   },
   mounted () {
-
+    this.dropdownEvent()
   },
   methods: {
+    dropdownEvent () {
+      document.addEventListener('click', this.openDropdown)
+    },
+    openDropdown (e) {
+      
+      if (e.target.closest('#user-perfil')) {
+        this.show = true
+      } else {
+        this.show = false
+      }
+    },
     enableModal () {
       this.showModal = true
       this.show = false

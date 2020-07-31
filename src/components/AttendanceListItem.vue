@@ -11,7 +11,6 @@
       :name="name"
       :age="age"
       :gender="gender"
-      :situation="situation"
     />
     <code-chip-situation class="attendance-item__situation" :situation="situation"/>
     <attendance-list-item-detail
@@ -21,7 +20,6 @@
       :dataDelivery="dataDelivery"
       :dataAttendance="dataAttendance"
       :exams="exams"
-      :situation="situation"
     />
   </div>
 </div>
@@ -70,7 +68,6 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-@import "../styles/_colors.scss"
 @import "../styles/colors/_status-colors.scss"
 
 .attendance-item

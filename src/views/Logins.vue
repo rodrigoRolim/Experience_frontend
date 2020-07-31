@@ -66,7 +66,7 @@
                   mobile-hidden
                 />
               </div>
-              <div v-if="!hiddenBanner" @click="aba = 5" class="aba" :class="{ 'aba--active-aba': aba == 5 }">
+              <div @click="aba = 5" class="aba" :class="{ 'aba--active-aba': aba == 5 }">
                 <code-info
                   icon="qrcode"
                   info="QR code"
@@ -75,10 +75,10 @@
               </div>
             </template>
             <template v-slot:body>
-              <patient-login v-if="aba == 1" @error="messages" @keyboardActivated="hiddenBanner = $event" @modalHelp="helplogin = $event"></patient-login>
-              <doctor-login @error="messages" v-if="aba == 2"></doctor-login>
-              <partner-login @error="messages" v-if="aba == 3"></partner-login>
-              <health-care-login @error="messages" v-if="aba == 4"></health-care-login>
+              <patient-login v-show="aba == 1" @error="messages" @keyboardActivated="hiddenBanner = $event" @modalHelp="helplogin = $event"></patient-login>
+              <doctor-login @error="messages" v-show="aba == 2"></doctor-login>
+              <partner-login @error="messages" v-show="aba == 3"></partner-login>
+              <health-care-login @error="messages" v-show="aba == 4"></health-care-login>
               <Qrcode-login v-if="aba == 5" :play="aba == 5 ? true : false"></Qrcode-login>
             </template>
           </code-menu-abas>
@@ -204,7 +204,6 @@ export default {
     align-items: center
     width: 100%
   margin-top: 7%
-  margin-bottom: 2%
 .logins__menu-abas
   width: 460px
   display: flex
