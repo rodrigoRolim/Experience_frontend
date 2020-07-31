@@ -13,6 +13,9 @@ export const email = function (value, regex) {
 export const password = function (value, regex) {
   return regex.test(value)
 }
-export const date = function (value, regex) {
+export const dateFormat = function (value, regex) {
   return regex.test(value)
+}
+export const compareDates = function (begin, end) {
+  return begin <= end
 }
