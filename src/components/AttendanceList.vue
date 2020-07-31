@@ -41,14 +41,7 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-@import "../styles/_scrollbar.sass"
-@include scrollbar('#scrollbar-att', 10px)
 .attendances
   display: flex
   flex-direction: column
-
-#scrollbar-att
-  height: 500px
-  overflow-y: auto
-  overflow-x: hidden
 </style>
