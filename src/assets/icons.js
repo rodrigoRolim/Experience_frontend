@@ -53,7 +53,8 @@ import {
   faAngleLeft,
   faAngleRight,
   faLongArrowAltLeft,
-  faLongArrowAltRight
+  faLongArrowAltRight,
+  faBookMedical
 } from '@fortawesome/free-solid-svg-icons'
 
 export default {
@@ -111,5 +112,6 @@ export default {
   faAngleRight,
   faLongArrowAltLeft,
   faLongArrowAltRight,
-  faListUl
+  faListUl,
+  faBookMedical
 }
