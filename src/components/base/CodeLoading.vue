@@ -21,7 +21,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-@import '../../styles/_animations.scss'
+@import '../../styles/animations/__loading.scss'
 .container-ring
   display: flex
   flex-direction: row

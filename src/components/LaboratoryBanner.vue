@@ -51,7 +51,6 @@ export default {
   font-size: 1.7rem
   @include respond-to(handhelds)
     font-size: 1.5rem
-  
 .laboratory-banner__info-versions
   display: flex
   flex-direction: column

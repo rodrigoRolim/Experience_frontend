@@ -68,7 +68,7 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-@import "../styles/colors/_status-colors.scss"
+@import "../styles/colors/__status-colors.scss"
 
 .attendance-item
   display: flex

@@ -9,7 +9,8 @@
       <input
         ref="input"
         :name="name"
-        @input="filterOptions = $event" 
+        @input="filterOptions = $event"
+        @keypress.enter.prevent="enter"
         class="custom-select__input"
         autocomplete="off"
         :class="{
@@ -129,6 +130,9 @@ export default {
     }
   },
   methods: {
+    enter (e) {
+      this.$emit('enter', e)
+    },
     dropDownEvent () {
       document.addEventListener('click', this.toggleListByClick)
       this.$refs.input.addEventListener('focus', this.openList)

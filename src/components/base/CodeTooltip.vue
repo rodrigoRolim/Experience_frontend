@@ -25,7 +25,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-@import '../../styles/_animations.scss'
+@import '../../styles/animations/_enter-leave.scss'
 .tooltip
   margin: 0
   padding: 0

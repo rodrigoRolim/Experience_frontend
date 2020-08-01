@@ -6,6 +6,7 @@
         :class="iconClasses">
         <font-awesome-icon :icon="icon" />
       </i>
+      <!-- <label for="" class="label">rotulo</label> -->
       <input 
         ref="input"
         class="container-input__input"
@@ -21,7 +22,7 @@
         @blur="blur"
         @keyup="keyup"
         @keydown="keydown"
-        @keypress.enter="enter"
+        @keypress.enter.prevent="enter"
         />
     </div>
     <div class="input-wrap__message-error"  v-if="error">
@@ -155,6 +156,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+
 .input-wrap
   display: flex
   flex-direction: column

@@ -18,6 +18,7 @@
         v-bind="$attrs"
         v-model="inputEmitter"
         @keydown="replaceByBullet"
+        @keypress.enter.prevent="enter"
         @focus="focus"
         @blur="blur"
         :class="inputBorder" 
@@ -129,6 +130,9 @@ export default {
     }
   },
   methods: {
+    enter (e) {
+      this.$emit('enter', e)
+    },
     togglePasswordVisibility () {
       this.toggleIcon = !this.toggleIcon
       this.type = this.type == 'text' ? 'password' : 'text'

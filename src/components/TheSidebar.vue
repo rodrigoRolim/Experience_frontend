@@ -44,7 +44,6 @@ export default {
   justify-content: center
   align-items: center
   background-color: $green
-
   height: 100px
   color: white
 .sidebar__date

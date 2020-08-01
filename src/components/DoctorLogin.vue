@@ -191,7 +191,8 @@ export default {
       })
       return fields.length > 0
     },
-    confirm () {
+    confirm (e) {
+      e.preventDefault()
       let validated = this.validateAll()
       this.messageValidation(validated)
     },

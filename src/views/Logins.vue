@@ -10,6 +10,8 @@
               borded
               letters="uppercase"
               size="md"
+              name-icon="book-medical"
+              size-icon="lg"
               transparent
               @click="redirectToProcediments"
             />

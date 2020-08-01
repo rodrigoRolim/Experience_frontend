@@ -27,7 +27,6 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-
 .doctor-home__filter
   position: fixed
   width: 100%

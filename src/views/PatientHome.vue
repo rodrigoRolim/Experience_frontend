@@ -6,7 +6,7 @@
       </div>
     <div class="patient-exams__main">
       <div class="patient-exams__patient">
-        <patient-exams-list-header></patient-exams-list-header>
+        <patient-exams-list-header />
       </div>
       <div class="patient-exams__exams">
         <patient-exam-list />

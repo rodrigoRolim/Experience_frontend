@@ -12,6 +12,7 @@
               color="dark"
               size="md"
               size-icon="lg"
+              name-icon="user"
               transparent
               @click="redirectToLogin"
             />
@@ -21,6 +22,8 @@
               borded
               letters="uppercase"
               size="md"
+              name-icon="book-medical"
+              size-icon="lg"
               transparent
             />
           </div>

@@ -71,8 +71,6 @@ export default {
 
 <style lang="sass" scoped>
 
-@import "../styles/_colors.scss"
-
 $border-value: 1px solid
 $p-side: 12px
 $p-top-bott: 5px

@@ -144,7 +144,6 @@ export default {
   display: flex
   flex-direction: row
   width: 100%
-
 .partner-login__utilities
   display: flex
   flex-direction: row

@@ -1,6 +1,6 @@
 <template>
   <button
-   @click="click"
+   @click.prevent="click"
    class="button"
    :class="buttonClasses"
    >
@@ -89,7 +89,7 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-
+@import '../../styles/_themes'
 .button
   border: 1px solid transparent
   color: white
@@ -133,7 +133,7 @@ export default {
   margin: 0
   padding: 0
 .button--theme
-  background-color: $theme
+  @include get-color($COLOR)
 .button--primary
   background-color: $primary
 .button--success

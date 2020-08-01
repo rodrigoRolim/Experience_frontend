@@ -93,7 +93,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-@import "../styles/animations/_dropdown.sass"
+@import "../styles/animations/__dropdown.sass"
 .health-center__navbar
   position: fixed
   width: 100%
