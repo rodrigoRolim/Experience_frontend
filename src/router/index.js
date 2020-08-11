@@ -1,5 +1,17 @@
 import VueRouter from 'vue-router'
 import store from '../store'
+import { DOCTOR_TYPE/* , HEALTH_CENTER_TYPE, PATIENT_TYPE */ } from '../utils/alias'
+
+const verifyAuthorization = (to, from, next) => {
+
+  const authUser = to.matched.some(record => record.meta.typeUser === +store.getters['auth/userTypeAuthed'])
+  if (store.getters['auth/isAuthenticated'] && authUser) {
+
+    next();
+    return;
+  }
+  next('/');
+}
 
 const router = new VueRouter({
   mode: 'history',
@@ -10,7 +22,7 @@ const router = new VueRouter({
       ///component: () => import(/* webpackChunkName: 'Teste' */ '@/components/teste.vue')
     //},
     {
-      path: '',
+      path: '/',
       redirect: { name: 'logins' }
     },
     {
@@ -21,15 +33,18 @@ const router = new VueRouter({
     {
       path: '/medico',
       component: () => import(/* webpackChunkName: 'Doctor' */ '@/views/Doctor'),
+      beforeEnter: verifyAuthorization,
+      meta: { typeUser: DOCTOR_TYPE },
       children: [
         {
-          path: '/medico',
+          path: '',
           name: 'doctorHome',
           component: () => import(/* webpackChunkName:  'Doctor' */ '@/views/DoctorHome')
         },
         {
           path: 'paciente/:patient/:attendance',
           name: 'doctorExamsPatient',
+          beforeEnter: verifyAuthorization,
           component: () => import(/* webpackChunkName: 'Doctor' */ '@/views/DoctorPatientExams'),
           props: true
         }
@@ -38,15 +53,17 @@ const router = new VueRouter({
     {
       path: '/parceiro',
       component: () => import(/* webpackChunkName: 'Partner' */ '@/views/Partner'),
+      //beforeEnter: verifyAuthorization,
       children: [
         {
-          path: '/parceiro',
+          path: '',
           name: 'partnerHome',
           component: () => import(/* webpackChunkName: 'Partner' */ '@/views/PartnerHome')
         },
         {
-          path: '/parceiro/paciente/:patient/:attendance',
+          path: 'paciente/:patient/:attendance',
           name: 'partnerExamsPatient',
+          //beforeEnter: verifyAuthorization,
           component: () => import(/* webpackChunkName: 'Partner' */ '@/views/PartnerPatientExams'),
           props: true
         }
@@ -55,10 +72,11 @@ const router = new VueRouter({
     {
       path: '/paciente',
       name: 'patient',
+      beforeEnter: verifyAuthorization,
       component: () => import(/* webpackChunkName: 'Patient' */ '@/views/Patient'),
       children: [
         {
-          path: '/paciente',
+          path: '',
           name: 'patientHome',
           component: () => import(/* webpackChunkName: 'Patient' */ '@/views/PatientHome'),
           props: true
@@ -70,7 +88,7 @@ const router = new VueRouter({
       component: () => import(/* webpackChunkName: 'HealthCenter' */ '@/views/HealthCenter'),
       children: [
         {
-          path: '/posto',
+          path: '',
           name: 'healthCenterHome',
           component: () => import(/* webpackChunkName: 'HealthCenter' */ '@/views/HealthCenterHome'),
         },
@@ -93,17 +111,5 @@ const router = new VueRouter({
     }
   ]
 })
-router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!store.user) {
-      next({
-        name: 'login'
-      });
-    } else {
-      next();
-    }  
-  } else {
-    next();
-  }
-})
+
 export default router
