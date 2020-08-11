@@ -10,7 +10,7 @@
         :noBorderRight="noBorderRight"
         :noBorderLeft="noBorderLeft"
         bolder
-        v-blur
+        @blur="mountDate"
       /> 
     </div>
     <div class="calendar__dates" :id="id" :class="{ 'calendar__dates--show': showDate, 'calendar__dates--hidden': !showDate }" ref="dates">
@@ -114,46 +114,6 @@ export default {
     this.populateDates()
     this.togglePositionCalendar()
   },
-  directives: {
-    blur: {
-      inserted: (el, _, vnode) => {
-
-        vnode.context.$children[0].blur = function (e) {
-
-          e = e || window.event 
-          let target = e.target || e.srcElement
-          var input = target.value
-          if (/\D\/$/.test(input)) { 
-
-            input = input.substr(0, input.length - 3)
-          
-          }
-          var values = input.split('/').map(function (v) {
-            return v.replace(/\D/g, '')
-          })
-
-          var output = ''
-          if (values.length == 3) {
-
-            var year = values[2].length !== 4 ? parseInt(values[2]) + 2000 : parseInt(values[2])
-            var month = parseInt(values[1]) - 1
-            var day = parseInt(values[0])
-            var d = new Date(year, month, day)
-            if (!isNaN(d)) {
-              var dates = [d.getDate(),d.getMonth() + 1, d.getFullYear()]
-              output = dates.map(function (v) {
-                v = v.toString()
-                return v.lenght == 1 ? '0' + v : v
-              }).join(' / ')
-
-            }
-          }
-
-          e.target.value = output
-        }
-      }
-    }
-  },
   watch: {
     selectedDate (value) {
       
@@ -187,6 +147,7 @@ export default {
       return str;
     },
     unselectableDates (day) {
+     
       if (day) {
 
         let date = new Date(this.year + '-' + '0' + (this.month + 1) + '-' + day)
@@ -195,9 +156,10 @@ export default {
       
         return begin > date.getTime() || end < date.getTime()
       }
-      
+      return true
     },
     selectDay (day) {
+  
       if (!this.unselectableDates(day)) {
         this.selectedDate = this.formatDate(new Date(this.year, this.month, day))
         this.selectedDay = day
@@ -309,6 +271,39 @@ export default {
       let year = d.getFullYear()
       this.$emit('datepicked', day + ' / ' + month + ' / ' + year)
       return day + ' / ' + month + ' / ' + year
+    },
+    mountDate (e) {
+      e = e || window.event 
+      let target = e.target || e.srcElement
+      var input = target.value
+      if (/\D\/$/.test(input)) { 
+
+        input = input.substr(0, input.length - 3)
+      
+      }
+      var values = input.split('/').map(function (v) {
+        return v.replace(/\D/g, '')
+      })
+
+      var output = ''
+      if (values.length == 3) {
+
+        var year = values[2].length !== 4 ? parseInt(values[2]) + 2000 : parseInt(values[2])
+        var month = parseInt(values[1]) - 1
+        var day = parseInt(values[0])
+        var d = new Date(year, month, day)
+        if (!isNaN(d)) {
+          var dates = [d.getDate(),d.getMonth() + 1, d.getFullYear()]
+          output = dates.map(function (v) {
+            v = v.toString()
+            return v.lenght == 1 ? '0' + v : v
+          }).join(' / ')
+
+        }
+      }
+
+      e.target.value = output
+      
     }
   }
 }
@@ -335,7 +330,7 @@ export default {
   right: 0
   background-color: #FFF
   @include respond-to(handhelds)
-    display: none
+    position: fixed
     width: 100%
   width: 320px
   z-index: 999
