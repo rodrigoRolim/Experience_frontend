@@ -20,7 +20,7 @@ body
 #app 
   font-size: 100%
   line-height: 1.1
-  background-color: #f4f3f37a
+  background-color: #f4f3f340
   font-family: Roboto, Arial, sans-serif
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
