@@ -181,7 +181,7 @@ export default {
     width: 100%
     margin-top: 40px
 .attendance-list-filter-healthcenter__period
-  width: 20%
+  width: 25%
   @include respond-to(medium-screens)
     width: 100%
     margin: 5px 0
