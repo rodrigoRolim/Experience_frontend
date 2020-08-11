@@ -17,7 +17,8 @@
           'custom-select__input--icon': icon, 
           'custom-select__input--invalid': invalidOption
         }"
-        v-model="selectedInput" 
+        v-model="selectedInput"
+        placeholder="selecione uma opção" 
       />
       <span class="custom-select__arrow">
         <div 
@@ -53,7 +54,7 @@
         :data-value="option.id"
         :data-selected="i" 
         class="custom-select__option"
-        @click="selectItem(option)"
+        @click="selectItem(option.name)"
         :class="{'custom-select__option--focused': i == currentOption}"
       >
         {{option.name}}
@@ -150,13 +151,13 @@ export default {
     selectItem (option) {
       let isOption = null
       let selectOption = option?.name || option
+
       if (selectOption) {
         isOption = this.searchOptionByName(selectOption)
       }
       if (!isOption || isOption.length > 0) {
         this.triggerInternalError(false)
-        if (typeof option === 'object')
-          this.selectedInput = option
+        this.selectedInput = option
         this.closeList()
         return
       }
@@ -291,6 +292,9 @@ export default {
   border: 1px solid lightgray
   border-right: none
   outline: none
+.custom-select__input::placeholder
+  font-size: 14px
+  text-transform: none
 .custom-select__option--focused
   background-color: rgba(0, 0, 0, 0.09)
 .custom-select__input--icon
