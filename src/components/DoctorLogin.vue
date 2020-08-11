@@ -15,10 +15,10 @@
             :options="crs"
             name="attendance"
             option="conselho profissional"
-            v-model="doctor.professionalCouncil"
+            v-model="doctor.sigla"
             :width="7"
             :height="9"
-            :error="validate.professionalCouncil"
+            :error="validate.sigla"
           ></code-select>
         </div>
        <div class="doctor-login__uf">
@@ -34,10 +34,10 @@
             name="ufConselho"
             :options="ufs"
             option="UF conselho"
-            v-model="doctor.profissionalUF"
+            v-model="doctor.uf"
             :width="7"
             :height="9"
-            :error="validate.profissionalUF"
+            :error="validate.uf"
           ></code-select>
        </div>
       </div>
@@ -57,10 +57,10 @@
           :height="9"
           :weight="500"
           icon="stethoscope"
-          v-model="doctor.numberCr"
+          v-model="doctor.crm"
           color="#333"
           numeric
-          :error="validate.numberCr"
+          :error="validate.crm"
         />
       </div>
       <div class="doctor-login__password">
@@ -77,8 +77,8 @@
           :width="7"
           :height="9"
           icon="lock"
-          v-model="doctor.password"
-          :error="validate.password"
+          v-model="doctor.senha"
+          :error="validate.senha"
         />
       </div>
       <div class="doctor-login__doubt">
@@ -109,6 +109,8 @@ import CodeLabel from './base/CodeLabel'
 import CodeButton from './base/CodeButton'
 import { required } from '../mixins/validations/rules'
 import { validator } from '../mixins/validations/validator'
+import { mapActions } from 'vuex'
+import { AUTH_REQUEST_NAMESPACED, DOCTOR_AUTH, DOCTOR_TYPE, REQUIRED_INPUT } from '../utils/alias'
 export default {
   name: 'DoctorLogin',
   mixins: [validator({required})],
@@ -126,72 +128,65 @@ export default {
       }],
       crs: [{id: 1, name: 'CRM'}],
       doctor: {
-        professionalCouncil: null,
-        profissionalUF: null,
-        numberCr: '',
-        password: ''
+        sigla: null,
+        uf: null,
+        crm: '',
+        senha: ''
       },
       validate: {
-        professionalCouncil: '',
-        profissionalUF: '',
-        numberCr: '',
-        password: ''
+        sigla: '',
+        uf: '',
+        crm: '',
+        senha: ''
       }
-    }
-  },
-  computed: {
-    professionalCouncil () {
-      return this.doctor.professionalCouncil < 0 ? '' : this.doctor.professionalCouncil
-    },
-    profissionalUF () {
-      return this.doctor.profissionalUF < 0 ? '' : this.doctor.profissionalUF
-    },
-    numberCr () {
-      return this.doctor.numberCr
-    },
-    password () {
-      return this.doctor.password
     }
   },
   watch: {
-    professionalCouncil (value) {
+    'doctor.sigla': function (value) {
       if (this.required(value)) {
-        this.validate.professionalCouncil = 'campo obrigatório'
+        this.validate.sigla = REQUIRED_INPUT
       } else {
-        this.validate.professionalCouncil = ''
+        this.validate.sigla = ''
       }
     },
-    profissionalUF (value) {
+    'doctor.uf': function (value) {
       if (this.required(value)) {
-        this.validate.profissionalUF = 'campo obrigatório'
+        this.validate.uf = REQUIRED_INPUT
       } else {
-        this.validate.profissionalUF = ''
+        this.validate.uf = ''
       }
     },
-    numberCr (value) {
+    'doctor.crm': function (value) {
       if (this.required(value)) {
-        this.validate.numberCr = 'campo obrigatório'
+        this.validate.crm = REQUIRED_INPUT
       } else {
-        this.validate.numberCr = ''
+        this.validate.crm = ''
       }
     },
-    password (value) {
+    'doctor.senha' (value) {
       if (this.required(value)) {
-        this.validate.password = 'campo obrigatório'
+        this.validate.senha = REQUIRED_INPUT
       } else {
-        this.validate.password = ''
+        this.validate.senha = ''
       }
     }
   },
   methods: {
+    ...mapActions({
+      login: AUTH_REQUEST_NAMESPACED
+    }),
     validateAll () {
       let fields = Object.keys(this.doctor).filter(el => this.doctor[el] == '' || this.doctor[el] == -1)
       fields.forEach(element => {
-        this.validate[element] = 'campo obrigatório'
+        this.validate[element] = REQUIRED_INPUT
       })
       return fields.length > 0
     },
     confirm (e) {
+      let { doctor } = this
+      this.login({ url: DOCTOR_AUTH, credentials: doctor, typeUser: DOCTOR_TYPE })
+        .then((logged) => console.log(logged))
+        .catch((err) => console.log({err}))
       e.preventDefault()
       let validated = this.validateAll()
       this.messageValidation(validated)
