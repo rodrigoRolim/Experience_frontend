@@ -115,6 +115,7 @@ import PartnerLogin from '../components/PartnerLogin'
 import PatientLogin from '../components/PatientLogin'
 import QrcodeLogin from '../components/QrcodeLogin'
 import TheNavbar from '../components/TheNavbar'
+
 export default {
   name: 'Logins',
   components: {
@@ -140,9 +141,6 @@ export default {
       showMessage: false,
       contentMessage: ''
     }
-  },
-  created () {
-    
   },
   watch: {
     aba () {
