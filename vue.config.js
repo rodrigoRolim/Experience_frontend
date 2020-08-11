@@ -10,5 +10,9 @@ module.exports = {
 				}
 			}
 		}
+	},
+	devServer: {
+		disableHostCheck: true,
+		proxy: 'http://192.168.1.41:9000'
 	}
 }
