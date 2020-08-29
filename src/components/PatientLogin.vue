@@ -1,5 +1,5 @@
 <template>
-  <div class="login-patient">
+  <div class="login-patient" id="merda">
     <form class="login-patient__form">
       <div class="login-patient__radio-buttons" v-if="!softKeyboard">
         <code-group-radios :receive="valueRadio" @group="group">
@@ -9,24 +9,24 @@
           <template v-slot:radios>
             <code-radio
               name="login"
-              value="CPF"
+              value="ID"
               label="Atendimento Único"
               @radio="radio"
-              identifier="cpf"
+              identifier="id"
               :visible="visibility"
             ></code-radio>
             <code-radio
               name="login"
-              value="ID"
+              value="CPF"
               label="Histórico de Resultados"
               @radio="radio"
-              identifier="id"
+              identifier="cpf"
               :visible="visibility"
             ></code-radio>
           </template> 
         </code-group-radios>
       </div>
-      <div class="login-patient__cpf" v-if="visibility == 'ID'">
+      <div class="login-patient__cpf" v-if="visibility !== 'ID'">
         <code-label
           bind="cpf"
           label="Cpf"
@@ -40,15 +40,13 @@
           type="text"
           required
           v-model="patient.cpf"
-          :width="7"
-          :height="9"
           :weight="500"
           color="#333"
           icon="user"
           :error="validate.cpf"
         />
       </div>
-      <div class="login-patient__birthday" v-if="visibility == 'ID'">
+      <div class="login-patient__birthday" v-if="visibility !== 'ID'">
          <code-label
           bind="birthDay"
           label="Data nascimento"
@@ -56,18 +54,15 @@
           :fontWeight="700"
           fontSize="0.8rem"
          ></code-label>
-        <code-input
-          placeholder="Data de nascimento"
-          name="birthDay"
-          type="text"
-          v-model="patient.birthDay"
-          :width="7"
-          :height="9"
-          :weight="500"
-          color="#333"
-          icon="user"
-          :error="validate.birthDay"
-        />
+         <code-calendar
+           class="calendars__calendar"
+           v-model="patient.nascimento" 
+           name="begin"
+           icon="birthday-cake" 
+           placeholder="data de nascimento"
+           :error="validate.nascimento"
+         />
+
       </div>
       <div class="login-patient__attendance" v-else>
         <code-label
@@ -78,20 +73,18 @@
           fontSize="0.8rem"
          ></code-label>
         <code-input
-          ref="idAttendance"
+          ref="atendimento"
           placeholder="ID Atendimento"
-          name="idAttendance"
+          name="idAtendimento"
           type="text"
           required
-          v-model="patient.idAttendance"
-          :focused="focusedInput == 'idAttendance'"
+          v-model="idAttendance"
+          :focused="focusedInput == 'atendimento'"
           @focus="focusInput"
-          :width="7"
-          :height="9"
           :weight="600"
           color="#333"
           icon="user"
-          :error="validate.idAttendance"
+          :error="validate.atendimento"
         />
       </div>
       <div class="login-patient__password">
@@ -103,21 +96,19 @@
           fontSize="0.8rem"
         ></code-label>
         <code-input-password
-          ref="password"
-          name="password"
+          ref="senha"
+          name="senha"
           id="patient-password"
-          :width="7"
-          :height="9"
           icon="lock"
           @focus="focusInput"
-          v-model="patient.password"
-          :focused="focusedInput == 'password'"
-          :error="validate.password"
+          v-model="patient.senha"
+          :focused="focusedInput == 'senha'"
+          :error="validate.senha"
         />
       </div>
       <div class="login-patient__actions">
         <small class="login-patient__keyboard">
-          <i v-if="visibility !== 'ID'" @click="displayKeyboard" class="keyboard__icon">
+          <i v-if="visibility === 'ID'" @click="displayKeyboard" class="keyboard__icon">
             <font-awesome-icon icon="keyboard" size="lg"/>
           </i>
         </small>
@@ -140,7 +131,10 @@
           shading
           streched
           size-icon="lg"
+          :loading="showLoader"
+          velocity-loading="1x"
           @click.prevent="confirm"
+          :disabled="authState == 'loading'"
         ></code-button>
       </div>
     </form>
@@ -156,6 +150,7 @@
         @space="space"
         :show="softKeyboard"
         :input="inputKeyboard"
+        
         @close="hiddenSoftKeyboard" 
       />  
     </div>
@@ -164,23 +159,40 @@
 <script>
 import CodeInput from './base/CodeInput'
 import CodeButton from './base/CodeButton'
+import CodeCalendar from './base/CodeCalendar'
 import CodeLabel from './base/CodeLabel'
 import CodeRadio from './base/CodeRadio'
 import CodeTooltip from './base/CodeTooltip'
 import CodeGroupRadios from './base/CodeGroupRadios'
 import CodeInputPassword from './base/CodeInputPassword'
 import keyboardSelfService from './KeyboardSelfService'
-import { required } from '../mixins/validations/rules'
+import { required, min, date, cpfValide } from '../mixins/validations/rules'
 import { validator } from '../mixins/validations/validator'
+import { cpf, identifier } from '../mixins/masks'
+import { login } from '../mixins/login';
+import {
+  NAMESPACED_AUTH, 
+  AUTH_REQUEST, 
+  ATTENDANCE_AUTH,
+  PATIENT_AUTH,
+  PATIENT_TYPE, 
+  PATIENT_ROUTE, 
+  REQUIRED_INPUT,
+  INCOMPLETE_ID,
+  INCOMPLETE_CPF,
+  INVALID_DATA
+} from '../utils/alias'
+import { mapActions } from 'vuex'
 export default {
   name: 'LoginPatient',
-  mixins: [validator({required})],
+  mixins: [validator({required, min, date, cpfValide }), cpf, identifier, login],
   props: {
     digit: String
   },
   components: {
     CodeButton,
     CodeInput,
+    CodeCalendar,
     CodeLabel,
     CodeRadio,
     CodeTooltip,
@@ -192,52 +204,130 @@ export default {
     return {
       patient: {
         cpf: '',
-        birthDay: '',
-        idAttendance: '',
-        password: ''
+        nascimento: '',
+        atendimento: '',
+        posto: '',
+        senha: ''
       },
+      code: '',
       validate: {
         cpf: '',
-        birthDay: '',
-        idAttendance: '',
-        password: ''
+        nascimento: '',
+        atendimento: '',
+        posto: '',
+        senha: ''
       },
       receive: '',
       valueRadio: '',
-      visibility: 'CPF',
+      visibility: 'ID',
       softKeyboard: false,
       inputKeyboard: '',
       focusInputList: [],
       indexFocusedInput: 0,
-      focusedInput: '',
+      focusedInput: 'idAttendance',
       caretPosition: 0,
       keyboardActive: false,
       focusedElement: null
     }
   },
-  mounted () {
-    this.focusInputList = Object.keys(this.$refs)
+  created () {
+    //this.$refs.idAttendance.focus()
+    this.focusInputList = ['atendimento', 'senha']
   },
   computed: {
-    cpf () {
-      return this.patient.cpf
+    cpf: {
+      get () {
+        return this.patient.cpf
+      },
+      set (value) {
+        this.patient.cpf = value
+      }
     },
-    birthDay () {
-      return this.patient.birthDay
+    identifier: {
+      get () {
+        return this.code
+      },
+      set (value) {
+        this.code = value
+      }
     },
-    idAttendance () {
-      return this.patient.idAttendance
+    birthDay: {
+      get () {
+        return this.patient.nascimento
+      },
+      set (value) {
+        this.patient.nascimento = this.formaterDate(value)
+      }
     },
-    password () {
-      return this.patient.password
-    }
+    idAttendance: {
+      get () {
+        return this.code
+      },
+      set (value) {
+        let arrIdentifier = this.splitIdAttendance(value)
+        this.attendance = arrIdentifier[1]
+        this.healthCenter = this.getNumberHealthCenter(arrIdentifier[0])
+        this.code = value
+      }
+    },
+    attendance: {
+      get () {
+        return this.patient.atendimento
+      },
+      set (value) {
+        this.patient.atendimento = value
+      }
+    },
+    healthCenter: {
+      get () {
+        return this.patient.posto
+      },
+      set (value) {
+        this.patient.posto = value
+      }
+    },
+    password: {
+      get () {
+        return this.patient.senha
+      },
+      set (value) {
+        this.patient.senha = value
+      }
+    },
+    getCredentials () {
+      let { patient } = this
+      if (this.visibility === 'CPF') {
+        return Object.assign({cpf: patient.cpf.replace(/\s/g, ''), nascimento: patient.nascimento.replace(/\s/g, ''), senha: patient.senha})
+      }
+      return Object.assign({atendimento: patient.atendimento, posto: patient.posto, senha: patient.senha})
+    },
+    validator () {
+      if (this.visibility === 'CPF') {
+        return (this.validate.cpf !== '' || this.validate.nascimento !== '' || this.validate.senha !== '')
+      }
+      return (  
+        this.validate.atendimento !== '' || 
+        this.validate.posto !== '' ||
+        this.validate.senha !== ''
+      )
+    },
   },
   watch: {
+    
     visibility () {
+
+      this.patient.cpf = ''
+      this.patient.nascimento = ''
+      this.idAttendance = ''
+      this.patient.posto = ''
+      //this.patient.senha = ''
+
       this.validate.cpf = ''
-      this.validate.birthDay = ''
-      this.validate.idAttendance = ''
-      this.validate.password = ''
+      this.validate.nascimento = ''
+      this.validate.atendimento = ''
+      this.validate.posto = ''
+      this.validate.senha = ''
+
     },
     softKeyboard (value) {
 
@@ -246,35 +336,48 @@ export default {
       }
     },
     cpf (value) {
+    
       if (this.required(value)) {
-        this.validate.cpf = 'campo obrigatório'
+        this.validate.cpf = REQUIRED_INPUT
+        //eslint-disable-next-line
+      } else if (this.cpfValide(value, /[0-9]{3}\s\.\s[0-9]{3}\s\.\s[0-9]{3}\s\-\s[0-9]{2}$/g)){
+        this.validate.cpf = INCOMPLETE_CPF
       } else {
         this.validate.cpf = ''
       }
     },
     birthDay (value) {
+      console.log(value)
       if (this.required(value)) {
-        this.validate.birthDay = 'campo obrigatório'
+        this.validate.nascimento = REQUIRED_INPUT
+        //eslint-disable-next-line
+      } else if (this.date(value, /[0-9]{2}\s\/\s[0-9]{2}\s\/\s[0-9]{4}/g)){
+        this.validate.nascimento = INVALID_DATA
       } else {
-        this.validate.birthDay = ''
+        this.validate.nascimento = ''
       }
     },
     idAttendance (value) {
       if (this.required(value)) {
-        this.validate.idAttendance = 'campo obrigatório'
+        this.validate.atendimento = REQUIRED_INPUT
+      } else if (this.min(value, 11)) {
+        this.validate.atendimento = INCOMPLETE_ID
       } else {
-        this.validate.idAttendance = ''
+        this.validate.atendimento = ''
       }
     },
     password (value) {
       if (this.required(value)) {
-        this.validate.password = 'campo obrigatório'
+        this.validate.senha = REQUIRED_INPUT
       } else {
-        this.validate.password = ''
-      }
+        this.validate.senha = ''
+      } 
     }
   },
   methods: {
+    ...mapActions (NAMESPACED_AUTH, {
+      login: AUTH_REQUEST
+    }),
     hiddenSoftKeyboard () {
 
       this.softKeyboard = false
@@ -283,7 +386,7 @@ export default {
     },
     inputModel (e) {
 
-      this.patient.idAttendance = e.target.value
+      this.patient.atendimento = e.target.value
     },
     nextInput () {
 
@@ -297,23 +400,69 @@ export default {
       this.indexFocusedInput = -(--this.indexFocusedInput)%numInputs
       this.focusedInput = this.focusInputList[this.indexFocusedInput]
     },
-    validateAll () {
-      let fields = Object.keys(this.patient).filter(el => this.patient[el] == '')
-      if (this.visibility !== 'ID') {
-        fields = fields.filter(el => el !== 'cpf' && el !== 'birthDay')
+
+    validateAllFields () {
+      let fields = Object.keys(this.patient).filter(el => {
+
+        return this.patient[el] === ''
+      })
+
+      if (this.visibility == 'CPF') {
+   
+        fields = fields.filter(el => el == 'cpf' || el == 'nascimento' || el == 'senha')
+      } else {
+        fields = fields.filter(el => !(el == 'cpf' || el == 'nascimento'))
       }
+
       fields.forEach(element => {
-        this.validate[element] = 'campo obrigatório'
+        this.validate[element] = REQUIRED_INPUT
       })
       return fields.length > 0
     },
-    confirm () {
-      let res = this.validateAll()
-      this.messageValidation(res)
+    confirm (e) {
+      
+      e.preventDefault()
+
+      let emptyFieldAll = this.validateAllFields()
+
+      if (!emptyFieldAll && this.authState !== 'loading' && !this.validator) {
+        
+        this.realizeLogin ()
+        return
+      }
+      if (emptyFieldAll || this.validator) {
+        this.$emit('error', this.message(111))
+        //this.$emit('loading', false)
+      }
+
     },
-    messageValidation (value) {
-      this.$emit('error', {error: value, message: 'corrija ou preencha os campos abaixo'})
+    splitIdAttendance (idAttendance) {
+      return idAttendance.split('/').map(item => item.trim())
     },
+    getNumberHealthCenter (healthCenter) {
+      return healthCenter.replace(/^[0]{1,2}/g, '')
+    },
+    formaterDate (date) {
+      return date.replace(/\s/g, '')
+    },
+    async realizeLogin () {
+      this.showLoader = true
+      this.$emit('loading', true)
+      try {
+        let resp = await this.login({ 
+            url: (this.visibility === 'CPF') ? PATIENT_AUTH : ATTENDANCE_AUTH, 
+            credentials: this.getCredentials,
+            typeUser: PATIENT_TYPE
+          })
+        this.success(resp.status, PATIENT_ROUTE)
+        
+      } catch (err) {
+        let refused = err.message == 'Network Error' ? 502 : undefined
+        this.error(refused || err.response.status) 
+        this.$emit('loading', false)
+      }
+    },
+    
     backspace () {
 
       const caretPosition = this.getCaretPosition()
@@ -403,7 +552,7 @@ export default {
  
       this.indexFocusedInput = this.focusInputList.indexOf(this.focusedInput)
       let currentPositionCursor = this.getCaretPosition()
-     
+      // console.log(this.patient[this.focusedInput])
       this.patient[this.focusedInput] = this.insertChar(this.patient[this.focusedInput], currentPositionCursor, e.target.value);
       this.updateCurrentInput(this.patient[this.focusedInput])
       let inputElement = this.focusedElement
@@ -420,15 +569,18 @@ export default {
       this.valueRadio = value
     },
     group (value) {
-     
+      console.log(value)
       this.visibility = value
     },
     displayKeyboard () {
-
+     
       this.focusedInput = this.focusInputList[this.indexFocusedInput]
+      console.log(this.focusedInput)
       this.softKeyboard = !this.softKeyboard
       if (this.softKeyboard) {
-        this.$refs[this.focusedInput].$el.focus();
+        //this.$refs[this.focusedInput].$el.focus();
+        //console.log( this.$refs[this.focusedInput])
+        this.focusedInput = 'atendimento'
       }
       this.keyboardActive = !this.keyboardActive
       this.$emit('keyboardActivated', this.keyboardActive)

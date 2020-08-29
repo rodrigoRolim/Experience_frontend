@@ -1,25 +1,18 @@
 <template>
   <div class="qrcode-login">
-    <div class="qrcode-login__message" :class="{ 'qrcode-login__message--hidden': ready, 'qrcode-login__message--show': !ready }">
+    <div class="qrcode-login__message" v-show="!showLoader" >
       <code-message
-        message="carregando video..."
-        typeMessage="default"
+        :message="messageLoad"
+        :typeMessage="typeMessageLoad"
         position="flex-start"
       >
         <template>
-          <code-loading class="code-loading" icon="video" sizeIcon="xs" range="40px" color="dimgray"/>
+          <code-loading class="code-loading" :icon="icon || 'video'" sizeIcon="xs" range="40px" :color="colorLoad || 'dimgray'"/>
         </template>
       </code-message>
     </div>
-    <div class="qrcode-login__canvas" :class="{ 'qrcode-login__canvas--hidden': !ready, 'qrcode-login__canvas--show': ready }">
+    <div v-show="ready" class="qrcode-login__canvas" :class="{ 'qrcode-login__canvas--hidden': !ready, 'qrcode-login__canvas--show': ready }">
       <canvas class="canvas" ref="canvas"/>
-    </div>
-    <div class="qrcode-login__output" ref="output">
-      <div class="qrcode-login__message" ref="outputMessage"></div>
-      <div class="qrcode-login__data" ref="data">
-        <b>Data:</b>
-        <span ref="outputData"></span>
-      </div>
     </div>
   </div>
 </template>
@@ -27,8 +20,12 @@
 import jsQR from 'jsqr'
 import CodeLoading from './base/CodeLoading'
 import CodeMessage from './base/CodeMessage'
+import { login } from '../mixins/login';
+import { mapActions } from 'vuex'
+import { ATTENDANCE_AUTH, PATIENT_TYPE, PATIENT_ROUTE, AUTH_REQUEST, NAMESPACED_AUTH } from '../utils/alias'
 export default {
   name: 'QrcodeLogin',
+  mixins: [login],
   components: {
     CodeLoading,
     CodeMessage
@@ -45,7 +42,11 @@ export default {
       ready: false,
       stream: null,
       index: 0,
-      direction: true
+      direction: true,
+      messageLoad: '',
+      typeMessageLoad: '',
+      icon: '',
+      colorLoad: ''
     }
   },
   mounted () {
@@ -54,13 +55,65 @@ export default {
     if (this.play) {
       this.getCamera()
     }
-
+  },
+  created () {
+    this.messageLoad = 'carregando video...'
+    this.typeMessageLoad = 'default'
   },
   beforeDestroy () {
     this.stopCamera()
   },
+  watch: {
+    authState (value) {
+
+      if (value === 'loading') {
+        this.icon = 'flask'
+        this.colorLoad = 'blue'
+        this.typeMessageLoad = 'info'
+        this.messageLoad = 'autenticando dados ...'
+      }
+      if (value === 'success') {
+        this.icon = 'check-circle'
+        this.colorLoad = 'green'
+        this.typeMessageLoad = 'success'
+        this.messageLoad = 'dados autenticados com sucesso!'
+      }
+      if (value === 'error') {
+        this.icon = 'times-circle'
+        this.colorLoad = 'red'
+        this.typeMessageLoad = 'error'
+        this.messageLoad = 'ocorreu um erro!'
+      }
+    }
+  },
   methods: {
-  
+    ...mapActions(NAMESPACED_AUTH, {
+      login: AUTH_REQUEST
+    }),
+    async realizeLogin (user) {
+      this.$emit('loading', true)
+      try {
+        let resp = await this.login({ url: ATTENDANCE_AUTH, credentials: user, typeUser: PATIENT_TYPE })
+        this.ready = false
+        this.showLoader = false
+        this.success(resp.status, PATIENT_ROUTE)
+ 
+      } catch (err) {
+        this.ready = false
+        this.showLoader = true
+        this.getCamera()
+        let refused = err.message == 'Network Error' ? 502 : undefined
+        this.error(refused || err.response.status) 
+        this.$emit('loading', false)
+      }
+    },
+    getCredentials (code) {
+
+      let codeObj = JSON.parse(code.data)
+      let arrIdentifier = codeObj.atendimento.split('/')
+      let [healthCenter, attendance] = arrIdentifier
+      return { posto: healthCenter, atendimento: attendance, senha: codeObj.senha }
+    },
     stopCamera() {
       let playPromise = this.video.play()
       if (playPromise !== undefined) {
@@ -118,6 +171,7 @@ export default {
     },
     tick () {
       if (this.video.readyState === this.video.HAVE_ENOUGH_DATA && this.$refs.canvas) {
+        this.showLoader = true
         this.ready = true
         this.$refs.canvas.height = this.video.videoHeight
         this.$refs.canvas.width = this.video.videoWidth
@@ -132,9 +186,14 @@ export default {
           this.drawLine(code.location.topRightCorner, code.location.bottomRightCorner, '#FF3B58')
           this.drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, '#FF3B58')
           this.drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, '#FF3B58')
-          this.$refs.outputData.innerText = code.data
+
+          this.ready = false
+          this.showLoader = false
+          this.realizeLogin(this.getCredentials(code))
+          this.stopCamera()
+         
         } else {
-          this.$refs.outputData.innerText = ''
+    
           this.drawBorder(imageData.width, imageData.height)
         }
 
@@ -153,7 +212,7 @@ export default {
   height: 50vh
 .qrcode-login__message
   flex-direction: row
-  width: 70%
+  width: 90%
 .qrcode-login__message--hidden
   display: none
 .qrcode-login__message--show
@@ -163,7 +222,7 @@ export default {
   justify-content: center
   align-items: center
 .qrcode-login__canvas canvas
-  width: 30vw
+  width: 90%
   height: 40vh
   @include respond-to(handhelds)
     width: 90%
