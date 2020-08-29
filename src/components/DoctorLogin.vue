@@ -94,7 +94,10 @@
           shading
           streched
           size-icon="lg"
+          :loading="showLoader"
+          velocity-loading="1x"
           @click.prevent="confirm"
+          :disabled="authState == 'loading'"
         ></code-button>
       </div>  
     </form>
@@ -107,13 +110,14 @@ import CodeInput from './base/CodeInput'
 import CodeInputPassword from './base/CodeInputPassword'
 import CodeLabel from './base/CodeLabel'
 import CodeButton from './base/CodeButton'
-import { required } from '../mixins/validations/rules'
+import { required, min } from '../mixins/validations/rules'
 import { validator } from '../mixins/validations/validator'
+import { login } from '../mixins/login';
 import { mapActions } from 'vuex'
-import { AUTH_REQUEST_NAMESPACED, DOCTOR_AUTH, DOCTOR_TYPE, REQUIRED_INPUT } from '../utils/alias'
+import { NAMESPACED_AUTH, AUTH_REQUEST, DOCTOR_AUTH, DOCTOR_ROUTE, DOCTOR_TYPE, REQUIRED_INPUT, INCOMPLET_CRM } from '../utils/alias'
 export default {
   name: 'DoctorLogin',
-  mixins: [validator({required})],
+  mixins: [validator({required, min}), login],
   components: {
     CodeSelect,
     CodeInput,
@@ -128,8 +132,8 @@ export default {
       }],
       crs: [{id: 1, name: 'CRM'}],
       doctor: {
-        sigla: null,
-        uf: null,
+        sigla: '',
+        uf: '',
         crm: '',
         senha: ''
       },
@@ -140,6 +144,17 @@ export default {
         senha: ''
       }
     }
+  },
+  computed: {
+    validator () {
+    
+      return (  
+        this.validate.sigla !== '' || 
+        this.validate.uf !== '' ||
+        this.validate.crm !== '' ||
+        this.validate.senha !== ''
+      )
+    },
   },
   watch: {
     'doctor.sigla': function (value) {
@@ -159,6 +174,8 @@ export default {
     'doctor.crm': function (value) {
       if (this.required(value)) {
         this.validate.crm = REQUIRED_INPUT
+      } else if (this.min(value, 4)){
+        this.validate.crm = INCOMPLET_CRM
       } else {
         this.validate.crm = ''
       }
@@ -172,27 +189,40 @@ export default {
     }
   },
   methods: {
-    ...mapActions({
-      login: AUTH_REQUEST_NAMESPACED
+    ...mapActions(NAMESPACED_AUTH, {
+      login: AUTH_REQUEST
     }),
-    validateAll () {
-      let fields = Object.keys(this.doctor).filter(el => this.doctor[el] == '' || this.doctor[el] == -1)
+    validateAllFields () {
+      let fields = Object.keys(this.doctor).filter(el => this.doctor[el] == '')
       fields.forEach(element => {
         this.validate[element] = REQUIRED_INPUT
       })
       return fields.length > 0
     },
-    confirm (e) {
-      let { doctor } = this
-      this.login({ url: DOCTOR_AUTH, credentials: doctor, typeUser: DOCTOR_TYPE })
-        .then((logged) => console.log(logged))
-        .catch((err) => console.log({err}))
-      e.preventDefault()
-      let validated = this.validateAll()
-      this.messageValidation(validated)
+    confirm () {
+
+      let emptyField = this.validateAllFields()
+      if (!emptyField && this.authState !== 'loading' && !this.validator) {
+        this.realizeLogin()
+        return
+      } 
+      if (emptyField || this.validator) {
+        this.emitMessage(111)
+      }    
     },
-    messageValidation (validated) {
-      this.$emit('error', {error: validated, message: 'corrija ou preencha os campos abaixo'})
+    async realizeLogin () {
+      this.showLoader = true
+      let { doctor } = this
+      this.$emit('loading', true)
+      try {
+        let resp = await this.login({ url: DOCTOR_AUTH, credentials: doctor, typeUser: DOCTOR_TYPE })
+        this.success(resp.status, DOCTOR_ROUTE)
+      } catch (err) {
+
+        let refused = err.message == 'Network Error' ? 502 : undefined
+        this.error(refused || err.response.status) 
+        this.$emit('loading', false)
+      }
     }
   }
 }
