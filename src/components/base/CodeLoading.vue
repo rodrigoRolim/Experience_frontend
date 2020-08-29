@@ -1,7 +1,11 @@
 <template>
   <div class="container-ring" :style="{height: range, width: range}">
-    <i class="container-ring__icon"><font-awesome-icon :icon="icon" :size="sizeIcon" :style="{color}"/></i>
-    <div class="container-ring__sector" :style="{height: range, width: range, borderTopColor: color}"></div>
+    <i class="container-ring__icon" v-if="icon"><font-awesome-icon :icon="icon" :size="sizeIcon" :style="{color}"/></i>
+    <div 
+      class="container-ring__sector" 
+      :style="{height: range, width: range, borderTopColor: color}"
+      :class="getClasses"
+    ></div>
   </div>
 </template>
 
@@ -10,12 +14,28 @@ export default {
   name: 'CodeLoading',
   props: {
     icon: {
-      type: String,
-      default: 'flask'
+      type: String
     },
     sizeIcon: String,
     range: String,
-    color: String
+    color: String,
+    velocity: {
+      type: String,
+      validator: function (value) {
+
+        return ['1x', '2x', '3x'].indexOf(value) !== -1
+      },
+      default: '1x'
+    }
+  },
+  computed: {
+    getClasses () {
+      return {
+        'container-ring__sector--1x': this.velocity === '1x',
+        'container-ring__sector--2x': this.velocity === '2x',
+        'container-ring__sector--3x': this.velocity === '3x',
+      }
+    }
   }
 }
 </script>
@@ -39,8 +59,13 @@ export default {
   height: 64px
   border: 4px solid #368c8c
   border-radius: 50%
-  animation: lds-ring 1.5s linear infinite
   border-color: #368c8c rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.1)
+.container-ring__sector--1x
+  animation: lds-ring 0.4s linear infinite
+.container-ring__sector--2x
+  animation: lds-ring 1.0s linear infinite
+.container-ring__sector--3x
+  animation: lds-ring 1.5s linear infinite
 .container-ring__icon
   display: flex
   position: absolute
