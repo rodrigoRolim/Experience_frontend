@@ -13,13 +13,14 @@
           placeholder="Código do parceiro"
           name="partnerCode"
           type="text"
-          v-model="partner.code"
+          v-model="partner.posto"
           :width="7"
           :height="9"
           :weight="500"
           color="#333"
           icon="handshake"
-          :error="validate.code"
+          numeric
+          :error="validate.posto"
         />
       </div>
       <div class="partner-login__password">
@@ -33,12 +34,12 @@
          <code-input-password
           id="partnerPassword"
           name="partnerPassword"
-          v-model="partner.password"
+          v-model="partner.senha"
           :width="7"
           :height="9"
           icon="lock"
           color="#333"
-          :error="validate.password"
+          :error="validate.senha"
         />
       </div>
       <div class="partner-login__utilities">
@@ -54,7 +55,9 @@
           shading
           streched
           size-icon="lg"
+          :loading="showLoader"
           @click.prevent="confirm"
+          :disabled="authState == 'loading'"
         ></code-button>
       </div>  
     </form>
@@ -66,10 +69,13 @@ import CodeInputPassword from './base/CodeInputPassword'
 import CodeButton from './base/CodeButton'
 import CodeLabel from './base/CodeLabel'
 import { required } from '../mixins/validations/rules'
-import { validator } from '../mixins/validations/validator' 
+import { validator } from '../mixins/validations/validator'
+import { login } from '../mixins/login'
+import { mapActions } from 'vuex'
+import { HEALTH_CENTER_AUTH, PARTNER_TYPE,PARTNER_ROUTE, AUTH_REQUEST, NAMESPACED_AUTH } from '../utils/alias'
 export default {
   name: 'PartnerLogin',
-  mixins: [validator({required})],
+  mixins: [validator({required}), login],
   components: {
     CodeButton,
     CodeInput,
@@ -79,40 +85,43 @@ export default {
   data () {
     return {
       partner: {
-        code: '',
-        password: ''
+        posto: '',
+        senha: ''
       },
       validate: {
-        code: '',
-        password: ''
+        posto: '',
+        senha: ''
       }
     }
   },
   computed: {
     code () {
-      return this.partner.code
+      return this.partner.posto
     },
     password () {
-      return this.partner.password
+      return this.partner.senha
     }
   },
   watch: {
     code (value) {
       if (this.required(value)) {
-        this.validate.code = 'campo obrigatório'
+        this.validate.posto = 'campo obrigatório'
       } else {
-        this.validate.code = ''
+        this.validate.posto = ''
       }
     },
     password (value) {
       if (this.required(value)) {
-        this.validate.password = 'campo obrigatório'
+        this.validate.senha = 'campo obrigatório'
       } else {
-        this.validate.password = ''
+        this.validate.senha = ''
       }
     }
   },
   methods: {
+    ...mapActions(NAMESPACED_AUTH, {
+      login: AUTH_REQUEST
+    }),
     validateAll () {
       let fields = Object.keys(this.partner).filter(el => this.partner[el] == '' || this.partner[el] == -1)
       fields.forEach(element => {
@@ -121,11 +130,27 @@ export default {
       return fields.length > 0
     },
     confirm () {
-      let validated = this.validateAll()
-      this.messageValidation(validated)
+      let emptyField = this.validateAll()
+      if (!emptyField && this.authState !== 'loading') {
+        this.realizeLogin()
+        return
+      } 
+      if (emptyField) {
+        this.emitMessage(111)
+      }    
     },
-    messageValidation (validated) {
-      this.$emit('error', {error: validated, message: 'corrija ou preencha os campos abaixo'})
+    async realizeLogin () {
+      this.showLoader = true
+      let { partner } = this
+      try {
+        let resp = await this.login({ url: HEALTH_CENTER_AUTH, credentials: partner, typeUser: PARTNER_TYPE })
+        this.success(resp.status, PARTNER_ROUTE)
+      } catch (err) {
+
+        let refused = err.message === 'Network Error' ? 502 : undefined
+        this.error(refused || err.response.status) 
+        this.$emit('loading', false)
+      }
     }
   }  
 }
