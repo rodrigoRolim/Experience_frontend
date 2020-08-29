@@ -1,12 +1,12 @@
 import VueRouter from 'vue-router'
 import store from '../store'
-import { DOCTOR_TYPE/* , HEALTH_CENTER_TYPE, PATIENT_TYPE */ } from '../utils/alias'
+import { DOCTOR_TYPE, PATIENT_TYPE, PARTNER_TYPE/* , HEALTH_CENTER_TYPE, PATIENT_TYPE */ } from '../utils/alias'
 
 const verifyAuthorization = (to, from, next) => {
 
   const authUser = to.matched.some(record => record.meta.typeUser === +store.getters['auth/userTypeAuthed'])
   if (store.getters['auth/isAuthenticated'] && authUser) {
-
+    
     next();
     return;
   }
@@ -16,11 +16,6 @@ const verifyAuthorization = (to, from, next) => {
 const router = new VueRouter({
   mode: 'history',
   routes: [
-    //{
-     // path: '/store',
-     // name: 'teste',
-      ///component: () => import(/* webpackChunkName: 'Teste' */ '@/components/teste.vue')
-    //},
     {
       path: '/',
       redirect: { name: 'logins' }
@@ -53,7 +48,8 @@ const router = new VueRouter({
     {
       path: '/parceiro',
       component: () => import(/* webpackChunkName: 'Partner' */ '@/views/Partner'),
-      //beforeEnter: verifyAuthorization,
+      beforeEnter: verifyAuthorization,
+      meta: { typeUser: PARTNER_TYPE },
       children: [
         {
           path: '',
@@ -63,7 +59,8 @@ const router = new VueRouter({
         {
           path: 'paciente/:patient/:attendance',
           name: 'partnerExamsPatient',
-          //beforeEnter: verifyAuthorization,
+          beforeEnter: verifyAuthorization,
+          meta: { typeUser: PARTNER_TYPE },
           component: () => import(/* webpackChunkName: 'Partner' */ '@/views/PartnerPatientExams'),
           props: true
         }
@@ -73,6 +70,7 @@ const router = new VueRouter({
       path: '/paciente',
       name: 'patient',
       beforeEnter: verifyAuthorization,
+      meta: { typeUser: PATIENT_TYPE },
       component: () => import(/* webpackChunkName: 'Patient' */ '@/views/Patient'),
       children: [
         {
@@ -80,7 +78,13 @@ const router = new VueRouter({
           name: 'patientHome',
           component: () => import(/* webpackChunkName: 'Patient' */ '@/views/PatientHome'),
           props: true
-        }
+        },
+        //{
+        //  path: '/paciente/:id',
+        //  name: 'patientHome',
+        //  component: () => import(/* webpackChunkName: 'Patient' */ '@/views/PatientHome'),
+        //  props: true
+        //}
       ]
     },
     {
