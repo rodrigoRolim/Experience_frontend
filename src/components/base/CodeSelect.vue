@@ -2,7 +2,8 @@
   <div class="custom-select" :id="name" ref="box">
     <div class="custom-select__select" ref="containerInput">
       <i 
-        class="custom-select__icon" 
+        class="custom-select__icon"
+        :class="{ 'custom-select__icon--required': error }"
         v-if="icon">
         <font-awesome-icon :icon="icon" />
       </i>
@@ -15,23 +16,26 @@
         autocomplete="off"
         :class="{
           'custom-select__input--icon': icon, 
-          'custom-select__input--invalid': invalidOption
+          'custom-select__input--invalid': invalidOption,
+          'custom-select__input--required': error
         }"
         v-model="selectedInput"
         placeholder="selecione uma opção" 
       />
-      <span class="custom-select__arrow">
+      <span class="custom-select__arrow" :class="{'custom-select__arrow--required': error}">
         <div 
           class="custom-select__line-l"
           :class="{
             'custom-select__line-l--select-down': !lineAnimation,
-            'custom-select__line-l--select-up': lineAnimation
+            'custom-select__line-l--select-up': lineAnimation,
+            'custom-select__line-l--required': error
           }"
         ></div>
         <div class="custom-select__line-r"
           :class="{
             'custom-select__line-r--select-down': !lineAnimation,
-            'custom-select__line-r--select-up': lineAnimation
+            'custom-select__line-r--select-up': lineAnimation,
+            'custom-select__line-r--required': error
           }"
         ></div>
       </span>
@@ -39,27 +43,29 @@
     <div class="custom-select__message-error"  v-if="error">
       <small class="custom-select__text-error">{{ error }}</small>
     </div>
-    <ul
-      ref="list"
-      class="custom-select__list" 
-      :class="{'custom-select__list--invalid': invalidOption}"
-      v-show="showList || invalidOption" 
-      role="list">
-      <li class="custom-select__invalid-option" v-show="invalidOption">opção inválida</li>
-      <li 
-        ref="items"
-        role="listitem"
-        v-for="(option, i) in filterOptions" 
-        :key="option.id"
-        :data-value="option.id"
-        :data-selected="i" 
-        class="custom-select__option"
-        @click="selectItem(option.name)"
-        :class="{'custom-select__option--focused': i == currentOption}"
-      >
-        {{option.name}}
-      </li>
-    </ul>
+    <div :class="{'custom-select__modal': showModalList}" @click.self="closeList">
+      <ul
+        ref="list"
+        class="custom-select__list" 
+        :class="{'custom-select__list--invalid': invalidOption}"
+        v-show="showList || invalidOption" 
+        role="list">
+        <li class="custom-select__invalid-option" v-show="invalidOption">opção inválida</li>
+        <li 
+          ref="items"
+          role="listitem"
+          v-for="(option, i) in filterOptions" 
+          :key="option.id"
+          :data-value="option.id"
+          :data-selected="i" 
+          class="custom-select__option"
+          @click="selectItem(option.name)"
+          :class="{'custom-select__option--focused': i == currentOption}"
+        >
+          {{option.name}}
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -79,6 +85,7 @@ export default {
       showList: false,
       lineAnimation: false,
       invalidOption: false,
+      showModalList: false,
       currentOption: -1,
       DOWN_ARROW_KEY_CODE: 40,
       UP_ARROW_KEY_CODE: 38,
@@ -142,9 +149,7 @@ export default {
       this.$refs.input.addEventListener('keydown', this.pickerOptions)
     },
     toggleListByClick (e) {
-      if (e.target.closest(this.selectName)) {
-        this.openList()
-      } else {
+      if (!e.target.closest(this.selectName)) {
         this.closeList()
       }
     },
@@ -154,6 +159,7 @@ export default {
 
       if (selectOption) {
         isOption = this.searchOptionByName(selectOption)
+        //this.closeList()
       }
       if (!isOption || isOption.length > 0) {
         this.triggerInternalError(false)
@@ -166,10 +172,12 @@ export default {
     closeList () {
       this.showList = false
       this.lineAnimation = false
+      this.showModalList = false
     },
     openList () {
       this.showList = true
       this.lineAnimation = true
+      this.showModalList = true
     },
     valideOption (optionName) {
 
@@ -249,6 +257,20 @@ export default {
 <style lang="sass" scoped>
 .custom-select 
   position: relative
+.custom-select__modal
+  @include respond-to(handhelds)
+    display: flex
+    justify-content: center
+    align-items: center
+    overflow: auto
+    width: 100%
+    height: 100%
+    position: fixed
+    top: 0
+    left: 0
+    bottom: 0
+    z-index: 999
+    background-color: rgba(0,0,0,0.5)
 .custom-select__list
   display: block
   border: 1px solid transparent
@@ -263,7 +285,12 @@ export default {
   border-bottom-left-radius: 2px
   border-bottom-right-radius: 2px
   color: #58595a
-  z-index: 9
+  z-index: 100
+  @include respond-to(handhelds)
+    top: 0
+    bottom: 0
+    width: 100px
+    position: static
 .custom-select__list--invalid
   background-color: #ffcbcb !important
 .custom-select__option,
@@ -292,6 +319,14 @@ export default {
   border: 1px solid lightgray
   border-right: none
   outline: none
+.custom-select__input--required,
+.custom-select__line-l--required,
+.custom-select__line-r--required,
+.custom-select__arrow--required
+  border-color: $danger !important
+.custom-select__icon--required
+  border-color: $danger !important
+  color: $danger !important
 .custom-select__input::placeholder
   font-size: 14px
   text-transform: none
@@ -345,10 +380,12 @@ export default {
   width: 35px
   background-color: white
 .custom-select__message-error
+  position: absolute
   display: flex
   flex-direction: row
   margin-left: 10px
   color: $danger
+  z-index: 0
 .custom-select__text-error
   font-style: italic
   margin-bottom: 0

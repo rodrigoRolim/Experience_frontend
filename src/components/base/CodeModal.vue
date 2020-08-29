@@ -1,6 +1,6 @@
 <template>
   <div class="modal" v-if="display">
-    <div class="modal__wrap" :class="{ 'modal--normal': normal, 'modal--custom': !normal }" @click.self="close">
+    <div class="modal__wrap" :class="{ 'modal--black': normal, 'modal--white': !normal }" @click.self="close">
       <div :class="{ 'modal__content': normal }">
         <slot name="modal"></slot>
       </div>
@@ -12,8 +12,7 @@ export default {
   name: 'CodeModal',
   props: {
     normal: {
-      type: Boolean,
-      default: true
+      type: Boolean
     },
     display: {
       type: Boolean,
@@ -42,8 +41,8 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-.modal--normal,
-.modal--custom
+.modal--black,
+.modal--white
   overflow: auto
   width: 100vw
   height: 100%
@@ -57,8 +56,8 @@ export default {
   align-items: center
   min-height: 100vh
   z-index: 999
-.modal--normal
+.modal--black
   background-color: rgba(0,0,0,0.5)
-.modal--custom
-  background-color: rgba(0,0,0,0)
+.modal--white
+  background-color: white
 </style>

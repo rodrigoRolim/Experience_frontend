@@ -1,5 +1,5 @@
 <template>
-  <div :class="type | messageType" :style="{width, justifyContent: position}">
+  <div :class="typeMessage | messageType" :style="{width, justifyContent: position}">
     <p class="message__icon"><font-awesome-icon :icon="icon" v-if="icon"/><slot></slot></p>
     <p class="message__content">{{message}}</p>
   </div>
@@ -18,7 +18,7 @@ export default {
         return ['center', 'flex-start', 'flex-end'].indexOf(value) !== -1
       }
     },
-    type: {
+    typeMessage: {
       type: String,
       default: 'default',
       validator: function (value) {
@@ -34,6 +34,7 @@ export default {
   },
   filters: {
     messageType (type) {
+      console.log(type)
       return 'message message--'+type
     }
   },
@@ -44,7 +45,7 @@ export default {
 </script>
 <style lang="sass" scoped>
 .message
-  border-radius: 3px
+  border-radius: 1px
   display: flex
   flex-direction: row
   justify-content: center
