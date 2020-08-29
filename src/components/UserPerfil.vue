@@ -30,7 +30,7 @@
           <i><font-awesome-icon icon="user-edit" :style="{color: 'gray'}"/></i>
           <span class="user-perfil__change-password">alterar senha</span>
         </div>
-        <div class="user-perfil__logout-wrap">
+        <div class="user-perfil__logout-wrap" @click="realizeLogout">
           <i><font-awesome-icon icon="sign-out-alt" :style="{color: 'gray'}"/></i>
           <span class="user-perfil__logout">sair</span>
         </div>
@@ -45,18 +45,29 @@
         <change-password-form @modal="showModal = $event"/>
       </template>
     </code-modal>
+    <code-modal
+      :display="showLoadLogout"
+    >
+      <template v-slot:modal>
+        <code-loading/>
+      </template>
+    </code-modal>
   </div>
 </template>
 <script>
 import CodeModal from './base/CodeModal'
 import CodeInfo from './base/CodeInfo'
+import CodeLoading from './base/CodeLoading'
 import ChangePasswordForm from './ChangePasswordForm'
+import { logout } from '../mixins/logout'
 export default {
   name: 'UserPerfil',
+  mixins: [logout],
   components: {
     ChangePasswordForm,
     CodeModal,
-    CodeInfo
+    CodeInfo,
+    CodeLoading
   },
   data () {
     return {
