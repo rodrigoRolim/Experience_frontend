@@ -8,16 +8,22 @@ const serverExperience = axios.create({
   }
 })
 
-//http.interceptors.request.use(
-  //config => {
+serverExperience.interceptors.request.use(
+  config => {
     /*
      * Here you can add a header with a JWT token, ensuring it will be
      * sent with ALL your requests.
      */
-    //return config;
-  //},
-  //error => Promise.reject(error),
-//);
+    
+    const token = 'Bearer ' + localStorage.getItem('user-token')
+    if (token) {
+      config.headers.Authorization = token
+    }
+
+    return config;
+  },
+  error => Promise.reject(error),
+);
 
 //http.interceptors.response.use(
   //response => response,
