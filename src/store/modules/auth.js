@@ -1,15 +1,16 @@
-
 import { requestToken } from '../../services/api'
 import { 
     AUTH_ERROR, 
     AUTH_LOGOUT, 
-    AUTH_SUCCESS, 
+    AUTH_SUCCESS,
+    AUTH_REINIT_STATUS,
     AUTH_REQUEST 
   } from '../../utils/alias'
 
 const state = () => ({
   token: localStorage.getItem('user-token') || "",
   status: '',
+  expired: localStorage.getItem('expired') || false,
   hasLoadedOnce: false,
   userType: localStorage.getItem('user-type') || ""
 })
@@ -44,8 +45,14 @@ const actions = {
       commit(AUTH_LOGOUT)
       localStorage.removeItem('user-token')
       localStorage.removeItem('user-type')
-      resolve()
+      resolve(true)
     })
+  },
+  [AUTH_REINIT_STATUS]: ({ commit }) => {
+    return new Promise(resolve => {
+      commit(AUTH_REINIT_STATUS)
+      resolve(true)
+    })    
   }
 }
 
@@ -59,9 +66,12 @@ const mutations = {
     state.token = resp.data.token
     state.hasLoadedOnce = true
   },
-  [AUTH_ERROR]: state => {
+  [AUTH_ERROR]: (state) => {
     state.status = 'error'
     state.hasLoadedOnce = true
+  },
+  [AUTH_REINIT_STATUS]: (state) => {
+    state.status = ''
   },
   [AUTH_LOGOUT]: state => {
     state.token = ''
