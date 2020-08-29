@@ -3,7 +3,7 @@
     <code-info
       size="lg"
       description="paciente"
-      info="RODRIGO ROLIM VERAS"
+      :info="name"
       color="rgba(71, 77, 94, 1)"
       size-info="0.9rem"
     />
@@ -19,11 +19,12 @@
             color="rgba(71, 77, 94, 1)"
           />
           <code-info
+        
             class="patient-exams--margin patient-exams__info"
             icon="mars"
             size="lg"
             description="sexo"
-            info="masculino"
+            :info="gender"
             color="rgba(71, 77, 94, 1)"
           />
           <code-info 
@@ -51,11 +52,19 @@
 <script>
 import CodeInfo from './base/CodeInfo'
 import CodeDropDown from './base/CodeDropDown'
+import { mapGetters } from 'vuex'
+import { NAMESPACED_PATIENT } from '../utils/alias'
 export default {
   name: 'PatientExamListHeader',
   components: {
     CodeInfo,
     CodeDropDown
+  },
+  computed: {
+    ...mapGetters(NAMESPACED_PATIENT, [
+      'name',
+      'gender'
+    ])
   },
   data () {
     return {
