@@ -66,6 +66,8 @@ export default {
   justify-content: space-around
   padding: 10px
   width: 100%
+  @include respond-to(handhelds)
+    flex-direction: column
 .dropdown__search
   width: 84%
   @include respond-to(handhelds)

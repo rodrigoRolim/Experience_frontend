@@ -3,16 +3,29 @@
    @click.prevent="click"
    class="button"
    :class="buttonClasses"
+   :disabled="disable"
    >
-    <i v-if="nameIcon" class="button__icon"
-      :class="{'button__icon--rounded': rounded}"
-    ><font-awesome-icon :icon="nameIcon" :size="sizeIcon"/></i>
-    <span v-if="!rounded">{{text}}</span>
+    <div class="button__content">
+      <code-loading 
+        color="dimgray"
+        range="25px"
+        :velocity="velocityLoading"
+        v-if="loading"
+      />
+      <i v-if="nameIcon && !loading" class="button__icon"
+        :class="{'button__icon--rounded': rounded}"
+      ><font-awesome-icon :icon="nameIcon" :size="sizeIcon"/></i>
+      <span v-if="!rounded && !loading">{{text}}</span>
+    </div>
    </button>
 </template>
 <script>
+import CodeLoading from './CodeLoading'
 export default {
   name: 'CodeButton',
+  components: {
+    CodeLoading
+  },
   props: {
     color: {
       type: String,
@@ -54,7 +67,10 @@ export default {
     rounded: Boolean,
     borded: Boolean,
     streched: Boolean,
-    transparent: Boolean
+    transparent: Boolean,
+    loading: Boolean,
+    velocityLoading: String,
+    disable: Boolean
   },
   data () {
     return {
@@ -75,7 +91,8 @@ export default {
             'button--bold': this.bolded, 
             'button--shading': this.shading,
             'button--streched': this.streched,
-            'button--transparent': this.transparent 
+            'button--transparent': this.transparent,
+            'button--loading': this.loading
          }, 
           'button--'+this.size, 'button--'+this.color, 'button--'+this.letters
       ]
@@ -97,6 +114,10 @@ export default {
   line-height: 1.42857143
   outline: none
   cursor: pointer
+.button__content
+  display: flex
+  align-items: center
+  justify-content: center
 .button:hover
   opacity: 0.9
 .button--streched
@@ -127,6 +148,8 @@ export default {
   height: 50px
 .button--shading
   box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5)
+.button--loading
+  background-color: rgba(0,0,0,0.2) !important
 .button--bold
   font-weight: 700
 .button__icon--rounded

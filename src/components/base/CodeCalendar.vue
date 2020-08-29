@@ -6,11 +6,12 @@
         :icon="icon"
         :name="name"
         autocomplete="off"
-        v-model="selectedDate"
+        v-model="inputEmitter"
         :noBorderRight="noBorderRight"
         :noBorderLeft="noBorderLeft"
         bolder
         @blur="mountDate"
+        :error="error"
       /> 
     </div>
     <div class="calendar__dates" :id="id" :class="{ 'calendar__dates--show': showDate, 'calendar__dates--hidden': !showDate }" ref="dates">
@@ -63,7 +64,12 @@ export default {
     },
     id: String,
     noBorderRight: Boolean,
-    noBorderLeft: Boolean
+    noBorderLeft: Boolean,
+    value: String,
+    error: {
+      type: String,
+      default: ''
+    }
   },
   data () {
     return {
@@ -114,9 +120,22 @@ export default {
     this.populateDates()
     this.togglePositionCalendar()
   },
+  computed: {
+    inputEmitter: {
+      set (value) {
+       
+        this.selectedDate = value
+        this.$emit('input', this.selectedDate)
+      },
+      get () {
+        return this.selectedDate
+      }
+    }
+  },
   watch: {
     selectedDate (value) {
-      
+      console.log(value)
+      if (this.showDate) this.showDate = false
       var input = value
 
       if (/\D\/$/.test(input)) { 
@@ -130,11 +149,12 @@ export default {
 
       if (values[0]) values[0] = this.checkValue(values[0], 31)
       if (values[1]) values[1] = this.checkValue(values[1], 12)
+
       var output = values.map(function (v, i) {
         return v.length == 2 && i < 2 ? v + ' / ' : v
       })
 
-     this.selectedDate =  output.join('').substr(0, 14)
+      this.selectedDate = output.join('').substr(0, 14)
     }
   },
   methods: {
@@ -161,7 +181,7 @@ export default {
     selectDay (day) {
   
       if (!this.unselectableDates(day)) {
-        this.selectedDate = this.formatDate(new Date(this.year, this.month, day))
+        this.inputEmitter = this.formatDate(new Date(this.year, this.month, day))
         this.selectedDay = day
         this.selectedMonth = this.month + 1
         this.selectedYear = this.year
@@ -269,7 +289,7 @@ export default {
         month = '0' + month
       }
       let year = d.getFullYear()
-      this.$emit('datepicked', day + ' / ' + month + ' / ' + year)
+      
       return day + ' / ' + month + ' / ' + year
     },
     mountDate (e) {
@@ -325,6 +345,7 @@ export default {
   align-items: center
   color: #313131
 .calendar__dates
+  border: 1px solid lightgray
   position: absolute
   left: 0
   right: 0
@@ -343,6 +364,7 @@ export default {
 .calendar__day.calendar__day--unselectable
   color: rgba(0,0,0,0.3)
   cursor: not-allowed
+  pointer-events: none
 .calendar__month
   display: flex
   justify-content: space-between

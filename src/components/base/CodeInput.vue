@@ -68,6 +68,9 @@ export default {
     error: {
       type: String,
       default: ''
+    },
+    focused: {
+      type: Boolean
     }
   },
   data () {
@@ -103,6 +106,7 @@ export default {
         return this.value
       },
       set (value) {
+
         this.$emit('input', value)
       }
     },

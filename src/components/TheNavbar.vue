@@ -77,6 +77,7 @@ export default {
     display: none
 .navbar__profile
   display: flex
+
   flex-direction: row
   justify-content: center
   align-items: center

@@ -14,7 +14,7 @@
         placeholder="senha" 
         :type="type" 
         :name="name" 
-        :id="id"
+        :id="name"
         v-bind="$attrs"
         v-model="inputEmitter"
         @keydown="replaceByBullet"
