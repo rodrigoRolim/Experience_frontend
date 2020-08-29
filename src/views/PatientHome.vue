@@ -20,6 +20,8 @@ import PatientExamsListHeader from '../components/PatientExamListHeader'
 import PatientExamList from '../components/PatientExamList'
 import TheSidebar from '../components/TheSidebar'
 import { bus } from '../main'
+import { mapActions } from 'vuex'
+import { GET_ATTENDANCES } from '../utils/alias'
 export default {
   name: 'PatientExams',
   components: {
@@ -35,6 +37,14 @@ export default {
   created () {
     bus.$on('sidebar', (data) => {
       this.attendances = data
+    })
+    this.patient({ url: GET_ATTENDANCES(0,10400) })
+      .then((resp) => console.log(resp))
+      .catch((err) => console.log({err}))
+  },
+  methods: {
+    ...mapActions('patient', {
+      patient: 'GET_NAME_PATIENT'
     })
   }
 }
