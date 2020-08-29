@@ -69,7 +69,7 @@ export default {
 .procediments__sign
   margin-right: 15px
 .procediments__list
-  margin-top: 30px
+  margin-top: 20px
   @include respond-to(handhelds)
-    margin-top: 70px
+    margin-top: 60px
 </style>
