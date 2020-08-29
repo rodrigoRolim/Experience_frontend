@@ -11,7 +11,7 @@
          ></code-label>
         <code-input
           placeholder="Usuário"
-          v-model="healthCare.user"
+          v-model="healthCare.userid"
           name="user"
           type="text"
           :width="7"
@@ -19,7 +19,7 @@
           :weight="400"
           color="#333"
           icon="user"
-          :error="validate.user"
+          :error="validate.userid"
         /> 
       </div>
       <div class="healthcare-login__password">
@@ -33,12 +33,12 @@
          <code-input-password
           id="healthPassword"
           name="healthPassword"
-          v-model="healthCare.password"
+          v-model="healthCare.senha"
           :width="7"
           :height="9"
           icon="lock"
           color="#333"
-          :error="validate.password"
+          :error="validate.senha"
         />
       </div>
       <div class="healthcare-login__healtcare-select">
@@ -52,13 +52,13 @@
         <code-select
           :options="list"
           option="Selecione um posto"
-          @selected="healthCare.healthSelected = value"
+          v-model="healthCare.posto"
           size="0.9rem"
           name="healthcares"
           icon="clinic-medical"
           :width="7"
           :height="9"
-          :error="validate.healthSelected"
+          :error="validate.posto"
         />
           
       </div>
@@ -75,7 +75,10 @@
           shading
           streched
           size-icon="lg"
+          :loading="showLoader"
+          velocity-loading="1x"
           @click.prevent="confirm"
+          :disabled="authState == 'loading'"
         ></code-button>
       </div>  
     </form>
@@ -89,9 +92,19 @@ import CodeLabel from './base/CodeLabel'
 import CodeSelect from './base/CodeSelect'
 import { required } from '../mixins/validations/rules'
 import { validator } from '../mixins/validations/validator'
+import { login } from '../mixins/login'
+import { mapActions } from 'vuex'
+import { 
+  NAMESPACED_AUTH,
+  AUTH_REQUEST, 
+  USER_AUTH, 
+  HEALTH_CENTER_TYPE, 
+  HEALTH_CENTER_ROUTE, 
+  REQUIRED_INPUT
+} from '../utils/alias'
 export default {
   name: 'LoginPatient',
-  mixins: [validator({required})],
+  mixins: [validator({required}), login],
   components: {
     CodeButton,
     CodeInput,
@@ -102,14 +115,14 @@ export default {
   data () {
     return {
       healthCare: {
-        user: '',
-        password: '',
-        healthSelected: null
+        userid: '',
+        senha: '',
+        posto: null
       },
       validate: {
-        user: '',
-        password: '',
-        healthSelected: ''
+        userid: '',
+        senha: '',
+        posto: ''
       },
       list: [
         { id: 1, name: 'fake news' },
@@ -124,55 +137,78 @@ export default {
   },
   computed: {
     user () {
-      return this.healthCare.user
+      return this.healthCare.userid
     },
     password () {
-      return this.healthCare.password
+      return this.healthCare.senha
     },
     healthSelected () {
-      return this.healthCare.healthSelected < 0 ? '' : this.healthCare.healthSelected 
+      return this.healthCare.posto < 0 ? '' : this.healthCare.posto
     }
   },
   watch: {
     user (value) {
       if (this.required(value)) {
-        this.validate.user = 'campo obrigatório'
+        this.validate.userid = REQUIRED_INPUT
       } else {
-        this.validate.use = ''
+        this.validate.useid = ''
       }
     },
     password (value) {
       if (this.required(value)) {
-        this.validate.password = 'campo obrigatório'
+        this.validate.senha = REQUIRED_INPUT
       } else {
-        this.validate.password = ''
+        this.validate.senha = ''
       }
     },
     healthSelected (value) {
        if (this.required(value)) {
-        this.validate.healthSelected = 'campo obrigatório'
+        this.validate.posto = REQUIRED_INPUT
       } else {
-        this.validate.healthSelected = ''
+        this.validate.posto = ''
       }
     }
   },
   methods: {
+    ...mapActions (NAMESPACED_AUTH, {
+      login: AUTH_REQUEST
+    }),
     validateAll () {
       let fields = Object.keys(this.healthCare).filter(el => this.healthCare[el] == '' || this.healthCare[el] == -1)
       fields.forEach(element => {
-        this.validate[element] = 'campo obrigatório'
+        this.validate[element] = REQUIRED_INPUT
       })
       return fields.length > 0
     },
-    confirm () {
-      let validated = this.validateAll()
-      this.messageValidation(validated)
+    confirm (e) {
+      e.preventDefault()
+
+      let emptyField = this.validateAll()
+
+      if (!emptyField && this.authState !== 'loading') {
+        this.realizeLogin()
+        return
+      }
+      if (emptyField) {
+        this.$emit('error', this.message(111))
+      }
     },
-    messageValidation (validated) {
-      this.$emit('error', {error: validated, message: 'corrija ou preencha os campos abaixo'})
-    },
-    getValue (value) {
-      console.log(value)
+    async realizeLogin () {
+      this.showLoader = true
+      let { healthCare } = this
+      this.$emit('loading', true)
+      try {
+        let resp = await this.login({ 
+            url: USER_AUTH, 
+            credentials: healthCare, 
+            typeUser: HEALTH_CENTER_TYPE 
+          })
+        this.success(resp.status, HEALTH_CENTER_ROUTE)
+      } catch (err) {
+        let refused = err.message === 'Netowrk Error' ? 502 : undefined
+        this.error(refused || err.response.status) 
+        this.$emit('loading', false)
+      }
     }
   }  
 }
