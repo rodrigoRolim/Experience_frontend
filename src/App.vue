@@ -22,8 +22,10 @@ body
   line-height: 1.1
   background-color: #f4f3f340
   font-family: Roboto, Arial, sans-serif
+  color: #505050
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
+  letter-spacing: .3px
   min-height: 100%
   position: absolute
   top: 0
