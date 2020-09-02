@@ -31,7 +31,7 @@ export default {
           return 'Finalizado'
         case 'EA':
           return 'Em Andamento'
-        case 'NR':
+        case 'N':
           return 'Não Realizado'
         case 'EP':
           return 'Há Pendencias'

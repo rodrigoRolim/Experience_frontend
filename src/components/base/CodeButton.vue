@@ -106,7 +106,9 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+
 @import '../../styles/_themes'
+
 .button
   border: 1px solid transparent
   color: white
@@ -156,7 +158,7 @@ export default {
   margin: 0
   padding: 0
 .button--theme
-  @include get-color($COLOR)
+  background-color: map-get($theme-color, "default")
 .button--primary
   background-color: $primary
 .button--success

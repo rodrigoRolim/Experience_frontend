@@ -3,7 +3,7 @@
     <code-info
       size="lg"
       description="paciente"
-      :info="name"
+      :info="patientName"
       color="rgba(71, 77, 94, 1)"
       size-info="0.9rem"
     />
@@ -15,16 +15,15 @@
             icon="birthday-cake"
             size="lg"
             description="idade"
-            info="27 anos"
+            :info="patientAge"
             color="rgba(71, 77, 94, 1)"
           />
           <code-info
-        
             class="patient-exams--margin patient-exams__info"
             icon="mars"
             size="lg"
             description="sexo"
-            :info="gender"
+            :info="patientGender"
             color="rgba(71, 77, 94, 1)"
           />
           <code-info 
@@ -32,7 +31,7 @@
             size="lg"
             class="patient-exams--margin patient-exams__info"
             description="previsão entrega"
-            info="15/10/2020"
+            :info="patientDelivery"
             color="rgba(71, 77, 94, 1)"
           />
           <code-info
@@ -40,7 +39,7 @@
             icon="user-md"
             size="lg"
             description="médico solicitante"
-            info="Dr. Alexandre Magno de Carvalo"
+            :info="patientDoctor"
             color="rgba(71, 77, 94, 1)"
           />
         </div>
@@ -53,7 +52,7 @@
 import CodeInfo from './base/CodeInfo'
 import CodeDropDown from './base/CodeDropDown'
 import { mapGetters } from 'vuex'
-import { NAMESPACED_PATIENT } from '../utils/alias'
+import { NAMESPACED_ATTENDANCE } from '../utils/alias'
 export default {
   name: 'PatientExamListHeader',
   components: {
@@ -61,14 +60,53 @@ export default {
     CodeDropDown
   },
   computed: {
-    ...mapGetters(NAMESPACED_PATIENT, [
-      'name',
-      'gender'
-    ])
+    ...mapGetters(NAMESPACED_ATTENDANCE, [
+      'attendance',
+      'healthCenter',
+      'attendanceId'
+    ]),
+    patientName () {
+      console.log(this.attendance(this.healthCenter, this.attendanceId))
+      return this.attendance(this.healthCenter, this.attendanceId)?.nome_cliente
+    },
+    patientGender () {
+      return this.getGender(this.attendance(this.healthCenter, this.attendanceId)?.sexo)
+    },
+    patientAge () {
+      return this.getAgeByBirthday(this.attendance(this.healthCenter, this.attendanceId)?.data_nas)
+    },
+    patientDelivery () {
+      return this.getDeliveryDate(this.attendance(this.healthCenter, this.attendanceId)?.data_entrega)
+    },
+    patientDoctor () {
+      return "Dr(a). " + this.attendance(this.healthCenter, this.attendanceId)?.nome_solicitante
+    }
   },
   data () {
     return {
 
+    }
+  },
+  methods: {
+    getGender (initial) {
+      return [{initial: 'M', value: 'masculino'}, {initial: 'F', value: 'feminino'}]
+        .find(item => item.initial === initial)?.value
+    },
+    getAgeByBirthday (dateString) {
+
+      var today = new Date();
+      var birthDate = new Date(dateString);
+      var age = today.getFullYear() - birthDate.getFullYear();
+      var m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+       age--;
+      }
+      const ageDate = age.toString()
+      return !isNaN(ageDate) ? ageDate : "";
+    },
+    getDeliveryDate (dateString) {
+      const delivery = new Date(dateString).toLocaleDateString("pt-BR")
+      return delivery !== "Invalid Date" ? delivery : ""
     }
   }
 }

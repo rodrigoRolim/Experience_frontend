@@ -4,15 +4,15 @@
       <strong>Relação de Atendimentos</strong>
     </div>
     <div class="sidebar__body">
-      <attendance-relations 
-        :attendances="attendances"
-      />
+      <attendance-relations />
     </div>
   </aside>
 </template>
 <script>
 import AttendanceRelations from './AttendanceRelations'
-import db from '../db'
+//import { mapGetters } from 'vuex'
+//import { NAMESPACED_ATTENDANCE } from '../utils/alias'
+//import db from '../db'
 export default {
   name: 'TheSidebar',
   components: {
@@ -20,9 +20,14 @@ export default {
   },
   data () {
     return {
-      attendances: db.attendances.data
+      //attendances: db.attendances.data
     }
   },
+  computed: {
+    /* ...mapGetters(NAMESPACED_ATTENDANCE, [
+      'attendances'
+    ]) */
+  }
 }
 </script>
 <style lang="sass" scoped>
@@ -31,9 +36,9 @@ export default {
   position: relative
   display: flex
   flex-direction: column
-  background-color: $green
+  background-color: map-get($theme-color, "default")
   padding-bottom: 50px
-  min-height: 100vh
+  min-height: 100%
   width: 321px
   border-right: 1px solid rgba(0,0,0,0.01)
 .sidebar__header
@@ -43,7 +48,7 @@ export default {
   flex-direction: row
   justify-content: center
   align-items: center
-  background-color: $green
+  background-color: map-get($theme-color, "default")
   height: 100px
   color: white
 .sidebar__date

@@ -40,8 +40,6 @@ export const identifier = {
       });
       
       let output = values.map(function (v, i) {
-        console.log(i)
-        console.log(v)
         return (v.length >= 3 && i == 0) ? v + ' / ' : v
       })
       this.identifier = output.join('').substr(0, 11)

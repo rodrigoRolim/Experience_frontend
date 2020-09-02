@@ -1,13 +1,13 @@
 <template>
   <div class="patient-exam" :class="getSituation | situationModifiers" @click.self="click">
     <div class="patient-exam__detail" @click.self="click">
-      <code-chip text="lic" transform="uppercase" class="patient-exam__tag"></code-chip>
+      <code-chip :text="mnemonico" transform="uppercase" class="patient-exam__tag"></code-chip>
       <div class="patient-exam__separator-line"></div>
       <div class="patient-exam__name-exam">
          <code-info
           size="lg"
           color="rgba(71, 77, 94, 1)"
-          info="LIPODOGRAMA COMPLETO"     
+          :info="name"     
          />
       </div>
     </div>
@@ -18,7 +18,7 @@
           size="lg"
           description="Posto Realizante"
           color="rgba(71, 77, 94, 1)"
-          info="MATRIZ"     
+          :info="nameHealthCenter"     
         />
         
       </div>
@@ -46,7 +46,10 @@ export default {
   name: "PatientExamList",
   mixins: [situation],
   props: {
-    situation: String
+    situation: String,
+    name: String,
+    nameHealthCenter: String,
+    mnemonico: String
   },
   components: {
     CodeChip,
@@ -59,6 +62,7 @@ export default {
   },
   filters: {
     situationModifiers (situation) {
+      console.log(situation)
       return "patient-exam--"+situation;
     }
   },

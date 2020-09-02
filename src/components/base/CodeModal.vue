@@ -21,17 +21,17 @@ export default {
   },  
   data () {
     return {
-      displayModal: false
+     
     }
   },
-  updated () {
+  created () {
+    document.body.style.overflow = 'hidden'
+  },
 
-    if (this.display) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'auto'
+  watch: {
+    display () {
+      document.body.style.overflow =  'auto'
     }
-    
   },
   methods: {
     close () {

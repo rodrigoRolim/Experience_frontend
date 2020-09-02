@@ -59,12 +59,13 @@ export default {
   display: flex
   flex-direction: column
   justify-content: center
-  font-size: 0.7rem
   margin-left: 5px
 .info__description
-  font-size: 0.63rem
+  font-size: 0.65rem
   text-transform: capitalize
+  font-weight: 900
   height: 12px
+  letter-spacing: .5px
   @include respond-to(handhelds)
     display: none
 .info__description--sm

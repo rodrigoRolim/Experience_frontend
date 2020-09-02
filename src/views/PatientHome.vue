@@ -1,15 +1,22 @@
 <template>
   <div class="patient-exams">
-      <div class="patient-exams__sidebar" 
-        :class="{ 'sidebar--show': attendances, 'sidebar--hidden': !attendances }">
-        <the-sidebar />
-      </div>
+    <code-modal
+      :display="loading"
+    >
+      <template v-slot:modal>
+        <code-loading/>
+      </template>
+    </code-modal>
+    <div class="patient-exams__sidebar" 
+      :class="{ 'sidebar--show': attendances, 'sidebar--hidden': !attendances }">
+      <the-sidebar :health-center="healthCenter" :attendance-id="attendanceId"/>
+    </div>
     <div class="patient-exams__main">
       <div class="patient-exams__patient">
-        <patient-exams-list-header />
+        <patient-exams-list-header :health-center="healthCenter" :attendance-id="attendanceId"/>
       </div>
       <div class="patient-exams__exams">
-        <patient-exam-list />
+        <patient-exam-list :health-center="healthCenter" :attendance-id="attendanceId"/>
       </div>
     </div>
   </div>
@@ -19,32 +26,46 @@
 import PatientExamsListHeader from '../components/PatientExamListHeader'
 import PatientExamList from '../components/PatientExamList'
 import TheSidebar from '../components/TheSidebar'
+import CodeLoading from '../components/base/CodeLoading'
+import CodeModal from '../components/base/CodeModal'
 import { bus } from '../main'
-import { mapActions } from 'vuex'
-import { GET_ATTENDANCES } from '../utils/alias'
+import { mapActions, mapGetters } from 'vuex'
+import { GET_ATTENDANCES, NAMESPACED_ATTENDANCE, GET_ATTENDANCES_STORE } from '../utils/alias'
 export default {
   name: 'PatientExams',
   components: {
     PatientExamsListHeader,
     TheSidebar,
-    PatientExamList
+    PatientExamList,
+    CodeLoading,
+    CodeModal
   },
   data () {
     return {
-      attendances: false
+      attendances: false,
+      healthCenter: '0',
+      attendanceId: '10400'
     }
   },
   created () {
     bus.$on('sidebar', (data) => {
       this.attendances = data
     })
-    this.patient({ url: GET_ATTENDANCES(0,10400) })
+    this.getAttendances({ url: GET_ATTENDANCES(0,10400) })
       .then((resp) => console.log(resp))
       .catch((err) => console.log({err}))
   },
+  computed: {
+    ...mapGetters(NAMESPACED_ATTENDANCE, [
+      'status'
+    ]),
+    loading () {
+      return this.status !== 'ok'
+    }
+  },
   methods: {
-    ...mapActions('patient', {
-      patient: 'GET_NAME_PATIENT'
+    ...mapActions(NAMESPACED_ATTENDANCE, {
+      getAttendances: GET_ATTENDANCES_STORE
     })
   }
 }
@@ -73,7 +94,7 @@ export default {
   margin-left: 321px
 .patient-exams__exams
   width: 100%
-  margin-top: 110px
+  margin-top: 90px
   @include respond-to(medium-screens)
     width: 100%
     margin-top: 60px
