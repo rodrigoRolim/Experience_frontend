@@ -1,8 +1,8 @@
 <template>
   <div class="patient-exams__container">
-    <div class="patient-exams__list" v-if="buceta !== undefined">
+    <div class="patient-exams__list" v-if="listExams !== undefined">
       <patient-exam-list-item
-        v-for="(exam, i) in buceta"
+        v-for="(exam, i) in listExams"
         :key="i" 
         :situation="exam.situacao"
         :name="exam.nome_procedimento"
@@ -11,14 +11,6 @@
         @click="show = true" 
         class="patient-exams__item"
       />
-     <!--  <patient-exam-list-item situation="PF" @click="show = true" class="patient-exams__item"/>
-      <patient-exam-list-item situation="NR" @click="show = true" class="patient-exams__item"/>
-      <patient-exam-list-item situation="EA" @click="show = true" class="patient-exams__item"/>
-      <patient-exam-list-item situation="EP" @click="show = true" class="patient-exams__item"/>
-      <patient-exam-list-item situation="TF" @click="show = true" class="patient-exams__item"/>
-      <patient-exam-list-item situation="EA" @click="show = true" class="patient-exams__item"/>
-      <patient-exam-list-item situation="NR" @click="show = true" class="patient-exams__item"/>
-      <patient-exam-list-item situation="PF" @click="show = true" class="patient-exams__item"/> -->
     </div>
     <code-modal
       :normal="true"
@@ -61,8 +53,7 @@ export default {
       'healthCenter',
       'attendanceId'
     ]),
-    buceta() {
-      console.log(this.healthCenter, this.attendanceId)
+    listExams () {
       return this.exams(this.healthCenter, this.attendanceId)
     }
   },

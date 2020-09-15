@@ -13,6 +13,6 @@ module.exports = {
 	},
 	devServer: {
 		disableHostCheck: true,
-		proxy: 'http://192.168.1.68:9000'
+		proxy: 'http://192.168.1.68:9001'
 	}
 }

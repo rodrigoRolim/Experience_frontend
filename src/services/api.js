@@ -1,9 +1,10 @@
 import { serverExperience, serverAuth } from '../config/axios'
 
-export const requestResource = ({ url = '', data = {}, method = '' }) => {
+export const requestResource = ({ url = '', headers, data = {}, method = '' }) => {
   return serverExperience({
     method,
     url,
+    headers,
     data
   })
 }

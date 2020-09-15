@@ -79,9 +79,6 @@ export default {
       outlineIcon: false
     }
   },
-  directives: {
-
-  },
   watch: {
     focused (value) {
 

@@ -2,9 +2,10 @@ import axios from 'axios'
 
 const serverExperience = axios.create({
   baseURL: 'http://192.168.1.68:9001',
-  timeout: 5000,
+  timeout: 500000,
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Accept': '*/*',
   }
 })
 
@@ -39,7 +40,7 @@ serverExperience.interceptors.request.use(
 
 const serverAuth = axios.create({
   baseURL: 'http://192.168.1.68:9000',
-  timeout: 5000,
+  timeout: 5000000,
   headers: {
     'Content-Type': 'application/json'
   },

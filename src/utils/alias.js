@@ -21,7 +21,7 @@ export const GET_HEALTH_CENTERS = '/v1/web/posto'
 
 // attendances
 export const GET_ATTENDANCES = (healthCenter, attendance) => `/v1/web/atendimento/${healthCenter}/${attendance}`
-export const GET_ATTENDANCES_HEALTH_CENTER = (healthCenter, begin, end) => `/v1/web/atendimento/${begin}/${end}/posto/${healthCenter}`
+export const GET_ATTENDANCES_HEALTH_CENTER = (healthCenter, begin, end, limit, page) => `/v1/web/atendimento/${begin}/${end}/posto/${healthCenter}?limit=${limit}&page=${page}`
 export const GET_ATTENDANCES_REQUESTER = (requester, begin, end) => `/v1/web/atendimento/${begin}/${end}/solicitante/${requester}`
 export const GET_ATTENDANCES_PATIENT = (client, begin, end) => `/v1/web/atendimento/${begin}/${end}/cliente/${client}`
 
@@ -72,6 +72,10 @@ export const SELECTED_ATTENDANCE = 'SELECTED_ATTENDANCE'
 export const CHANGE_SELECTED_ATTENDANCE = 'CHANGE_SELECTED_ATTENDANCE'
 export const SUCCESS_GET_ATTENDANCE = 'SUCCESS_GET_ATTENDANCE'
 export const ERROR_GET_ATTENDANCE = 'ERROR_GET_ATTENDANCE'
+export const SELECT_EXAMS = 'SELECT_EXAMS'
+export const BEGIN_DATE = 'BEGIN_DATE'
+export const END_DATE = 'END_DATE'
+export const EMPTY_EXAMS = 'EMPTY_EXAMS'
 /**  
  * MUTATIONS TYPES AND ACTIONS' NAMES along namespace
 */

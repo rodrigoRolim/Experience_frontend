@@ -43,8 +43,6 @@ export default {
   width: 100%
   top: 0
   left: 0
-.patient
-  min-height: 100vh
 .patient__main
   margin-top: 60px
 .patient__navbar

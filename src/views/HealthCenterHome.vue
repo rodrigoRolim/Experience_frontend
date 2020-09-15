@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="health-center__attendances">
-      <attendance-list :attendances="attendances" route="posto"/>
+      <attendance-list route="posto"/>
     </div>
   </div>
 </template>
@@ -32,6 +32,8 @@
 import AttendanceList from '../components/AttendanceList'
 import AttendanceListFilterHealthCenter from '../components/AttendanceListFilterHealthCenter'
 import AttendanceListSearch from '../components/AttendanceListSearch'
+import { mapActions } from 'vuex'
+import { GET_ATTENDANCES_HEALTH_CENTER, NAMESPACED_ATTENDANCE, GET_ATTENDANCES_STORE } from '../utils/alias'
 export default {
   name: 'HealthCenterHome',
   components: {
@@ -41,76 +43,26 @@ export default {
   },
   data () {
     return {
-       displayHeader: true,
-       searcherInModal: false,
-       attendances: [
-        {  
-          photo:"índice.jpeg",
-          name:"Antonio de oliveira veras rolim de moura nogueira silva",
-          age:"33 anos",
-          gender:"masculino",
-          idAttendance:"0/010178",
-          agreement:"particular",
-          dataAttendance:"10/06/2019",
-          dataDelivery:"10/08/2019",
-          exams:"T3 T3L TSH T4 T4L POT SOD T3 T3L TSH T4 T4L POT SOD T3 T3L TSH T4 T4L POT SOD T3 T3L TSH T4 T4L POT SOD",
-          situation:"PF"
-        },
-        {
-          photo:"índice.jpeg",
-          name:"Antonio de oliveira veras",
-          age:"33 anos",
-          gender:"masculino",
-          idAttendance:"0/010178",
-          agreement:"particular",
-          dataAttendance:"10/06/2019",
-          dataDelivery:"10/08/2019",
-          exams:"T3 T3L TSH T4 T4L POT SOD T3 T3L TSH T4 T4L POT SOD T3 T3L TSH T4 T4L POT SOD T3 T3L TSH T4 T4L POT SOD",
-          situation:"TF"
-        },
-        {
-          photo:"índice.jpeg",
-          name:"Antonio de oliveira veras",
-          age:"33 anos",
-          gender:"masculino",
-          idAttendance:"0/010178",
-          agreement:"particular",
-          dataAttendance:"10/06/2019",
-          dataDelivery:"10/08/2019",
-          exams:"T3 T3L TSH T4 T4L POT SOD T3 T3L TSH T4 T4L POT SOD T3 T3L TSH T4 T4L POT SOD T3 T3L TSH T4 T4L POT SOD",
-          situation:"EP"
-        },
-        {
-          photo:"índice.jpeg",
-          name:"Antonio de oliveira veras",
-          age:"33 anos",
-          gender:"masculino",
-          idAttendance:"0/010178",
-          agreement:"particular",
-          dataAttendance:"10/06/2019",
-          dataDelivery:"10/08/2019",
-          exams:"T3 T3L TSH T4 T4L POT SOD T3 T3L TSH T4 T4L POT SOD T3 T3L TSH T4 T4L POT SOD T3 T3L TSH T4 T4L POT SOD",
-          situation:"EA"
-        },
-        {
-          photo:"índice.jpeg",
-          name:"Antonio de oliveira veras",
-          age:"33 anos",
-          gender:"masculino",
-          idAttendance:"0/010178",
-          agreement:"particular",
-          dataAttendance:"10/06/2019",
-          dataDelivery:"10/08/2019",
-          exams:"T3 T3L TSH T4 T4L POT SOD T3 T3L TSH T4 T4L POT SOD T3 T3L TSH T4 T4L POT SOD T3 T3L TSH T4 T4L POT SOD",
-          situation:"NR"
-        }
-      ]
+      displayHeader: true,
+      searcherInModal: false
     }
   },
   created () {
-
+    let healthCenter = 0
+    let begin = "31-07-20"
+    let end = "31-07-20"
+    let limit = 2
+    let page = 1
+    console.log(GET_ATTENDANCES_HEALTH_CENTER(healthCenter, begin, end, limit, page))
+    let urlName = GET_ATTENDANCES_HEALTH_CENTER(healthCenter, begin, end, limit, page)
+    this.getAttendances({ url: urlName, headers: { 'X-Paginate': true } })
+      .then((res) => console.log(res))
+      .catch((err) => console.log({err}))
   },
   methods: {
+    ...mapActions(NAMESPACED_ATTENDANCE, {
+      getAttendances: GET_ATTENDANCES_STORE
+    }),
 
   }
 }

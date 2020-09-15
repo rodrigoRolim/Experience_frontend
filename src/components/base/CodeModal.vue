@@ -25,7 +25,7 @@ export default {
     }
   },
   created () {
-    document.body.style.overflow = 'hidden'
+    //document.body.style.overflow = 'hidden'
   },
 
   watch: {

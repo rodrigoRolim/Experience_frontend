@@ -16,6 +16,30 @@
         <patient-exams-list-header :health-center="healthCenter" :attendance-id="attendanceId"/>
       </div>
       <div class="patient-exams__exams">
+        <div class="patient-exams__btns-pdf" v-if="showButtons">
+          <code-button
+            class="btn-1"
+            text="imprimir"
+            name-icon="print"
+            borded
+            bolded
+            color="dark"
+            size="sm"
+            bottom
+            size-icon="lg"
+          />
+          <code-button
+            class="btn-1"
+            name-icon="file-pdf"
+            text="download"
+            borded
+            bolded
+            color="danger"
+            size="sm"
+            bottom
+            size-icon="lg"
+          />
+        </div>  
         <patient-exam-list :health-center="healthCenter" :attendance-id="attendanceId"/>
       </div>
     </div>
@@ -28,6 +52,7 @@ import PatientExamList from '../components/PatientExamList'
 import TheSidebar from '../components/TheSidebar'
 import CodeLoading from '../components/base/CodeLoading'
 import CodeModal from '../components/base/CodeModal'
+import CodeButton from '../components/base/CodeButton'
 import { bus } from '../main'
 import { mapActions, mapGetters } from 'vuex'
 import { GET_ATTENDANCES, NAMESPACED_ATTENDANCE, GET_ATTENDANCES_STORE } from '../utils/alias'
@@ -38,7 +63,8 @@ export default {
     TheSidebar,
     PatientExamList,
     CodeLoading,
-    CodeModal
+    CodeModal,
+    CodeButton 
   },
   data () {
     return {
@@ -57,8 +83,12 @@ export default {
   },
   computed: {
     ...mapGetters(NAMESPACED_ATTENDANCE, [
-      'status'
+      'status',
+      'examsToPrint'
     ]),
+    showButtons () {
+      return this.examsToPrint.length > 0
+    },
     loading () {
       return this.status !== 'ok'
     }
@@ -66,7 +96,11 @@ export default {
   methods: {
     ...mapActions(NAMESPACED_ATTENDANCE, {
       getAttendances: GET_ATTENDANCES_STORE
-    })
+    }),
+    printExams () {
+      
+    },
+    downloadExams () {}
   }
 }
 </script>
@@ -97,11 +131,22 @@ export default {
   margin-top: 90px
   @include respond-to(medium-screens)
     width: 100%
-    margin-top: 60px
+    margin-top: 65px
   @include respond-to(handhelds)
     width: 100%
     margin-top: 0
-    margin-top: 50px
+    margin-top: 65px
+.patient-exams__btns-pdf
+  display: flex
+  justify-content: space-between
+  width: 190px
+  position: fixed
+  bottom: 30px
+  right: 10px
+  background-color: white
+  box-shadow: 0px 0px 15px -11px #000000
+  padding: 10px
+  border-radius: 4px
 .patient-exams__patient
   position: fixed
 .patient-exams__sidebar

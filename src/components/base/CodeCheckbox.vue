@@ -1,7 +1,7 @@
 <template>
-<div class="checkbox">
+<div class="checkbox" @click="click">
   <label class="checkbox__label" ><span class="checkbox__label__text-left" v-if="left && text">{{text}}</span>
-    <input class="checkbox__input" type="checkbox" :name="name" :id="name" :value="content" />
+    <input class="checkbox__input" type="checkbox" :name="name" :id="name" :value="content" v-model="inputEmitter"/>
     <div class="checkbox__mark" :class="getSize" :style="{borderColor}">
       <div class="checkbox__mark__content" :class="getColor">
         <span class="checkmark">
@@ -42,8 +42,8 @@ export default {
     },
     borderColor: {
       type: String
-    }
-
+    },
+    value: Boolean
   },
   data () {
     return {
@@ -51,6 +51,14 @@ export default {
     }
   },
   computed: {
+    inputEmitter: {
+      set (value) {
+        this.$emit('input', value)
+      },
+      get () {
+        return this.value
+      }
+    },
     getColor (vm) {
       return ['checkmark--'+vm.color]
     },
@@ -59,7 +67,9 @@ export default {
     }
   },
   methods: {
-   
+   click () {
+     this.$emit('click')
+   }
   }
 }
 </script>
@@ -76,7 +86,6 @@ export default {
   justify-content: center
   align-items: center
   border-radius: 2px
-  margin: 10px 5px 5px 0
   cursor: pointer
 .checkbox__mark__content
   display: flex
@@ -134,22 +143,22 @@ export default {
   align-items: center
   height: 100% 
 .checkmark--theme
-  background-color: $theme
+  background-color: map-get($theme-color, "default")
 .checkmark--primary
-  background-color: $primary
+  background-color: map-get($theme-color, "primary")
 .checkmark--success
-  background-color: $success
+  background-color: map-get($theme-color, "success")
 .checkmark--warning
-  background-color: $warning
+  background-color: map-get($theme-color, "warning")
 .checkmark--danger
-  background-color: $danger
+  background-color: map-get($theme-color, "danger")
 .checkmark--info
-  background-color: $info
+  background-color: map-get($theme-color, "info")
 .checkmark--dark
-  background-color: $dark
+  background-color: map-get($theme-color, "dark")
 .checkmark--brand
-  background-color: $brand
+  background-color: map-get($theme-color, "brand")
 .checkmark--light
-  background-color: $light
+  background-color: map-get($theme-color, "light")
 
 </style>

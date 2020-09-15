@@ -1,28 +1,28 @@
 <template>
-<div class="attendance-item" :class="getSituation | situationModifier"
-  @click="patientExamsView"
->
-  <div class="attendance-item__header">
-    <strong class="attendance-item__name-patient"> {{name}}</strong>
+  <div class="attendance-item" :class="getSituation | situationModifier"
+    @click="patientExamsView"
+  >
+    <div class="attendance-item__header">
+      <strong class="attendance-item__name-patient"> {{name}}</strong>
+    </div>
+    <div class="attendance-item__body">
+      <attendance-list-item-profile
+        class="attendance-item__profile"
+        :name="name"
+        :age="age"
+        :gender="gender"
+      />
+      <code-chip-situation class="attendance-item__situation" :situation="situation"/>
+      <attendance-list-item-detail
+        class="attendance-item__details"
+        :idAttendance="idAttendance"
+        :agreement="agreement"
+        :dataDelivery="dataDelivery"
+        :dataAttendance="dataAttendance"
+        :exams="exams"
+      />
+    </div>
   </div>
-  <div class="attendance-item__body">
-    <attendance-list-item-profile
-      class="attendance-item__profile"
-      :name="name"
-      :age="age"
-      :gender="gender"
-    />
-    <code-chip-situation class="attendance-item__situation" :situation="situation"/>
-    <attendance-list-item-detail
-      class="attendance-item__details"
-      :idAttendance="idAttendance"
-      :agreement="agreement"
-      :dataDelivery="dataDelivery"
-      :dataAttendance="dataAttendance"
-      :exams="exams"
-    />
-  </div>
-</div>
 </template>
 <script>
 import AttendanceListItemProfile from './AttendanceListItemProfile'
@@ -38,12 +38,13 @@ export default {
     age: String,
     gender: String,
     idAttendance: String,
+    healthCenter: String,
     agreement: String,
     dataAttendance: String,
     dataDelivery: String,
     exams: String,
     situation: String,
-    route: String
+    patient: String   
   },
   components: {
     AttendanceListItemDetail,
@@ -62,7 +63,7 @@ export default {
   },
   methods: {
     patientExamsView () {
-      this.$router.push(`/${this.route}/paciente/1/1`)
+      this.$router.push(`/paciente/${this.patient}/${this.idAttendance}`)
     }
   }
 }

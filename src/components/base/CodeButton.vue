@@ -5,7 +5,7 @@
    :class="buttonClasses"
    :disabled="disable"
    >
-    <div class="button__content">
+    <div class="button__content" :class="{'button--bottom-text': bottom}">
       <code-loading 
         color="dimgray"
         range="25px"
@@ -70,7 +70,8 @@ export default {
     transparent: Boolean,
     loading: Boolean,
     velocityLoading: String,
-    disable: Boolean
+    disable: Boolean,
+    bottom: Boolean
   },
   data () {
     return {
@@ -214,4 +215,7 @@ export default {
   background-color: transparent
   color: $brand
   border: 1px solid $brand
+.button--bottom-text
+  display: flex
+  flex-direction: column
 </style>

@@ -25,8 +25,10 @@ const actions = {
   [AUTH_REQUEST]: ({ commit }, { url, credentials, typeUser }) => {
     return new Promise((resolve, reject) => {
       commit(AUTH_REQUEST)
+
       requestToken({ url, auth: credentials })
         .then((resp) => {
+          // localStorage.removeItem('user-token')
           localStorage.setItem('user-token', resp.data.token)
           localStorage.setItem('user-type', typeUser)
           commit(AUTH_SUCCESS, { resp, typeUser })

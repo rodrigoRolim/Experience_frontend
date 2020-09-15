@@ -56,11 +56,8 @@
           size="0.9rem"
           name="healthcares"
           icon="clinic-medical"
-          :width="7"
-          :height="9"
           :error="validate.posto"
         />
-          
       </div>
       <div class="healthcare-login__doubt">
       </div>
@@ -97,7 +94,7 @@ import { mapActions } from 'vuex'
 import { 
   NAMESPACED_AUTH,
   AUTH_REQUEST, 
-  USER_AUTH, 
+  HEALTH_CENTER_AUTH, 
   HEALTH_CENTER_TYPE, 
   HEALTH_CENTER_ROUTE, 
   REQUIRED_INPUT
@@ -151,7 +148,7 @@ export default {
       if (this.required(value)) {
         this.validate.userid = REQUIRED_INPUT
       } else {
-        this.validate.useid = ''
+        this.validate.userid = ''
       }
     },
     password (value) {
@@ -199,7 +196,7 @@ export default {
       this.$emit('loading', true)
       try {
         let resp = await this.login({ 
-            url: USER_AUTH, 
+            url: HEALTH_CENTER_AUTH, 
             credentials: healthCare, 
             typeUser: HEALTH_CENTER_TYPE 
           })

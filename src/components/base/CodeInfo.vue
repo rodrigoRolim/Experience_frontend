@@ -77,6 +77,7 @@ export default {
 .info__content
   font-weight: 600
   font-size: 0.72rem
+  letter-spacing: .5px
 .info--left .info__content
   margin-right: 10px
 .info--bottom

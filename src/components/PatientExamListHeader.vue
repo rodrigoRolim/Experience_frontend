@@ -1,12 +1,23 @@
 <template>
   <div class="patient-exams__header">
-    <code-info
-      size="lg"
-      description="paciente"
-      :info="patientName"
-      color="rgba(71, 77, 94, 1)"
-      size-info="0.9rem"
-    />
+    <div class="patient-exams__name-checkall">
+      <code-info
+        size="lg"
+        description="paciente"
+        :info="patientName"
+        color="rgba(71, 77, 94, 1)"
+        size-info="0.9rem"
+      />
+      <div class="patient-exams__checkall" v-if="hasFinalizedExam">
+        <code-checkbox
+          text="imprimir"
+          none
+          color="theme"
+          size="md"
+          v-model="checkAllExams"
+        />
+      </div>
+    </div>
     <code-drop-down bcolor="white" text="detalhes" dropdown>
       <template v-slot:content>
         <div class="patient-exams__patient-info">
@@ -51,19 +62,24 @@
 <script>
 import CodeInfo from './base/CodeInfo'
 import CodeDropDown from './base/CodeDropDown'
-import { mapGetters } from 'vuex'
-import { NAMESPACED_ATTENDANCE } from '../utils/alias'
+import CodeCheckbox from '../components/base/CodeCheckbox'
+import { mapGetters, mapActions } from 'vuex'
+import { NAMESPACED_ATTENDANCE, SELECT_EXAMS, EMPTY_EXAMS } from '../utils/alias'
 export default {
   name: 'PatientExamListHeader',
   components: {
     CodeInfo,
-    CodeDropDown
+    CodeDropDown,
+    CodeCheckbox
   },
   computed: {
     ...mapGetters(NAMESPACED_ATTENDANCE, [
       'attendance',
+      'exams',
       'healthCenter',
-      'attendanceId'
+      'attendanceId',
+      'hasFinalizedExam',
+      'printableExams'
     ]),
     patientName () {
       console.log(this.attendance(this.healthCenter, this.attendanceId))
@@ -84,10 +100,26 @@ export default {
   },
   data () {
     return {
-
+      checkAllExams: false
+    }
+  },
+  watch: {
+    checkAllExams (value) {
+     
+      if (value) {
+        let exams = this.exams(this.healthCenter, this.attendanceId)
+        let examsFinalized = exams.filter(exam => exam.situacao === 'N')
+        this.addExams(examsFinalized)
+        return
+      }
+      this.emptyExams()
     }
   },
   methods: {
+    ...mapActions(NAMESPACED_ATTENDANCE, {
+      addExams: SELECT_EXAMS,
+      emptyExams: EMPTY_EXAMS
+    }),
     getGender (initial) {
       return [{initial: 'M', value: 'masculino'}, {initial: 'F', value: 'feminino'}]
         .find(item => item.initial === initial)?.value
@@ -122,6 +154,9 @@ export default {
     width: 100%
   border-bottom: 1px solid rgba(0,0,0,0.1)
   padding: 15px 10px 0px 10px
+.patient-exams__name-checkall
+  display: flex
+  justify-content: space-between
 .patient-exams--margin
   margin: 10px
 .patient-exams__patient-info

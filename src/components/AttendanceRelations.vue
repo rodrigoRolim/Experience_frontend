@@ -1,13 +1,14 @@
 <template>
   <div class="attendance-relations">
     <div class="attendance-relations__item"
-      v-for="attendance in attendances"
-      :key="attendance.atendimento"
+      v-for="(attendance, i) in attendances"
+      :key="i"
       :class="{ 'attendance-relations__item--active': setIdentifier(attendance.posto, attendance.atendimento) === selected }"
       @click="highlight(attendance.posto, attendance.atendimento)"
     >
       <attendance-relations-item
         :attendance-date="attendance.data_atd | data"
+        :attendance-id="attendance.posto| id(attendance.atendimento)"
         :list-exams="getMnemonicos(attendance.ExamesObj)"
       />
     </div>
@@ -32,9 +33,6 @@ export default {
       selected: ''      
     }
   },
-  updated () {
-    this.selected = this.initialySelected
-  },
   filters: {
     data (dateString) {
       console.log('data')
@@ -54,6 +52,9 @@ export default {
       const ageDate = age.toString()
 
       return !isNaN(ageDate) ? ageDate : "";
+    },
+    id (healthCenter, attendanceId) {
+      return healthCenter + '/' + attendanceId
     }
   },
   computed: {
@@ -65,6 +66,11 @@ export default {
     initialySelected () {
       console.log(this.healthCenter, this.attendanceId)
       return this.healthCenter + '/' + this.attendanceId
+    }
+  },
+  watch: {
+    initialySelected (value) {
+      this.selected = value
     }
   },
   methods: {

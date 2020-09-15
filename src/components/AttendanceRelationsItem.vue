@@ -38,7 +38,8 @@ export default {
   },
   props: {
     attendanceDate: String,
-    listExams: String
+    listExams: String,
+    attendanceId: String
   },
   data () {
     return {

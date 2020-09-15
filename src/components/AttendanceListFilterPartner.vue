@@ -12,7 +12,7 @@
             fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
           />
           <div class="attendances-filter-partner__calendars">
-            <attendance-list-filter-period />
+            <attendance-list-filter-period v-model="period"/>
           </div>
         </div>
         <div class="attendances-filter-partner__accomodation">
@@ -29,8 +29,6 @@
             name="acomodations"
             option="selecione a acomodação"
             :options="list"
-            :width="9"
-            :height="8"
           />
         </div>
         <div class="attendances-filter-partner__situation">
@@ -83,7 +81,6 @@
       </div>
     </template>
   </code-drop-down>
-
 </template>
 
 <script>
@@ -105,7 +102,8 @@ export default {
   },
   data () {
     return {
-      list: []
+      list: [],
+      period: null
     }
   }
 }

@@ -219,7 +219,7 @@ export default {
         this.success(resp.status, DOCTOR_ROUTE)
       } catch (err) {
 
-        let refused = err.message == 'Network Error' ? 502 : undefined
+        let refused = err.message === 'Network Error' ? 502 : undefined
         this.error(refused || err.response.status) 
         this.$emit('loading', false)
       }
