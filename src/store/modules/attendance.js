@@ -111,11 +111,7 @@ const actions = {
 const mutations = {
   [GET_ATTENDANCES_STORE]: (state, attendances) => {
     state.attendances = attendances
-   /*  if (typeof attendances === Array) {
-      state.attendances = attendances
-      return
-    }
-    state.attendances.push(attendances) */
+
   },
   [SELECTED_ATTENDANCE]: (state) => {
     state.selectedAttendance.healthCenter = state.attendances[0].posto
