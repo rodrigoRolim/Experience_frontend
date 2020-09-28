@@ -4,22 +4,17 @@
       <procediment-list-item-search />    
     </div>
     <div class="procediments__body">
-      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
-      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
-      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
-      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
-      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
-      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
-      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
-      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
-      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
-      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
-      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
-      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
-      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
-      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
-      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>
-      <procediment-list-item class="procediments__body__item" @click="show = $event"></procediment-list-item>    
+      <procediment-list-item
+        v-for="(procediment, i) in procediments"
+        :key="i"
+        :mnemonic="procediment.mnemonico"
+        :name="procediment.nome"
+        :material="procediment.nome_material"
+        :laboratory="procediment.nome_setor" 
+        class="procediments__body__item" 
+        @click="show = $event"
+      />
+      
     </div>
     <div class="modal_instructions">
       <code-modal
@@ -39,6 +34,8 @@ import ProcedimentInstructions from './ProcedimentInstructions'
 import ProcedimentListItem from './ProcedimentListItem'
 import ProcedimentListItemSearch from './ProcedimentListItemSearch'
 import CodeModal from './base/CodeModal'
+import { mapGetters } from 'vuex'
+import { NAMESPACED_PROCEDIMENT } from '../utils/alias'
 export default {
   name: 'ProcedimentList',
   components: {
@@ -51,6 +48,11 @@ export default {
     return {
       show: false
     }
+  },
+  computed: {
+    ...mapGetters(NAMESPACED_PROCEDIMENT, [
+      'procediments'
+    ]),
   },
   methods: {
     

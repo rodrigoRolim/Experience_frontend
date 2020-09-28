@@ -1,23 +1,24 @@
 import axios from 'axios'
+import store from '../store/index'
+import { ADD_CANCEL_TOKEN } from '../utils/alias'
 
 const serverExperience = axios.create({
   baseURL: 'http://192.168.1.68:9001',
-  timeout: 500000,
+  timeout: 40000,
   headers: {
     'Content-Type': 'application/json',
-    'Accept': '*/*',
-  }
+    'Accept': 'aplication/json, text/plain, */*'
+  },
 })
 
 serverExperience.interceptors.request.use(
   config => {
-    /*
-     * Here you can add a header with a JWT token, ensuring it will be
-     * sent with ALL your requests.
-     */
-    
+    let source = axios.CancelToken.source()
+    config.cancelToken = source.token
+    store.commit(ADD_CANCEL_TOKEN, source)
     const token = 'Bearer ' + localStorage.getItem('user-token')
     if (token) {
+      config.headers['X-Paginate'] = true
       config.headers.Authorization = token
     }
 
@@ -25,18 +26,6 @@ serverExperience.interceptors.request.use(
   },
   error => Promise.reject(error),
 );
-
-//http.interceptors.response.use(
-  //response => response,
-  //error => {
-    /*
-     * Here you can add a central error handling mechanism
-     */
-    //store.dispatch('setErrorMessage', { error: error.response.data });
-
-    //return Promise.reject(error);
-  //},
-//);
 
 const serverAuth = axios.create({
   baseURL: 'http://192.168.1.68:9000',
@@ -46,6 +35,15 @@ const serverAuth = axios.create({
   },
   Credentials: false
 })
+serverAuth.interceptors.request.use(
+  config => {
+    let source = axios.CancelToken.source()
+    config.cancelToken = source.token
+    store.commit(ADD_CANCEL_TOKEN, source)
 
+    return config
+  },
+  error => Promise.reject(error)
+)
 export { serverAuth }
 export { serverExperience }

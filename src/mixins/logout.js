@@ -1,5 +1,9 @@
 import { mapActions } from 'vuex'
-import { NAMESPACED_AUTH, AUTH_LOGOUT, ACESS_ROUTE } from '../utils/alias'
+import { 
+  NAMESPACED_AUTH, 
+  AUTH_LOGOUT, 
+  ACESS_ROUTE 
+} from '../utils/alias'
 export const logout = {
   data () {
     return {
@@ -12,9 +16,9 @@ export const logout = {
     }),
     async realizeLogout () {
       let isLoggedout = await this.logout()
-      this.showLoadLogout = true//isLoggedout
+      this.showLoadLogout = true
       if (isLoggedout) {
-        console.log(isLoggedout)
+        //this.cancelAllRequest()
         setTimeout(() => {this.$router.push({ path: ACESS_ROUTE })}, 1000)
       }
     }

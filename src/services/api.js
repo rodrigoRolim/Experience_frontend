@@ -1,15 +1,21 @@
 import { serverExperience, serverAuth } from '../config/axios'
-
-export const requestResource = ({ url = '', headers, data = {}, method = '' }) => {
+import axios from 'axios'
+const CancelToken = axios.CancelToken
+const source = CancelToken.source()
+export const requestResource = ({ url = '', params, data = {}, method = 'GET' }) => {
   return serverExperience({
     method,
+    params,
     url,
-    headers,
     data
   })
 }
+export const multipleRequests = (cbs = []) => {
 
+  return serverExperience.all(cbs)
+}
 export const requestToken = ({ url, auth }) => {
 
   return serverAuth.post(url, auth)
 }
+export { source }

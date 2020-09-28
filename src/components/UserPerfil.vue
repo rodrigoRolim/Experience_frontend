@@ -6,7 +6,7 @@
           <code-info
             left
             icon="user"
-            info="rodrigo rolim veras"
+            :info="userName"
             size="lg"
             color="lightslategray"
             mobile-hidden
@@ -23,8 +23,8 @@
     <transition name="fade" mode="in-out">
       <div class="user-perfil__menu" v-if="show">
         <div class="user-perfil__user-info">
-          <span class="user-perfil__name">rodrigo rolim veras</span>
-          <span class="user-perfil__birthdate">17/06/1992</span>
+          <span class="user-perfil__name">{{userName}}</span>
+          <span class="user-perfil__birthdate" >17/06/1992</span>
         </div>
         <div class="user-perfil__change-password-wrap" @click="enableModal"> 
           <i><font-awesome-icon icon="user-edit" :style="{color: 'gray'}"/></i>
@@ -60,6 +60,8 @@ import CodeInfo from './base/CodeInfo'
 import CodeLoading from './base/CodeLoading'
 import ChangePasswordForm from './ChangePasswordForm'
 import { logout } from '../mixins/logout'
+import { mapGetters } from 'vuex'
+import { NAMESPACED_AUTH } from '../utils/alias'
 export default {
   name: 'UserPerfil',
   mixins: [logout],
@@ -77,6 +79,11 @@ export default {
   },
   mounted () {
     this.dropdownEvent()
+  },
+  computed: {
+    ...mapGetters(NAMESPACED_AUTH, [
+      'userName'
+    ])
   },
   methods: {
     dropdownEvent () {
@@ -125,6 +132,7 @@ export default {
 .user-perfil__name
   @include respond-to(handhelds)
     display: flex
+    padding: 0 10px
   display: none
 .user-perfil__user
   display: flex

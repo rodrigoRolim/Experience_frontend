@@ -8,7 +8,7 @@
             type="text"
             :width="12"
             :height="10"
-            v-model="value"
+            v-model="mnemonic"
             icon="search"
             placeholder="procedimento"
           />
@@ -24,7 +24,7 @@
             streched
             borded
             name-icon="search"
-            @click="teste"
+            @click="search"
           ></code-button>
         </div>
       </div>
@@ -35,6 +35,12 @@
 import CodeInput from './base/CodeInput'
 import CodeDropDown from './base/CodeDropDown'
 import CodeButton from './base/CodeButton'
+import { mapActions } from 'vuex'
+import { 
+  GET_PROCEDIMENTS_LIKE_STORE,
+  GET_PROCEDIMENTS_LIKE,
+  NAMESPACED_PROCEDIMENT 
+} from '../utils/alias'
 export default {
   name: 'ProcedimentListItemSearch',
   components: {
@@ -44,12 +50,20 @@ export default {
   },
   data () {
     return {
-      value: ''
+      mnemonic: '',
+      LIMIT: 10,
+      PAGE: 1
     }
   },
   methods: {
-    teste () {
-      console.log(this.value)
+    ...mapActions(NAMESPACED_PROCEDIMENT, {
+      getProcediment: GET_PROCEDIMENTS_LIKE_STORE
+    }),
+    search () {
+      let params = { limit: this.LIMIT, page: this.PAGE}
+      let url = GET_PROCEDIMENTS_LIKE(this.mnemonic)
+      this.getProcediment({ url, params })
+        .then((resp) => console.log(resp))
     }
   }
 }

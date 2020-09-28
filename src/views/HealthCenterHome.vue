@@ -23,6 +23,18 @@
       </div>
     </div>
     <div class="health-center__attendances">
+      <code-modal
+        class="health_center__modal"
+        :display="displayLoading"
+      >
+        <template v-slot:modal>
+          <code-loading
+            class="health_center__loading"   
+            range="50px"
+            velocity="1x"
+          />
+        </template>
+      </code-modal>
       <attendance-list route="posto"/>
     </div>
   </div>
@@ -32,14 +44,18 @@
 import AttendanceList from '../components/AttendanceList'
 import AttendanceListFilterHealthCenter from '../components/AttendanceListFilterHealthCenter'
 import AttendanceListSearch from '../components/AttendanceListSearch'
-import { mapActions } from 'vuex'
-import { GET_ATTENDANCES_HEALTH_CENTER, NAMESPACED_ATTENDANCE, GET_ATTENDANCES_STORE } from '../utils/alias'
+import CodeModal from '../components/base/CodeModal'
+import CodeLoading from '../components/base/CodeLoading'
+import { mapActions, mapGetters } from 'vuex'
+import { NAMESPACED_ATTENDANCE, GET_ATTENDANCES_STORE } from '../utils/alias'
 export default {
   name: 'HealthCenterHome',
   components: {
     AttendanceList,
     AttendanceListFilterHealthCenter,
-    AttendanceListSearch
+    AttendanceListSearch,
+    CodeModal,
+    CodeLoading
   },
   data () {
     return {
@@ -48,22 +64,20 @@ export default {
     }
   },
   created () {
-    let healthCenter = 0
-    let begin = "31-07-20"
-    let end = "31-07-20"
-    let limit = 2
-    let page = 1
-    console.log(GET_ATTENDANCES_HEALTH_CENTER(healthCenter, begin, end, limit, page))
-    let urlName = GET_ATTENDANCES_HEALTH_CENTER(healthCenter, begin, end, limit, page)
-    this.getAttendances({ url: urlName, headers: { 'X-Paginate': true } })
-      .then((res) => console.log(res))
-      .catch((err) => console.log({err}))
+  
+  },
+  computed: {
+    displayLoading () {
+      return this.status === 'loading'
+    },
+    ...mapGetters(NAMESPACED_ATTENDANCE, [
+      'status'
+    ])
   },
   methods: {
     ...mapActions(NAMESPACED_ATTENDANCE, {
       getAttendances: GET_ATTENDANCES_STORE
-    }),
-
+    })
   }
 }
 </script>
@@ -81,6 +95,10 @@ export default {
     margin-top: 170px
 .health-center__attendances
   width: 98%
+.health_center__modal
+  position: fixed
+.health_center__loading
+  margin-top: 130px 
 .health-center__filter
   width: 100%
   position: fixed

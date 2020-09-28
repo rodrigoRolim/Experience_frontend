@@ -1,14 +1,14 @@
 <template>
   <div class="procediment" @click="click">
     <div class="procediment__header">
-      <code-chip class="procediment__tag" text="GPD 1575" transform="uppercase" />
-      <span class="procediment__name">GLICEMIA POS DEXTROSE 15 MIN APOS 75G</span>
+      <code-chip class="procediment__tag" :text="mnemonic" transform="uppercase" />
+      <span class="procediment__name">{{name}}</span>
     </div>
     <div class="procediment__body">
       <div class="procediment__material procediment__body--space-around">
         <code-info
           icon="briefcase-medical"
-          info="ABSCESSO CERVICAL"
+          :info="material"
           description="material"
           size="lg"
           color="rgb(71, 77, 94)"
@@ -19,7 +19,7 @@
         <code-info
           icon="clinic-medical"
           description="Laboratorio"
-          info="LABORATORIO DE APOIO"
+          :info="laboratory"
           color="rgb(71, 77, 94)"
           size="lg"
         />
@@ -32,6 +32,16 @@ import CodeChip from  './base/CodeChip'
 import CodeInfo from './base/CodeInfo'
 export default {
   name: 'ProcedimentListItem',
+  props: {
+    mnemonic: String,
+    name: String,
+    material: String,
+    laboratory: String,
+    delivery: String,
+    status: String,
+    typeCollect: String,
+    typeDelivery: String
+  },
   components: {
     CodeChip,
     CodeInfo
@@ -79,6 +89,7 @@ export default {
 .procediment__name
   font-weight: 600
   margin-left: 10px
+  text-transform: uppercase
   @include respond-to(handhelds)
     font-size: 12px
 .procediment__body--space-around

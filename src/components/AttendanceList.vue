@@ -1,7 +1,7 @@
 <template>
   <div class="attendances" >
     <attendance-list-item
-      v-for="(attendance, i) in attendances[0]" v-bind:key="i"
+      v-for="(attendance, i) in attendances" v-bind:key="i"
       :name="attendance.nome_cliente"
       :age="attendance.data_nas | age"
       :gender="attendance.sexo | sex"
@@ -9,7 +9,7 @@
       :agreement="attendance.nome_convenio"
       :dataAttendance="attendance.data_atd | date"
       :dataDelivery="attendance.data_entrega | date"
-      :exams="attendance.exams"
+      :exams="attendance.mnemonicos"
       :situation="attendance.situacao_exames_experience"
       :patient="attendance.registro.toString()"
     ></attendance-list-item>
@@ -32,9 +32,6 @@ export default {
 
     }
   },
-  mounted () {
-    
-  },
   filters: {
     age (dateString) {
       var today = new Date();
@@ -53,7 +50,30 @@ export default {
         .find((sex) => sex.initial === value).value
     },
     id (healthCenter, attendance) {
-      return healthCenter + '/' + attendance
+      
+      let hc = healthCenter
+      let att = attendance
+
+      if (healthCenter < 10) {
+        hc = '00' + healthCenter
+      }
+      if (healthCenter > 9) {
+        hc = '0' + healthCenter
+      }
+      if (attendance < 10) {
+        att = '0000' + attendance
+      }
+      if (attendance > 9) {
+        att = '000' + attendance
+      }
+      if (attendance > 99) {
+        att = '00' + attendance
+      }
+      if (attendance > 999) {
+        att = '0' + attendance
+      }
+      
+      return hc + '/' + att
     },
     date (dateString) {
       const delivery = new Date(dateString).toLocaleDateString("pt-BR")

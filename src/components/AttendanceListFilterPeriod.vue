@@ -23,16 +23,51 @@ import CodeCalendar from './base/CodeCalendar'
 export default {
   name: 'AttendanceListFilterPeriod',
   props: {
-    begin: String,
-    end: String
+    begin: {
+      type: String,
+     /*  default: () => {
+        let d = new Date()
+        d.setDate(d.getDate() - 7)
+        let day = d.getDate()
+        if (day < 10) {
+          day = '0' + day
+        }
+        let month = d.getMonth() + 1
+        if (month < 10) {
+          month = '0' + month
+        }
+        let year = d.getFullYear()
+        return day + '/' + month + '/' + year
+      } */
+    },
+    end: {
+      type: String,
+      /* default: () => {
+        let d = new Date()
+        let day = d.getDate()
+        if (day < 10) {
+          day = '0' + day
+        }
+        let month = d.getMonth() + 1
+        if (month < 10) {
+          month = '0' + month
+        }
+        let year = d.getFullYear()
+        return day + '/' + month + '/' + year
+      } */
+    }
   },
   components: {
     CodeCalendar
   },
   data () {
     return {
-
+      BEGIN_INITIAL: "31-07-20",
+      END_INITIAL: "31-07-20"
     }
+  },
+  mounted () {
+
   },
   computed: {
     beginEmitter: {
@@ -56,7 +91,7 @@ export default {
   },
   methods: {
     formatterDate (date) {
-      return date.split("/").reverse().join("").trim().replace(/\s/g, '-')
+      return date.split("/").reverse().join("-").trim()
     },
   }
 }

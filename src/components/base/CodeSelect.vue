@@ -55,9 +55,9 @@
           ref="items"
           role="listitem"
           v-for="(option, i) in filterOptions" 
-          :key="option.id"
+          :key="i"
           :data-value="option.id"
-          :data-selected="i" 
+          :data-selected="option.id" 
           class="custom-select__option"
           @click="selectItem(option.name)"
           :class="{'custom-select__option--focused': i == currentOption}"
@@ -73,7 +73,7 @@
 export default {
   name: 'CodeSelect',
   props: {
-    options: Array,
+    options: [Set, Array],
     icon: String,
     name: String,
     error: String,
@@ -159,7 +159,6 @@ export default {
 
       if (selectOption) {
         isOption = this.searchOptionByName(selectOption)
-        //this.closeList()
       }
       if (!isOption || isOption.length > 0) {
         this.triggerInternalError(false)

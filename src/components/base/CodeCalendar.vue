@@ -55,12 +55,10 @@ export default {
     name: String,
     icon: String,
     begin: {
-      type: String,
-      default: '00-00-0000'
+      type: String
     },
     end: { 
-      type: String, 
-      default: '00-00-0000'  
+      type: String
     },
     id: String,
     noBorderRight: Boolean,
@@ -98,6 +96,7 @@ export default {
     }
   },
   created () {
+    this.inputEmitter = this.value 
     window.addEventListener('click', (e) => {
       let path = e.path || (e.composedPath && e.composedPath());
       if (!this.checkEventPathForClass(path, this.name)) {
@@ -123,14 +122,15 @@ export default {
   computed: {
     inputEmitter: {
       set (value) {
-       
+
         this.selectedDate = value
         this.$emit('input', this.selectedDate)
       },
       get () {
         return this.selectedDate
       }
-    }
+    },
+    
   },
   watch: {
     selectedDate (value) {
@@ -158,6 +158,10 @@ export default {
     }
   },
   methods: {
+    dateValue (value) {
+      this.selectedDate = value
+      return this.selectedDate
+    },
     checkValue(str, max) {
       if (str.charAt(0) !== '0' || str == '00') {
         var num = parseInt(str);
@@ -169,7 +173,7 @@ export default {
     unselectableDates (day) {
      
       if (day) {
-
+        console.log(this.begin)
         let date = new Date(this.year + '-' + '0' + (this.month + 1) + '-' + day)
         let begin = new Date(this.begin).getTime()
         let end = new Date(this.end).getTime()

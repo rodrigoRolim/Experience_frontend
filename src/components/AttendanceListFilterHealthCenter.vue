@@ -12,6 +12,8 @@
           ></code-label>
           <div class="period__dates">
             <attendance-list-filter-period
+              :begin="filters.begin"
+              :end="filters.end"
               @begin="filters.begin = $event" 
               @end="filters.end = $event"
             />
@@ -28,9 +30,7 @@
           <code-select
             name="postos"
             option="selecione o posto"
-            :options="list"
-            :width="7"
-            :height="8"
+            :options="healthCenters"
             v-model="filters.healthCenter"
           ></code-select>
         </div>
@@ -45,9 +45,7 @@
           <code-select
             name="acomodacoes"
             option="selecione a acomodação"
-            :options="list"
-            :width="7"
-            :height="8"
+            :options="accomodations"
             v-model="filters.accomodation"
           ></code-select>
         </div>
@@ -62,9 +60,7 @@
           <code-select
             name="situation"
             option="selecione a situação"
-            :options="list"
-            :width="7"
-            :height="8"
+            :options="situations"
             v-model="filters.situation"
           ></code-select>
         </div>
@@ -80,8 +76,6 @@
             name="realizer"
             option="selecione posto realizante"
             :options="list"
-            :width="7"
-            :height="8"
             v-model="filters.realizer"
           ></code-select>
         </div>
@@ -109,8 +103,18 @@ import CodeSelect from './base/CodeSelect.vue'
 import CodeLabel from './base/CodeLabel.vue'
 import CodeButton from './base/CodeButton.vue'
 import AttendanceListFilterPeriod from './AttendanceListFilterPeriod'
+import { mapActions, mapGetters } from 'vuex'
+import { 
+  GET_ATTENDANCES_HEALTH_CENTER, 
+  NAMESPACED_ATTENDANCE, 
+  GET_ATTENDANCES_STORE 
+} from '../utils/alias'
 export default {
   name: 'AttendanceListFilter',
+  props: {
+    begin: String,
+    end: String
+  },
   components: {
     CodeButton,
     CodeSelect,
@@ -121,27 +125,59 @@ export default {
   data () {
     return {
       filters: {
-        begin: '',
-        end: '',
+        begin: '31/07/2020',
+        end: '31/07/2020',
         healthCenter: null,
         accomodation: null,
         situation: null,
         realizer: null
       },
       list: [
-        {id: 1, name: 'doce de laranja'},
-        {id: 2, name: 'doce de siriguela'},
-        {id: 3, name: 'doce de morango'},
-        {id: 4, name: 'doce de abobora'}
-      ]
+        {id: 1, name: 'MATRIX'}
+      ],
+      BEGIN_INITIAL: '31-07-20',
+      END_INITIAL: '31-07-20'
     }
   },
   created () {
+    
+    let healthCenter = 0
+    let limit = 10
+    let page = 1
+    let urlName = GET_ATTENDANCES_HEALTH_CENTER(healthCenter, 
+      this.formatterDateToApi(this.filters.begin), 
+      this.formatterDateToApi(this.filters.end))
+    this.getAttendances({ url: urlName, params: { limit, page } })
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => console.log({err}))
+  },
+  mounted () {
+    console.log(this.filters.begin)
+  },
+  computed: {
+    ...mapGetters(NAMESPACED_ATTENDANCE, [
+      'healthCenters',
+      'accomodations',
+      'situations'
+    ])
   },
   methods: {
+    formatterDateToApi (date) {
+      let arrDate = date.split('/')
+      let day = arrDate[0]
+      let month = arrDate[1]
+      let arrYear = arrDate[2].split('')
+      let yearLastTwoDigits = arrYear[2] + arrYear[3]
+      return day + '-' + month + '-' + yearLastTwoDigits
+    },
     confirm () {
 
-    }
+    },
+    ...mapActions(NAMESPACED_ATTENDANCE, {
+      getAttendances: GET_ATTENDANCES_STORE
+    })
   }
 }
 </script>

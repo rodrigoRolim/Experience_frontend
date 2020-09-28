@@ -2,7 +2,8 @@
   <div class="partner-home">
     <div class="partner-home__filter" 
       :class="{'partner-home__filter--index-up': searcherInModal}">
-      <attendance-list-filter-partner :begin="begin" :end="end" @begin="getBeing" @end="getEnd" />
+      <attendance-list-filter-partner :begin="begin" :end="end" 
+        @begin="getBeing" @end="getEnd" />
       <div class="filter__searcher" :class="{'filter__searcher--modal': searcherInModal}">
         <div class="filter__content">
           <attendance-list-search
@@ -14,6 +15,12 @@
       </div>
     </div>
     <div class="partner-home__attendances">
+      <code-modal>
+        <code-loading   
+          range="40px" 
+          color="dimgray"
+        />
+      </code-modal>
       <attendance-list />
     </div>
   </div>
@@ -23,6 +30,8 @@
 import AttendanceListFilterPartner from '../components/AttendanceListFilterPartner'
 import AttendanceList from '../components/AttendanceList'
 import AttendanceListSearch from '../components/AttendanceListSearch'
+import CodeLoading from '../components/base/CodeLoading'
+import CodeModal from '../components/base/CodeModal'
 import { mapActions } from 'vuex'
 import { NAMESPACED_ATTENDANCE, GET_ATTENDANCES_STORE, GET_ATTENDANCES_HEALTH_CENTER } from '../utils/alias'
 export default {
@@ -30,7 +39,9 @@ export default {
   components: {
     AttendanceListFilterPartner,
     AttendanceList,
-    AttendanceListSearch
+    AttendanceListSearch,
+    CodeLoading,
+    CodeModal
   },
   data () {
     return {

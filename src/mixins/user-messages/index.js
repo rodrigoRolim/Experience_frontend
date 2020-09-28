@@ -1,4 +1,10 @@
-import { MESSAGE_STATUS_111, MESSAGE_STATUS_502, MESSAGE_STATUS_403, MESSAGE_STATUS_401, MESSAGE_STATUS_404 } from '../../utils/alias'
+import { 
+  MESSAGE_STATUS_111, 
+  MESSAGE_STATUS_502, 
+  MESSAGE_STATUS_403, 
+  MESSAGE_STATUS_401, 
+  MESSAGE_STATUS_404 
+} from '../../utils/alias'
 export const messages = {
   methods: {
     message (status, data = 'recurso') {

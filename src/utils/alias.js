@@ -21,17 +21,17 @@ export const GET_HEALTH_CENTERS = '/v1/web/posto'
 
 // attendances
 export const GET_ATTENDANCES = (healthCenter, attendance) => `/v1/web/atendimento/${healthCenter}/${attendance}`
-export const GET_ATTENDANCES_HEALTH_CENTER = (healthCenter, begin, end, limit, page) => `/v1/web/atendimento/${begin}/${end}/posto/${healthCenter}?limit=${limit}&page=${page}`
+export const GET_ATTENDANCES_HEALTH_CENTER = (healthCenter, begin, end) => `/v1/web/atendimento/${begin}/${end}/posto/${healthCenter}`
 export const GET_ATTENDANCES_REQUESTER = (requester, begin, end) => `/v1/web/atendimento/${begin}/${end}/solicitante/${requester}`
 export const GET_ATTENDANCES_PATIENT = (client, begin, end) => `/v1/web/atendimento/${begin}/${end}/cliente/${client}`
-
+export const GET_FILTERS = (begin, end, typeUser, id, resource) => `/web/atendimento/${begin}/${end}/${typeUser}/${id}/${resource}`
 // agreements medical
 export const GET_AGREEMENTS = '/v1/web/convenio'
 export const GET_AGREEMENT = (agreement) => `/v1/web/convenio/${agreement}`
 
 // procediments
-export const GET_PROCEDIMENT = (mnemonico) => `/v1/web/procedimento/${mnemonico}`
-export const GET_PROCEDIMENT_LIKE = (mnemonico) => `/v1/web/procedimentolike/${mnemonico}`
+export const GET_PROCEDIMENTS = (mnemonico) => `/v1/web/procedimento/${mnemonico}`
+export const GET_PROCEDIMENTS_LIKE = (mnemonico) => `/v1/web/procedimentolike/${mnemonico}`
 
 // exams
 export const GET_EXAMS_ATTENDANCE = (healthCenter, attendance) => `/v1/web/exame/${healthCenter}/${attendance}`
@@ -68,9 +68,21 @@ export const AUTH_ERROR = 'AUTH_ERROR'
 export const AUTH_REINIT_STATUS = 'AUTH_REINIT_STATUS'
 export const AUTH_LOGOUT = 'AUTH_LOGOUT'
 export const GET_ATTENDANCES_STORE = 'GET_ATTENDANCES_STORE'
+export const CANCEL_REQUEST = 'CANCEL_REQUEST'
+export const DELETE_SOURCE = 'DELETE_SOURCE'
+export const LOADING_GET_PROCEDIMENT = 'LOADING_GET_PROCEDIMENT'
+export const SUCCESS_GET_PROCEDIMENT = 'SUCCESS_GET_PROCEDIMENT'
+export const ERROR_GET_PROCEDIMENT = 'ERROR_GET_PROCEDIMENT'
+export const GET_PROCEDIMENTS_STORE = 'GET_PROCEDIMENTS_STORE'
+export const GET_PROCEDIMENTS_LIKE_STORE = 'GET_PROCEDIMENTS_LIKE_STORE'
+export const CANCEL_PENDING_REQUESTS = 'CANCEL_PENDING_REQUESTS' 
+export const ADD_CANCEL_TOKEN = 'ADD_CANCEL_TOKEN'
+export const CLEAR_CANCEL_TOKENS = 'CLEAR_CANCEL_TOKENS'
+export const GET_FILTERS_STORE = 'GET_HEALTH_CENTERS_STORE'
 export const SELECTED_ATTENDANCE = 'SELECTED_ATTENDANCE'
 export const CHANGE_SELECTED_ATTENDANCE = 'CHANGE_SELECTED_ATTENDANCE'
 export const SUCCESS_GET_ATTENDANCE = 'SUCCESS_GET_ATTENDANCE'
+export const LOADING_GET_ATTENDANCE = 'LOADING_GET_ATTENDANCE'
 export const ERROR_GET_ATTENDANCE = 'ERROR_GET_ATTENDANCE'
 export const SELECT_EXAMS = 'SELECT_EXAMS'
 export const BEGIN_DATE = 'BEGIN_DATE'
@@ -81,7 +93,7 @@ export const EMPTY_EXAMS = 'EMPTY_EXAMS'
 */
 export const NAMESPACED_AUTH = 'auth'
 export const NAMESPACED_ATTENDANCE = 'attendance'
-
+export const NAMESPACED_PROCEDIMENT = 'procediment'
 
 /**  
  * VALIDATIONS MESSAGES

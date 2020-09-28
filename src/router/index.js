@@ -1,6 +1,6 @@
 import VueRouter from 'vue-router'
 import store from '../store'
-import { DOCTOR_TYPE, PATIENT_TYPE, PARTNER_TYPE/* , HEALTH_CENTER_TYPE, PATIENT_TYPE */ } from '../utils/alias'
+import { DOCTOR_TYPE, PATIENT_TYPE, PARTNER_TYPE, HEALTH_CENTER_TYPE } from '../utils/alias'
 
 const verifyAuthorization = (to, from, next) => {
 
@@ -89,6 +89,8 @@ const router = new VueRouter({
     },
     {
       path: '/posto',
+      beforeEnter: verifyAuthorization,
+      meta: { typeUser: HEALTH_CENTER_TYPE },
       component: () => import(/* webpackChunkName: 'HealthCenter' */ '@/views/HealthCenter'),
       children: [
         {
@@ -115,5 +117,8 @@ const router = new VueRouter({
     }
   ]
 })
-
+router.beforeEach((to, from, next) => {
+  store.dispatch('CANCEL_PENDING_REQUESTS')
+  next()  
+})
 export default router
