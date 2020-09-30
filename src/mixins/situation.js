@@ -8,7 +8,7 @@ export const situation = {
           return 'finished'
         case 'EA':
           return 'in-progress'
-        case 'N':
+        case 'NR':
           return 'unrealized'
         case 'EP':
           return 'pendency'
