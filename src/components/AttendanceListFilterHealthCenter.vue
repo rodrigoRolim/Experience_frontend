@@ -107,7 +107,12 @@ import { mapActions, mapGetters } from 'vuex'
 import { 
   GET_ATTENDANCES_HEALTH_CENTER, 
   NAMESPACED_ATTENDANCE, 
-  GET_ATTENDANCES_STORE 
+  GET_ATTENDANCES_STORE, 
+  NAMESPACED_FILTERS,
+  GET_FILTERS_STORE,
+  GET_FILTERS,
+  ACCOMODATIONS,
+  REALIZERS
 } from '../utils/alias'
 export default {
   name: 'AttendanceListFilter',
@@ -133,34 +138,31 @@ export default {
         realizer: null
       },
       list: [
-        {id: 1, name: 'MATRIX'}
+        { id: 1, name: 'MATRIX' }
       ],
       BEGIN_INITIAL: '31-07-20',
       END_INITIAL: '31-07-20'
     }
   },
   created () {
+    try {
+      this.getFilters()
+    } catch (err) {
+      console.log({err})
+    }
+    try {
+      this.attendances()
+    } catch (err) {
+      console.log({err})      
+    }
     
-    let healthCenter = 0
-    let limit = 10
-    let page = 1
-    let urlName = GET_ATTENDANCES_HEALTH_CENTER(healthCenter, 
-      this.formatterDateToApi(this.filters.begin), 
-      this.formatterDateToApi(this.filters.end))
-    this.getAttendances({ url: urlName, params: { limit, page } })
-      .then((res) => {
-        console.log(res)
-      })
-      .catch((err) => console.log({err}))
-  },
-  mounted () {
-    console.log(this.filters.begin)
   },
   computed: {
-    ...mapGetters(NAMESPACED_ATTENDANCE, [
-      'healthCenters',
+    ...mapGetters(NAMESPACED_FILTERS, [
+     'healthCenters',
       'accomodations',
-      'situations'
+      'situations',
+      'realizers'
     ])
   },
   methods: {
@@ -175,8 +177,54 @@ export default {
     confirm () {
 
     },
+    buildRequest () {
+      let typeUser = 'posto'
+      let id = 0
+      let urlAccomodations = GET_FILTERS(
+            this.formatterDateToApi(this.filters.begin), 
+            this.formatterDateToApi(this.filters.end), 
+            typeUser, 
+            id, 
+            ACCOMODATIONS
+          )
+      let urlRealizers = GET_FILTERS(
+          this.formatterDateToApi(this.filters.begin), 
+          this.formatterDateToApi(this.filters.end), 
+          typeUser, 
+          id, 
+          REALIZERS
+        )
+      return [urlAccomodations, urlRealizers]
+    },
+    getFilters () {
+      
+      this.filterList(this.buildRequest())
+        .then((res) => {
+          console.log(res)
+        })
+       /*  .catch((errors) => {
+          console.log({errors})
+        }) */
+    },
+    attendances () {
+
+      let healthCenter = 0
+      let limit = 10
+      let page = 1
+      let urlName = GET_ATTENDANCES_HEALTH_CENTER(healthCenter, 
+        this.formatterDateToApi(this.filters.begin), 
+        this.formatterDateToApi(this.filters.end))
+      this.getAttendances({ url: urlName, params: { limit, page } })
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => console.log({err}))
+    },
     ...mapActions(NAMESPACED_ATTENDANCE, {
       getAttendances: GET_ATTENDANCES_STORE
+    }),
+    ...mapActions(NAMESPACED_FILTERS, {
+      filterList: GET_FILTERS_STORE
     })
   }
 }

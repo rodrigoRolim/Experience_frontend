@@ -11,8 +11,8 @@ export const requestResource = ({ url = '', params, data = {}, method = 'GET' })
   })
 }
 export const multipleRequests = (cbs = []) => {
-
-  return serverExperience.all(cbs)
+  
+  return axios.all(cbs)
 }
 export const requestToken = ({ url, auth }) => {
 

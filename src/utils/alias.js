@@ -24,7 +24,8 @@ export const GET_ATTENDANCES = (healthCenter, attendance) => `/v1/web/atendiment
 export const GET_ATTENDANCES_HEALTH_CENTER = (healthCenter, begin, end) => `/v1/web/atendimento/${begin}/${end}/posto/${healthCenter}`
 export const GET_ATTENDANCES_REQUESTER = (requester, begin, end) => `/v1/web/atendimento/${begin}/${end}/solicitante/${requester}`
 export const GET_ATTENDANCES_PATIENT = (client, begin, end) => `/v1/web/atendimento/${begin}/${end}/cliente/${client}`
-export const GET_FILTERS = (begin, end, typeUser, id, resource) => `/web/atendimento/${begin}/${end}/${typeUser}/${id}/${resource}`
+// filters
+export const GET_FILTERS = (begin, end, typeUser, id, resource) => `v1/web/atendimento/${begin}/${end}/${typeUser}/${id}/${resource}`
 // agreements medical
 export const GET_AGREEMENTS = '/v1/web/convenio'
 export const GET_AGREEMENT = (agreement) => `/v1/web/convenio/${agreement}`
@@ -84,6 +85,9 @@ export const CHANGE_SELECTED_ATTENDANCE = 'CHANGE_SELECTED_ATTENDANCE'
 export const SUCCESS_GET_ATTENDANCE = 'SUCCESS_GET_ATTENDANCE'
 export const LOADING_GET_ATTENDANCE = 'LOADING_GET_ATTENDANCE'
 export const ERROR_GET_ATTENDANCE = 'ERROR_GET_ATTENDANCE'
+export const LOADING_GET_FILTERS = 'LOADING_GET_FILTERS'
+export const SUCCESS_GET_FILTERS = 'SUCCESS_GET_FILTERS'
+export const ERROR_GET_FILTERS = 'ERROR_GET_FILTERS'
 export const SELECT_EXAMS = 'SELECT_EXAMS'
 export const BEGIN_DATE = 'BEGIN_DATE'
 export const END_DATE = 'END_DATE'
@@ -94,7 +98,7 @@ export const EMPTY_EXAMS = 'EMPTY_EXAMS'
 export const NAMESPACED_AUTH = 'auth'
 export const NAMESPACED_ATTENDANCE = 'attendance'
 export const NAMESPACED_PROCEDIMENT = 'procediment'
-
+export const NAMESPACED_FILTERS = 'filters'
 /**  
  * VALIDATIONS MESSAGES
 */
@@ -115,3 +119,10 @@ export const MESSAGE_STATUS_502 = 'conexão recusada, servidor pode está desati
 //eslint-disable-next-line
 export const CPF_VALIDATOR = /[0-9]{3}\s\.\s[0-9]{3}\s\.\s[0-9]{3}\s\-\s[0-9]{2}$/g
 export const DATE_VALIDATOR = /[0-9]{2}\s\/\s[0-9]{2}\s\/\s[0-9]{4}/g
+/**
+ * LIST OF RESOURCES
+ * 
+ * **/
+export const ACCOMODATIONS = 'acomodacoes'
+export const SITUATIONS = 'situacoes'
+export const REALIZERS = 'postosrealizantes'

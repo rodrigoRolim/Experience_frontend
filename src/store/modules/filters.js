@@ -1,6 +1,11 @@
-import { multipleRequests } from '../../services/api'
-import { GET_FILTERS_STORE } from '../../utils/alias'
-
+import { multipleRequests, requestResource } from '../../services/api'
+import axios from 'axios'
+import { 
+  GET_FILTERS_STORE,
+  SUCCESS_GET_FILTERS,
+  ERROR_GET_FILTERS, 
+  LOADING_GET_FILTERS
+} from '../../utils/alias'
 const state = () => ({
   healthCenters: [],
   accomodations: [],
@@ -10,30 +15,25 @@ const state = () => ({
 })
 
 const getters = {
-
+  healthCenters: (state) => state.healthCenters,
+  accomodations: (state) => state.accomodations,
+  situations: (state) => state.situations,
+  realizers: (state) => state.realizers,
+  status: (state) => state.status
 }
 
 const actions = {
-  [GET_FILTERS_STORE]: ({ commit }, cbs) => {
+  [GET_FILTERS_STORE]: ({ commit }, urls) => {
     return new Promise((resolve, reject) => {
-      commit(LOADING_GET_FILTER)
+      commit(LOADING_GET_FILTERS)
+      let cbs = urls.map((url) => requestResource({ url }))
       multipleRequests(cbs)
-        .then(multipleRequests.axios.spread((hc, acc, sit, rel) => {
-          commit(GET_FILTERS_STORE, {
-            hc,
-            acc,
-            sit,
-            rel
-          })
-          resolve({
-            hc,
-            acc,
-            sit,
-            rel
-          })
+        .then(axios.spread((hc, acc, sit, rel) => {
+          commit(GET_FILTERS_STORE, { hc, acc, sit, rel})
+          resolve({hc, acc, sit, rel})
         }))
-        .catch((err) => {
-          reject(err)
+        .catch((errors) => {
+          reject(errors)
         })
     })
   }
@@ -52,7 +52,7 @@ const mutations = {
   [ERROR_GET_FILTERS]: (state) => {
     state.status = 'error'
   },
-  [LOADING_GET_FILTER]: (state) => {
+  [LOADING_GET_FILTERS]: (state) => {
     state.status = 'loading'
   }
 }

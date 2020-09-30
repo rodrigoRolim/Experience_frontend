@@ -46,8 +46,8 @@ import AttendanceListFilterHealthCenter from '../components/AttendanceListFilter
 import AttendanceListSearch from '../components/AttendanceListSearch'
 import CodeModal from '../components/base/CodeModal'
 import CodeLoading from '../components/base/CodeLoading'
-import { mapActions, mapGetters } from 'vuex'
-import { NAMESPACED_ATTENDANCE, GET_ATTENDANCES_STORE } from '../utils/alias'
+import { mapGetters } from 'vuex'
+import { NAMESPACED_ATTENDANCE } from '../utils/alias'
 export default {
   name: 'HealthCenterHome',
   components: {
@@ -64,7 +64,7 @@ export default {
     }
   },
   created () {
-  
+
   },
   computed: {
     displayLoading () {
@@ -73,11 +73,6 @@ export default {
     ...mapGetters(NAMESPACED_ATTENDANCE, [
       'status'
     ])
-  },
-  methods: {
-    ...mapActions(NAMESPACED_ATTENDANCE, {
-      getAttendances: GET_ATTENDANCES_STORE
-    })
   }
 }
 </script>
