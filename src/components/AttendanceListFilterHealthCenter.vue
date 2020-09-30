@@ -145,16 +145,8 @@ export default {
     }
   },
   created () {
-    try {
-      this.getFilters()
-    } catch (err) {
-      console.log({err})
-    }
-    try {
-      this.attendances()
-    } catch (err) {
-      console.log({err})      
-    }
+
+    this.attendances()
     
   },
   computed: {
@@ -202,9 +194,6 @@ export default {
         .then((res) => {
           console.log(res)
         })
-       /*  .catch((errors) => {
-          console.log({errors})
-        }) */
     },
     attendances () {
 
