@@ -25,7 +25,7 @@ export default {
   props: {
     begin: {
       type: String,
-     /*  default: () => {
+      default: () => {
         let d = new Date()
         d.setDate(d.getDate() - 7)
         let day = d.getDate()
@@ -38,11 +38,11 @@ export default {
         }
         let year = d.getFullYear()
         return day + '/' + month + '/' + year
-      } */
+      }
     },
     end: {
       type: String,
-      /* default: () => {
+      default: () => {
         let d = new Date()
         let day = d.getDate()
         if (day < 10) {
@@ -54,7 +54,7 @@ export default {
         }
         let year = d.getFullYear()
         return day + '/' + month + '/' + year
-      } */
+      }
     }
   },
   components: {
@@ -72,27 +72,31 @@ export default {
   computed: {
     beginEmitter: {
       set (value) {
-        let begin = this.formatterDate(value)
+        let begin = this.formatterDateInput(value)
         this.$emit('begin', begin)
       },
       get () {
-        return this.begin
+        console.log(this.begin)
+        return this.formatterDateOutput(this.begin)
       }
     },
     endEmitter: {
       set (value) {
-        let end = this.formatterDate(value)
+        let end = this.formatterDateInput(value)
         this.$emit('end', end)
       },
       get () {
-        return this.end
+        return this.formatterDateOutput(this.end)
       }
     }
   },
   methods: {
-    formatterDate (date) {
-      return date.split("/").reverse().join("-").trim()
+    formatterDateInput (date) {
+      return date.split("/").join("-").trim()
     },
+    formatterDateOutput (date) {
+      return date.split("-").join("/").trim()
+    }
   }
 }
 </script>
