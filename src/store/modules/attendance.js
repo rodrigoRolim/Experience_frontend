@@ -10,6 +10,7 @@ import {
   BEGIN_DATE,
   END_DATE,
   EMPTY_EXAMS,
+  EMPTY_ATTENDANCES,
   ERROR_GET_ATTENDANCE
 } from '../../utils/alias'
 
@@ -128,6 +129,9 @@ const mutations = {
   },
   [END_DATE]: (state, end) => {
     state.end = end
+  },
+  [EMPTY_ATTENDANCES]: (state) => {
+    state.attendances = []
   },
   [EMPTY_EXAMS]: (state) => {
     state.selectedExams = []

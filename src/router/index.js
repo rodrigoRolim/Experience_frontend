@@ -1,6 +1,13 @@
 import VueRouter from 'vue-router'
 import store from '../store'
-import { DOCTOR_TYPE, PATIENT_TYPE, PARTNER_TYPE, HEALTH_CENTER_TYPE } from '../utils/alias'
+import { 
+  DOCTOR_TYPE, 
+  PATIENT_TYPE, 
+  PARTNER_TYPE, 
+  HEALTH_CENTER_TYPE, 
+  //EMPTY_ATTENDANCES, 
+  CANCEL_PENDING_REQUESTS 
+} from '../utils/alias'
 
 const verifyAuthorization = (to, from, next) => {
 
@@ -118,7 +125,8 @@ const router = new VueRouter({
   ]
 })
 router.beforeEach((to, from, next) => {
-  store.dispatch('CANCEL_PENDING_REQUESTS')
+  store.dispatch("cancel/"+CANCEL_PENDING_REQUESTS)
+  //store.dispatch(EMPTY_ATTENDANCES)
   next()  
 })
 export default router

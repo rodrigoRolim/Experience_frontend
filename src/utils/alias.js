@@ -92,6 +92,8 @@ export const SELECT_EXAMS = 'SELECT_EXAMS'
 export const BEGIN_DATE = 'BEGIN_DATE'
 export const END_DATE = 'END_DATE'
 export const EMPTY_EXAMS = 'EMPTY_EXAMS'
+export const EMPTY_ATTENDANCES = 'EMPTY_ATTENDANCES'
+
 /**  
  * MUTATIONS TYPES AND ACTIONS' NAMES along namespace
 */
@@ -120,9 +122,20 @@ export const MESSAGE_STATUS_502 = 'conexão recusada, servidor pode está desati
 export const CPF_VALIDATOR = /[0-9]{3}\s\.\s[0-9]{3}\s\.\s[0-9]{3}\s\-\s[0-9]{2}$/g
 export const DATE_VALIDATOR = /[0-9]{2}\s\/\s[0-9]{2}\s\/\s[0-9]{4}/g
 /**
- * LIST OF RESOURCES
+ * RESOURCES
  * 
  * **/
 export const ACCOMODATIONS = 'acomodacoes'
-export const SITUATIONS = 'situacoes'
 export const REALIZERS = 'postosrealizantes'
+/**
+ * LIST SITUATIONS
+ * 
+ * **/
+
+ export const SITUATIONS = [
+  { id: 'TF', name: 'Finalizados' },
+  { id: 'PF', name: 'Parcialmente Finalizados'},
+  { id: 'EA', name: 'Em Andamento'},
+  { id: 'NR', name: 'Não Realizados'},
+  { id: 'EP', name: 'Pendentes'}
+]
