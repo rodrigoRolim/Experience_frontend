@@ -1,6 +1,16 @@
 <template>
-  <div class="attendances" >
+  <div class="attendances">
+    <code-message
+      v-if="!isEmpty"
+      class="attendances__message"
+      :message="message.message || ''"
+      :type="message.type"
+      position="center"
+      icon="info-circle"
+    />
     <attendance-list-item
+      class="attendances_items"
+      v-else
       v-for="(attendance, i) in attendances" v-bind:key="i"
       :name="attendance.nome_cliente"
       :age="attendance.data_nas | age"
@@ -16,6 +26,7 @@
   </div>
 </template>
 <script>
+import CodeMessage from './base/CodeMessage'
 import AttendanceListItem from './AttendanceListItem'
 import { mapGetters } from 'vuex'
 import { NAMESPACED_ATTENDANCE } from '../utils/alias'
@@ -25,7 +36,8 @@ export default {
     route: String 
   },
   components: {
-    AttendanceListItem
+    AttendanceListItem,
+    CodeMessage
   },
   data () {
     return {
@@ -82,8 +94,13 @@ export default {
   },
   computed: {
     ...mapGetters(NAMESPACED_ATTENDANCE, [
-      'attendances'
-    ])
+      'attendances',
+      'message',
+      'status'
+    ]),
+    isEmpty () {
+      return Object.keys(this.message).length === 0
+    }
   }
 }
 </script>
@@ -91,4 +108,11 @@ export default {
 .attendances
   display: flex
   flex-direction: column
+.attendances__message
+  width: 400px
+  align-self: center
+  padding: 30px 0
+  margin-top: 100px
+  @include respond-to(handhelds)
+    width:90%
 </style>

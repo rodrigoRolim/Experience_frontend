@@ -103,11 +103,13 @@ import CodeSelect from './base/CodeSelect.vue'
 import CodeLabel from './base/CodeLabel.vue'
 import CodeButton from './base/CodeButton.vue'
 import AttendanceListFilterPeriod from './AttendanceListFilterPeriod'
+import { messages } from '../mixins/user-messages'
 import { mapActions, mapGetters } from 'vuex'
 import { 
   GET_ATTENDANCES_HEALTH_CENTER, 
   NAMESPACED_ATTENDANCE, 
   GET_ATTENDANCES_STORE, 
+  ATTENDANCE_NOT_FOUND,
   NAMESPACED_FILTERS,
   GET_FILTERS_STORE,
   GET_FILTERS,
@@ -120,6 +122,7 @@ export default {
     begin: String,
     end: String
   },
+  mixins: [messages],
   components: {
     CodeButton,
     CodeSelect,
@@ -151,7 +154,7 @@ export default {
   },
   computed: {
     ...mapGetters(NAMESPACED_FILTERS, [
-     'healthCenters',
+      'healthCenters',
       'accomodations',
       'situations',
       'realizers'
@@ -195,22 +198,40 @@ export default {
           console.log(res)
         })
     },
+    params () {
+      let limit = 10
+      let page = 1
+      let properties = ['postocadastro', 'postorealizante', 'acomodacao', 'situacao']
+      let values = ['MATRIZ', 'ALVARO', 'GERAL', 'TF']
+      let params = {}
+      properties.map((prop, i) => {
+        if (values[i]) {
+          params[prop] = values[i]
+        }
+      })
+     
+      params['limit'] = limit
+      params['page'] = page
+      return params
+    },
     attendances () {
 
       let healthCenter = 0
-      let limit = 10
-      let page = 1
+
       let urlName = GET_ATTENDANCES_HEALTH_CENTER(healthCenter, 
         this.formatterDateToApi(this.filters.begin), 
         this.formatterDateToApi(this.filters.end))
-      this.getAttendances({ url: urlName, params: { limit, page } })
+      this.getAttendances({ url: urlName, params: this.params() })
         .then((res) => {
           console.log(res)
         })
-        .catch((err) => console.log({err}))
+        .catch((err) => {
+          this.setMessage(this.message({ status: err.response.status, data: 'atendimento' }))
+        })
     },
     ...mapActions(NAMESPACED_ATTENDANCE, {
-      getAttendances: GET_ATTENDANCES_STORE
+      getAttendances: GET_ATTENDANCES_STORE,
+      setMessage: ATTENDANCE_NOT_FOUND
     }),
     ...mapActions(NAMESPACED_FILTERS, {
       filterList: GET_FILTERS_STORE
