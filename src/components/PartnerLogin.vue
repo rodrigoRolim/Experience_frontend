@@ -72,7 +72,7 @@ import { required } from '../mixins/validations/rules'
 import { validator } from '../mixins/validations/validator'
 import { login } from '../mixins/login'
 import { mapActions } from 'vuex'
-import { HEALTH_CENTER_AUTH, PARTNER_TYPE,PARTNER_ROUTE, AUTH_REQUEST, NAMESPACED_AUTH } from '../utils/alias'
+import { USER_AUTH, PARTNER_TYPE, PARTNER_ROUTE, AUTH_REQUEST, NAMESPACED_AUTH } from '../utils/alias'
 export default {
   name: 'PartnerLogin',
   mixins: [validator({required}), login],
@@ -143,7 +143,7 @@ export default {
       this.showLoader = true
       let { partner } = this
       try {
-        let resp = await this.login({ url: HEALTH_CENTER_AUTH, credentials: partner, typeUser: PARTNER_TYPE })
+        let resp = await this.login({ url: USER_AUTH, credentials: partner, typeUser: PARTNER_TYPE })
         this.success(resp.status, PARTNER_ROUTE)
       } catch (err) {
 
