@@ -33,10 +33,13 @@ export default {
           return 'Em Andamento'
         case 'NR':
           return 'Não Realizado'
+        case 'N':
+          return 'Não Realizado'
         case 'EP':
           return 'Há Pendencias'
+        default:
+          return ''
       }
-      return ''
     }
   }
 }
