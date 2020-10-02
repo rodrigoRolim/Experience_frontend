@@ -24,7 +24,7 @@
       <div class="user-perfil__menu" v-if="show">
         <div class="user-perfil__user-info">
           <span class="user-perfil__name">{{userName}}</span>
-          <span class="user-perfil__birthdate" >17/06/1992</span>
+          <span class="user-perfil__birthdate" >{{userId | date}}</span>
         </div>
         <div class="user-perfil__change-password-wrap" @click="enableModal"> 
           <i><font-awesome-icon icon="user-edit" :style="{color: 'gray'}"/></i>
@@ -79,11 +79,20 @@ export default {
   },
   mounted () {
     this.dropdownEvent()
+    console.log(this.userName)
+    console.log(this.userId)
   },
   computed: {
     ...mapGetters(NAMESPACED_AUTH, [
-      'userName'
+      'userName',
+      'userId'
     ])
+  },
+  filters: {
+    date (dateString) {
+      const date = new Date(dateString).toLocaleDateString("pt-BR")
+      return date !== "Invalid Date" ? date : ""
+    }
   },
   methods: {
     dropdownEvent () {
@@ -125,6 +134,7 @@ export default {
   justify-content: center
   align-items: center
   font-size: 12px
+  letter-spacing: 0.5px
   border-bottom: 1px solid lightgray
   min-height: 50px
 .user-perfil__birthdate
