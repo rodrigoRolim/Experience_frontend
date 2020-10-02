@@ -297,7 +297,9 @@ export default {
   list-style-type: none
   cursor: pointer
   margin: 5px 0px
-  padding: 5px 30px
+  padding: 5px 10px
+  text-transform: uppercase
+  font-size: 0.9rem
 .custom-select__invalid-option
   color: white
   background-color: red
