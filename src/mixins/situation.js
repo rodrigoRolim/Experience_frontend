@@ -12,8 +12,9 @@ export const situation = {
           return 'unrealized'
         case 'EP':
           return 'pendency'
+        case 'N': 
+          return 'unrealized'
       }
-      return 'unrealized'
     }
   }
 }

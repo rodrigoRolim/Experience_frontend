@@ -11,7 +11,8 @@ import {
   END_DATE,
   EMPTY_EXAMS,
   EMPTY_ATTENDANCES,
-  ERROR_GET_ATTENDANCE
+  ERROR_GET_ATTENDANCE,
+  ATTENDANCE_NOT_FOUND
 } from '../../utils/alias'
 
 const state = {
@@ -21,7 +22,8 @@ const state = {
   selectedAttendance: { healthCenter: '', id: '' },
   selectedExams: '',
   status: '',
-  source: source
+  source: source,
+  message: {}
 }
 
 const getters = {
@@ -72,7 +74,8 @@ const getters = {
     })
   },
   examsToPrint: (state) => state.selectedExams,
-  status: state => state.status
+  status: state => state.status,
+  message: state => state.message
 }
 
 const actions = {
@@ -92,6 +95,9 @@ const actions = {
         })
     })
   },
+  [ATTENDANCE_NOT_FOUND]: ({ commit }, message) => {
+    commit(ATTENDANCE_NOT_FOUND, message)
+  }, 
   [CHANGE_SELECTED_ATTENDANCE]: ({ commit }, {healthCenter, attendanceId}) => {
     commit(CHANGE_SELECTED_ATTENDANCE, {healthCenter, attendanceId})
   },
@@ -112,6 +118,9 @@ const actions = {
 const mutations = {
   [GET_ATTENDANCES_STORE]: (state, attendances) => {
     state.attendances = attendances
+  },
+  [ATTENDANCE_NOT_FOUND]: (state, message) => {
+    state.message = message
   },
   [SELECTED_ATTENDANCE]: (state) => {
     state.selectedAttendance.healthCenter = state.attendances[0].posto

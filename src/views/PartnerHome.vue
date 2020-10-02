@@ -3,7 +3,7 @@
     <div class="partner-home__filter" 
       :class="{'partner-home__filter--index-up': searcherInModal}">
       <attendance-list-filter-partner :begin="begin" :end="end" 
-        @begin="getBeing" @end="getEnd" />
+        @begin="getBegin" @end="getEnd" />
       <div class="filter__searcher" :class="{'filter__searcher--modal': searcherInModal}">
         <div class="filter__content">
           <attendance-list-search
@@ -75,7 +75,7 @@ export default {
         month = '0' + month
       }
       let year = d.getFullYear()
-      
+      console.log(day + '/' + month + '/' + year)
       return day + '-' + month + '-' + year
     },
     getEndDate () {

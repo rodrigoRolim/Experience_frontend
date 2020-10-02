@@ -15,7 +15,7 @@ serverExperience.interceptors.request.use(
   config => {
     let source = axios.CancelToken.source()
     config.cancelToken = source.token
-    store.commit(ADD_CANCEL_TOKEN, source)
+    store.commit('cancel/'+ADD_CANCEL_TOKEN, source)
     const token = 'Bearer ' + localStorage.getItem('user-token')
     if (token) {
       config.headers['X-Paginate'] = true
@@ -39,7 +39,7 @@ serverAuth.interceptors.request.use(
   config => {
     let source = axios.CancelToken.source()
     config.cancelToken = source.token
-    store.commit(ADD_CANCEL_TOKEN, source)
+    store.commit('cancel/'+ADD_CANCEL_TOKEN, source)
 
     return config
   },

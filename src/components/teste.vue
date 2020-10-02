@@ -258,9 +258,7 @@
         numeric
         icon="beer"
         color-icon='#676a6c' 
-      >
-       
-      </code-input>
+      />
     </div>
     <div class="messages">
       <h1>3. messagens para o usuário</h1>

@@ -10,6 +10,7 @@ import {
 const state = () => ({
   token: localStorage.getItem('user-token') || "",
   user: localStorage.getItem('user-name') || "",
+  identify: localStorage.getItem('user-id') || "",
   status: '',
   expired: localStorage.getItem('expired') || false,
   hasLoadedOnce: false,
@@ -20,7 +21,8 @@ const getters = {
   isAuthenticated: state => !!state.token,
   authState: state => state.status,
   userTypeAuthed: state => state.userType,
-  userName: state => state.user
+  userName: state => state.user,
+  userId: state => state.identify
 }
 
 const actions = {
@@ -33,6 +35,7 @@ const actions = {
           localStorage.setItem('user-token', resp.data.token)
           localStorage.setItem('user-type', typeUser)
           localStorage.setItem('user-name', resp.data.nome)
+          localStorage.setItem('user-id', resp.data.identificacao)
           commit(AUTH_SUCCESS, { resp, typeUser })
           resolve(resp)
         })
@@ -41,6 +44,7 @@ const actions = {
           localStorage.removeItem('user-token')
           localStorage.removeItem('user-type')
           localStorage.removeItem('user-name')
+          localStorage.removeItem('user-id')
           reject(err)
         })
     })
@@ -51,6 +55,7 @@ const actions = {
       localStorage.removeItem('user-token')
       localStorage.removeItem('user-type')
       localStorage.removeItem('user-name')
+      localStorage.removeItem('user-id')
       resolve(true)
     })
   },
@@ -71,6 +76,7 @@ const mutations = {
     state.userType = typeUser
     state.token = resp.data.token
     state.user = resp.data.nome
+    state.identify = resp.data.identificacao
     state.hasLoadedOnce = true
   },
   [AUTH_ERROR]: (state) => {

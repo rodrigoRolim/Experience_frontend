@@ -12,7 +12,10 @@
             fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
           />
           <div class="attendances-filter-partner__calendars">
-            <attendance-list-filter-period v-model="period"/>
+            <attendance-list-filter-period 
+            :begin="'20-09-20'"
+            :end="'01-10-20'"
+            v-model="period"/>
           </div>
         </div>
         <div class="attendances-filter-partner__accomodation">

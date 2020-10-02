@@ -93,7 +93,7 @@ export const BEGIN_DATE = 'BEGIN_DATE'
 export const END_DATE = 'END_DATE'
 export const EMPTY_EXAMS = 'EMPTY_EXAMS'
 export const EMPTY_ATTENDANCES = 'EMPTY_ATTENDANCES'
-
+export const ATTENDANCE_NOT_FOUND = 'ATTENDANCE_NOT_FOUND'
 /**  
  * MUTATIONS TYPES AND ACTIONS' NAMES along namespace
 */

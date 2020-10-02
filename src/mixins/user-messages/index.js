@@ -7,14 +7,14 @@ import {
 } from '../../utils/alias'
 export const messages = {
   methods: {
-    message (status, data = 'recurso') {
+    message ({status, typeMessage= 'default', data = 'recurso'}) {
       switch (status) {
         case 111:
           return { type: 'error', message: MESSAGE_STATUS_111 }
         case 403: 
           return { type: 'error', message: MESSAGE_STATUS_403 }
         case 404:
-          return { type: 'error', message: MESSAGE_STATUS_404(data) }
+          return { type: typeMessage, message: MESSAGE_STATUS_404(data) }
         case 401: 
           return { type: 'error', message: MESSAGE_STATUS_401 }
         case 502:
