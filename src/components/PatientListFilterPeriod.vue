@@ -2,15 +2,15 @@
   <div class="calendars">
      <code-calendar
       class="calendars__calendar"
-      @datepicked="getBegin" 
+      v-model="beginEmitter" 
       noBorderRight name="begin" 
       :end="end"
       placeholder="data início"
     />
     <span class="calendars__gap">até</span>
     <code-calendar
-      class="calendars__calendar" 
-      @datepicked="getEnd" 
+      class="calendars__calendar"
+      v-model="endEmitter"  
       name="end" noBorderLeft 
       :begin="begin"
       placeholder="data fim"  
@@ -29,6 +29,26 @@ export default {
     return {
       begin: '',
       end: ''
+    }
+  },
+  computed: {
+    beginEmitter: {
+      set (value) {
+        let begin = this.formatterDate(value)
+        this.$emit('begin', begin)
+      },
+      get () {
+        return this.begin
+      }
+    },
+    endEmitter: {
+      set (value) {
+        let end = this.formatterDate(value)
+        this.$emit('end', end)
+      },
+      get () {
+        return this.end
+      }
     }
   },
   methods: {
