@@ -161,30 +161,9 @@ export default {
       this.contentMessage = ''
     }
   },
-  mounted () {
-    if (this.isAuthenticated) {
-      switch(this.userTypeAuthed) {
-        case DOCTOR_TYPE:
-          this.$router.push({ path: DOCTOR_ROUTE })
-          break
-        case PATIENT_TYPE:
-          this.$router.push({ path: PATIENT_ROUTE })
-          break
-        case HEALTH_CENTER_TYPE:
-          this.$router.push({ path: HEALTH_CENTER_ROUTE })
-          break
-        case USER_TYPE:
-          this.$router.push({ path: PATIENT_ROUTE })
-          break
-        case ATTENDANCE_TYPE:
-          this.$router.push({ path: PATIENT_ROUTE })
-          break
-        case PARTNER_TYPE:
-          this.$router.push({ path: PARTNER_ROUTE })
-          break
-      }
-    }
+  created () {
     
+    this.redirectToPreviousPage()
   },
   computed: {
     ...mapGetters(NAMESPACED_AUTH, [
@@ -210,6 +189,31 @@ export default {
         return
       }
       document.exitFullscreen()   
+    },
+    redirectToPreviousPage () {
+      if (this.isAuthenticated) {
+        switch(this.userTypeAuthed) {
+          case DOCTOR_TYPE:
+            this.$router.push({ path: DOCTOR_ROUTE })
+            break
+          case PATIENT_TYPE:
+            this.$router.push({ path: PATIENT_ROUTE })
+            break
+          case HEALTH_CENTER_TYPE:
+            console.log('rola')
+            this.$router.push({ path: HEALTH_CENTER_ROUTE })
+            break
+          case USER_TYPE:
+            this.$router.push({ path: PATIENT_ROUTE })
+            break
+          case ATTENDANCE_TYPE:
+            this.$router.push({ path: PATIENT_ROUTE })
+            break
+          case PARTNER_TYPE:
+            this.$router.push({ path: PARTNER_ROUTE })
+            break
+        }
+      }
     }
   }
 }

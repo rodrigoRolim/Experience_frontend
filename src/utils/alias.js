@@ -54,12 +54,12 @@ export const HEALTH_CENTER_PATIENT_ROUTE = (patient, attendance) => `/paciente/$
 /**  
  * USER TYPES
 */
-export const DOCTOR_TYPE = 0
-export const PATIENT_TYPE = 1 // acessp paciente com cpf
-export const HEALTH_CENTER_TYPE = 2
-export const USER_TYPE = 3 //qrcode
-export const ATTENDANCE_TYPE = 4 // acesso paciente com atendimento
-export const PARTNER_TYPE = 5
+export const DOCTOR_TYPE = '0'
+export const PATIENT_TYPE = '1' // acessp paciente com cpf
+export const HEALTH_CENTER_TYPE = '2'
+export const USER_TYPE = '3' //qrcode
+export const ATTENDANCE_TYPE = '4' // acesso paciente com atendimento
+export const PARTNER_TYPE = '5'
 /**  
  * MUTATIONS TYPES AND ACTIONS' NAMES 
 */

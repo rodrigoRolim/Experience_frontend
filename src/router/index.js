@@ -11,7 +11,7 @@ import {
 
 const verifyAuthorization = (to, from, next) => {
 
-  const authUser = to.matched.some(record => record.meta.typeUser === +store.getters['auth/userTypeAuthed'])
+  const authUser = to.matched.some(record => record.meta.typeUser === store.getters['auth/userTypeAuthed'])
   if (store.getters['auth/isAuthenticated'] && authUser) {
     
     next();
