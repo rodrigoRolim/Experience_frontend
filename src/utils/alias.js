@@ -69,6 +69,7 @@ export const AUTH_ERROR = 'AUTH_ERROR'
 export const AUTH_REINIT_STATUS = 'AUTH_REINIT_STATUS'
 export const AUTH_LOGOUT = 'AUTH_LOGOUT'
 export const GET_ATTENDANCES_STORE = 'GET_ATTENDANCES_STORE'
+export const GET_ACCOMODATIONS_STORE = 'GET_ACCOMODATIONS_STORE'
 export const CANCEL_REQUEST = 'CANCEL_REQUEST'
 export const DELETE_SOURCE = 'DELETE_SOURCE'
 export const LOADING_GET_PROCEDIMENT = 'LOADING_GET_PROCEDIMENT'
@@ -100,7 +101,8 @@ export const ATTENDANCE_NOT_FOUND = 'ATTENDANCE_NOT_FOUND'
 export const NAMESPACED_AUTH = 'auth'
 export const NAMESPACED_ATTENDANCE = 'attendance'
 export const NAMESPACED_PROCEDIMENT = 'procediment'
-export const NAMESPACED_FILTERS = 'filters'
+export const NAMESPACED_ACCOMODATIONS = 'accomodations'
+export const NAMESPACED_CANCEL = 'cancel'
 /**  
  * VALIDATIONS MESSAGES
 */
@@ -127,6 +129,7 @@ export const DATE_VALIDATOR = /[0-9]{2}\s\/\s[0-9]{2}\s\/\s[0-9]{4}/g
  * **/
 export const ACCOMODATIONS = 'acomodacoes'
 export const REALIZERS = 'postosrealizantes'
+export const REGISTERED = 'postoscadastro'
 /**
  * LIST SITUATIONS
  * 

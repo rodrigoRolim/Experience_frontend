@@ -1,4 +1,4 @@
-import { requestResource, source } from '../../services/api'
+import { requestResource } from '../../services/api'
 import { 
   GET_PROCEDIMENTS_STORE,
   GET_PROCEDIMENTS_LIKE_STORE, 
@@ -12,8 +12,7 @@ import {
 const state = () => ({
   procediments: [],
   procediment: {},
-  status: '',
-  source: source
+  status: ''
 })
 
 const getters = {
@@ -22,10 +21,10 @@ const getters = {
 }
 
 const actions = {
-  [GET_PROCEDIMENTS_STORE]: ({ commit, state }, { url }) => {
+  [GET_PROCEDIMENTS_STORE]: ({ commit }, { url }) => {
     return new Promise((resolve, reject) => {
       commit(LOADING_GET_PROCEDIMENT)
-      requestResource({ url, method: 'GET', source: state.source })
+      requestResource({ url, method: 'GET' })
         .then((resp) => {
           commit(GET_PROCEDIMENTS_STORE, resp.data)
           commit(SUCCESS_GET_PROCEDIMENT)

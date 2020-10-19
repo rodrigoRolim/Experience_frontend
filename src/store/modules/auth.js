@@ -1,4 +1,5 @@
 import { requestToken } from '../../services/api'
+import cookies from 'vue-cookies'
 import { 
     AUTH_ERROR, 
     AUTH_LOGOUT, 
@@ -8,13 +9,13 @@ import {
   } from '../../utils/alias'
 
 const state = () => ({
-  token: localStorage.getItem('user-token') || "",
-  user: localStorage.getItem('user-name') || "",
-  identify: localStorage.getItem('user-id') || "",
+  token: cookies.get('user-session')?.token || "",
+  user: cookies.get('user-session')?.user_name || "",
+  identify: cookies.get('user-session')?.identify || "",
   status: '',
-  expired: localStorage.getItem('expired') || false,
+  expired: cookies.get('expired') || false,
   hasLoadedOnce: false,
-  userType: localStorage.getItem('user-type') || ""
+  userType: cookies.get('user-session')?.type_user || ""
 })
 
 const getters = {
@@ -22,7 +23,9 @@ const getters = {
   authState: state => state.status,
   userTypeAuthed: state => state.userType,
   userName: state => state.user,
-  userId: state => state.identify
+  userId: state => state.identify,
+  userType: state => state.typeUser,
+  token: state => state.token
 }
 
 const actions = {
@@ -32,38 +35,37 @@ const actions = {
 
       requestToken({ url, auth: credentials })
         .then((resp) => {
-          localStorage.setItem('user-token', resp.data.token)
-          localStorage.setItem('user-type', typeUser)
-          localStorage.setItem('user-name', resp.data.nome)
-          localStorage.setItem('user-id', resp.data.identificacao)
-          commit(AUTH_SUCCESS, { resp, typeUser })
+          console.log(resp)
+          let user_session = {
+            token: resp.data.token,
+            type_user: typeUser,
+            user_name: resp.data.nome,
+            identify: resp.data.identificacao,
+          }
+          commit(AUTH_SUCCESS, resp)
+          console.log('here')
+          cookies.remove('user-session')
+          cookies.set('user-session', user_session, '1h')
           resolve(resp)
         })
         .catch((err) => {
+
           commit(AUTH_ERROR, err)
-          localStorage.removeItem('user-token')
-          localStorage.removeItem('user-type')
-          localStorage.removeItem('user-name')
-          localStorage.removeItem('user-id')
+          cookies.remove('user-session')
           reject(err)
         })
     })
   },
   [AUTH_LOGOUT]: ({ commit }) => {
-    return new Promise(resolve => {
+    
+    if (cookies.isKey('user-session')) {
       commit(AUTH_LOGOUT)
-      localStorage.removeItem('user-token')
-      localStorage.removeItem('user-type')
-      localStorage.removeItem('user-name')
-      localStorage.removeItem('user-id')
-      resolve(true)
-    })
+      cookies.remove('user-session')
+    }
+    return !cookies.isKey('user-session')
   },
   [AUTH_REINIT_STATUS]: ({ commit }) => {
-    return new Promise(resolve => {
-      commit(AUTH_REINIT_STATUS)
-      resolve(true)
-    })    
+    commit(AUTH_REINIT_STATUS)
   }
 }
 
@@ -71,9 +73,8 @@ const mutations = {
   [AUTH_REQUEST]: state => {
     state.status = 'loading'
   },
-  [AUTH_SUCCESS]: (state, { resp, typeUser }) => {
+  [AUTH_SUCCESS]: (state, resp) => {
     state.status = 'success'
-    state.userType = typeUser
     state.token = resp.data.token
     state.user = resp.data.nome
     state.identify = resp.data.identificacao
@@ -86,8 +87,10 @@ const mutations = {
   [AUTH_REINIT_STATUS]: (state) => {
     state.status = ''
   },
-  [AUTH_LOGOUT]: state => {
+  [AUTH_LOGOUT]: (state) => {
     state.token = ''
+    state.identify = ''
+    state.user = ''
     state.status = ''
     state.userType = ''
   }
