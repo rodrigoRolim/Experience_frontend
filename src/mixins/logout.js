@@ -19,13 +19,14 @@ export const logout = {
     ...mapMutations(NAMESPACED_ATTENDANCE, {
       clearAttendances: EMPTY_ATTENDANCES
     }),
-    async realizeLogout () {
-      let isLoggedout = await this.logout()
-      this.clearAttendances()
+    realizeLogout () {
+
+      let isLoggedout = this.logout()
       this.showLoadLogout = true
       if (isLoggedout) {
-        //this.cancelAllRequest()
-        setTimeout(() => {this.$router.push({ path: ACESS_ROUTE })}, 1000)
+        this.$router.push({ path: ACESS_ROUTE }).catch((e) => {
+          console.log(e)
+        })
       }
     }
   }

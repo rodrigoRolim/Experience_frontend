@@ -1,6 +1,5 @@
 import { messages } from '../mixins/user-messages'
 import { mapGetters, mapActions } from 'vuex'
-
 export const login = {
   mixins: [messages],
   data () {
@@ -13,34 +12,42 @@ export const login = {
       'authState'
     ])
   },
+  /* created () {
+    console.log(this.$router.push)
+  }, */
+  mounted () {
+    //this.$router.push('/paciente').catch((err)=>console.log(err))
+  },
   methods: {
     ...mapActions('auth',{
       reinitState: 'AUTH_REINIT_STATUS'
     }),
-    async success (status, path) {
-      //debugger // eslint-disable-line
+    success (status, pathName) {
+      // debugger // eslint-disable-line
       if (this.authState == 'success' && status == 200) {
         this.showLoader = false
-        let reinited = await this.reinitState()
-        if (reinited) {
-          setTimeout(() => this.$router.push(path), 300)
-        }
-       
+        this.$router.push({ path: pathName })
+        .catch((err) => {
+          let options = {
+            status: '401'
+          }
+          this.error(options)
+          throw new Error(`Problem handling something: ${err}.`);
+        })
+
       }
     },
-    async error (status) {
+    async error (options) {
       if (this.authState == 'error') {
         this.showLoader = false
         let reinited = await this.reinitState()
         if (reinited) {
-          console.log(status)
-          this.emitMessage(status)
+          this.emitMessage(options)
         }
-        
       }
     },
-    emitMessage (status) {
-      this.$emit('error', this.message(status))
+    emitMessage (options) {
+      this.$emit('error', this.message(options))
     }
   }
 }
