@@ -13,7 +13,7 @@
         @input="filterOptions = $event"
         @keypress.enter.prevent="enter"
         class="custom-select__input"
-        autocomplete="off"
+        autocomplete="off" 
         :class="{
           'custom-select__input--icon': icon, 
           'custom-select__input--invalid': invalidOption,
@@ -22,6 +22,7 @@
         v-model="selectedInput"
         placeholder="selecione uma opção" 
       />
+      <input :name="name" style="display:none" autocomplete="address-level4"/>
       <span class="custom-select__arrow" :class="{'custom-select__arrow--required': error}">
         <div 
           class="custom-select__line-l"

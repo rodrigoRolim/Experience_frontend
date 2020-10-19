@@ -14,7 +14,11 @@
         :error="error"
       /> 
     </div>
-    <div class="calendar__dates" :id="id" :class="{ 'calendar__dates--show': showDate, 'calendar__dates--hidden': !showDate }" ref="dates">
+    <div class="calendar__dates" 
+      :id="id" 
+      :class="{ 'calendar__dates--show': showDate, 'calendar__dates--hidden': !showDate }" 
+      ref="dates"
+    >
       <div class="calendar__month">
         <div class="calendar__arrow calendar_prev-mth" @click="goToPrevMonth()">&lt;</div>
         <div class="calendar__selected-month" ref="month">{{currentMonth}}</div>
@@ -173,7 +177,7 @@ export default {
     unselectableDates (day) {
      
       if (day) {
-        console.log(this.begin)
+
         let date = new Date(this.year + '-' + '0' + (this.month + 1) + '-' + day)
         let begin = new Date(this.begin).getTime()
         let end = new Date(this.end).getTime()
