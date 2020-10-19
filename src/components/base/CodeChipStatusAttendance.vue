@@ -1,18 +1,18 @@
 <template>
-  <div class="chip-situation">
-    <span class="chip-situation__content" :class="'chip-situation--'+getSituation">
-      <span class="chip-situation__element" :class="getSituation">{{text}}</span>
+  <div class="chip-status-exams">
+    <span class="chip-status-exams__content" :class="'chip-status-exams--'+getSituation">
+      <span class="chip-status-exams__element" :class="getSituation">{{text}}</span>
     </span>
   </div>
 </template>
 
 <script>
-import { situation } from '../../mixins/situation'
+import { attendanceStatus } from '../../mixins/attendanceStatus'
 export default {
   name: 'CodeChipSituation',
-  mixins: [situation],
+  mixins: [attendanceStatus],
   props: {
-    situation: {
+    status: {
       type: String,
       required: true
     }
@@ -24,7 +24,7 @@ export default {
   },
   computed: {
     text (vm) {
-      switch (vm.situation) {
+      switch (vm.status) {
         case 'PF':
           return 'Parcialmente Finalizado'
         case 'TF':
@@ -47,7 +47,7 @@ export default {
 
 <style lang="sass" scoped>
 
-.chip-situation
+.chip-status-exams
   display: flex
   flex-direction: column
   justify-content: center
@@ -59,23 +59,23 @@ export default {
     justify-content: flex-end
   @include respond-to(wide-screens)
     text-align: center
-.chip-situation__content
+.chip-status-exams__content
   color: white
   font-size: 0.8rem
   padding: 4px 10px
   border-radius: 16px
-.chip-situation__element
+.chip-status-exams__element
   padding: 3px 0
   border-radius: 10px
   font-weight: 600
-.chip-situation--pendency
+.chip-status-exams--pendency
   background-color: $EP 
-.chip-situation--finished
+.chip-status-exams--finished
   background-color: $TF
-.chip-situation--partial-finished
+.chip-status-exams--partial-finished
   background-color: $PF
-.chip-situation--in-progress
+.chip-status-exams--in-progress
   background-color: $EA
-.chip-situation--unrealized
+.chip-status-exams--no-realized
   background-color: $NR
 </style>

@@ -29,7 +29,7 @@
         <!-- </div> -->
       </div>
       <div class="patient__contacts">
-        <strong class="patient__contact-title">contatos</strong>
+        <!-- <strong class="patient__contact-title">contatos</strong> -->
         <div class="patient__contact-items">
           <div class="patient__phones patient--margin">
             <code-info 
@@ -90,6 +90,7 @@ export default {
   cursor: pointer
 .patient__body
   display: flex
+  margin-top: 10px
   @include respond-to(medium-screens)
     flex-direction: column
   @include respond-to(handhelds)
@@ -99,11 +100,12 @@ export default {
 .patient__perfil
   display: flex
   flex-direction: column
-  @include respond-to(wide-screens)
-    flex-direction: row
-    width: 30%
+  width: 20%
   @include respond-to(medium-screens)
     flex-direction: row
+    width: 100%
+  @include respond-to(handhelds)
+    width: 100%
 .patient-list-attendances
   min-height: 70px
   border-radius: 4px
@@ -145,7 +147,7 @@ export default {
 .patient__contacts
   display: flex
   flex-direction: column
-  width: 40%
+  width: 30%
   @include respond-to(medium-screens)
     width: 100%
     margin-top: 20px
@@ -154,7 +156,7 @@ export default {
     margin-top: 20px
 .patient__contact-items
   display: flex
-  flex-direction: row
+  flex-direction: column
   @include respond-to(handhelds)
     flex-direction: column
 .patient__phones

@@ -1,5 +1,5 @@
 <template>
-  <div class="patient-exam" :class="getSituation | situationModifiers" @click.self="click">
+  <div class="patient-exam" :class="getStatus | statusModifiers" @click.self="click">
     <div class="patient-exam__detail" @click.self="click">
       <code-chip :text="mnemonico" transform="uppercase" class="patient-exam__tag"></code-chip>
       <div class="patient-exam__separator-line"></div>
@@ -23,11 +23,11 @@
         
       </div>
       <div class="patient-exam__status-exam" @click.self="click">
-        <code-chip-situation :situation="situation"/>
+        <code-chip-status-exams :status="status" />
       </div>
       <div class="patient-exam__checkbox" >
         <code-checkbox
-          v-show="situation == 'TF'"
+          v-show="status == 'FINALIZADO'"
           text="imprimir"
           none
           color="primary"
@@ -39,21 +39,21 @@
 <script>
 import CodeInfo from './base/CodeInfo'
 import CodeChip from "./base/CodeChip";
-import CodeChipSituation from "./base/CodeChipSituation";
+import CodeChipStatusExams from "./base/CodeChipStatusExams";
 import CodeCheckbox from "./base/CodeCheckbox";
-import { situation } from "../mixins/situation";
+import { examStatus } from "../mixins/examStatus";
 export default {
   name: "PatientExamList",
-  mixins: [situation],
+  mixins: [examStatus],
   props: {
-    situation: String,
+    status: String,
     name: String,
     nameHealthCenter: String,
     mnemonico: String
   },
   components: {
     CodeChip,
-    CodeChipSituation,
+    CodeChipStatusExams,
     CodeCheckbox,
     CodeInfo
   },
@@ -61,9 +61,8 @@ export default {
     return {}
   },
   filters: {
-    situationModifiers (situation) {
-      console.log(situation)
-      return "patient-exam--"+situation;
+    statusModifiers (status) {
+      return "patient-exam--"+status;
     }
   },
   methods: {
@@ -75,7 +74,7 @@ export default {
 </script>
 <style lang="sass" scoped>
 
-@import "../styles/colors/_status-colors.scss"
+@import "../styles/colors/__status-colors-exams.scss"
 
 .patient-exam
   display: flex
@@ -110,7 +109,6 @@ export default {
   align-self: flex-start
   cursor: default
   margin-left: 20px
-  
 .patient-exam__separator-line
   content: "|"
   display: flex
@@ -131,14 +129,14 @@ export default {
 .patient-exam__checkbox
   align-self: flex-end
   min-height: 44px
-.patient-exam--pendency
-  @include card-situation($status: "EP", $border-large: left, $transparent: true)
+.patient-exam--pendencies
+  @include card-status-exams($status: "EP", $border-large: left, $transparent: true)
 .patient-exam--finished
-  @include card-situation($status: "TF", $border-large: left, $transparent: true)
-.patient-exam--partial-finished
-  @include card-situation($status: "PF", $border-large: left, $transparent: true)
+  @include card-status-exams($status: "TF", $border-large: left, $transparent: true)
+.patient-exam--waiting
+  @include card-status-exams($status: "PF", $border-large: left, $transparent: true)
 .patient-exam--in-progress
-  @include card-situation($status: "EA", $border-large: left, $transparent: true)
-.patient-exam--unrealized
-  @include card-situation($status: "NR", $border-large: left, $transparent: true)
+  @include card-status-exams($status: "EA", $border-large: left, $transparent: true)
+.patient-exam--no-realized-yet
+  @include card-status-exams($status: "NR", $border-large: left, $transparent: true)
 </style>

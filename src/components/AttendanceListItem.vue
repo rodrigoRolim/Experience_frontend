@@ -12,7 +12,7 @@
         :age="age"
         :gender="gender"
       />
-      <code-chip-situation class="attendance-item__situation" :situation="situation"/>
+      <code-chip-status-attendance class="attendance-item__situation" :status="status"/>
       <attendance-list-item-detail
         class="attendance-item__details"
         :idAttendance="idAttendance"
@@ -27,11 +27,11 @@
 <script>
 import AttendanceListItemProfile from './AttendanceListItemProfile'
 import AttendanceListItemDetail from './AttendanceListItemDetail'
-import CodeChipSituation from './base/CodeChipSituation'
-import { situation } from '../mixins/situation'
+import CodeChipStatusAttendance from './base/CodeChipStatusAttendance'
+import { attendanceStatus } from '../mixins/attendanceStatus'
 export default {
   name: 'AttendanceListItem',
-  mixins: [situation],
+  mixins: [attendanceStatus],
   props: {
     photo: String,
     name: String,
@@ -43,13 +43,13 @@ export default {
     dataAttendance: String,
     dataDelivery: String,
     exams: String,
-    situation: String,
+    status: String,
     patient: String   
   },
   components: {
     AttendanceListItemDetail,
     AttendanceListItemProfile,
-    CodeChipSituation
+    CodeChipStatusAttendance
   },
   data () {
     return {
@@ -69,7 +69,7 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-@import "../styles/colors/__status-colors.scss"
+@import "../styles/colors/__status-colors-attendances.scss"
 
 .attendance-item
   display: flex
@@ -102,23 +102,23 @@ export default {
 .attendance-item:hover
   -webkit-box-shadow:  0 0 6px rgba(0,0,0,.3)
 .attendance-item--pendency
-  @include card-situation($status: "EP", $border-large: left, $transparent: true)
+  @include card-status-attendances($status: "EP", $border-large: left, $transparent: true)
   @include respond-to(handhelds)
-    @include card-situation($status: "EP", $border-large: top, $transparent: true)
+    @include card-status-attendances($status: "EP", $border-large: top, $transparent: true)
 .attendance-item--finished
-  @include card-situation($status: "TF", $border-large: left, $transparent: true)
+  @include card-status-attendances($status: "TF", $border-large: left, $transparent: true)
   @include respond-to(handhelds)
-    @include card-situation($status: "TF", $border-large: top, $transparent: true)
+    @include card-status-attendances($status: "TF", $border-large: top, $transparent: true)
 .attendance-item--partial-finished
-  @include card-situation($status: "PF", $border-large: left, $transparent: true)
+  @include card-status-attendances($status: "PF", $border-large: left, $transparent: true)
   @include respond-to(handhelds)
-    @include card-situation($status: "PF", $border-large: top, $transparent: true)
+    @include card-status-attendances($status: "PF", $border-large: top, $transparent: true)
 .attendance-item--in-progress
-  @include card-situation($status: "EA", $border-large: left, $transparent: true)
+  @include card-status-attendances($status: "EA", $border-large: left, $transparent: true)
   @include respond-to(handhelds)
-    @include card-situation($status: "EA", $border-large: top, $transparent: true)
-.attendance-item--unrealized
-  @include card-situation($status: "NR", $border-large: left, $transparent: true)
+    @include card-status-attendances($status: "EA", $border-large: top, $transparent: true)
+.attendance-item--no-realized
+  @include card-status-attendances($status: "NR", $border-large: left, $transparent: true)
   @include respond-to(handhelds)
-    @include card-situation($status: "NR", $border-large: top, $transparent: true)
+    @include card-status-attendances($status: "NR", $border-large: top, $transparent: true)
 </style>
