@@ -1,4 +1,4 @@
-import { requestResource, source } from '../../services/api'
+import { requestResource } from '../../services/api'
 
 import { 
   GET_ATTENDANCES_STORE,
@@ -17,12 +17,9 @@ import {
 
 const state = {
   attendances: [],
-  pages: 1,
-  limit: 10,
   selectedAttendance: { healthCenter: '', id: '' },
   selectedExams: '',
   status: '',
-  source: source,
   message: {}
 }
 
@@ -35,33 +32,14 @@ const getters = {
     return getters.attendances
       .find(att => att.posto == healthCenter && att.atendimento == id)?.ExamesObj
   },
-  healthCenters: (state) => {
-    let healthCenters = [];
-    state.attendances.map((att) => {
-
-      if (NoHasElement(healthCenters, 'name', att, 'nome_posto'))
-        healthCenters.push({id: att.posto, name: att.nome_posto})
-    })
-    return [...healthCenters]
+  healthCenters: () => {
+  
   },
-  accomodations: (state) => {
-    let accomodations = []
-    state.attendances.map((att, i) => {
-
-      if (NoHasElement(accomodations, 'name', att, 'acomodacao'))
-        accomodations.push({id: i, name: att.acomodacao})
-    })
-    return [...accomodations]
+  accomodations: () => {
+   
   },
-  situations: (state) => {
-    let situations = []
-    state.attendances.map((att) => {
-      let name = situationExperience(att.situacao_exames_experience)
-      if (NoHasElement(situations, 'id', att, 'situacao_exames_experience'))
-        situations.push({id: att.situacao_exames_experience, name})
-    })
-    console.log([...situations])
-    return [...situations]
+  situations: () => {
+   
   },
   name: () => (patientName) => {
     return patientName.toUpperCase()
@@ -79,10 +57,10 @@ const getters = {
 }
 
 const actions = {
-  [GET_ATTENDANCES_STORE]: ({ commit, state }, { url, params }) => {
+  [GET_ATTENDANCES_STORE]: ({ commit }, { url, params }) => {
     return new Promise((resolve, reject) => {
       commit(LOADING_GET_ATTENDANCE)
-      requestResource({ url, params, method: 'GET', source: state.source})
+      requestResource({ url, params, method: 'GET' })
         .then((resp) => {
           commit(GET_ATTENDANCES_STORE, resp.data.docs || resp.data)
           commit(SELECTED_ATTENDANCE)
@@ -155,7 +133,7 @@ const mutations = {
     state.status = 'error'
   }
 }
-let situationExperience = (situation) => {
+/* let situationExperience = (situation) => {
   switch(situation) {
     case 'TF':
       return 'Finalizados'
@@ -174,7 +152,7 @@ let NoHasElement = (arr, propertyArr, item, propertyAtt) => {
     return true
   }
   return !arr.some(it => it[propertyArr] === item[propertyAtt])
-}
+} */
 export default {
   namespaced: true,
   state,
