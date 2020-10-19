@@ -6,18 +6,17 @@ import {
   PARTNER_TYPE, 
   HEALTH_CENTER_TYPE, 
   //EMPTY_ATTENDANCES, 
-  CANCEL_PENDING_REQUESTS 
+  //CANCEL_PENDING_REQUESTS 
 } from '../utils/alias'
 
 const verifyAuthorization = (to, from, next) => {
 
-  const authUser = to.matched.some(record => record.meta.typeUser === store.getters['auth/userTypeAuthed'])
-  if (store.getters['auth/isAuthenticated'] && authUser) {
-    
-    next();
-    return;
+  const authUser = to.matched
+    .some(record => record.meta.typeUser !== store.getters['auth/userTypeAuthed'])
+  if (!store.getters['auth/isAuthenticated'] && !authUser) {
+    next('/acesso');
   }
-  next('/');
+  next()
 }
 
 const router = new VueRouter({
@@ -76,7 +75,7 @@ const router = new VueRouter({
     {
       path: '/paciente',
       name: 'patient',
-      beforeEnter: verifyAuthorization,
+      //beforeEnter: verifyAuthorization,
       meta: { typeUser: PATIENT_TYPE },
       component: () => import(/* webpackChunkName: 'Patient' */ '@/views/Patient'),
       children: [
@@ -124,9 +123,5 @@ const router = new VueRouter({
     }
   ]
 })
-router.beforeEach((to, from, next) => {
-  store.dispatch("cancel/"+CANCEL_PENDING_REQUESTS)
-  //store.dispatch(EMPTY_ATTENDANCES)
-  next()  
-})
+
 export default router

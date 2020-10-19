@@ -1,7 +1,8 @@
 import axios from 'axios'
 import store from '../store/index'
 import { ADD_CANCEL_TOKEN } from '../utils/alias'
-
+const CancelToken = axios.CancelToken
+const source = CancelToken.source()
 const serverExperience = axios.create({
   baseURL: 'http://192.168.1.68:9001',
   timeout: 40000,
@@ -13,11 +14,12 @@ const serverExperience = axios.create({
 
 serverExperience.interceptors.request.use(
   config => {
-    let source = axios.CancelToken.source()
-    config.cancelToken = source.token
-    store.commit('cancel/'+ADD_CANCEL_TOKEN, source)
-    const token = 'Bearer ' + localStorage.getItem('user-token')
+   
+    //config.cancelToken = source.token
+    //store.commit('cancel/'+ADD_CANCEL_TOKEN, source)
+    let token = store.getters['auth/token']
     if (token) {
+      token = 'Bearer ' + token
       config.headers['X-Paginate'] = true
       config.headers.Authorization = token
     }
@@ -37,7 +39,7 @@ const serverAuth = axios.create({
 })
 serverAuth.interceptors.request.use(
   config => {
-    let source = axios.CancelToken.source()
+   
     config.cancelToken = source.token
     store.commit('cancel/'+ADD_CANCEL_TOKEN, source)
 

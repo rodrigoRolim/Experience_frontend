@@ -161,10 +161,6 @@ export default {
       this.contentMessage = ''
     }
   },
-  created () {
-    
-    this.redirectToPreviousPage()
-  },
   computed: {
     ...mapGetters(NAMESPACED_AUTH, [
       'userTypeAuthed',
@@ -200,7 +196,6 @@ export default {
             this.$router.push({ path: PATIENT_ROUTE })
             break
           case HEALTH_CENTER_TYPE:
-            console.log('rola')
             this.$router.push({ path: HEALTH_CENTER_ROUTE })
             break
           case USER_TYPE:
