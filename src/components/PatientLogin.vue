@@ -48,19 +48,19 @@
       </div>
       <div class="login-patient__birthday" v-if="visibility !== 'ID'">
          <code-label
-          bind="birthDay"
-          label="Data nascimento"
-          color="#676a6c"
-          :fontWeight="700"
-          fontSize="0.8rem"
+            bind="birthDay"
+            label="Data nascimento"
+            color="#676a6c"
+            :fontWeight="700"
+            fontSize="0.8rem"
          ></code-label>
          <code-calendar
-           class="calendars__calendar"
-           v-model="patient.nascimento" 
-           name="begin"
-           icon="birthday-cake" 
-           placeholder="data de nascimento"
-           :error="validate.nascimento"
+            class="calendars__calendar"
+            v-model="patient.nascimento" 
+            name="begin"
+            icon="birthday-cake" 
+            placeholder="data de nascimento"
+            :error="validate.nascimento"
          />
 
       </div>
@@ -234,6 +234,7 @@ export default {
     //this.$refs.idAttendance.focus()
     this.focusInputList = ['atendimento', 'senha']
   },
+
   computed: {
     cpf: {
       get () {
@@ -432,7 +433,6 @@ export default {
       }
       if (emptyFieldAll || this.validator) {
         this.$emit('error', this.message(111))
-        //this.$emit('loading', false)
       }
 
     },
@@ -445,22 +445,27 @@ export default {
     formaterDate (date) {
       return date.replace(/\s/g, '')
     },
-    async realizeLogin () {
+    realizeLogin () {
       this.showLoader = true
       this.$emit('loading', true)
-      try {
-        let resp = await this.login({ 
-            url: (this.visibility === 'CPF') ? PATIENT_AUTH : ATTENDANCE_AUTH, 
-            credentials: this.getCredentials,
-            typeUser: PATIENT_TYPE
-          })
-        this.success(resp.status, PATIENT_ROUTE)
+  
+      this.login({ 
+          url: (this.visibility === 'CPF') ? PATIENT_AUTH : ATTENDANCE_AUTH, 
+          credentials: this.getCredentials,
+          typeUser: PATIENT_TYPE
+        })
+        .then((resp) => {
+          this.success(resp.status, PATIENT_ROUTE)
+        })
+        .catch((err) => {
+          let refused = err.message == 'Network Error' ? 502 : undefined
+          let options = {
+            status: refused || err.response.status
+          }
+          this.error(options) 
+          this.$emit('loading', false)
+        })
         
-      } catch (err) {
-        let refused = err.message == 'Network Error' ? 502 : undefined
-        this.error(refused || err.response.status) 
-        this.$emit('loading', false)
-      }
     },
     
     backspace () {
@@ -569,7 +574,6 @@ export default {
       this.valueRadio = value
     },
     group (value) {
-      console.log(value)
       this.visibility = value
     },
     displayKeyboard () {

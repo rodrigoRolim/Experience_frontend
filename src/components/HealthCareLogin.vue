@@ -132,6 +132,9 @@ export default {
       ]
     }
   },
+  destroyed () {
+    console.log('destroyed posto')
+  },
   computed: {
     user () {
       return this.healthCare.userid
@@ -190,22 +193,28 @@ export default {
         this.$emit('error', this.message(111))
       }
     },
-    async realizeLogin () {
+    realizeLogin () {
       this.showLoader = true
       let { healthCare } = this
       this.$emit('loading', true)
-      try {
-        let resp = await this.login({ 
-            url: HEALTH_CENTER_AUTH, 
-            credentials: healthCare, 
-            typeUser: HEALTH_CENTER_TYPE 
-          })
-        this.success(resp.status, HEALTH_CENTER_ROUTE)
-      } catch (err) {
-        let refused = err.message === 'Netowrk Error' ? 502 : undefined
-        this.error(refused || err.response.status) 
-        this.$emit('loading', false)
-      }
+      
+      this.login({ 
+          url: HEALTH_CENTER_AUTH, 
+          credentials: healthCare, 
+          typeUser: HEALTH_CENTER_TYPE 
+        })
+        .then((resp) => {
+          this.success(resp.status, HEALTH_CENTER_ROUTE)
+        })
+        .catch((err) => {
+          console.log({err})
+          let refusedStatus = err.message === 'Network Error' ? 502 : undefined
+          let options = {
+            status: refusedStatus || err.response.status
+          }
+          this.error(options) 
+          this.$emit('loading', false)
+        })
     }
   }  
 }
