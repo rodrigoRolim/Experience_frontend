@@ -75,7 +75,7 @@
           <code-select
             name="realizer"
             option="selecione posto realizante"
-            :options="list"
+            :options="realizers"
             v-model="filters.realizer"
           ></code-select>
         </div>
@@ -106,15 +106,16 @@ import AttendanceListFilterPeriod from './AttendanceListFilterPeriod'
 import { messages } from '../mixins/user-messages'
 import { mapActions, mapGetters } from 'vuex'
 import { 
-  GET_ATTENDANCES_HEALTH_CENTER, 
   NAMESPACED_ATTENDANCE, 
-  GET_ATTENDANCES_STORE, 
+  NAMESPACED_AUTH,
+  GET_ATTENDANCES_HEALTH_CENTER, 
+  GET_ATTENDANCES_STORE,
+  GET_ACCOMODATIONS_STORE,
+  NAMESPACED_ACCOMODATIONS,
+  GET_FILTERS, 
   ATTENDANCE_NOT_FOUND,
-  NAMESPACED_FILTERS,
-  GET_FILTERS_STORE,
-  GET_FILTERS,
   ACCOMODATIONS,
-  REALIZERS
+  REALIZERS,
 } from '../utils/alias'
 export default {
   name: 'AttendanceListFilter',
@@ -140,27 +141,32 @@ export default {
         situation: null,
         realizer: null
       },
-      list: [
-        { id: 1, name: 'MATRIX' }
-      ],
       BEGIN_INITIAL: '31-07-20',
-      END_INITIAL: '31-07-20'
+      END_INITIAL: '31-09-20',
+      healthCenters: [{id:0, name: 'asdasd'}],
+      accomodations: [{id:0, name: 'asdasd'}],
+      realizers: [{id:0, name: 'asdasd'}],
+      situations: [{id:0, name: 'asdasd'}]
     }
   },
   created () {
-
-    this.attendances()
-    
+   
+    this.initComponent()
   },
   computed: {
-    ...mapGetters(NAMESPACED_FILTERS, [
-      'healthCenters',
-      'accomodations',
-      'situations',
-      'realizers'
+    ...mapGetters(NAMESPACED_AUTH, [
+      'userId'
     ])
   },
   methods: {
+    async initComponent () {
+      try {
+        await this.listAccomodations()
+        await this.attendances()
+      } catch (err) {
+        this.setMessage(this.message({ status: err.response.status, data: 'atendimento' }))
+      }
+    },
     formatterDateToApi (date) {
       let arrDate = date.split('/')
       let day = arrDate[0]
@@ -174,39 +180,63 @@ export default {
     },
     buildRequest () {
       let typeUser = 'posto'
-      let id = 0
       let urlAccomodations = GET_FILTERS(
             this.formatterDateToApi(this.filters.begin), 
             this.formatterDateToApi(this.filters.end), 
             typeUser, 
-            id, 
+            this.userId, 
             ACCOMODATIONS
           )
       let urlRealizers = GET_FILTERS(
           this.formatterDateToApi(this.filters.begin), 
           this.formatterDateToApi(this.filters.end), 
           typeUser, 
-          id, 
+          this.userId, 
           REALIZERS
         )
-      return [urlAccomodations, urlRealizers]
+      let urlRegistered = GET_FILTERS(
+          this.formatterDateToApi(this.filters.begin),
+          this.formatterDateToApi(this.filters.end)
+      )
+      return [urlRegistered, urlAccomodations, urlRealizers]
     },
-    getFilters () {
+    listAccomodations () {
+      return new Promise((resolve, reject) => {
+        let typeUser = 'posto'
+        let urlAccomodations = GET_FILTERS(
+              this.formatterDateToApi(this.filters.begin), 
+              this.formatterDateToApi(this.filters.end), 
+              typeUser,
+              this.userId, 
+              ACCOMODATIONS
+            )
+        this.getAccomodations({url: urlAccomodations})
+          .then((resp) => {
+            resolve(resp)
+            console.log(resp)
+          })
+          .catch((err) => {
+            console.log(err)
+            reject(err)
+          })
+      })
+     
       
-      this.filterList(this.buildRequest())
-        .then((res) => {
-          console.log(res)
-        })
     },
     params () {
       let limit = 10
       let page = 1
-      let properties = ['postocadastro', 'postorealizante', 'acomodacao', 'situacao']
-      let values = ['MATRIZ', 'ALVARO', 'GERAL', 'TF']
+      let keys = ['postocadastro', 'postorealizante', 'acomodacao', 'situacao']
+      let values = [
+       '',
+       '',
+       '',
+       'TF'
+      ]
       let params = {}
-      properties.map((prop, i) => {
+      keys.map((key, i) => {
         if (values[i]) {
-          params[prop] = values[i]
+          params[key] = values[i]
         }
       })
      
@@ -215,26 +245,28 @@ export default {
       return params
     },
     attendances () {
-
-      let healthCenter = 0
-
-      let urlName = GET_ATTENDANCES_HEALTH_CENTER(healthCenter, 
-        this.formatterDateToApi(this.filters.begin), 
-        this.formatterDateToApi(this.filters.end))
-      this.getAttendances({ url: urlName, params: this.params() })
+      //return new Promise((resolve, reject) => {
+        let healthCenter = this.userId
+        let urlName = GET_ATTENDANCES_HEALTH_CENTER(healthCenter, 
+          this.formatterDateToApi(this.filters.begin), 
+          this.formatterDateToApi(this.filters.end))
+        this.getAttendances({ url: urlName, params: this.params() })
         .then((res) => {
           console.log(res)
         })
         .catch((err) => {
           this.setMessage(this.message({ status: err.response.status, data: 'atendimento' }))
+          //reject(err)
         })
+      //})
+      
     },
     ...mapActions(NAMESPACED_ATTENDANCE, {
       getAttendances: GET_ATTENDANCES_STORE,
       setMessage: ATTENDANCE_NOT_FOUND
     }),
-    ...mapActions(NAMESPACED_FILTERS, {
-      filterList: GET_FILTERS_STORE
+    ...mapActions(NAMESPACED_ACCOMODATIONS, {
+      getAccomodations: GET_ACCOMODATIONS_STORE
     })
   }
 }
