@@ -1,5 +1,6 @@
 import { messages } from '../mixins/user-messages'
 import { mapGetters, mapActions } from 'vuex'
+import { NAMESPACED_AUTH, AUTH_REINIT_STATUS } from '../utils/alias'
 export const login = {
   mixins: [messages],
   data () {
@@ -12,15 +13,9 @@ export const login = {
       'authState'
     ])
   },
-  /* created () {
-    console.log(this.$router.push)
-  }, */
-  mounted () {
-    //this.$router.push('/paciente').catch((err)=>console.log(err))
-  },
   methods: {
-    ...mapActions('auth',{
-      reinitState: 'AUTH_REINIT_STATUS'
+    ...mapActions(NAMESPACED_AUTH, {
+      reinitState: AUTH_REINIT_STATUS
     }),
     success (status, pathName) {
       // debugger // eslint-disable-line
@@ -37,10 +32,11 @@ export const login = {
 
       }
     },
-    async error (options) {
+    error (options) {
       if (this.authState == 'error') {
         this.showLoader = false
-        let reinited = await this.reinitState()
+        let reinited = this.reinitState()
+        console.log(reinited)
         if (reinited) {
           this.emitMessage(options)
         }

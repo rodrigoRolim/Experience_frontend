@@ -3,7 +3,6 @@ export const cpf = {
   watch: {
     cpf (value) {
       let input = value
-      console.log(input)
       if (/\D\.$/.test(input)) {
         input = input.substr(0, input.length - 3)
       }
@@ -13,14 +12,14 @@ export const cpf = {
       var output = values.map(function (v, i) {
 
         if (v.length == 3 && i < 2) {
-          return v + ' . '
+          return v + '.'
         } else if (v.length == 3 && i < 3){
-          return v + ' - '
+          return v + '-'
         } else {
           return v
         }
       })
-      this.cpf = output.join('').substr(0, 20)
+      this.cpf = output.join('').substr(0, 14)
     }
   }
 }

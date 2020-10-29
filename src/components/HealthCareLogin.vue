@@ -190,7 +190,7 @@ export default {
         return
       }
       if (emptyField) {
-        this.$emit('error', this.message(111))
+        this.emitMessage({status: 111})
       }
     },
     realizeLogin () {

@@ -1,7 +1,7 @@
 <template>
   <div class="patient" @click="patientExamsView">
     <div class="patient__header">
-      <strong class="patient__name">madalena meretriz aids</strong>
+      <strong class="patient__name">{{name}}</strong>
     </div>
     <div class="patient__body">
       <div class="patient__perfil">
@@ -9,8 +9,8 @@
           <div class="patient__sex patient--margin">
             <code-info 
               class="icon"
-              icon="mars"
-              info="masculino"
+              :icon="genderIcon"
+              :info="sex"
               description="sexo"
               color="rgb(71, 77, 94)"
               size="lg"
@@ -20,7 +20,7 @@
             <code-info
               class="icon" 
               icon="birthday-cake"
-              info="30 anos"
+              :info="age"
               description="idade"
               color="rgb(71, 77, 94)"
               size="lg"
@@ -54,10 +54,12 @@
         </div>
       </div>
       <div class="patient-list-attendances">
-        <patient-list-item-attendances />
-        <patient-list-item-attendances />
-        <patient-list-item-attendances />
-        <patient-list-item-attendances />
+        <patient-list-item-attendances 
+          v-for="(attendance, i) in lasterAttendances"
+          :key="i"
+          :attendance-id="attendance.posto | id(attendance.atendimento)"
+          :attendance-date="attendance.data_atd | date"
+        />
       </div>
     </div>
   </div>
@@ -67,13 +69,57 @@ import CodeInfo from './base/CodeInfo'
 import PatientListItemAttendances from './PatientListItemAttendances'
 export default {
   name: 'PatientListItem',
+  props: {
+    name: String,
+    sex: String,
+    age: String,
+    lasterAttendances: Array,
+    patientId: Number
+  },
   components: {
     CodeInfo,
     PatientListItemAttendances
   },
+  filters: {
+    id (healthCenter, attendance) {
+      
+      let hc = healthCenter
+      let att = attendance
+
+      if (healthCenter < 10) {
+        hc = '00' + healthCenter
+      }
+      if (healthCenter > 9) {
+        hc = '0' + healthCenter
+      }
+      if (attendance < 10) {
+        att = '0000' + attendance
+      }
+      if (attendance > 9) {
+        att = '000' + attendance
+      }
+      if (attendance > 99) {
+        att = '00' + attendance
+      }
+      if (attendance > 999) {
+        att = '0' + attendance
+      }
+      
+      return hc + '/' + att
+    },
+    date (dateString) {
+      const delivery = new Date(dateString).toLocaleDateString("pt-BR")
+      return delivery !== "Invalid Date" ? delivery : ""
+    }
+  },
+  computed: {
+    genderIcon () {
+      return (this.sex === 'masculino') ? 'mars' : 'venus'
+    }
+  },
   methods: {
     patientExamsView () {
-      this.$router.push('/medico/paciente/1/1')
+      this.$router.push({ name: 'doctorExamsPatient', params: {patient: this.patientId}})
     }
   }
 }

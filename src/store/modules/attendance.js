@@ -4,14 +4,14 @@ import {
   GET_ATTENDANCES_STORE,
   SELECTED_ATTENDANCE,
   CHANGE_SELECTED_ATTENDANCE,
-  SUCCESS_GET_ATTENDANCE,
-  LOADING_GET_ATTENDANCE,
+  SUCCESS,
+  LOADING,
+  ERROR,
   SELECT_EXAMS,
   BEGIN_DATE,
   END_DATE,
   EMPTY_EXAMS,
   EMPTY_ATTENDANCES,
-  ERROR_GET_ATTENDANCE,
   ATTENDANCE_NOT_FOUND
 } from '../../utils/alias'
 
@@ -59,16 +59,16 @@ const getters = {
 const actions = {
   [GET_ATTENDANCES_STORE]: ({ commit }, { url, params }) => {
     return new Promise((resolve, reject) => {
-      commit(LOADING_GET_ATTENDANCE)
+      commit(LOADING)
       requestResource({ url, params, method: 'GET' })
         .then((resp) => {
           commit(GET_ATTENDANCES_STORE, resp.data.docs || resp.data)
           commit(SELECTED_ATTENDANCE)
-          commit(SUCCESS_GET_ATTENDANCE)
+          commit(SUCCESS)
           resolve(resp)
         })
         .catch((err) => {
-          commit(ERROR_GET_ATTENDANCE)
+          commit(ERROR)
           reject(err)
         })
     })
@@ -123,13 +123,13 @@ const mutations = {
   [EMPTY_EXAMS]: (state) => {
     state.selectedExams = []
   },
-  [LOADING_GET_ATTENDANCE]: (state) => {
+  [LOADING]: (state) => {
     state.status = 'loading'
   },
-  [SUCCESS_GET_ATTENDANCE]: (state) => {
+  [SUCCESS]: (state) => {
     state.status = 'ok'
   },
-  [ERROR_GET_ATTENDANCE]: (state) => {
+  [ERROR]: (state) => {
     state.status = 'error'
   }
 }

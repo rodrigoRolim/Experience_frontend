@@ -24,7 +24,7 @@ export default {
   },
   computed: {
     text (vm) {
-      switch (vm.situation) {
+      switch (vm.status) {
         case 'PENDENCIA':
           return 'Existem pendencias'
         case 'FINALIZADO':
@@ -72,6 +72,6 @@ export default {
   background-color: $FINALIZED
 .chip-status-exams--in-progress
   background-color: $IN-PROGRESS
-.chip-status-exams--unrealized
+.chip-status-exams--no-realized-yet
   background-color: $NO-REALIZED-YET
 </style>

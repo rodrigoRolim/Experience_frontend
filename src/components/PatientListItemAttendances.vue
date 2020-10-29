@@ -3,7 +3,7 @@
     <div class="patient-list-item-attendances__date">
       <code-info 
         icon="calendar-check"
-        info="07/04/2016"
+        :info="attendanceDate"
         description="data atendimento"
         color="rgb(71, 77, 94)"
         size="lg"
@@ -12,7 +12,7 @@
     <div class="patient-list-item-attendances__id">
       <code-info
         icon="heartbeat"
-        info="0/0012889"
+        :info="attendanceId"
         description="ID atendimento"
         color="rgb(71, 77, 94)"
         size="lg"
@@ -25,6 +25,10 @@
 import CodeInfo from './base/CodeInfo'
 export default {
   name: 'PatientListItemAttendances',
+  props: {
+    attendanceId: String,
+    attendanceDate: String
+  },
   components: {
     CodeInfo
   },

@@ -17,7 +17,11 @@
         <patient-exams-list-header></patient-exams-list-header>
       </div>
       <div class="doctor-patient__exams">
-        <patient-exam-list />
+        <patient-exam-list 
+          :health-center="healthCenter"
+          :attendance="attendance"
+          :patient="patient"
+        />
       </div>
     </div>
   </div>
@@ -30,6 +34,20 @@ import TheSidebar from '../components/TheSidebar'
 import { bus } from '../main'
 export default {
   name: 'DoctorPatientExams',
+  props: {
+    healthCenter: {
+      type: Number,
+      default: null
+    },
+    attendance: {
+      type: Number,
+      default: null
+    },
+    patient: {
+      type: Number,
+      default: null
+    }
+  },
   components: {
     /* PatientExams */
     PatientExamsListHeader,
@@ -42,6 +60,9 @@ export default {
     }
   },
   created () {
+    console.log(this.healthCenter)
+    console.log(this.attendance)
+    console.log(this.patient)
     bus.$on('sidebar', (data) => {
       this.attendances = data
     })
@@ -85,6 +106,7 @@ export default {
 .doctor-patient__sidebar,
 .doctor-patient__patient
   position: fixed
+  top: 60px
 .doctor-patient__sidebar
   @include respond-to(wide-screens)
     display: block

@@ -1,7 +1,7 @@
 export const examStatus = {
   computed: {
     getStatus (vm) {
-      switch (vm.situation) {
+      switch (vm.status) {
         case 'PENDENCIA':
           return 'pendencies'
         case 'FINALIZADO':

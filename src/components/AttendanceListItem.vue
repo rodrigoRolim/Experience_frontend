@@ -1,5 +1,5 @@
 <template>
-  <div class="attendance-item" :class="getSituation | situationModifier"
+  <div class="attendance-item" :class="getStatus | statusModifier"
     @click="patientExamsView"
   >
     <div class="attendance-item__header">
@@ -57,7 +57,7 @@ export default {
     }
   },
   filters: {
-    situationModifier (situation) {
+    statusModifier (situation) {
       return 'attendance-item--'+situation
     }
   },

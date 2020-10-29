@@ -20,7 +20,7 @@
       :dataAttendance="attendance.data_atd | date"
       :dataDelivery="attendance.data_entrega | date"
       :exams="attendance.mnemonicos"
-      :situation="attendance.situacao_exames_experience"
+      :status="attendance.situacao_exames_experience"
       :patient="attendance.registro.toString()"
     ></attendance-list-item>
   </div>
@@ -99,6 +99,7 @@ export default {
       'status'
     ]),
     isEmpty () {
+      console.log(this.message)
       return Object.keys(this.message).length === 0
     }
   }

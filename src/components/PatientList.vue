@@ -2,33 +2,54 @@
   <div class="patients">
     <div class="patients__header">
       <span class="patients__number">
-        foram encontrados {{1}} atendimentos para as datas selecionadas
+        foram encontrados {{total}} atendimentos para as datas selecionadas
       </span>
     </div>
     <div class="patient__body" id="patient__list">
-      <patient-list-item class="patitent__body__item"></patient-list-item>
-      <patient-list-item class="patitent__body__item"></patient-list-item>
-      <patient-list-item class="patitent__body__item"></patient-list-item>
-      <patient-list-item class="patitent__body__item"></patient-list-item>
-      <patient-list-item class="patitent__body__item"></patient-list-item>
-      <patient-list-item class="patitent__body__item"></patient-list-item>
-      <patient-list-item class="patitent__body__item"></patient-list-item>
-      <patient-list-item class="patitent__body__item"></patient-list-item>
-      <patient-list-item class="patitent__body__item"></patient-list-item>
-      <patient-list-item class="patitent__body__item"></patient-list-item>
-      <patient-list-item class="patitent__body__item"></patient-list-item>
-      <patient-list-item class="patitent__body__item"></patient-list-item>
-      <patient-list-item class="patitent__body__item"></patient-list-item>
-      <patient-list-item class="patitent__body__item"></patient-list-item>
+      <patient-list-item class="patitent__body__item"
+        v-for="(patient, i) in patients"
+        :key="i"
+        :name="patient.nome_cliente"
+        :sex="patient.sexo | sex"
+        :age="patient.data_nas | age"
+        :laster-attendances="patient.ultimos_atendimentos"
+        :patient-id="patient.registro"
+      />
     </div>
   </div>
 </template>
 <script>
 import PatientListItem from './PatientListItem'
+import { mapGetters } from 'vuex'
+import { NAMESPACED_PATIENT } from '../utils/alias'
 export default {
   name: 'PatientList',
   components: {
     PatientListItem
+  },
+  filters: {
+    sex (value) {
+
+      return [{initial: 'M', value: 'masculino'}, {initial: 'F', value: 'feminino'}]
+        .find((sex) => sex.initial === value).value
+    },
+    age (dateString) {
+      var today = new Date();
+      var birthDate = new Date(dateString);
+      var age = today.getFullYear() - birthDate.getFullYear();
+      var m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+      }
+      const ageDate = age.toString()
+      return !isNaN(ageDate) ? ageDate : "";
+    }
+  },
+  computed: {
+    ...mapGetters(NAMESPACED_PATIENT, [
+      'patients',
+      'total'
+    ])
   }
 }
 </script>
@@ -39,7 +60,10 @@ export default {
   justify-content: center
   width: 100%
 .patients__header
-  margin-bottom: 40px
+  display: flex
+  justify-content: flex-start
+  align-items: center 
+  margin-bottom: 10px
   color: #368c8c
 .patients__number
   margin-left: 15px

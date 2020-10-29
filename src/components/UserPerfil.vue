@@ -8,6 +8,7 @@
             icon="user"
             :info="userName"
             size="lg"
+            size-info="0.64rem"
             color="lightslategray"
             mobile-hidden
           />
@@ -21,10 +22,18 @@
       </button>
     </div>
     <transition name="fade" mode="in-out">
-      <div class="user-perfil__menu" v-if="show">
+      <div class="user-perfil__menu" v-show="show">
         <div class="user-perfil__user-info">
           <span class="user-perfil__name">{{userName}}</span>
-          <span class="user-perfil__birthdate" >{{userId | ifItsDate}}</span>
+         <div class="user-perfil__plus">
+           <code-info
+              :icon="typeUserIcon"
+              size="2x"
+              :info="typeUser"
+              :description="typeUserDescription"
+              color="lightslategray"
+           />
+         </div>
         </div>
         <div class="user-perfil__change-password-wrap" @click="enableModal"> 
           <i><font-awesome-icon icon="user-edit" :style="{color: 'gray'}"/></i>
@@ -79,25 +88,59 @@ export default {
   },
   mounted () {
     this.dropdownEvent()
+    console.log(this.userTypeAuthed)
   },
   computed: {
     ...mapGetters(NAMESPACED_AUTH, [
       'userName',
-      'userId'
-    ])
-  },
-  filters: {
-    ifItsDate (value) {
-      if (value instanceof Date) {
-        console.log('here')
-        const date = new Date(value).toLocaleDateString("pt-BR")
-        return date !== "Invalid Date" ? date : ""
+      'userId',
+      'userTypeAuthed'
+    ]),
+    typeUser () {
+
+      if(this.userTypeAuthed === '1' || this.userTypeAuthed === '3') {
+        return this.date(this.userId)
       }
-      console.log(value)
-      return value
+      return this.userId
+    },
+    typeUserIcon () {
+      switch (this.userTypeAuthed) {
+        case '0':
+          return 'stethoscope'
+        case '1' || '3' || '4': 
+          return 'birthday-cake'
+        case '2':
+          return 'clinic-medical'
+        case '5':
+          return 'clinic-medical'
+        default: 
+          return ''
+      }
+    },
+    typeUserDescription () {
+      switch (this.userTypeAuthed) {
+        case '0':
+          return 'crm'
+        case '1': 
+          return 'data nascimento'
+        case '2':
+          return 'posto'
+        case '3':
+          return 'data nascimento'
+        case '4':
+          return 'data nascimento'
+        case '5':
+          return 'posto'
+        default: 
+          return ''
+      }
     }
   },
   methods: {
+    date (value) {
+      const date = new Date(value).toLocaleDateString("pt-BR")
+      return date !== "Invalid Date" ? date : ""
+    },
     dropdownEvent () {
       document.addEventListener('click', this.openDropdown)
     },
@@ -131,7 +174,7 @@ export default {
   @include respond-to(handhelds)
     border: none
     background-color: transparent
-.user-perfil__birthdate,
+.user-perfil__plus,
 .user-perfil__name
   flex-direction: row
   justify-content: center
@@ -140,7 +183,7 @@ export default {
   letter-spacing: 0.5px
   border-bottom: 1px solid lightgray
   min-height: 50px
-.user-perfil__birthdate
+.user-perfil__plus
   display: flex
 .user-perfil__name
   @include respond-to(handhelds)

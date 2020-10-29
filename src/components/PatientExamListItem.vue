@@ -130,13 +130,13 @@ export default {
   align-self: flex-end
   min-height: 44px
 .patient-exam--pendencies
-  @include card-status-exams($status: "EP", $border-large: left, $transparent: true)
+  @include card-status-exams($status: "PENDENCIES", $border-large: left, $transparent: true)
 .patient-exam--finished
-  @include card-status-exams($status: "TF", $border-large: left, $transparent: true)
+  @include card-status-exams($status: "FINALIZED", $border-large: left, $transparent: true)
 .patient-exam--waiting
-  @include card-status-exams($status: "PF", $border-large: left, $transparent: true)
+  @include card-status-exams($status: "WAITING", $border-large: left, $transparent: true)
 .patient-exam--in-progress
-  @include card-status-exams($status: "EA", $border-large: left, $transparent: true)
+  @include card-status-exams($status: "IN-PROGRESS", $border-large: left, $transparent: true)
 .patient-exam--no-realized-yet
-  @include card-status-exams($status: "NR", $border-large: left, $transparent: true)
+  @include card-status-exams($status: "NO-REALIZED-YET", $border-large: left, $transparent: true)
 </style>

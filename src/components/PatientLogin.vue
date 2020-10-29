@@ -39,7 +39,7 @@
           name="cpf"
           type="text"
           required
-          v-model="patient.cpf"
+          v-model="cpf"
           :weight="500"
           color="#333"
           icon="user"
@@ -56,7 +56,7 @@
          ></code-label>
          <code-calendar
             class="calendars__calendar"
-            v-model="patient.nascimento" 
+            v-model="birthDay" 
             name="begin"
             icon="birthday-cake" 
             placeholder="data de nascimento"
@@ -101,7 +101,7 @@
           id="patient-password"
           icon="lock"
           @focus="focusInput"
-          v-model="patient.senha"
+          v-model="password"
           :focused="focusedInput == 'senha'"
           :error="validate.senha"
         />
@@ -150,7 +150,6 @@
         @space="space"
         :show="softKeyboard"
         :input="inputKeyboard"
-        
         @close="hiddenSoftKeyboard" 
       />  
     </div>
@@ -257,7 +256,8 @@ export default {
         return this.patient.nascimento
       },
       set (value) {
-        this.patient.nascimento = this.formaterDate(value)
+        console.log(value)
+        this.patient.nascimento = this.formatterDate(value)
       }
     },
     idAttendance: {
@@ -337,11 +337,11 @@ export default {
       }
     },
     cpf (value) {
-    
+      console.log(value)
       if (this.required(value)) {
         this.validate.cpf = REQUIRED_INPUT
         //eslint-disable-next-line
-      } else if (this.cpfValide(value, /[0-9]{3}\s\.\s[0-9]{3}\s\.\s[0-9]{3}\s\-\s[0-9]{2}$/g)){
+      } else if (this.cpfValide(value, /[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}$/g)){
         this.validate.cpf = INCOMPLETE_CPF
       } else {
         this.validate.cpf = ''
@@ -352,7 +352,7 @@ export default {
       if (this.required(value)) {
         this.validate.nascimento = REQUIRED_INPUT
         //eslint-disable-next-line
-      } else if (this.date(value, /[0-9]{2}\s\/\s[0-9]{2}\s\/\s[0-9]{4}/g)){
+      } else if (this.date(value, /[0-9]{2}\/[0-9]{2}\/[0-9]{4}/g)){
         this.validate.nascimento = INVALID_DATA
       } else {
         this.validate.nascimento = ''
@@ -432,7 +432,7 @@ export default {
         return
       }
       if (emptyFieldAll || this.validator) {
-        this.$emit('error', this.message(111))
+        this.emitMessage({status: 111})
       }
 
     },
@@ -442,15 +442,16 @@ export default {
     getNumberHealthCenter (healthCenter) {
       return healthCenter.replace(/^[0]{1,2}/g, '')
     },
-    formaterDate (date) {
+    formatterDate (date) {
       return date.replace(/\s/g, '')
     },
     realizeLogin () {
       this.showLoader = true
       this.$emit('loading', true)
-  
+
       this.login({ 
-          url: (this.visibility === 'CPF') ? PATIENT_AUTH : ATTENDANCE_AUTH, 
+          url: (this.visibility === 'CPF') ? PATIENT_AUTH : ATTENDANCE_AUTH,
+          uniqueAttendance: !(this.visibility === 'CPF'),
           credentials: this.getCredentials,
           typeUser: PATIENT_TYPE
         })

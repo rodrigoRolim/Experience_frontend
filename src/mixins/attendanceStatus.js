@@ -1,7 +1,7 @@
 export const attendanceStatus = {
   computed: {
     getStatus (vm) {
-      switch (vm.situation) {
+      switch (vm.status) {
         case 'EP':
           return 'pendency'
         case 'TF':

@@ -169,7 +169,7 @@ export default {
   },
   methods: {
     messages (value) {
-      
+      console.log(value)
       this.contentMessage = value.message
       setTimeout(() => {
         this.contentMessage = ''
@@ -227,7 +227,7 @@ export default {
   min-height: 100vh
 
 .logins__main
-  margin-top: 60px
+  margin-top: 50px
   width: 100%
   display: flex
   flex-direction: row

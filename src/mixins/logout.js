@@ -13,7 +13,7 @@ export const logout = {
     }
   },
   methods: {
-    ...mapActions (NAMESPACED_AUTH,{
+    ...mapActions (NAMESPACED_AUTH, {
       logout: AUTH_LOGOUT
     }),
     ...mapMutations(NAMESPACED_ATTENDANCE, {

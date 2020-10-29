@@ -5,7 +5,7 @@ const CancelToken = axios.CancelToken
 const source = CancelToken.source()
 const serverExperience = axios.create({
   baseURL: 'http://192.168.1.68:9001',
-  timeout: 40000,
+  timeout: 4000000,
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'aplication/json, text/plain, */*'
@@ -15,8 +15,8 @@ const serverExperience = axios.create({
 serverExperience.interceptors.request.use(
   config => {
    
-    //config.cancelToken = source.token
-    //store.commit('cancel/'+ADD_CANCEL_TOKEN, source)
+    config.cancelToken = source.token
+    store.commit(ADD_CANCEL_TOKEN, source)
     let token = store.getters['auth/token']
     if (token) {
       token = 'Bearer ' + token
@@ -28,6 +28,15 @@ serverExperience.interceptors.request.use(
   },
   error => Promise.reject(error),
 );
+// uma boa solução para o refresh automatico do token
+/* serverExperience.interceptors.response.use(response => response, error => {
+  const status = error.response ? error.response.status: null
+
+  if (status === 408) {
+    // chamar a action que realiza o refresh do token do module auth
+  }
+  return Promise.reject(error)
+}) */
 
 const serverAuth = axios.create({
   baseURL: 'http://192.168.1.68:9000',
@@ -41,7 +50,7 @@ serverAuth.interceptors.request.use(
   config => {
    
     config.cancelToken = source.token
-    store.commit('cancel/'+ADD_CANCEL_TOKEN, source)
+    store.commit(ADD_CANCEL_TOKEN, source)
 
     return config
   },

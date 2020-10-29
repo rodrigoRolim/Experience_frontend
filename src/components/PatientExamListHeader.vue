@@ -95,7 +95,12 @@ export default {
       return this.getDeliveryDate(this.attendance(this.healthCenter, this.attendanceId)?.data_entrega)
     },
     patientDoctor () {
-      return "Dr(a). " + this.attendance(this.healthCenter, this.attendanceId)?.nome_solicitante
+      
+      let requesterDoctor = this.attendance(this.healthCenter, this.attendanceId)?.nome_solicitante
+      let doctor = (requesterDoctor) ? "Dr(a). "  + requesterDoctor : ''
+    
+      return doctor
+
     }
   },
   data () {

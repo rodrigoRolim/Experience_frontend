@@ -15,7 +15,8 @@ const state = () => ({
   status: '',
   expired: cookies.get('expired') || false,
   hasLoadedOnce: false,
-  userType: cookies.get('user-session')?.type_user || ""
+  userType: cookies.get('user-session')?.user_type || "",
+  uniqueAttendance: cookies.get('user-session')?.uniqueAttendance
 })
 
 const getters = {
@@ -24,28 +25,29 @@ const getters = {
   userTypeAuthed: state => state.userType,
   userName: state => state.user,
   userId: state => state.identify,
-  userType: state => state.typeUser,
-  token: state => state.token
+  uniqueAttendance: state => state.uniqueAttendance,
+  token: state => state.token,
+  expired: state => state.expired
 }
 
 const actions = {
-  [AUTH_REQUEST]: ({ commit }, { url, credentials, typeUser }) => {
+  [AUTH_REQUEST]: ({ commit }, { url, uniqueAttendance, credentials, typeUser }) => {
     return new Promise((resolve, reject) => {
       commit(AUTH_REQUEST)
 
       requestToken({ url, auth: credentials })
         .then((resp) => {
-          console.log(resp)
+
           let user_session = {
             token: resp.data.token,
-            type_user: typeUser,
+            user_type: typeUser,
             user_name: resp.data.nome,
             identify: resp.data.identificacao,
+            uniqueAttendance
           }
-          commit(AUTH_SUCCESS, resp)
-          console.log('here')
+          commit(AUTH_SUCCESS, user_session)
           cookies.remove('user-session')
-          cookies.set('user-session', user_session, '1h')
+          cookies.set('user-session', user_session)
           resolve(resp)
         })
         .catch((err) => {
@@ -64,8 +66,9 @@ const actions = {
     }
     return !cookies.isKey('user-session')
   },
-  [AUTH_REINIT_STATUS]: ({ commit }) => {
+  [AUTH_REINIT_STATUS]: ({ commit, state }) => {
     commit(AUTH_REINIT_STATUS)
+    return state.status === ''
   }
 }
 
@@ -73,11 +76,13 @@ const mutations = {
   [AUTH_REQUEST]: state => {
     state.status = 'loading'
   },
-  [AUTH_SUCCESS]: (state, resp) => {
+  [AUTH_SUCCESS]: (state, session) => {
     state.status = 'success'
-    state.token = resp.data.token
-    state.user = resp.data.nome
-    state.identify = resp.data.identificacao
+    state.token = session.token
+    state.user = session.user_name
+    state.identify = session.identify
+    state.userType = session.user_type
+    state.uniqueAttendance = session.uniqueAttendance
     state.hasLoadedOnce = true
   },
   [AUTH_ERROR]: (state) => {
@@ -92,6 +97,7 @@ const mutations = {
     state.identify = ''
     state.user = ''
     state.status = ''
+    state.uniqueAttendance = true
     state.userType = ''
   }
 }

@@ -32,6 +32,7 @@
             option="selecione o posto"
             :options="healthCenters"
             v-model="filters.healthCenter"
+            @error="requestPrevents.healthCenter = $event.error"
           ></code-select>
         </div>
         <div class="attendance-list-filter-healthcenter__accomodation">
@@ -47,6 +48,7 @@
             option="selecione a acomodação"
             :options="accomodations"
             v-model="filters.accomodation"
+            @error="requestPrevents.accomodation = $event.error"
           ></code-select>
         </div>
         <div class="attendance-list-filter-healthcenter__situation">
@@ -62,6 +64,7 @@
             option="selecione a situação"
             :options="situations"
             v-model="filters.situation"
+            @error="requestPrevents.situation = $event.error"
           ></code-select>
         </div>
         <div class="attendance-list-filter-healthcenter__realizer">
@@ -75,8 +78,9 @@
           <code-select
             name="realizer"
             option="selecione posto realizante"
-            :options="realizers"
+            :options="registrants"
             v-model="filters.realizer"
+            @error="requestPrevents.realizer = $event.error"
           ></code-select>
         </div>
         <div class="attendance-list-filter-healthcenter__buttons">
@@ -90,6 +94,7 @@
             size="md"
             streched
             size-icon="lg"
+            :disable="prevent"
             @click.prevent="confirm"
           />
         </div>
@@ -108,14 +113,21 @@ import { mapActions, mapGetters } from 'vuex'
 import { 
   NAMESPACED_ATTENDANCE, 
   NAMESPACED_AUTH,
+  NAMESPACED_HEALTH_CENTERS,
   GET_ATTENDANCES_HEALTH_CENTER, 
   GET_ATTENDANCES_STORE,
   GET_ACCOMODATIONS_STORE,
   NAMESPACED_ACCOMODATIONS,
+  GET_HEALTH_CENTERS_STORE,
   GET_FILTERS, 
   ATTENDANCE_NOT_FOUND,
   ACCOMODATIONS,
-  REALIZERS,
+  REGISTER,
+  SITUATIONS, 
+  NAMESPACED_REGISTRANTS, 
+  GET_REGISTRANTS_STORE, 
+  REGISTRANTS,
+  HEALTH_CENTER_TYPE_NAME
 } from '../utils/alias'
 export default {
   name: 'AttendanceListFilter',
@@ -133,6 +145,7 @@ export default {
   },
   data () {
     return {
+      typeUser: 'posto',
       filters: {
         begin: '31/07/2020',
         end: '31/07/2020',
@@ -141,12 +154,16 @@ export default {
         situation: null,
         realizer: null
       },
-      BEGIN_INITIAL: '31-07-20',
-      END_INITIAL: '31-09-20',
-      healthCenters: [{id:0, name: 'asdasd'}],
-      accomodations: [{id:0, name: 'asdasd'}],
-      realizers: [{id:0, name: 'asdasd'}],
-      situations: [{id:0, name: 'asdasd'}]
+      BEGIN_INITIAL: '30/07/2019',
+      END_INITIAL: '26/09/2020',
+      situations: SITUATIONS,
+      requestPrevents: {
+        healthCenter: false,
+        accomodation: false,
+        situation: false,
+        realizer: false
+      },
+      prevent: false
     }
   },
   created () {
@@ -156,14 +173,38 @@ export default {
   computed: {
     ...mapGetters(NAMESPACED_AUTH, [
       'userId'
+    ]),
+    ...mapGetters(NAMESPACED_ACCOMODATIONS, {
+      accomodations: 'accomodations',
+      statusAcc: 'status'
+    }),
+    ...mapGetters(NAMESPACED_HEALTH_CENTERS, {
+      healthCenters: 'healthCenters',
+      statusHc: 'status'
+    }),
+    ...mapGetters(NAMESPACED_REGISTRANTS, [
+      'registrants'
     ])
+  },
+  watch: {
+    requestPrevents: {
+      handler(values) {
+        this.prevent = Object.values(values).find(r => r)
+      },
+      deep: true
+    }
   },
   methods: {
     async initComponent () {
+      
       try {
+        await this.listRegisterHealthCenters()
         await this.listAccomodations()
-        await this.attendances()
+        await this.listRegistrantsHealthCenters()
+        //console.log(this.accomodations)
+        //await this.attendances()
       } catch (err) {
+        console.log({err})
         this.setMessage(this.message({ status: err.response.status, data: 'atendimento' }))
       }
     },
@@ -175,81 +216,86 @@ export default {
       let yearLastTwoDigits = arrYear[2] + arrYear[3]
       return day + '-' + month + '-' + yearLastTwoDigits
     },
-    confirm () {
-
+    catchErrorSelect (error) {
+      if (!error) {
+        this.requestPrevent = true
+      }
     },
-    buildRequest () {
-      let typeUser = 'posto'
-      let urlAccomodations = GET_FILTERS(
-            this.formatterDateToApi(this.filters.begin), 
-            this.formatterDateToApi(this.filters.end), 
-            typeUser, 
-            this.userId, 
-            ACCOMODATIONS
-          )
-      let urlRealizers = GET_FILTERS(
-          this.formatterDateToApi(this.filters.begin), 
-          this.formatterDateToApi(this.filters.end), 
-          typeUser, 
-          this.userId, 
-          REALIZERS
-        )
-      let urlRegistered = GET_FILTERS(
-          this.formatterDateToApi(this.filters.begin),
-          this.formatterDateToApi(this.filters.end)
-      )
-      return [urlRegistered, urlAccomodations, urlRealizers]
+    confirm () {
+      console.log(this.filters)
+      //if (this.prevent) {
+        this.attendances()
+        console.log('request stoped')
+      //}
+    },
+    getURI(id, typeUser, resource) {
+      return GET_FILTERS(
+              this.formatterDateToApi(this.BEGIN_INITIAL), 
+              this.formatterDateToApi(this.END_INITIAL), 
+              typeUser,
+              id, 
+              resource
+            )
     },
     listAccomodations () {
       return new Promise((resolve, reject) => {
-        let typeUser = 'posto'
-        let urlAccomodations = GET_FILTERS(
-              this.formatterDateToApi(this.filters.begin), 
-              this.formatterDateToApi(this.filters.end), 
-              typeUser,
-              this.userId, 
-              ACCOMODATIONS
-            )
-        this.getAccomodations({url: urlAccomodations})
-          .then((resp) => {
-            resolve(resp)
-            console.log(resp)
+        let urlAccomodations = this.getURI(0, HEALTH_CENTER_TYPE_NAME, ACCOMODATIONS)
+        this.getAccomodations({ url: urlAccomodations })
+          .then((accomodations) => {
+            resolve(accomodations)     
           })
           .catch((err) => {
             console.log(err)
             reject(err)
           })
       })
-     
-      
+    },
+    listRegisterHealthCenters () {
+      return new Promise((resolve, reject) => {
+        let urlHealthCenters = this.getURI(0, HEALTH_CENTER_TYPE_NAME,  REGISTER)
+        this.getHealthCenters({ url: urlHealthCenters })
+          .then((healthCenters) => {
+            console.log(healthCenters)
+            resolve(healthCenters)
+          })
+          .catch((err) => {
+            console.log({err})
+            reject(err)
+          })
+      })
+    },
+    listRegistrantsHealthCenters () {
+      return new Promise((resolve, reject) => {
+        let urlRealizers = this.getURI(0, HEALTH_CENTER_TYPE_NAME, REGISTRANTS)
+        this.getRegistrants({ url: urlRealizers })
+          .then((healthCenters) => {
+            console.log(healthCenters)
+            resolve(healthCenters)
+          })
+          .catch((err) => {
+            console.log({err})
+            reject(err)
+          })
+      })
     },
     params () {
-      let limit = 10
-      let page = 1
-      let keys = ['postocadastro', 'postorealizante', 'acomodacao', 'situacao']
-      let values = [
-       '',
-       '',
-       '',
-       'TF'
-      ]
       let params = {}
-      keys.map((key, i) => {
-        if (values[i]) {
-          params[key] = values[i]
-        }
-      })
-     
-      params['limit'] = limit
-      params['page'] = page
+      if (this.filters.realizer.id) params['postocadastro'] = this.filters.realizer.id
+      if (this.filters.healthCenter.id) params['postorealizante'] = this.filters.healthCenter.id
+      if (this.filters.accomodation.id) params['acomodacao'] = this.filters.accomodation.id
+      if (this.filters.situation.id) params['situacao'] = this.filters.situation.id
+      params['limit'] = 10
+      params['page'] = 1
       return params
     },
     attendances () {
-      //return new Promise((resolve, reject) => {
-        let healthCenter = this.userId
-        let urlName = GET_ATTENDANCES_HEALTH_CENTER(healthCenter, 
-          this.formatterDateToApi(this.filters.begin), 
-          this.formatterDateToApi(this.filters.end))
+     // return new Promise((resolve, reject) => {
+        let healthCenter = 0//this.userId
+        let urlName = GET_ATTENDANCES_HEALTH_CENTER(healthCenter,
+           this.filters.begin,
+           this.filters.end)   
+          //this.formatterDateToApi(this.filters.begin), 
+          //this.formatterDateToApi(this.filters.end))
         this.getAttendances({ url: urlName, params: this.params() })
         .then((res) => {
           console.log(res)
@@ -258,7 +304,7 @@ export default {
           this.setMessage(this.message({ status: err.response.status, data: 'atendimento' }))
           //reject(err)
         })
-      //})
+     // })
       
     },
     ...mapActions(NAMESPACED_ATTENDANCE, {
@@ -267,6 +313,12 @@ export default {
     }),
     ...mapActions(NAMESPACED_ACCOMODATIONS, {
       getAccomodations: GET_ACCOMODATIONS_STORE
+    }),
+    ...mapActions(NAMESPACED_HEALTH_CENTERS, {
+      getHealthCenters: GET_HEALTH_CENTERS_STORE
+    }),
+    ...mapActions(NAMESPACED_REGISTRANTS, {
+      getRegistrants: GET_REGISTRANTS_STORE
     })
   }
 }

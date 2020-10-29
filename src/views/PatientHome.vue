@@ -55,7 +55,13 @@ import CodeModal from '../components/base/CodeModal'
 import CodeButton from '../components/base/CodeButton'
 import { bus } from '../main'
 import { mapActions, mapGetters } from 'vuex'
-import { GET_ATTENDANCES, NAMESPACED_ATTENDANCE, GET_ATTENDANCES_STORE } from '../utils/alias'
+import { 
+  GET_ATTENDANCE, 
+  GET_ATTENDANCES_BY_CLIENT,
+  NAMESPACED_ATTENDANCE, 
+  GET_ATTENDANCES_STORE, 
+  NAMESPACED_AUTH 
+} from '../utils/alias'
 export default {
   name: 'PatientExams',
   components: {
@@ -77,20 +83,31 @@ export default {
     bus.$on('sidebar', (data) => {
       this.attendances = data
     })
-    this.getAttendances({ url: GET_ATTENDANCES(0,10400) })
-      .then((resp) => console.log(resp))
-      .catch((err) => console.log({err}))
+
+    if (this.uniqueAttendance) {
+      this.getAttendances({ url: GET_ATTENDANCE(0, 10400) })
+        .then((resp) => console.log(resp))
+        .catch((err) => console.log({err}))
+    } else {
+      this.getAttendances({ url: GET_ATTENDANCES_BY_CLIENT })
+        .then((resp) => console.log(resp))
+        .catch((err) => console.log({err}))
+    }
   },
   computed: {
     ...mapGetters(NAMESPACED_ATTENDANCE, [
       'status',
       'examsToPrint'
     ]),
+    ...mapGetters(NAMESPACED_AUTH, [
+      'uniqueAttendance'
+    ]),
     showButtons () {
       return this.examsToPrint.length > 0
     },
     loading () {
-      return this.status !== 'ok'
+      console.log(this.status)
+      return this.status === 'loading'
     }
   },
   methods: {
@@ -149,6 +166,7 @@ export default {
   border-radius: 4px
 .patient-exams__patient
   position: fixed
+  top: 60px
 .patient-exams__sidebar
   @include respond-to(wide-screens)
     display: block

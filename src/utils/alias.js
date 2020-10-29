@@ -20,7 +20,8 @@ export const GET_DOCTOR = (id) => `/v1/web/medico/${id}`
 export const GET_HEALTH_CENTERS = '/v1/web/posto'
 
 // attendances
-export const GET_ATTENDANCES = (healthCenter, attendance) => `/v1/web/atendimento/${healthCenter}/${attendance}`
+export const GET_ATTENDANCE = (healthCenter, attendance) => `/v1/web/atendimento/${healthCenter}/${attendance}`
+export const GET_ATTENDANCES_BY_CLIENT = '/v1/web/atendimento/cliente'
 export const GET_ATTENDANCES_HEALTH_CENTER = (healthCenter, begin, end) => `/v1/web/atendimento/${begin}/${end}/posto/${healthCenter}`
 export const GET_ATTENDANCES_REQUESTER = (requester, begin, end) => `/v1/web/atendimento/${begin}/${end}/solicitante/${requester}`
 export const GET_ATTENDANCES_PATIENT = (client, begin, end) => `/v1/web/atendimento/${begin}/${end}/cliente/${client}`
@@ -60,6 +61,12 @@ export const HEALTH_CENTER_TYPE = '2'
 export const USER_TYPE = '3' //qrcode
 export const ATTENDANCE_TYPE = '4' // acesso paciente com atendimento
 export const PARTNER_TYPE = '5'
+export const DOCTOR_TYPE_NAME = 'solicitante'
+export const PATIENT_TYPE_NAME = 'paciente'
+export const HEALTH_CENTER_TYPE_NAME = 'posto'
+export const USER_TYPE_NAME = 'paciente'
+export const ATTENDANCE_TYPE_NAME = 'paciente'
+export const PARTNER_TYPE_NAME = 'parceiro'
 /**  
  * MUTATIONS TYPES AND ACTIONS' NAMES 
 */
@@ -69,6 +76,7 @@ export const AUTH_ERROR = 'AUTH_ERROR'
 export const AUTH_REINIT_STATUS = 'AUTH_REINIT_STATUS'
 export const AUTH_LOGOUT = 'AUTH_LOGOUT'
 export const GET_ATTENDANCES_STORE = 'GET_ATTENDANCES_STORE'
+export const GET_ATTENDANCES_REQUESTER_STORE = 'GET_ATTENDANCES_REQUESTER_STORE'
 export const GET_ACCOMODATIONS_STORE = 'GET_ACCOMODATIONS_STORE'
 export const CANCEL_REQUEST = 'CANCEL_REQUEST'
 export const DELETE_SOURCE = 'DELETE_SOURCE'
@@ -80,7 +88,8 @@ export const GET_PROCEDIMENTS_LIKE_STORE = 'GET_PROCEDIMENTS_LIKE_STORE'
 export const CANCEL_PENDING_REQUESTS = 'CANCEL_PENDING_REQUESTS' 
 export const ADD_CANCEL_TOKEN = 'ADD_CANCEL_TOKEN'
 export const CLEAR_CANCEL_TOKENS = 'CLEAR_CANCEL_TOKENS'
-export const GET_FILTERS_STORE = 'GET_HEALTH_CENTERS_STORE'
+export const GET_FILTERS_STORE = 'GET_FILTERS_STORE'
+export const GET_HEALTH_CENTERS_STORE = 'GET_HEALTH_CENTERS_STORE' 
 export const SELECTED_ATTENDANCE = 'SELECTED_ATTENDANCE'
 export const CHANGE_SELECTED_ATTENDANCE = 'CHANGE_SELECTED_ATTENDANCE'
 export const SUCCESS_GET_ATTENDANCE = 'SUCCESS_GET_ATTENDANCE'
@@ -88,6 +97,9 @@ export const LOADING_GET_ATTENDANCE = 'LOADING_GET_ATTENDANCE'
 export const ERROR_GET_ATTENDANCE = 'ERROR_GET_ATTENDANCE'
 export const LOADING_GET_FILTERS = 'LOADING_GET_FILTERS'
 export const SUCCESS_GET_FILTERS = 'SUCCESS_GET_FILTERS'
+export const LOADING = 'LOADING'
+export const ERROR = 'ERROR'
+export const SUCCESS = 'SUCCESS'
 export const ERROR_GET_FILTERS = 'ERROR_GET_FILTERS'
 export const SELECT_EXAMS = 'SELECT_EXAMS'
 export const BEGIN_DATE = 'BEGIN_DATE'
@@ -95,6 +107,11 @@ export const END_DATE = 'END_DATE'
 export const EMPTY_EXAMS = 'EMPTY_EXAMS'
 export const EMPTY_ATTENDANCES = 'EMPTY_ATTENDANCES'
 export const ATTENDANCE_NOT_FOUND = 'ATTENDANCE_NOT_FOUND'
+export const LOADING_GET_ATTENDANCES_REQUESTER = 'LOADING_GET_ATTENDANCES_REQUESTER'
+export const SUCCESS_GET_ATTENDANCES_REQUESTER = 'SUCCESS_GET_ATTENDANCES_REQUESTER'
+export const ERROR_GET_ATTENDANCES_REQUESTER = 'ERROR_GET_ATTENDANCES_REQUESTER'
+export const TOTAL_ATTENDANCES = 'TOTAL_ATTENDANCES'
+export const GET_REGISTRANTS_STORE = 'GET_REGISTRANTS_STORE'
 /**  
  * MUTATIONS TYPES AND ACTIONS' NAMES along namespace
 */
@@ -102,7 +119,10 @@ export const NAMESPACED_AUTH = 'auth'
 export const NAMESPACED_ATTENDANCE = 'attendance'
 export const NAMESPACED_PROCEDIMENT = 'procediment'
 export const NAMESPACED_ACCOMODATIONS = 'accomodations'
+export const NAMESPACED_HEALTH_CENTERS = 'healthcenters'
 export const NAMESPACED_CANCEL = 'cancel'
+export const NAMESPACED_PATIENT = 'patients'
+export const NAMESPACED_REGISTRANTS = 'registrants'
 /**  
  * VALIDATIONS MESSAGES
 */
@@ -128,8 +148,8 @@ export const DATE_VALIDATOR = /[0-9]{2}\s\/\s[0-9]{2}\s\/\s[0-9]{4}/g
  * 
  * **/
 export const ACCOMODATIONS = 'acomodacoes'
-export const REALIZERS = 'postosrealizantes'
-export const REGISTERED = 'postoscadastro'
+export const REGISTRANTS = 'postosrealizantes'
+export const REGISTER = 'postoscadastro'
 /**
  * LIST SITUATIONS
  * 
@@ -140,5 +160,12 @@ export const REGISTERED = 'postoscadastro'
   { id: 'PF', name: 'Parcialmente Finalizados'},
   { id: 'EA', name: 'Em Andamento'},
   { id: 'NR', name: 'Não Realizados'},
-  { id: 'EP', name: 'Pendentes'}
+  { id: 'EP', name: 'Pendentes'},
+  { id: '', name: 'TODOS'}
 ]
+
+/**
+ * LIMIT AND PAGE
+ * 
+ * **/
+export const LIMIT = 100

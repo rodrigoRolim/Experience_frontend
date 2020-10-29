@@ -55,6 +55,8 @@ import CodeLabel from '../components/base/CodeLabel'
 import CodeInput from '../components/base/CodeInput'
 import CodeButton from '../components/base/CodeButton'
 import PatientListFilterPeriod from '../components/PatientListFilterPeriod'
+import { GET_ATTENDANCES_REQUESTER, NAMESPACED_PATIENT, GET_ATTENDANCES_REQUESTER_STORE } from '../utils/alias'
+import { mapActions } from 'vuex'
 export default {
   name: 'PatientListFilter',
   components: {
@@ -63,6 +65,36 @@ export default {
     CodeLabel,
     CodeInput,
     CodeButton
+  },
+  data () {
+    return {
+      begin: '01-01-16',
+      end: '01-09-20'
+    }
+  },
+  created () {
+    this.patients()
+  },
+  methods: {
+    ...mapActions(NAMESPACED_PATIENT, {
+      getPatients: GET_ATTENDANCES_REQUESTER_STORE
+    }),
+    patients () {
+      let params = {
+        limit: 10,
+        page: 5
+      }
+      this.getPatients({ url: GET_ATTENDANCES_REQUESTER(562, this.begin, this.end), params })
+        .then((resp) => {
+          console.log(resp)
+        })
+        .catch((err) => {
+          console.log(err)
+          // chama o renovador de token
+          // executo this.patients() novamente
+          // isso pode ser feito no interceptor tambem
+        })
+    }
   }
 }
 </script>

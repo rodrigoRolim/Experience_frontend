@@ -6,14 +6,15 @@ import {
   PARTNER_TYPE, 
   HEALTH_CENTER_TYPE, 
   //EMPTY_ATTENDANCES, 
-  //CANCEL_PENDING_REQUESTS 
+  //CANCEL_PENDING_REQUESTS, 
 } from '../utils/alias'
 
 const verifyAuthorization = (to, from, next) => {
-
+  //store.dispatch(CANCEL_PENDING_REQUESTS)
   const authUser = to.matched
     .some(record => record.meta.typeUser !== store.getters['auth/userTypeAuthed'])
   if (!store.getters['auth/isAuthenticated'] && !authUser) {
+    
     next('/acesso');
   }
   next()
@@ -43,7 +44,7 @@ const router = new VueRouter({
           component: () => import(/* webpackChunkName:  'Doctor' */ '@/views/DoctorHome')
         },
         {
-          path: 'paciente/:patient/:attendance',
+          path: 'paciente',
           name: 'doctorExamsPatient',
           beforeEnter: verifyAuthorization,
           component: () => import(/* webpackChunkName: 'Doctor' */ '@/views/DoctorPatientExams'),
@@ -107,6 +108,7 @@ const router = new VueRouter({
         {
           path: 'paciente/:patient/:attendance',
           name: 'healthCenterExamsPatient',
+          props: true,
           component: () => import(/* webpackChunkName: 'HealthCenter' */ '@/views/HealthCenterPatientExams')
         }
       ]

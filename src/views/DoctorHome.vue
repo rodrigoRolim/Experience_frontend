@@ -34,5 +34,9 @@ export default {
   left: 0
   z-index: 0
 .doctor-home__list
-  padding-top: 40px
+  padding-top: 190px
+  @include respond-to(handhelds)
+    padding-top: 100px
+  @include respond-to(medium-screens)
+    padding-top: 100px
 </style>

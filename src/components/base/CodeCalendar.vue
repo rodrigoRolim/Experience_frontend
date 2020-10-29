@@ -126,7 +126,7 @@ export default {
   computed: {
     inputEmitter: {
       set (value) {
-
+        console.log(value)
         this.selectedDate = value
         this.$emit('input', this.selectedDate)
       },
@@ -138,7 +138,7 @@ export default {
   },
   watch: {
     selectedDate (value) {
-      console.log(value)
+ 
       if (this.showDate) this.showDate = false
       var input = value
 

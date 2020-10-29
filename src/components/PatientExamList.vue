@@ -4,7 +4,7 @@
       <patient-exam-list-item
         v-for="(exam, i) in listExams"
         :key="i" 
-        :situation="exam.situacao"
+        :status="exam.situacao_experience"
         :name="exam.nome_procedimento"
         :name-health-center="exam.nome_posto_realizante"
         :mnemonico="exam.mnemonico" 
@@ -71,6 +71,7 @@ export default {
   justify-content: space-between  
   width: 100%
   padding: 10px
+  margin-top: 60px
 .patient-exams__item
   margin: 5px 0
 #exams

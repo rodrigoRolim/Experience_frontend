@@ -136,7 +136,7 @@ export default {
         return
       } 
       if (emptyField) {
-        this.emitMessage(111)
+        this.emitMessage({status: 111})
       }    
     },
     async realizeLogin () {

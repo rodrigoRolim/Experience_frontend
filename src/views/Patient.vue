@@ -43,8 +43,6 @@ export default {
   width: 100%
   top: 0
   left: 0
-.patient__main
-  margin-top: 60px
 .patient__navbar
   position: fixed
   width: 100%

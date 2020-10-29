@@ -64,7 +64,6 @@ export default {
   display: flex
   flex-direction: column
   background-color: white
-  min-height: 100vh
 .procediments__header
   position: fixed
   top: 60px
@@ -76,9 +75,6 @@ export default {
   flex-direction: column
   align-items: center
   padding: 10px
-  @include respond-to(wide-screens)
-    margin-top: 100px
-  margin-top: 120px
 .procediments__body__item
   margin: 5px
 .modal_instructions

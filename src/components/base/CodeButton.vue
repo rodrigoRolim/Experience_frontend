@@ -93,9 +93,10 @@ export default {
             'button--shading': this.shading,
             'button--streched': this.streched,
             'button--transparent': this.transparent,
-            'button--loading': this.loading
+            'button--loading': this.loading,
+            'button--disabled': this.disable
          }, 
-          'button--'+this.size, 'button--'+this.color, 'button--'+this.letters
+          'button--'+this.size, 'button--'+this.color, 'button--'+this.letters,
       ]
     }
   },
@@ -158,6 +159,11 @@ export default {
 .button__icon--rounded
   margin: 0
   padding: 0
+.button--disabled
+  cursor: not-allowed
+.button.button--disabled
+  opacity: 0.8
+  color: rgba(0,0,0,0.5)
 .button--theme
   background-color: map-get($theme-color, "default")
 .button--primary

@@ -35,12 +35,10 @@ export default {
   },
   filters: {
     data (dateString) {
-      console.log('data')
       const date = new Date(dateString).toLocaleDateString("pt-BR")
       return date !== "Invalid Date" ? date : ""
     },
     age (dateString) {
-      console.log('age')
       var today = new Date();
       var birthDate = new Date(dateString);
 

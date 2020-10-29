@@ -10,7 +10,7 @@
       <input
         ref="input"
         :name="name"
-        @input="filterOptions = $event"
+        @input="filterOptions = $event.target.value"
         @keypress.enter.prevent="enter"
         class="custom-select__input"
         autocomplete="off" 
@@ -60,7 +60,7 @@
           :data-value="option.id"
           :data-selected="option.id" 
           class="custom-select__option"
-          @click="selectItem(option.name)"
+          @click="filterOptions = option.name"
           :class="{'custom-select__option--focused': i == currentOption}"
         >
           {{option.name}}
@@ -101,41 +101,48 @@ export default {
   },
   computed: {
     selectedInput: {
-      set: function (value) {
+      set (value) {
+        console.log(value)
         this.$emit('input', value)
         this.$emit('key', value?.id)
       },
-      get: function () {
+      get () {
         return this.value?.name || this.value
       }
     },
     filterOptions: {
-      set: function (e) {
-        this.digiteds = e.target.value
+      set (value) {
+        this.digiteds = value.toLowerCase()
         let isOption = this.searchOptionByName(this.digiteds)
-
-        if (isOption.length > 0) {
-          this.selectItem(this.digiteds)
+        if (isOption.length === 1) {
+          this.selectItem(...isOption)
           return
         }
+        this.triggerInternalError(true)
       },
-      get: function () {
+      get () {
         return this.filterOptionsByKeys
       }
     },
-    selectName: function () {
+    selectName () {
       return '#' + this.name 
     },
-    filterOptionsByKeys: function () {
-      return this.options.filter((option) => option.name.includes(this.digiteds))
+    filterOptionsByKeys () {
+      console.log(this.digiteds)
+      return this.options.filter((option) => option.name.toLowerCase().includes(this.digiteds.toLowerCase()))
     },
   },
   watch: {
     filterOptionsByKeys () {
       this.currentOption = -1
     },
-    digiteds () {
-      this.triggerInternalError(false)
+    digiteds (value) {
+      let isOption = false
+      if (this.digiteds) {
+        console.log(this.searchOptionByName(value))
+        isOption = !(this.searchOptionByName(value).length === 1)
+      }
+      this.triggerInternalError(isOption)
     }
   },
   methods: {
@@ -152,22 +159,20 @@ export default {
     toggleListByClick (e) {
       if (!e.target.closest(this.selectName)) {
         this.closeList()
+        this.matchingOption()
       }
     },
-    selectItem (option) {
-      let isOption = null
-      let selectOption = option?.name || option
-
-      if (selectOption) {
-        isOption = this.searchOptionByName(selectOption)
+    matchingOption () {
+      let isOption = false
+      if (this.digiteds) {
+        isOption = !(this.searchOptionByName(this.digiteds).length === 1)
       }
-      if (!isOption || isOption.length > 0) {
-        this.triggerInternalError(false)
-        this.selectedInput = option
-        this.closeList()
-        return
-      }
-      this.triggerInternalError(true)
+      this.triggerInternalError(isOption)
+    },
+    selectItem (selectedOption) {
+      selectedOption.name = selectedOption.name.toLowerCase()
+      this.selectedInput = selectedOption
+      this.triggerInternalError(false)
     },
     closeList () {
       this.showList = false
@@ -190,7 +195,7 @@ export default {
       }
     },
     searchOptionByName (optionName) {
-      return this.filterOptionsByKeys.filter((option) => option.name === optionName)
+      return this.filterOptionsByKeys.filter((option) => option.name.toLowerCase() === optionName)
     },
     nextItem () {
       this.currentOption++
@@ -204,8 +209,8 @@ export default {
     },
     pickerOptions (e) {
       if (!this.showList)
-        this.openList()
 
+        this.openList()
       switch (e.keyCode) {
         case this.DOWN_ARROW_KEY_CODE:
           this.nextItem()
@@ -215,20 +220,23 @@ export default {
           return
         case this.ENTER_KEY_CODE:
           if (this.currentOption > -1 && this.filterOptionsByKeys.length > 0) {
-            this.selectItem(this.filterOptionsByKeys[this.currentOption])
+            this.filterOptions = this.filterOptionsByKeys[this.currentOption].name
           } else {
-            this.selectItem(this.digiteds)
+            this.filterOptions = this.digiteds
           }
           this.closeList()
           return
         case this.TAB_KEY_CODE:
           this.closeList()
-          this.triggerInternalError(false)
+          this.matchingOption()
           return
       }
     },
     triggerInternalError (value) {
       this.invalidOption = value
+      let message = (value) ? 'valid' : 'no valid'
+      let err = { message, error: value }
+      this.$emit('error', err)
     },
     checkListPosition () {
       var targetNode = this.$refs.list

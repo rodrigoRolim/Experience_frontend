@@ -51,7 +51,6 @@ export default {
   z-index: 3
 .doctor__main
   width: 100%
-  margin-top: 60px
 .doctor__footer
   display: none
   @include respond-to(handhelds)

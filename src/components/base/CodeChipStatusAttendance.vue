@@ -1,7 +1,7 @@
 <template>
   <div class="chip-status-exams">
-    <span class="chip-status-exams__content" :class="'chip-status-exams--'+getSituation">
-      <span class="chip-status-exams__element" :class="getSituation">{{text}}</span>
+    <span class="chip-status-exams__content" :class="'chip-status-exams--'+getStatus">
+      <span class="chip-status-exams__element" :class="getStatus">{{text}}</span>
     </span>
   </div>
 </template>
@@ -32,8 +32,6 @@ export default {
         case 'EA':
           return 'Em Andamento'
         case 'NR':
-          return 'Não Realizado'
-        case 'N':
           return 'Não Realizado'
         case 'EP':
           return 'Há Pendencias'
