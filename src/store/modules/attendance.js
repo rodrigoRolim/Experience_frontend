@@ -12,7 +12,21 @@ import {
   END_DATE,
   EMPTY_EXAMS,
   EMPTY_ATTENDANCES,
-  ATTENDANCE_NOT_FOUND
+  ATTENDANCE_NOT_FOUND,
+//PARAMS_ATTENDANCES,
+  HEALTH_CENTER,
+  ACCOMODATION,
+  SITUATION,
+  NAME,
+  REALIZER,
+  DEFAULT_DATES,
+  SUCCESS_PUSH,
+  LOADING_PUSH,
+  ERROR_PUSH,
+  PUSH_ATTENDANCES_STORE,
+  NEXT_PAGE,
+  REINIT_PAGINATION,
+  TOTAL_PAGES
 } from '../../utils/alias'
 
 const state = {
@@ -20,7 +34,21 @@ const state = {
   selectedAttendance: { healthCenter: '', id: '' },
   selectedExams: '',
   status: '',
-  message: {}
+  statusPush: '',
+  message: {},
+  params: {
+    begin: '',
+    end: '',
+    healthCenter: {id: '', name: 'todos' },
+    accomodation: {id: '', name: 'todos' },
+    situation: {id: '', name: 'todos' },
+    realizer: {id: '', name: 'todos' },
+    name: null,
+    limit: 10,
+    page: 1,
+    totalPages: null
+  },
+  // guarde os filtros selecionados aqui tambem
 }
 
 const getters = {
@@ -31,15 +59,6 @@ const getters = {
   exams: (state, getters) => (healthCenter, id) => {
     return getters.attendances
       .find(att => att.posto == healthCenter && att.atendimento == id)?.ExamesObj
-  },
-  healthCenters: () => {
-  
-  },
-  accomodations: () => {
-   
-  },
-  situations: () => {
-   
   },
   name: () => (patientName) => {
     return patientName.toUpperCase()
@@ -53,18 +72,23 @@ const getters = {
   },
   examsToPrint: (state) => state.selectedExams,
   status: state => state.status,
-  message: state => state.message
+  statusPush: state => state.statusPush,
+  message: state => state.message,
+  params: state => state.params
 }
 
 const actions = {
   [GET_ATTENDANCES_STORE]: ({ commit }, { url, params }) => {
+    commit(LOADING)
     return new Promise((resolve, reject) => {
-      commit(LOADING)
       requestResource({ url, params, method: 'GET' })
         .then((resp) => {
-          commit(GET_ATTENDANCES_STORE, resp.data.docs || resp.data)
+          commit(GET_ATTENDANCES_STORE, resp.data.docs)
+          commit(TOTAL_PAGES, resp.data.pages)
           commit(SELECTED_ATTENDANCE)
           commit(SUCCESS)
+          commit(ATTENDANCE_NOT_FOUND, {})
+          //commit(PARAMS_ATTENDANCES, params)
           resolve(resp)
         })
         .catch((err) => {
@@ -73,29 +97,42 @@ const actions = {
         })
     })
   },
+  [PUSH_ATTENDANCES_STORE]: ({ commit }, { url, params }) => {
+    commit(LOADING_PUSH)
+    return new Promise((resolve, reject) => {
+      requestResource({ url, params, method: 'GET'})
+      .then((resp) => {
+        commit(PUSH_ATTENDANCES_STORE, resp.data.docs)
+        commit(SUCCESS_PUSH)
+        resolve(resp)
+      })
+      .catch((err) => {
+        commit(ERROR_PUSH)
+        reject(err)
+      })
+    })
+    
+  },
   [ATTENDANCE_NOT_FOUND]: ({ commit }, message) => {
     commit(ATTENDANCE_NOT_FOUND, message)
   }, 
   [CHANGE_SELECTED_ATTENDANCE]: ({ commit }, {healthCenter, attendanceId}) => {
-    commit(CHANGE_SELECTED_ATTENDANCE, {healthCenter, attendanceId})
+    commit(CHANGE_SELECTED_ATTENDANCE, { healthCenter, attendanceId })
   },
   [SELECT_EXAMS]: ({ commit }, exams) => {
     commit(SELECT_EXAMS, exams)
   },
   [EMPTY_EXAMS]: ({ commit }) => {
     commit(EMPTY_EXAMS)
-  },
-  [BEGIN_DATE]: ({ commit }, date) => {
-    commit(BEGIN_DATE, date)
-  },
-  [END_DATE]: ({ commit }, date) => {
-    commit(END_DATE, date)
   }
 }
 
 const mutations = {
   [GET_ATTENDANCES_STORE]: (state, attendances) => {
     state.attendances = attendances
+  },
+  [PUSH_ATTENDANCES_STORE]: (state, newAttendances) => {
+    state.attendances.push(...newAttendances)
   },
   [ATTENDANCE_NOT_FOUND]: (state, message) => {
     state.message = message
@@ -111,12 +148,6 @@ const mutations = {
   [SELECT_EXAMS]: (state, exams) => {
     state.selectedExams = exams
   },
-  [BEGIN_DATE]: (state, begin) => {
-    state.begin = begin
-  },
-  [END_DATE]: (state, end) => {
-    state.end = end
-  },
   [EMPTY_ATTENDANCES]: (state) => {
     state.attendances = []
   },
@@ -131,28 +162,69 @@ const mutations = {
   },
   [ERROR]: (state) => {
     state.status = 'error'
+  },
+  [BEGIN_DATE]: (state, begin) => {
+    state.params.begin = begin
+  },
+  [END_DATE]: (state, end) => {
+    state.params.end = end
+  },
+  [DEFAULT_DATES]: (state) => {
+    
+    let today = new Date()
+
+    let nextDate = (today.getDate() < 10) ? '0' + today.getDate() : today.getDate()
+    let nextMonth = today.getMonth() + 1
+    let nextYear = today.getFullYear()
+    let dateFinal = nextDate + ' / ' + nextMonth + ' / ' + nextYear
+
+    today.setDate(today.getDate() - 7)
+
+    let currDate = (today.getDate() < 10) ? '0' + today.getDate() : today.getDate()
+    let currMonth = today.getMonth() + 1
+    let currYear = today.getFullYear()
+    let dateInitial = currDate + ' / ' + currMonth + ' / ' + currYear
+   
+    state.params.begin = dateInitial
+    state.params.end =  dateFinal
+  },
+  [ACCOMODATION]: (state, accomodation) => {
+    state.params.accomodation = accomodation
+  },
+  [HEALTH_CENTER]: (state, healthCenter) => {
+    console.log(healthCenter)
+    state.params.healthCenter = healthCenter
+  },
+  [SITUATION]: (state, situation) => {
+    state.params.situation = situation
+  },
+  [REALIZER]: (state, realizer) => {
+    state.params.realizer = realizer
+  },
+  [NAME]: (state, name) => {
+    state.params.name = name
+  },
+  [SUCCESS_PUSH]: (state) => {
+    state.statusPush = 'ok'
+  },
+  [ERROR_PUSH]: (state) => {
+    state.statusPush = 'error'
+  },
+  [LOADING_PUSH]: (state) => {
+    state.statusPush = 'loading'
+  },
+  [REINIT_PAGINATION]: (state) => {
+    state.params.page = 1
+  },
+  [NEXT_PAGE]: (state) => {
+    if (state.params.page < state.params.totalPages)
+      state.params.page += 1
+  },
+  [TOTAL_PAGES]: (state, pages) => {
+    state.params.totalPages = pages
   }
 }
-/* let situationExperience = (situation) => {
-  switch(situation) {
-    case 'TF':
-      return 'Finalizados'
-    case 'PF':
-      return 'Parcialmente Finalizados'
-    case 'EA':
-      return 'Em Andamento'
-    case 'EP':
-      return 'Com Pendencias'
-    case 'N':
-      return 'Não realizados'
-  }
-}
-let NoHasElement = (arr, propertyArr, item, propertyAtt) => {
-  if (arr.length == 0) {
-    return true
-  }
-  return !arr.some(it => it[propertyArr] === item[propertyAtt])
-} */
+
 export default {
   namespaced: true,
   state,

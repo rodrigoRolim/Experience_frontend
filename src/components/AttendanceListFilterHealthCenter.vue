@@ -12,10 +12,12 @@
           ></code-label>
           <div class="period__dates">
             <attendance-list-filter-period
-              :begin="filters.begin"
-              :end="filters.end"
-              @begin="filters.begin = $event" 
-              @end="filters.end = $event"
+              :begin="params.begin"
+              :end="params.end"
+              @begin="setBegin"
+              @end="setEnd"
+              :error-begin="validate.begin"
+              :error-end="validate.end"
             />
           </div>
         </div>
@@ -31,8 +33,9 @@
             name="postos"
             option="selecione o posto"
             :options="healthCenters"
-            v-model="filters.healthCenter"
-            @error="requestPrevents.healthCenter = $event.error"
+            @input="setHealthCenter"
+            :value="params.healthCenter"
+            :error="validate.healthCenter"
           ></code-select>
         </div>
         <div class="attendance-list-filter-healthcenter__accomodation">
@@ -47,8 +50,9 @@
             name="acomodacoes"
             option="selecione a acomodação"
             :options="accomodations"
-            v-model="filters.accomodation"
-            @error="requestPrevents.accomodation = $event.error"
+            @input="setAccomodation"
+            :value="params.accomodation"
+            :error="validate.accomodation"
           ></code-select>
         </div>
         <div class="attendance-list-filter-healthcenter__situation">
@@ -63,8 +67,9 @@
             name="situation"
             option="selecione a situação"
             :options="situations"
-            v-model="filters.situation"
-            @error="requestPrevents.situation = $event.error"
+            @input="setSituation"
+            :value="params.situation"
+            :error="validate.situation"
           ></code-select>
         </div>
         <div class="attendance-list-filter-healthcenter__realizer">
@@ -79,8 +84,9 @@
             name="realizer"
             option="selecione posto realizante"
             :options="registrants"
-            v-model="filters.realizer"
-            @error="requestPrevents.realizer = $event.error"
+            @input="setRealizer"
+            :value="params.realizer"
+            :error="validate.realizer"
           ></code-select>
         </div>
         <div class="attendance-list-filter-healthcenter__buttons">
@@ -108,8 +114,10 @@ import CodeSelect from './base/CodeSelect.vue'
 import CodeLabel from './base/CodeLabel.vue'
 import CodeButton from './base/CodeButton.vue'
 import AttendanceListFilterPeriod from './AttendanceListFilterPeriod'
+import { validator } from '../mixins/validations/validator'
+import { isOption, ltBegin, gtEnd, required, date } from '../mixins/validations/rules'
 import { messages } from '../mixins/user-messages'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { 
   NAMESPACED_ATTENDANCE, 
   NAMESPACED_AUTH,
@@ -127,7 +135,17 @@ import {
   NAMESPACED_REGISTRANTS, 
   GET_REGISTRANTS_STORE, 
   REGISTRANTS,
-  HEALTH_CENTER_TYPE_NAME
+  HEALTH_CENTER_TYPE_NAME,
+  BEGIN_DATE,
+  END_DATE,
+  HEALTH_CENTER,
+  ACCOMODATION,
+  SITUATION,
+  REALIZER,
+  DEFAULT_DATES,
+  DATE_VALIDATOR,
+  REINIT_PAGINATION,
+  EMPTY_ATTENDANCES
 } from '../utils/alias'
 export default {
   name: 'AttendanceListFilter',
@@ -135,7 +153,7 @@ export default {
     begin: String,
     end: String
   },
-  mixins: [messages],
+  mixins: [messages, validator({ isOption, ltBegin, gtEnd, required, date })],
   components: {
     CodeButton,
     CodeSelect,
@@ -146,63 +164,142 @@ export default {
   data () {
     return {
       typeUser: 'posto',
-      filters: {
-        begin: '31/07/2020',
-        end: '31/07/2020',
-        healthCenter: null,
-        accomodation: null,
-        situation: null,
-        realizer: null
-      },
       BEGIN_INITIAL: '30/07/2019',
       END_INITIAL: '26/09/2020',
       situations: SITUATIONS,
-      requestPrevents: {
-        healthCenter: false,
-        accomodation: false,
-        situation: false,
-        realizer: false
+      validate: {
+        healthCenter: '',
+        accomodation: '',
+        situation: '',
+        realizer: '',
+        begin: '',
+        end: ''
       },
       prevent: false
     }
   },
   created () {
-   
-    this.initComponent()
+    this.setInitialDates()
+    this.initFilters()
+    //this.initComponent()
+    //this.loadAttendancesByScroll()
   },
   computed: {
+    ...mapGetters(NAMESPACED_ATTENDANCE, [
+      'params'
+    ]),
     ...mapGetters(NAMESPACED_AUTH, [
       'userId'
     ]),
     ...mapGetters(NAMESPACED_ACCOMODATIONS, {
-      accomodations: 'accomodations',
-      statusAcc: 'status'
+      accomodations: 'accomodations'
     }),
     ...mapGetters(NAMESPACED_HEALTH_CENTERS, {
       healthCenters: 'healthCenters',
-      statusHc: 'status'
     }),
     ...mapGetters(NAMESPACED_REGISTRANTS, [
       'registrants'
-    ])
+    ]),
+    allowRequest () {
+      return !Object.values(this.validate).find((val) => val !== '')
+    },
+    beginAndEnd () {
+      return `${this.params.begin}|${this.params.end}`
+    }
   },
   watch: {
-    requestPrevents: {
-      handler(values) {
-        this.prevent = Object.values(values).find(r => r)
-      },
-      deep: true
+    'params.begin': function (value) {
+      if (this.required(value)) {
+
+        this.validate.begin = 'campo obrigatório'
+      } else if (this.gtEnd(value, this.params.end)) {
+        
+        this.validate.begin = 'data inicial inválida'
+      } else if (this.ltBegin(this.params.end, this.params.begin)){
+        
+        this.validate.end = 'data final inválida'
+      } else {
+        this.validate.begin = ''
+        this.validate.end = ''
+      }
+    },
+    'params.end': function (value) {
+      if (this.required(value)) {
+        this.validate.end = 'campo obrigatório'
+
+      } else if (this.ltBegin(value, this.params.begin)) {
+        this.validate.end = 'data final inválida'
+      } else if (this.gtEnd(this.params.begin, this.params.end)){
+        this.validate.begin = 'início inválido'
+      } else {
+        this.validate.begin = ''
+        this.validate.end = ''
+      }
+    },
+    'params.healthCenter': function (value) {
+      if (this.required(value)) {
+        this.validate.healthCenter = 'campo obrigatório'
+      } else if (this.isOption(value, this.healthCenters)) {
+        this.validate.healthCenter = 'opção inválida'
+      } else {
+        this.validate.healthCenter = ''
+      }
+    },
+    'params.accomodation': function (value) {
+
+      if (this.required(value)) {
+        this.validate.accomodation = 'campo obrigatório'
+      } else if (this.isOption(value, this.accomodations)) {
+        this.validate.accomodation = 'opção inválida'
+      } else {
+        this.validate.accomodation = ''
+      }
+    },
+    'params.situation': function (value) {
+      if (this.required(value)) {
+        this.validate.situation = 'campo obrigatório'
+      } else if (this.isOption(value, this.situations)) {
+        this.validate.situation = 'opção inválida'
+      } else {
+        this.validate.situation = ''
+      }
+    },
+    'params.realizer': function (value) {
+
+      if (this.required(value)) {
+        this.validate.realizer = 'campo obrigatório'
+      } else if (this.isOption(value, this.registrants)) {
+        this.validate.realizer = 'opção inválida'
+      } else {
+        this.validate.realizer = ''
+      }
+    },
+    beginAndEnd (value) {
+      console.log(value)
+      let [begin, end] = value.split('|')
+      if (this.date(begin, DATE_VALIDATOR) && this.date(end, DATE_VALIDATOR)) {
+        this.backParamsToDefault()
+        this.initComponent()
+      }
     }
   },
   methods: {
+    initFilters () {
+      this.filters = Object.assign({}, this.params)
+    },
+    backParamsToDefault () {
+      const defaultOption = {id: '', name: 'todos'}
+      this.setHealthCenter(defaultOption)
+      this.setAccomodation(defaultOption)
+      this.setRealizer(defaultOption)
+    },
     async initComponent () {
-      
+
       try {
         await this.listRegisterHealthCenters()
         await this.listAccomodations()
         await this.listRegistrantsHealthCenters()
-        //console.log(this.accomodations)
-        //await this.attendances()
+        await this.attendances()
       } catch (err) {
         console.log({err})
         this.setMessage(this.message({ status: err.response.status, data: 'atendimento' }))
@@ -221,17 +318,23 @@ export default {
         this.requestPrevent = true
       }
     },
-    confirm () {
-      console.log(this.filters)
-      //if (this.prevent) {
-        this.attendances()
-        console.log('request stoped')
-      //}
+    async confirm () {
+
+      if (this.allowRequest) {
+        try {
+          await this.attendances()
+        } catch (err) {
+           this.setMessage(this.message({ status: err.response.status, data: 'atendimento' }))
+        }
+      } else {
+        this.$emit("error", this.message({ status: 111 }))
+      }
     },
     getURI(id, typeUser, resource) {
+      console.log(this.params.begin.split(" / ").join("-"))
       return GET_FILTERS(
-              this.formatterDateToApi(this.BEGIN_INITIAL), 
-              this.formatterDateToApi(this.END_INITIAL), 
+              this.params.begin.split(" / ").join("-"), 
+              this.params.end.split(" / ").join("-"), 
               typeUser,
               id, 
               resource
@@ -278,35 +381,55 @@ export default {
           })
       })
     },
-    params () {
-      let params = {}
-      if (this.filters.realizer.id) params['postocadastro'] = this.filters.realizer.id
-      if (this.filters.healthCenter.id) params['postorealizante'] = this.filters.healthCenter.id
-      if (this.filters.accomodation.id) params['acomodacao'] = this.filters.accomodation.id
-      if (this.filters.situation.id) params['situacao'] = this.filters.situation.id
-      params['limit'] = 10
-      params['page'] = 1
-      return params
+    paramsQuery () {
+      let queries = {}
+      if (this.params.realizer.id) queries['postocadastro'] = this.params.realizer.id
+      if (this.params.healthCenter.id) queries['postorealizante'] = this.params.healthCenter.id
+      if (this.params.accomodation.id) queries['acomodacao'] = this.params.accomodation.id
+      if (this.params.situation.id) queries['situacao'] = this.params.situation.id
+      queries['limit'] = this.params.limit
+      queries['page'] = this.params.page
+      return queries
     },
     attendances () {
-     // return new Promise((resolve, reject) => {
+     return new Promise((resolve, reject) => {
         let healthCenter = 0//this.userId
+        this.renitiPage()
+        this.emptyAttendances()
         let urlName = GET_ATTENDANCES_HEALTH_CENTER(healthCenter,
-           this.filters.begin,
-           this.filters.end)   
-          //this.formatterDateToApi(this.filters.begin), 
-          //this.formatterDateToApi(this.filters.end))
-        this.getAttendances({ url: urlName, params: this.params() })
+           this.params.begin.split(" - ").join("-"),
+           this.params.end.split(" - ").join("-"))   
+        this.getAttendances({ url: urlName, params: this.paramsQuery() })
         .then((res) => {
-          console.log(res)
+          resolve(res)
         })
         .catch((err) => {
-          this.setMessage(this.message({ status: err.response.status, data: 'atendimento' }))
-          //reject(err)
+          console.log({err})
+          reject(err)
         })
-     // })
+     })
       
     },
+   
+    loadAttendancesByScroll () {
+      window.addEventListener('scroll', () => {
+        console.log(document.body.offsetHeight)
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+          console.log('end of page')
+        }
+      })
+    },
+    ...mapMutations(NAMESPACED_ATTENDANCE, {
+      setBegin: BEGIN_DATE,
+      setEnd: END_DATE,
+      setHealthCenter: HEALTH_CENTER,
+      setAccomodation: ACCOMODATION,
+      setRealizer: REALIZER,
+      setSituation: SITUATION,
+      setInitialDates: DEFAULT_DATES,
+      renitiPage: REINIT_PAGINATION,
+      emptyAttendances: EMPTY_ATTENDANCES
+    }),
     ...mapActions(NAMESPACED_ATTENDANCE, {
       getAttendances: GET_ATTENDANCES_STORE,
       setMessage: ATTENDANCE_NOT_FOUND
@@ -319,7 +442,10 @@ export default {
     }),
     ...mapActions(NAMESPACED_REGISTRANTS, {
       getRegistrants: GET_REGISTRANTS_STORE
-    })
+    }),
+    /* ...mapMutations(NAMESPACED_ATTENDANCE, {
+      setAccomodation
+    }) */
   }
 }
 </script>
@@ -352,6 +478,7 @@ export default {
 .attendance-list-filter-healthcenter__buttons
   width: 10%
   align-self: flex-end
+  margin-bottom: 10px
   @include respond-to(medium-screens)
     width: 100%
     margin-top: 30px

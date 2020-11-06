@@ -3,7 +3,7 @@
     <div class="health-center__filter">
       <div class="filter" :class="{'filter--modal': searcherInModal}">
         <div class="filter__options">
-          <attendance-list-filter-health-center />
+          <attendance-list-filter-health-center @error="messageError"/>
         </div>
         <div class="filter__searcher" :class="{'filter__searcher--modal': searcherInModal}">
           <div class="filter__content">
@@ -37,6 +37,17 @@
       </code-modal>
       <attendance-list route="posto"/>
     </div>
+    <transition name="slide-fade">
+      <div class="health-center__messages" v-if="message">
+        <code-message
+          class="health-center__message-content"
+          :message="message"
+          :type-message="type"
+          position="center"
+          icon="times-circle"
+        />  
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -46,8 +57,9 @@ import AttendanceListFilterHealthCenter from '../components/AttendanceListFilter
 import AttendanceListSearch from '../components/AttendanceListSearch'
 import CodeModal from '../components/base/CodeModal'
 import CodeLoading from '../components/base/CodeLoading'
+import CodeMessage from '../components/base/CodeMessage'
 import { mapGetters } from 'vuex'
-import { NAMESPACED_ATTENDANCE } from '../utils/alias'
+import { NAMESPACED_ATTENDANCE, NAMESPACED_ACCOMODATIONS, NAMESPACED_HEALTH_CENTERS, NAMESPACED_REGISTRANTS } from '../utils/alias'
 export default {
   name: 'HealthCenterHome',
   components: {
@@ -55,29 +67,59 @@ export default {
     AttendanceListFilterHealthCenter,
     AttendanceListSearch,
     CodeModal,
-    CodeLoading
+    CodeLoading,
+    CodeMessage
   },
   data () {
     return {
       displayHeader: true,
-      searcherInModal: false
+      searcherInModal: false,
+      message: '',
+      type: '',
+      TIME_MESSAGE: 10000,
     }
   },
   created () {
 
   },
+  methods: {
+    messageError (value) {
+      console.log(value)
+      this.message = value.message
+      this.type = value.type
+       setTimeout(() => {
+        this.message = ''
+        this.type = ''
+      }, this.TIME_MESSAGE)
+    }
+  },
   computed: {
     displayLoading () {
-      return this.status === 'loading'
+      return this.statusHc == 'loading' || 
+        this.statusAcc == 'loading' || 
+        this.statusRg == 'loading' || 
+        this.status == 'loading'
     },
     ...mapGetters(NAMESPACED_ATTENDANCE, [
       'status'
-    ])
+    ]),
+    ...mapGetters(NAMESPACED_ACCOMODATIONS, {
+      accomodations: 'accomodations',
+      statusAcc: 'status'
+    }),
+    ...mapGetters(NAMESPACED_HEALTH_CENTERS, {
+      healthCenters: 'healthCenters',
+      statusHc: 'status'
+    }),
+    ...mapGetters(NAMESPACED_REGISTRANTS, {
+      statusRg: 'status'
+    }),
   }
 }
 </script>
 
 <style lang="sass" scoped>
+@import '../styles/transitions/__slide_fade.scss'
 .health-center
   display: flex
   flex-direction: column
@@ -100,7 +142,7 @@ export default {
   top: 60px
   z-index: 2
 .filter--modal
-  z-index: 6
+  z-index: 10
 .filter__searcher
   display: flex
   align-items: center
@@ -143,4 +185,15 @@ export default {
 .filter__input
   @include respond-to(handhelds)
     width: 90%
+.health-center__messages
+  position: fixed
+  bottom: 0
+  align-self: flex-end
+  width: 100%
+  right: 0px
+  @include respond-to(medium-screens)
+    width: 100%
+    right: 0
+    left: 0
+    top: 60px
 </style>

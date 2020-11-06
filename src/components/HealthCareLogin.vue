@@ -56,7 +56,6 @@
           size="0.9rem"
           name="healthcares"
           icon="clinic-medical"
-          :error="validate.posto"
         />
       </div>
       <div class="healthcare-login__doubt">
@@ -118,8 +117,7 @@ export default {
       },
       validate: {
         userid: '',
-        senha: '',
-        posto: ''
+        senha: ''
       },
       list: [
         { id: 1, name: 'fake news' },
@@ -159,13 +157,6 @@ export default {
         this.validate.senha = REQUIRED_INPUT
       } else {
         this.validate.senha = ''
-      }
-    },
-    healthSelected (value) {
-       if (this.required(value)) {
-        this.validate.posto = REQUIRED_INPUT
-      } else {
-        this.validate.posto = ''
       }
     }
   },

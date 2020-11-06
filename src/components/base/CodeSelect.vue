@@ -47,11 +47,9 @@
     <div :class="{'custom-select__modal': showModalList}" @click.self="closeList">
       <ul
         ref="list"
-        class="custom-select__list" 
-        :class="{'custom-select__list--invalid': invalidOption}"
-        v-show="showList || invalidOption" 
+        class="custom-select__list"
+        v-show="showList" 
         role="list">
-        <li class="custom-select__invalid-option" v-show="invalidOption">opção inválida</li>
         <li 
           ref="items"
           role="listitem"
@@ -118,7 +116,6 @@ export default {
           this.selectItem(...isOption)
           return
         }
-        this.triggerInternalError(true)
       },
       get () {
         return this.filterOptionsByKeys
@@ -128,22 +125,15 @@ export default {
       return '#' + this.name 
     },
     filterOptionsByKeys () {
-      console.log(this.digiteds)
-      return this.options.filter((option) => option.name.toLowerCase().includes(this.digiteds.toLowerCase()))
+
+      return this.options.filter((option) => option.name.toLowerCase()
+        .includes(this.digiteds.toLowerCase()))
     },
   },
   watch: {
     filterOptionsByKeys () {
       this.currentOption = -1
     },
-    digiteds (value) {
-      let isOption = false
-      if (this.digiteds) {
-        console.log(this.searchOptionByName(value))
-        isOption = !(this.searchOptionByName(value).length === 1)
-      }
-      this.triggerInternalError(isOption)
-    }
   },
   methods: {
     enter (e) {
@@ -159,40 +149,23 @@ export default {
     toggleListByClick (e) {
       if (!e.target.closest(this.selectName)) {
         this.closeList()
-        this.matchingOption()
       }
-    },
-    matchingOption () {
-      let isOption = false
-      if (this.digiteds) {
-        isOption = !(this.searchOptionByName(this.digiteds).length === 1)
-      }
-      this.triggerInternalError(isOption)
     },
     selectItem (selectedOption) {
       selectedOption.name = selectedOption.name.toLowerCase()
       this.selectedInput = selectedOption
-      this.triggerInternalError(false)
+      this.digiteds = ''
     },
     closeList () {
       this.showList = false
       this.lineAnimation = false
       this.showModalList = false
+      this.digiteds = ''
     },
     openList () {
       this.showList = true
       this.lineAnimation = true
       this.showModalList = true
-    },
-    valideOption (optionName) {
-
-      let isOption = this.searchOptionByName(optionName)
-
-      if (isOption.length > 0) {
-        this.triggerInternalError(false)
-      } else {
-        this.triggerInternalError(true)
-      }
     },
     searchOptionByName (optionName) {
       return this.filterOptionsByKeys.filter((option) => option.name.toLowerCase() === optionName)
@@ -228,15 +201,8 @@ export default {
           return
         case this.TAB_KEY_CODE:
           this.closeList()
-          this.matchingOption()
           return
       }
-    },
-    triggerInternalError (value) {
-      this.invalidOption = value
-      let message = (value) ? 'valid' : 'no valid'
-      let err = { message, error: value }
-      this.$emit('error', err)
     },
     checkListPosition () {
       var targetNode = this.$refs.list
@@ -299,20 +265,14 @@ export default {
     bottom: 0
     width: 100px
     position: static
-.custom-select__list--invalid
-  background-color: #ffcbcb !important
-.custom-select__option,
-.custom-select__invalid-option
+
+.custom-select__option
   list-style-type: none
   cursor: pointer
   margin: 5px 0px
   padding: 5px 10px
   text-transform: uppercase
   font-size: 0.9rem
-.custom-select__invalid-option
-  color: white
-  background-color: red
-  margin: 0
 .custom-select__select
   display: flex
 .custom-select__select:focus
@@ -333,10 +293,12 @@ export default {
 .custom-select__line-l--required,
 .custom-select__line-r--required,
 .custom-select__arrow--required
-  border-color: $danger !important
+  border-color: $error !important
+  border-width: 2px !important
 .custom-select__icon--required
-  border-color: $danger !important
-  color: $danger !important
+  border-color: $error !important
+  color: $error !important
+  border-width: 2px !important
 .custom-select__input::placeholder
   font-size: 14px
   text-transform: none
@@ -394,7 +356,7 @@ export default {
   display: flex
   flex-direction: row
   margin-left: 10px
-  color: $danger
+  color: $error
   z-index: 0
 .custom-select__text-error
   font-style: italic

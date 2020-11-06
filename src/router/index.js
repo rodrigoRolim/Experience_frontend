@@ -5,12 +5,12 @@ import {
   PATIENT_TYPE, 
   PARTNER_TYPE, 
   HEALTH_CENTER_TYPE, 
-  //EMPTY_ATTENDANCES, 
-  //CANCEL_PENDING_REQUESTS, 
+  // EMPTY_ATTENDANCES, 
+  // CANCEL_PENDING_REQUESTS, 
 } from '../utils/alias'
 
-const verifyAuthorization = (to, from, next) => {
-  //store.dispatch(CANCEL_PENDING_REQUESTS)
+const authorization = (to, from, next) => {
+  // store.dispatch(CANCEL_PENDING_REQUESTS)
   const authUser = to.matched
     .some(record => record.meta.typeUser !== store.getters['auth/userTypeAuthed'])
   if (!store.getters['auth/isAuthenticated'] && !authUser) {
@@ -35,7 +35,7 @@ const router = new VueRouter({
     {
       path: '/medico',
       component: () => import(/* webpackChunkName: 'Doctor' */ '@/views/Doctor'),
-      beforeEnter: verifyAuthorization,
+      beforeEnter: authorization,
       meta: { typeUser: DOCTOR_TYPE },
       children: [
         {
@@ -46,7 +46,7 @@ const router = new VueRouter({
         {
           path: 'paciente',
           name: 'doctorExamsPatient',
-          beforeEnter: verifyAuthorization,
+          beforeEnter: authorization,
           component: () => import(/* webpackChunkName: 'Doctor' */ '@/views/DoctorPatientExams'),
           props: true
         }
@@ -55,7 +55,7 @@ const router = new VueRouter({
     {
       path: '/parceiro',
       component: () => import(/* webpackChunkName: 'Partner' */ '@/views/Partner'),
-      beforeEnter: verifyAuthorization,
+      beforeEnter: authorization,
       meta: { typeUser: PARTNER_TYPE },
       children: [
         {
@@ -66,7 +66,7 @@ const router = new VueRouter({
         {
           path: 'paciente/:patient/:attendance',
           name: 'partnerExamsPatient',
-          beforeEnter: verifyAuthorization,
+          beforeEnter: authorization,
           meta: { typeUser: PARTNER_TYPE },
           component: () => import(/* webpackChunkName: 'Partner' */ '@/views/PartnerPatientExams'),
           props: true
@@ -76,7 +76,7 @@ const router = new VueRouter({
     {
       path: '/paciente',
       name: 'patient',
-      //beforeEnter: verifyAuthorization,
+      //beforeEnter: authorization,
       meta: { typeUser: PATIENT_TYPE },
       component: () => import(/* webpackChunkName: 'Patient' */ '@/views/Patient'),
       children: [
@@ -96,7 +96,7 @@ const router = new VueRouter({
     },
     {
       path: '/posto',
-      beforeEnter: verifyAuthorization,
+      beforeEnter: authorization,
       meta: { typeUser: HEALTH_CENTER_TYPE },
       component: () => import(/* webpackChunkName: 'HealthCenter' */ '@/views/HealthCenter'),
       children: [
@@ -107,6 +107,7 @@ const router = new VueRouter({
         },
         {
           path: 'paciente/:patient/:attendance',
+          beforeEnter: authorization,
           name: 'healthCenterExamsPatient',
           props: true,
           component: () => import(/* webpackChunkName: 'HealthCenter' */ '@/views/HealthCenterPatientExams')

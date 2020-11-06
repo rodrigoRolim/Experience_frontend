@@ -69,15 +69,15 @@ export default {
   border: 1px solid blue
   color: blue
 .message--error
-  background-color: rgba(250, 95, 95, 0.1)
+  background-color: red
   border: 1px solid red
-  color: red
+  color: white
 .message--success
-  background-color: #00c50010
+  background-color: green
   border: 1px solid #00c500
-  color: #00c500
+  color: white
 .message--warning
-  background-color: rgba(250, 196, 95, 0.1)
+  background-color: orange
   border: 1px solid orange
   color: orange
 .message--default

@@ -201,12 +201,12 @@ export default {
     },
     confirm () {
 
-      let emptyField = this.validateAllFields()
-      if (!emptyField && this.authState !== 'loading' && !this.validator) {
+      let emptyInvalidFields = this.validateAllFields()
+      if (!emptyInvalidFields && this.authState !== 'loading' && !this.validator) {
         this.realizeLogin()
         return
       } 
-      if (emptyField || this.validator) {
+      if (emptyInvalidFields || this.validator) {
         this.emitMessage({status: 111})
       }    
     },

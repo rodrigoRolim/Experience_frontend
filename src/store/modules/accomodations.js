@@ -41,13 +41,13 @@ const mutations = {
     state.accomodations = accomodations
   },
   [LOADING]: (state) => {
-    state.status = 'LOADING'
+    state.status = 'loading'
   },
   [SUCCESS]: (state) => {
-    state.status = 'SUCCESS'
+    state.status = 'ok'
   },
   [ERROR]: (state) => {
-    state.status = 'ERROR'
+    state.status = 'error'
   }
 }
 

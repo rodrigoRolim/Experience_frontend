@@ -112,6 +112,20 @@ export const SUCCESS_GET_ATTENDANCES_REQUESTER = 'SUCCESS_GET_ATTENDANCES_REQUES
 export const ERROR_GET_ATTENDANCES_REQUESTER = 'ERROR_GET_ATTENDANCES_REQUESTER'
 export const TOTAL_ATTENDANCES = 'TOTAL_ATTENDANCES'
 export const GET_REGISTRANTS_STORE = 'GET_REGISTRANTS_STORE'
+export const PARAMS_ATTENDANCES = 'PARAMS_ATTENDANCES'
+export const ACCOMODATION = 'ACCOMODATION'
+export const HEALTH_CENTER = 'HEALTH_CENTER'
+export const SITUATION = 'SITUATION'
+export const REALIZER = 'REALIZER'
+export const NAME = 'NAME'
+export const DEFAULT_DATES = 'DEFAULT_DATES'
+export const PUSH_ATTENDANCES_STORE = 'PUSH_ATTENDANCES_STORE'
+export const SUCCESS_PUSH = 'SUCESS_PUSH'
+export const ERROR_PUSH = 'ERROR_PUSH'
+export const LOADING_PUSH = 'LOADING_PUSH'
+export const REINIT_PAGINATION = 'REINIT_PAGINATION'
+export const NEXT_PAGE = 'NEXT_PAGE'
+export const TOTAL_PAGES = 'TOTAL_PAGES'
 /**  
  * MUTATIONS TYPES AND ACTIONS' NAMES along namespace
 */
@@ -132,7 +146,7 @@ export const INCOMPLETE_CPF = 'cpf incompleto'
 export const INVALID_DATA = 'data inválida'
 export const INCOMPLET_CRM = 'crm incompleto'
 export const MESSAGE_STATUS_403 = 'dados incorretos, verifique seus dados e tente novamente'
-export const MESSAGE_STATUS_111 = 'preencha ou corrija os campos abaixo'
+export const MESSAGE_STATUS_111 = 'preencha ou corrija os campos alertados'
 export const MESSAGE_STATUS_401 = 'dados incorretos, verifique seus dados e tente novamente'
 export const MESSAGE_STATUS_404 = (data) => `${data}(s) não encontrado(s)`
 export const MESSAGE_STATUS_502 = 'conexão recusada, servidor pode está desativado'
@@ -142,7 +156,7 @@ export const MESSAGE_STATUS_502 = 'conexão recusada, servidor pode está desati
  * **/
 //eslint-disable-next-line
 export const CPF_VALIDATOR = /[0-9]{3}\s\.\s[0-9]{3}\s\.\s[0-9]{3}\s\-\s[0-9]{2}$/g
-export const DATE_VALIDATOR = /[0-9]{2}\s\/\s[0-9]{2}\s\/\s[0-9]{4}/g
+export const DATE_VALIDATOR = /[0-9]{2}\s-\s[0-9]{2}\s-\s[0-9]{4}/g
 /**
  * RESOURCES
  * 
@@ -161,7 +175,7 @@ export const REGISTER = 'postoscadastro'
   { id: 'EA', name: 'Em Andamento'},
   { id: 'NR', name: 'Não Realizados'},
   { id: 'EP', name: 'Pendentes'},
-  { id: '', name: 'TODOS'}
+  { id: '', name: 'todos'}
 ]
 
 /**

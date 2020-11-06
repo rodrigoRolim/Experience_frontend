@@ -69,8 +69,7 @@ export default {
     noBorderLeft: Boolean,
     value: String,
     error: {
-      type: String,
-      default: ''
+      type: String
     }
   },
   data () {
@@ -137,6 +136,9 @@ export default {
     
   },
   watch: {
+    error (value) {
+      console.log(value)
+    },
     selectedDate (value) {
  
       if (this.showDate) this.showDate = false
@@ -178,11 +180,13 @@ export default {
      
       if (day) {
 
-        let date = new Date(this.year + '-' + '0' + (this.month + 1) + '-' + day)
-        let begin = new Date(this.begin).getTime()
-        let end = new Date(this.end).getTime()
-      
-        return begin > date.getTime() || end < date.getTime()
+        let date = new Date(this.year + '-' + (this.month + 1) + '-' + day)
+        var begin, end
+        if (this.begin) begin = this.begin.split(" - ").reverse().join("-")
+        if (this.end) end = this.end.split(" - ").reverse().join("-") 
+  
+        console.log(begin > date.getTime() || end < date.getTime())
+        return new Date(begin) > date || new Date(end) < date
       }
       return true
     },

@@ -37,13 +37,13 @@ const mutations = {
     state.healthCenters = healthCenters
   },
   [LOADING]: (state) => {
-    state.status = 'LOADING'
+    state.status = 'loading'
   },
   [ERROR]: (state) => {
-    state.status = 'ERROR'
+    state.status = 'error'
   },
   [SUCCESS]: (state) => {
-    state.status = 'SUCCESS'
+    state.status = 'ok'
   }
 }
 

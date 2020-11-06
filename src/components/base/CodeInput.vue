@@ -80,6 +80,9 @@ export default {
     }
   },
   watch: {
+    error (value) {
+      console.log(value)
+    },
     focused (value) {
 
       if (value) {
@@ -163,6 +166,9 @@ export default {
   flex-direction: column
   width: 100%
 .input-wrap__message-error
+  position: absolute
+  top: 38px
+  min-width: 120px
   display: flex
   flex-direction: row
   margin-left: 10px

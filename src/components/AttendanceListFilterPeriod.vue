@@ -1,20 +1,24 @@
 <template>
-  <div class="calendars">
-    <code-calendar
-      class="calendars__calendar"
-      v-model="beginEmitter" 
-      noBorderRight name="begin" 
-      :end="end"
-      placeholder="data início"
-    />
-    <span class="calendars__gap">até</span>
-    <code-calendar
-      class="calendars__calendar" 
-      v-model="endEmitter" 
-      name="end" noBorderLeft 
-      :begin="begin"
-      placeholder="data fim"  
-    />
+  <div class="period">
+    <div class="period__calendars">
+      <code-calendar
+        class="period__begin"
+        v-model="beginEmitter" 
+        noBorderRight name="begin" 
+        :end="end"
+        :error="errorBegin"
+        placeholder="data início"
+      />
+      <span class="period__gap">até</span>
+      <code-calendar
+        class="period__end" 
+        v-model="endEmitter" 
+        name="end" noBorderLeft 
+        :begin="begin"
+        :error="errorEnd"
+        placeholder="data fim"  
+      />
+    </div>
   </div>
 </template>
 
@@ -24,38 +28,13 @@ export default {
   name: 'AttendanceListFilterPeriod',
   props: {
     begin: {
-      type: String,
-      default: () => {
-        let d = new Date()
-        d.setDate(d.getDate() - 7)
-        let day = d.getDate()
-        if (day < 10) {
-          day = '0' + day
-        }
-        let month = d.getMonth() + 1
-        if (month < 10) {
-          month = '0' + month
-        }
-        let year = d.getFullYear()
-        return day + '/' + month + '/' + year
-      }
+      type: String
     },
     end: {
-      type: String,
-      default: () => {
-        let d = new Date()
-        let day = d.getDate()
-        if (day < 10) {
-          day = '0' + day
-        }
-        let month = d.getMonth() + 1
-        if (month < 10) {
-          month = '0' + month
-        }
-        let year = d.getFullYear()
-        return day + '/' + month + '/' + year
-      }
-    }
+      type: String
+    },
+    errorBegin: String,
+    errorEnd: String
   },
   components: {
     CodeCalendar
@@ -68,6 +47,10 @@ export default {
   },
   mounted () {
 
+  },
+  updated () {
+    console.log(this.errorBegin)
+    console.log(this.errorEnd)
   },
   computed: {
     beginEmitter: {
@@ -102,12 +85,13 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.calendars
+.period__calendars
   display: flex
   flex-direction: row
+  margin-bottom: 10px
   @include respond-to(handhelds)
     position: relative
-.calendars__gap
+.period__gap
   background-color: white
   display: flex
   flex-direction: column
