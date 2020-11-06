@@ -28,7 +28,24 @@ import {
   REINIT_PAGINATION,
   TOTAL_PAGES
 } from '../../utils/alias'
+let begin = () => {
+  let today = new Date()
+  today.setDate(today.getDate() - 7)
+  let currDate = (today.getDate() < 10) ? '0' + today.getDate() : today.getDate()
+  let currMonth = today.getMonth() + 1
+  let currYear = today.getFullYear()
+  let dateInitial = currDate + ' / ' + currMonth + ' / ' + currYear
+  return dateInitial
+}
+let end = () => {
+  let today = new Date()
 
+  let nextDate = (today.getDate() < 10) ? '0' + today.getDate() : today.getDate()
+  let nextMonth = today.getMonth() + 1
+  let nextYear = today.getFullYear()
+  let dateFinal = nextDate + ' / ' + nextMonth + ' / ' + nextYear
+  return dateFinal
+}
 const state = {
   attendances: [],
   selectedAttendance: { healthCenter: '', id: '' },
@@ -37,8 +54,8 @@ const state = {
   statusPush: '',
   message: {},
   params: {
-    begin: '',
-    end: '',
+    begin: begin(),
+    end: end(),
     healthCenter: {id: '', name: 'todos' },
     accomodation: {id: '', name: 'todos' },
     situation: {id: '', name: 'todos' },

@@ -179,7 +179,7 @@ export default {
     }
   },
   created () {
-    this.setInitialDates()
+    //this.setInitialDates()
     this.initFilters()
     //this.initComponent()
     //this.loadAttendancesByScroll()
@@ -383,8 +383,8 @@ export default {
     },
     paramsQuery () {
       let queries = {}
-      if (this.params.realizer.id) queries['postocadastro'] = this.params.realizer.id
-      if (this.params.healthCenter.id) queries['postorealizante'] = this.params.healthCenter.id
+      if (this.params.healthCenter.id) queries['postocadastro'] = this.params.healthCenter.id
+      if (this.params.realizer.id) queries['postorealizante'] = this.params.realizer.id
       if (this.params.accomodation.id) queries['acomodacao'] = this.params.accomodation.id
       if (this.params.situation.id) queries['situacao'] = this.params.situation.id
       queries['limit'] = this.params.limit
