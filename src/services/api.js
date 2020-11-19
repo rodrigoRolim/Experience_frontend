@@ -1,7 +1,9 @@
 import { serverExperience, serverAuth } from '../config/axios'
 import axios from 'axios'
-export const requestResource = ({ url = '', params, data = {}, method = 'GET' }) => {
+export const requestResource = ({ url = '', params, data = {}, method = 'GET', headers = {} }) => {
+  console.log(headers)
   return serverExperience({
+    headers,
     method,
     params,
     url,
