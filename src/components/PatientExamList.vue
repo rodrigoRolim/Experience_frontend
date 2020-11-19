@@ -33,10 +33,11 @@ import { NAMESPACED_ATTENDANCE } from '../utils/alias'
 //import attendance from '../store/modules/attendance'
 export default {
   name: 'PatientExamList',
-  /* props: {
-    healthCenter: String,
-    attendanceId: String
-  }, */
+  props: {
+    patient: String,
+    attendance: String,
+    healthCenter: String
+  },
   components: {
     CodeModal,
     PatientExamListItem,
