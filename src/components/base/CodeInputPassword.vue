@@ -180,7 +180,7 @@ input[type="password"]
 input[type="text"]
   font-size: 14px
 .input-password__input
-  padding: 9px 7px
+  padding: 9px 8px
   border: 1px solid lightgray
   border-right: none
   border-left: none
@@ -210,7 +210,7 @@ input[type="text"]
   border-right: none
   border-radius: 4px 0px 0px 4px
   background-color: white
-  padding: 9px 14px
+  padding: 10px 14px
   color: $icon
 .input-password__eye
   display: flex
@@ -225,13 +225,14 @@ input[type="text"]
 .input-password--outline
   border-color: $primary
 .input-password--error
-  border-color: $danger
-  color: $danger
+  border-color: $error
+  border-width: 2px
+  color: $error
 .input-password-wrap__message-error
   display: flex
   flex-direction: row
   margin-left: 10px
-  color: $danger
+  color: $error
 .input-password-wrap__text-error
   font-style: italic
   margin-bottom: 0
