@@ -22,7 +22,7 @@ export const GET_HEALTH_CENTERS = '/v1/web/posto'
 // attendances
 export const GET_ATTENDANCE = (healthCenter, attendance) => `/v1/web/atendimento/${healthCenter}/${attendance}`
 export const GET_ATTENDANCES_BY_CLIENT = '/v1/web/atendimento/cliente'
-export const GET_ATTENDANCES_HEALTH_CENTER = (healthCenter, begin, end) => `/v1/web/atendimento/${begin}/${end}/posto/${healthCenter}`
+export const GET_ATTENDANCES = (healthCenter, begin, end, typeUser) => `/v1/web/atendimento/${begin}/${end}/${typeUser}/${healthCenter}`
 export const GET_ATTENDANCES_REQUESTER = (requester, begin, end) => `/v1/web/atendimento/${begin}/${end}/solicitante/${requester}`
 export const GET_ATTENDANCES_PATIENT = (client, begin, end) => `/v1/web/atendimento/${begin}/${end}/cliente/${client}`
 // filters
@@ -126,6 +126,10 @@ export const LOADING_PUSH = 'LOADING_PUSH'
 export const REINIT_PAGINATION = 'REINIT_PAGINATION'
 export const NEXT_PAGE = 'NEXT_PAGE'
 export const TOTAL_PAGES = 'TOTAL_PAGES'
+export const LOAD_ATTENDANCES = 'LOAD_ATTENDANCES'
+export const LOAD_PUSH = 'LOAD_PUSH'
+export const FILTER_ATTENDANCES_BY_NAME = 'FILTER_ATTENDANCES_BY_NAME'
+export const SELECTED_HEALTHCENTER = 'SELECTED_HEALTHCENTER'
 /**  
  * MUTATIONS TYPES AND ACTIONS' NAMES along namespace
 */
@@ -141,6 +145,7 @@ export const NAMESPACED_REGISTRANTS = 'registrants'
  * VALIDATIONS MESSAGES
 */
 export const REQUIRED_INPUT = 'campo obrigatório'
+export const INVALID_OPTION = 'opção inválida'
 export const INCOMPLETE_ID = 'ID incompleto'
 export const INCOMPLETE_CPF = 'cpf incompleto'
 export const INVALID_DATA = 'data inválida'
