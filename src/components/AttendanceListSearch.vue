@@ -9,33 +9,81 @@
       required
       icon="search"
       color-icon="#368c8c"
-      @focus="focus"
-      @blur="blur"
+      @input="setName"
+      :value="params.name"
+      @enter="exec"
     />
   </div>
 </template>
 <script>
 import CodeInput from './base/CodeInput'
+import { session } from '../mixins/session'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { NAMESPACED_ATTENDANCE, FILTER_ATTENDANCES_BY_NAME, NAMESPACED_AUTH, GET_ATTENDANCES, NAME, REINIT_PAGINATION } from '../utils/alias'
 export default {
   name: 'AttendanceListSearch',
   props: {
     attendances: Array
   },
+  mixins: [session],
   components: {
     CodeInput
   },
   data () {
     return {
-      modal: false
+      modal: false,
+      namePatient: ''
     }
   },
+  computed: {
+    ...mapGetters (NAMESPACED_AUTH, [
+      'userTypeAuthed',
+      'healthCenterLogged'
+    ]),
+    ...mapGetters (NAMESPACED_ATTENDANCE, [
+      'params'
+    ])
+  },
   methods: {
+    paramsQuery () {
+      let queries = {}
+      if (this.params.healthCenter.id) queries['postocadastro'] = this.params.healthCenter.id
+      if (this.params.realizer.id) queries['postorealizante'] = this.params.realizer.id
+      if (this.params.accomodation.id) queries['acomodacao'] = this.params.accomodation.id
+      if (this.params.situation.id) queries['situacao'] = this.params.situation.id
+      queries['limit'] = this.params.limit
+      queries['page'] = this.params.page
+      if (this.params.name) queries['nome'] = this.params.name
+    
+      return queries
+    },
+    exec () {
+      let headers = {'X-Paginate': true}
+      this.renitiPage()
+      this.filterAttendanceByName({ url: this.getURI(this.healthCenterLogged), params: this.paramsQuery(), headers })
+        .then((resp) => console.log(resp))
+        .catch((err) => console.log({err}))
+    },
+    getURI(id) {
+      return GET_ATTENDANCES(
+          id,
+          this.params.begin.split(" - ").join("-"),
+          this.params.end.split(" - ").join("-"),
+          this.getTypeUser(this.userTypeAuthed))   
+    },
     focus (e) {
       this.$emit('focus', e)
     },
     blur (e) {
       this.$emit('blur', e)
-    }
+    },
+    ...mapActions (NAMESPACED_ATTENDANCE, {
+      filterAttendanceByName: FILTER_ATTENDANCES_BY_NAME
+    }),
+    ...mapMutations(NAMESPACED_ATTENDANCE, {
+      setName: NAME,
+      renitiPage: REINIT_PAGINATION
+    })
   }
 }
 </script>
