@@ -75,7 +75,7 @@
         <code-input
           ref="atendimento"
           placeholder="ID Atendimento"
-          name="idAtendimento"
+          name="atendimento"
           type="text"
           required
           v-model="idAttendance"
@@ -223,17 +223,19 @@ export default {
       inputKeyboard: '',
       focusInputList: [],
       indexFocusedInput: 0,
-      focusedInput: 'idAttendance',
+      focusedInput: '',
       caretPosition: 0,
       keyboardActive: false,
       focusedElement: null
     }
   },
   created () {
-    //this.$refs.idAttendance.focus()
+    
     this.focusInputList = ['atendimento', 'senha']
   },
-
+  mounted () {
+    this.focusedInput = 'atendimento'
+  },
   computed: {
     cpf: {
       get () {
@@ -256,7 +258,6 @@ export default {
         return this.patient.nascimento
       },
       set (value) {
-        console.log(value)
         this.patient.nascimento = this.formatterDate(value)
       }
     },
@@ -473,10 +474,14 @@ export default {
 
       const caretPosition = this.getCaretPosition()
      
-      let currentValue = this.patient[this.focusInputList[this.indexFocusedInput]];
+      let currentValue = (this.indexFocusedInput === 0)? this.idAttendance : this.patient[this.focusInputList[this.indexFocusedInput]];
       const newValue = this.deleteChar(currentValue, caretPosition - 1);
-      this.patient[this.focusInputList[this.indexFocusedInput]] = newValue;
-
+      if (this.indexFocusedInput === 0) {
+        this.idAttendance = newValue
+      } else {
+        this.patient[this.focusInputList[this.indexFocusedInput]] = newValue;
+      }
+      
       this.updateCurrentInput(newValue);
       let inputElement = this.focusedElement;
       this.setCaretPosition(inputElement, caretPosition - 1);
@@ -488,7 +493,7 @@ export default {
       return arrStr.join('');
     },
     insertChar (str, pos, char) {
-
+      console.log(str)
       return str.substr(0, pos) + char + str.substr(pos, str.length)
     },
     getCaretPosition () {
@@ -558,15 +563,19 @@ export default {
  
       this.indexFocusedInput = this.focusInputList.indexOf(this.focusedInput)
       let currentPositionCursor = this.getCaretPosition()
-      // console.log(this.patient[this.focusedInput])
-      this.patient[this.focusedInput] = this.insertChar(this.patient[this.focusedInput], currentPositionCursor, e.target.value);
+      if (this.focusedInput === 'atendimento') {
+        this.idAttendance = this.insertChar(this.idAttendance, currentPositionCursor, e.target.value);
+      } else {
+        this.patient[this.focusedInput] = this.insertChar(this.patient[this.focusedInput], currentPositionCursor, e.target.value);
+      }
       this.updateCurrentInput(this.patient[this.focusedInput])
       let inputElement = this.focusedElement
       this.setCaretPosition(inputElement, currentPositionCursor + 1)
     },
     focusInput (e) {
-
+      console.log(e.target.name)
       this.focusedElement = e.target
+      console.log(this.focusInputList.indexOf(e.target.name))
       this.indexFocusedInput = this.focusInputList.indexOf(e.target.name);
       this.focusedInput = e.target.name;
     },
