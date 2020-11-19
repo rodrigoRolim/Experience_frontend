@@ -18,9 +18,10 @@ serverExperience.interceptors.request.use(
     config.cancelToken = source.token
     store.commit(ADD_CANCEL_TOKEN, source) */
     let token = store.getters['auth/token']
+
     if (token) {
       token = 'Bearer ' + token
-      config.headers['X-Paginate'] = true
+      //config.headers['X-Paginate'] = true
       config.headers.Authorization = token
     }
 
