@@ -20,9 +20,9 @@ const actions = {
     return new Promise((resolve, reject) => {
       requestResource({ url, method: 'GET' })
         .then((resp) => {
-          commit(GET_REGISTRANTS_STORE, resp.data.docs)
+          commit(GET_REGISTRANTS_STORE, resp.data)
           commit(SUCCESS)
-          resolve(resp.data.docs)
+          resolve(resp.data)
         })
         .catch((err) => {
           commit(ERROR)
