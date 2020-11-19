@@ -1,7 +1,7 @@
 <template>
   <div class="attendances" id="attendances">
     <code-message
-      v-if="!isEmpty"
+      v-if="message.message"
       class="attendances__message"
       :message="message.message || ''"
       :type="message.type"
@@ -23,7 +23,7 @@
       :status="attendance.situacao_exames_experience"
       :patient="attendance.registro.toString()"
     ></attendance-list-item>
-    <div class="attendances__loading" v-show="statusPush == 'loading'" >
+    <div class="attendances__loading" v-if="statusPush == 'loading'" >
       <code-message
         :message="messageLoad"
         :typeMessage="typeMessageLoad"
@@ -43,13 +43,15 @@
 import CodeMessage from './base/CodeMessage'
 import CodeLoading from './base/CodeLoading'
 import AttendanceListItem from './AttendanceListItem'
+import { session } from '../mixins/session'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
-import { NAMESPACED_ATTENDANCE, PUSH_ATTENDANCES_STORE, GET_ATTENDANCES_HEALTH_CENTER, NEXT_PAGE } from '../utils/alias'
+import { NAMESPACED_ATTENDANCE, PUSH_ATTENDANCES_STORE, GET_ATTENDANCES, NEXT_PAGE, LOAD_PUSH, NAMESPACED_AUTH } from '../utils/alias'
 export default {
   name: 'AttendanceList',
   props: {
     route: String 
   },
+  mixins: [session],
   components: {
     AttendanceListItem,
     CodeMessage,
@@ -61,12 +63,21 @@ export default {
       typeMessageLoad: 'default'
     }
   },
-  created () {
+  mounted () {
+    
     this.loadAttendancesByScroll()
   },
   destroyed () {
     this.destroyAttendancesByScroll()
   },
+ /*  watch: {
+    'params.page': function (value) {
+      if (value === 1) {
+        this.destroyAttendancesByScroll()
+        //this.loadAttendancesByScroll()
+      }
+    }
+  }, */
   filters: {
     age (dateString) {
       var today = new Date();
@@ -116,16 +127,16 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(NAMESPACED_AUTH, [
+      'userTypeAuthed'
+    ]),
     ...mapGetters(NAMESPACED_ATTENDANCE, [
       'attendances',
       'message',
       'status',
       'params',
       'statusPush'
-    ]),
-    isEmpty () {
-      return Object.keys(this.message).length === 0
-    }
+    ])
   },
   methods: {
     loadAttendancesByScroll () {
@@ -140,35 +151,42 @@ export default {
       if (this.params.healthCenter.id) queries['postorealizante'] = this.params.healthCenter.id
       if (this.params.accomodation.id) queries['acomodacao'] = this.params.accomodation.id
       if (this.params.situation.id) queries['situacao'] = this.params.situation.id
+      if (this.params.name) queries['nome'] = this.params.name
       queries['limit'] = this.params.limit
       queries['page'] = this.params.page
+      
       return queries
     },
     getMoreAttendances () {
-      let att = document.getElementById('attendances')
-      console.log(this.statusPush)
-      if ((window.innerHeight + window.scrollY >= att.offsetHeight) 
-          && this.params.page < this.params.totalPages && this.statusPush !== 'loading') {
 
+      let att = document.getElementById('attendances')
+
+      if ((window.innerHeight + window.scrollY >= att.offsetHeight + 100) 
+          && this.params.page < this.params.totalPages 
+          && this.statusPush !== 'loading') {
         let healthCenter = 0
-        let urlName = GET_ATTENDANCES_HEALTH_CENTER(healthCenter,
+        let urlName = GET_ATTENDANCES(healthCenter,
             this.params.begin.split(" - ").join("-"),
-            this.params.end.split(" - ").join("-"))
+            this.params.end.split(" - ").join("-"),
+            this.getTypeUser(this.userTypeAuthed))
         this.nextPage()
-        this.requestMoreAttendances({ url: urlName, params: this.paramsQuery()})
+        let headers = {'X-Paginate': true}
+        this.requestMoreAttendances({ url: urlName, params: this.paramsQuery(), headers })
           .then((resp) => {
             console.log(resp)
           })
           .catch((err) => {
             console.log({err})
           })
-      }
+       // window.removeEventListener('scroll', this.getMoreAttendances)
+      } 
     },
     ...mapActions(NAMESPACED_ATTENDANCE, {
       requestMoreAttendances: PUSH_ATTENDANCES_STORE
     }),
     ...mapMutations(NAMESPACED_ATTENDANCE, {
-      nextPage: NEXT_PAGE
+      nextPage: NEXT_PAGE,
+      pushing: LOAD_PUSH
     })
   }
 }
