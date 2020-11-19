@@ -56,6 +56,7 @@
           size="0.9rem"
           name="healthcares"
           icon="clinic-medical"
+          :error="validate.posto"
         />
       </div>
       <div class="healthcare-login__doubt">
@@ -86,21 +87,25 @@ import CodeInputPassword from './base/CodeInputPassword'
 import CodeButton from './base/CodeButton'
 import CodeLabel from './base/CodeLabel'
 import CodeSelect from './base/CodeSelect'
-import { required } from '../mixins/validations/rules'
+import { requestResource } from '../services/api'
+import { required, isOption } from '../mixins/validations/rules'
 import { validator } from '../mixins/validations/validator'
 import { login } from '../mixins/login'
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 import { 
   NAMESPACED_AUTH,
   AUTH_REQUEST, 
   HEALTH_CENTER_AUTH, 
   HEALTH_CENTER_TYPE, 
   HEALTH_CENTER_ROUTE, 
-  REQUIRED_INPUT
+  REQUIRED_INPUT,
+  GET_HEALTH_CENTERS, 
+  SELECTED_HEALTHCENTER,
+  INVALID_OPTION
 } from '../utils/alias'
 export default {
   name: 'LoginPatient',
-  mixins: [validator({required}), login],
+  mixins: [validator({required, isOption}), login],
   components: {
     CodeButton,
     CodeInput,
@@ -113,27 +118,38 @@ export default {
       healthCare: {
         userid: '',
         senha: '',
-        posto: null
+        posto: ''
       },
       validate: {
         userid: '',
-        senha: ''
+        senha: '',
+        posto: ''
       },
-      list: [
-        { id: 1, name: 'fake news' },
-        { id: 2, name: 'fake news' },
-        { id: 3, name: 'fake news' },
-        { id: 4, name: 'fake news' },
-        { id: 5, name: 'fake news' },
-        { id: 6, name: 'fake news' },
-        { id: 7, name: 'fake news' },
-      ]
+      healthCenters: []
     }
+  },
+  created () {
+    let url = GET_HEALTH_CENTERS 
+    requestResource({url})
+      .then(res => {
+        this.list = res.data
+      })
+      .catch((err) => {
+        this.emitMessage({status: err.response.status, data: 'postos'})
+      })
   },
   destroyed () {
     console.log('destroyed posto')
   },
   computed: {
+    list: {
+      get () {
+        return this.healthCenters
+      },
+      set (values) {
+        this.healthCenters = values.map((value) => ({id: value.posto, name: value.nome}))
+      }
+    },
     user () {
       return this.healthCare.userid
     },
@@ -141,10 +157,13 @@ export default {
       return this.healthCare.senha
     },
     healthSelected () {
-      return this.healthCare.posto < 0 ? '' : this.healthCare.posto
+      return this.healthCare.posto
     }
   },
   watch: {
+    'healthCare.posto': function (value) {
+      this.setHealthCenter(value)
+    },
     user (value) {
       if (this.required(value)) {
         this.validate.userid = REQUIRED_INPUT
@@ -158,14 +177,26 @@ export default {
       } else {
         this.validate.senha = ''
       }
-    }
+    },
+    healthSelected (value) {
+      if (this.required(value)) {
+        this.validate.posto = REQUIRED_INPUT
+      } else if (this.isOption(value, this.list)){
+        this.validate.posto = INVALID_OPTION
+      } else {
+        this.validate.posto = ''
+      }
+    } 
   },
   methods: {
     ...mapActions (NAMESPACED_AUTH, {
       login: AUTH_REQUEST
     }),
+    ...mapMutations(NAMESPACED_AUTH, {
+      setHealthCenter: SELECTED_HEALTHCENTER
+    }),
     validateAll () {
-      let fields = Object.keys(this.healthCare).filter(el => this.healthCare[el] == '' || this.healthCare[el] == -1)
+      let fields = Object.keys(this.healthCare).filter(el => this.healthCare[el] == '')
       fields.forEach(element => {
         this.validate[element] = REQUIRED_INPUT
       })
