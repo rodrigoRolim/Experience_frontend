@@ -2,7 +2,6 @@ import { requestResource } from '../../services/api'
 
 import { 
   GET_ATTENDANCES_STORE,
-  SELECTED_ATTENDANCE,
   CHANGE_SELECTED_ATTENDANCE,
   SUCCESS,
   LOADING,
@@ -26,7 +25,8 @@ import {
   PUSH_ATTENDANCES_STORE,
   NEXT_PAGE,
   REINIT_PAGINATION,
-  TOTAL_PAGES
+  TOTAL_PAGES,
+  FILTER_ATTENDANCES_BY_NAME
 } from '../../utils/alias'
 let begin = () => {
   let today = new Date()
@@ -48,8 +48,6 @@ let end = () => {
 }
 const state = {
   attendances: [],
-  selectedAttendance: { healthCenter: '', id: '' },
-  selectedExams: '',
   status: '',
   statusPush: '',
   message: {},
@@ -64,19 +62,13 @@ const state = {
     limit: 10,
     page: 1,
     totalPages: null
-  },
+  }
   // guarde os filtros selecionados aqui tambem
 }
 
 const getters = {
   attendances: (state) => state?.attendances,
-  attendance: (state, getters) => (healthCenter, id) => { 
-    return getters.attendances.find(att => att.posto === healthCenter && att.atendimento === id)
-  },
-  exams: (state, getters) => (healthCenter, id) => {
-    return getters.attendances
-      .find(att => att.posto == healthCenter && att.atendimento == id)?.ExamesObj
-  },
+
   name: () => (patientName) => {
     return patientName.toUpperCase()
   },
@@ -95,17 +87,16 @@ const getters = {
 }
 
 const actions = {
-  [GET_ATTENDANCES_STORE]: ({ commit }, { url, params }) => {
+  [GET_ATTENDANCES_STORE]: ({ commit }, { url, params, headers }) => {
+    commit(REINIT_PAGINATION)
     commit(LOADING)
     return new Promise((resolve, reject) => {
-      requestResource({ url, params, method: 'GET' })
+      requestResource({ url, params, method: 'GET', headers })
         .then((resp) => {
           commit(GET_ATTENDANCES_STORE, resp.data.docs)
           commit(TOTAL_PAGES, resp.data.pages)
-          commit(SELECTED_ATTENDANCE)
           commit(SUCCESS)
           commit(ATTENDANCE_NOT_FOUND, {})
-          //commit(PARAMS_ATTENDANCES, params)
           resolve(resp)
         })
         .catch((err) => {
@@ -114,10 +105,29 @@ const actions = {
         })
     })
   },
-  [PUSH_ATTENDANCES_STORE]: ({ commit }, { url, params }) => {
+  [FILTER_ATTENDANCES_BY_NAME]: ({ commit }, { url, params, headers }) => {
+    commit(REINIT_PAGINATION)
+    commit(LOADING)
+    
+    return new Promise((resolve, reject) => {
+      requestResource({ url, params, method: 'GET', headers })
+        .then((resp) => {
+          commit(GET_ATTENDANCES_STORE, resp.data.docs)
+          commit(TOTAL_PAGES, resp.data.pages)
+          commit(SUCCESS)
+          commit(ATTENDANCE_NOT_FOUND, {})
+          resolve(resp)
+        }).
+        catch((err) => {
+          commit(ERROR)
+          reject(err)
+        })
+    })
+  },
+  [PUSH_ATTENDANCES_STORE]: ({ commit }, { url, params, headers }) => {
     commit(LOADING_PUSH)
     return new Promise((resolve, reject) => {
-      requestResource({ url, params, method: 'GET'})
+      requestResource({ url, params, method: 'GET', headers})
       .then((resp) => {
         commit(PUSH_ATTENDANCES_STORE, resp.data.docs)
         commit(SUCCESS_PUSH)
@@ -154,22 +164,8 @@ const mutations = {
   [ATTENDANCE_NOT_FOUND]: (state, message) => {
     state.message = message
   },
-  [SELECTED_ATTENDANCE]: (state) => {
-    state.selectedAttendance.healthCenter = state.attendances[0].posto
-    state.selectedAttendance.id = state.attendances[0].atendimento
-  },
-  [CHANGE_SELECTED_ATTENDANCE]: (state, { healthCenter, attendanceId }) => {
-    state.selectedAttendance.healthCenter = healthCenter
-    state.selectedAttendance.id = attendanceId
-  },
-  [SELECT_EXAMS]: (state, exams) => {
-    state.selectedExams = exams
-  },
   [EMPTY_ATTENDANCES]: (state) => {
     state.attendances = []
-  },
-  [EMPTY_EXAMS]: (state) => {
-    state.selectedExams = []
   },
   [LOADING]: (state) => {
     state.status = 'loading'
@@ -235,7 +231,7 @@ const mutations = {
   },
   [NEXT_PAGE]: (state) => {
     if (state.params.page < state.params.totalPages)
-      state.params.page += 1
+     state.params.page += 1
   },
   [TOTAL_PAGES]: (state, pages) => {
     state.params.totalPages = pages
