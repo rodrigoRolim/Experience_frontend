@@ -5,7 +5,8 @@ import {
     AUTH_LOGOUT, 
     AUTH_SUCCESS,
     AUTH_REINIT_STATUS,
-    AUTH_REQUEST 
+    AUTH_REQUEST,
+    SELECTED_HEALTHCENTER
   } from '../../utils/alias'
 
 const state = () => ({
@@ -13,6 +14,7 @@ const state = () => ({
   user: cookies.get('user-session')?.user_name || "",
   identify: cookies.get('user-session')?.identify || "",
   status: '',
+  healthCenterLogged: cookies.get('healthcenter-logged'),
   expired: cookies.get('expired') || false,
   hasLoadedOnce: false,
   userType: cookies.get('user-session')?.user_type || "",
@@ -27,7 +29,8 @@ const getters = {
   userId: state => state.identify,
   uniqueAttendance: state => state.uniqueAttendance,
   token: state => state.token,
-  expired: state => state.expired
+  expired: state => state.expired,
+  healthCenterLogged: state => state.healthCenterLogged.id
 }
 
 const actions = {
@@ -63,6 +66,7 @@ const actions = {
     if (cookies.isKey('user-session')) {
       commit(AUTH_LOGOUT)
       cookies.remove('user-session')
+      cookies.remove('healthcenter-logged')
     }
     return !cookies.isKey('user-session')
   },
@@ -75,6 +79,10 @@ const actions = {
 const mutations = {
   [AUTH_REQUEST]: state => {
     state.status = 'loading'
+  },
+  [SELECTED_HEALTHCENTER]: (state, healthcenter) => {
+    cookies.set('healthcenter-logged', healthcenter)
+    state.healthCenterLogged = healthcenter
   },
   [AUTH_SUCCESS]: (state, session) => {
     state.status = 'success'
