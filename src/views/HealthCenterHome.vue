@@ -14,7 +14,7 @@
               <font-awesome-icon icon="arrow-left" size="lg" color="lightslategray"/>
             </i>
             <attendance-list-search
-              :class="{'filter__input': searcherInModal}"
+              :class="{ 'filter__input': searcherInModal }"
               @focus="searcherInModal = true"
               @blur="searcherInModal = false"
             />
