@@ -100,7 +100,8 @@
             size="md"
             streched
             size-icon="lg"
-            :disable="prevent"
+            :disable="disableConfirm"
+            :loading="disableConfirm"
             @click.prevent="confirm"
           />
         </div>
@@ -115,6 +116,7 @@ import CodeLabel from './base/CodeLabel.vue'
 import CodeButton from './base/CodeButton.vue'
 import AttendanceListFilterPeriod from './AttendanceListFilterPeriod'
 import { validator } from '../mixins/validations/validator'
+import { session } from '../mixins/session'
 import { isOption, ltBegin, gtEnd, required, date } from '../mixins/validations/rules'
 import { messages } from '../mixins/user-messages'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
@@ -122,7 +124,7 @@ import {
   NAMESPACED_ATTENDANCE, 
   NAMESPACED_AUTH,
   NAMESPACED_HEALTH_CENTERS,
-  GET_ATTENDANCES_HEALTH_CENTER, 
+  GET_ATTENDANCES, 
   GET_ATTENDANCES_STORE,
   GET_ACCOMODATIONS_STORE,
   NAMESPACED_ACCOMODATIONS,
@@ -135,7 +137,6 @@ import {
   NAMESPACED_REGISTRANTS, 
   GET_REGISTRANTS_STORE, 
   REGISTRANTS,
-  HEALTH_CENTER_TYPE_NAME,
   BEGIN_DATE,
   END_DATE,
   HEALTH_CENTER,
@@ -153,7 +154,7 @@ export default {
     begin: String,
     end: String
   },
-  mixins: [messages, validator({ isOption, ltBegin, gtEnd, required, date })],
+  mixins: [messages, validator({ isOption, ltBegin, gtEnd, required, date }), session],
   components: {
     CodeButton,
     CodeSelect,
@@ -180,31 +181,43 @@ export default {
   },
   created () {
     //this.setInitialDates()
-    this.initFilters()
+    //this.initFilters()
     //this.initComponent()
     //this.loadAttendancesByScroll()
   },
   computed: {
     ...mapGetters(NAMESPACED_ATTENDANCE, [
-      'params'
+      'params',
+      'status'
     ]),
     ...mapGetters(NAMESPACED_AUTH, [
-      'userId'
+      'userId',
+      'userTypeAuthed',
+      'healthCenterLogged'
     ]),
     ...mapGetters(NAMESPACED_ACCOMODATIONS, {
-      accomodations: 'accomodations'
+      accomodations: 'accomodations',
+      statusAcc: 'status'
     }),
     ...mapGetters(NAMESPACED_HEALTH_CENTERS, {
       healthCenters: 'healthCenters',
+      statusHc: 'status'
     }),
-    ...mapGetters(NAMESPACED_REGISTRANTS, [
-      'registrants'
-    ]),
+    ...mapGetters(NAMESPACED_REGISTRANTS, {
+      registrants: 'registrants',
+      statusRg: 'status'
+    }),
     allowRequest () {
       return !Object.values(this.validate).find((val) => val !== '')
     },
     beginAndEnd () {
       return `${this.params.begin}|${this.params.end}`
+    },
+    disableConfirm () {
+      return this.status == 'loading'    || 
+             this.statusAcc == 'loading' || 
+             this.statusHc == 'loading'  || 
+             this.statusRg == 'loading'
     }
   },
   watch: {
@@ -274,11 +287,16 @@ export default {
         this.validate.realizer = ''
       }
     },
+    waitRequest () {
+      return this.statusHc == 'loading'  || 
+             this.statusRg == 'loading'  ||
+             this.statusAcc == 'loading' ||
+             this.status == 'loading'
+    },
     beginAndEnd (value) {
-      console.log(value)
       let [begin, end] = value.split('|')
       if (this.date(begin, DATE_VALIDATOR) && this.date(end, DATE_VALIDATOR)) {
-        this.backParamsToDefault()
+        // this.backParamsToDefault()
         this.initComponent()
       }
     }
@@ -297,21 +315,13 @@ export default {
 
       try {
         await this.listRegisterHealthCenters()
-        await this.listAccomodations()
         await this.listRegistrantsHealthCenters()
+        await this.listAccomodations()
         await this.attendances()
       } catch (err) {
         console.log({err})
         this.setMessage(this.message({ status: err.response.status, data: 'atendimento' }))
       }
-    },
-    formatterDateToApi (date) {
-      let arrDate = date.split('/')
-      let day = arrDate[0]
-      let month = arrDate[1]
-      let arrYear = arrDate[2].split('')
-      let yearLastTwoDigits = arrYear[2] + arrYear[3]
-      return day + '-' + month + '-' + yearLastTwoDigits
     },
     catchErrorSelect (error) {
       if (!error) {
@@ -331,10 +341,9 @@ export default {
       }
     },
     getURI(id, typeUser, resource) {
-      console.log(this.params.begin.split(" / ").join("-"))
       return GET_FILTERS(
-              this.params.begin.split(" / ").join("-"), 
-              this.params.end.split(" / ").join("-"), 
+              this.params.begin.split(" - ").join("-"), 
+              this.params.end.split(" - ").join("-"), 
               typeUser,
               id, 
               resource
@@ -342,7 +351,7 @@ export default {
     },
     listAccomodations () {
       return new Promise((resolve, reject) => {
-        let urlAccomodations = this.getURI(0, HEALTH_CENTER_TYPE_NAME, ACCOMODATIONS)
+        let urlAccomodations = this.getURI(this.healthCenterLogged, this.getTypeUser(this.userTypeAuthed), ACCOMODATIONS)
         this.getAccomodations({ url: urlAccomodations })
           .then((accomodations) => {
             resolve(accomodations)     
@@ -355,10 +364,10 @@ export default {
     },
     listRegisterHealthCenters () {
       return new Promise((resolve, reject) => {
-        let urlHealthCenters = this.getURI(0, HEALTH_CENTER_TYPE_NAME,  REGISTER)
+        let urlHealthCenters = this.getURI(this.healthCenterLogged, this.getTypeUser(this.userTypeAuthed),  REGISTER)
         this.getHealthCenters({ url: urlHealthCenters })
           .then((healthCenters) => {
-            console.log(healthCenters)
+  
             resolve(healthCenters)
           })
           .catch((err) => {
@@ -369,10 +378,9 @@ export default {
     },
     listRegistrantsHealthCenters () {
       return new Promise((resolve, reject) => {
-        let urlRealizers = this.getURI(0, HEALTH_CENTER_TYPE_NAME, REGISTRANTS)
+        let urlRealizers = this.getURI(this.healthCenterLogged, this.getTypeUser(this.userTypeAuthed), REGISTRANTS)
         this.getRegistrants({ url: urlRealizers })
           .then((healthCenters) => {
-            console.log(healthCenters)
             resolve(healthCenters)
           })
           .catch((err) => {
@@ -392,32 +400,29 @@ export default {
       return queries
     },
     attendances () {
-     return new Promise((resolve, reject) => {
-        let healthCenter = 0//this.userId
-        this.renitiPage()
-        this.emptyAttendances()
-        let urlName = GET_ATTENDANCES_HEALTH_CENTER(healthCenter,
-           this.params.begin.split(" - ").join("-"),
-           this.params.end.split(" - ").join("-"))   
-        this.getAttendances({ url: urlName, params: this.paramsQuery() })
-        .then((res) => {
-          resolve(res)
+      if (!this.waitRequest) {
+        let headers = { 'X-Paginate': true }
+        return new Promise((resolve, reject) => {
+          let healthCenter = this.healthCenterLogged//this.userId
+  
+          this.renitiPage()
+          //console.log("page: ", this.params.page)
+          let urlName = GET_ATTENDANCES(
+            healthCenter,
+            this.params.begin.split(" - ").join("-"),
+            this.params.end.split(" - ").join("-"),
+            this.getTypeUser(this.userTypeAuthed))   
+          this.getAttendances({ url: urlName, params: this.paramsQuery(), headers: headers })
+          .then((res) => {
+            
+            resolve(res)
+          })
+          .catch((err) => {
+            console.log({err})
+            reject(err)
+          })
         })
-        .catch((err) => {
-          console.log({err})
-          reject(err)
-        })
-     })
-      
-    },
-   
-    loadAttendancesByScroll () {
-      window.addEventListener('scroll', () => {
-        console.log(document.body.offsetHeight)
-        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-          console.log('end of page')
-        }
-      })
+      }
     },
     ...mapMutations(NAMESPACED_ATTENDANCE, {
       setBegin: BEGIN_DATE,
@@ -442,10 +447,7 @@ export default {
     }),
     ...mapActions(NAMESPACED_REGISTRANTS, {
       getRegistrants: GET_REGISTRANTS_STORE
-    }),
-    /* ...mapMutations(NAMESPACED_ATTENDANCE, {
-      setAccomodation
-    }) */
+    })
   }
 }
 </script>
