@@ -166,13 +166,12 @@ export default {
   flex-direction: column
   width: 100%
 .input-wrap__message-error
-  position: absolute
   top: 38px
   min-width: 120px
   display: flex
   flex-direction: row
   margin-left: 10px
-  color: $danger
+  color: $error
 .input-wrap__text-error
   font-style: italic
   margin-bottom: 0
@@ -197,7 +196,8 @@ export default {
   border-color: $primary
 .container-input__icon.container-input__icon--outline-error,
 .container-input--error
-  border-color: $danger
+  border-color: $error
+  border-width: 2px
   color: $danger
 .container-input
   display: flex
