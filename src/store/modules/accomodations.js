@@ -24,9 +24,9 @@ const actions = {
       requestResource({ url, method: 'GET' })
         .then((resp) => {
           console.log(resp)
-          commit(GET_ACCOMODATIONS_STORE, resp.data.docs)
+          commit(GET_ACCOMODATIONS_STORE, resp.data)
           commit(SUCCESS)
-          resolve(resp.data.docs)
+          resolve(resp.data)
         })
         .catch((err) => {
           commit(ERROR)
