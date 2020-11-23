@@ -125,7 +125,6 @@ export default {
   computed: {
     inputEmitter: {
       set (value) {
-        console.log(value)
         this.selectedDate = value
         this.$emit('input', this.selectedDate)
       },
@@ -136,9 +135,6 @@ export default {
     
   },
   watch: {
-    error (value) {
-      console.log(value)
-    },
     selectedDate (value) {
  
       if (this.showDate) this.showDate = false
@@ -185,7 +181,6 @@ export default {
         if (this.begin) begin = this.begin.split(" - ").reverse().join("-")
         if (this.end) end = this.end.split(" - ").reverse().join("-") 
   
-        console.log(begin > date.getTime() || end < date.getTime())
         return new Date(begin) > date || new Date(end) < date
       }
       return true

@@ -1,6 +1,6 @@
 <template>
-  <div class="patient-exam" :class="getStatus | statusModifiers" @click.self="click">
-    <div class="patient-exam__detail" @click.self="click">
+  <div class="patient-exam" :class="getStatus | statusModifiers" @click.self="click(status)">
+    <div class="patient-exam__detail" @click.self="click(status)">
       <code-chip :text="mnemonico" transform="uppercase" class="patient-exam__tag"></code-chip>
       <div class="patient-exam__separator-line"></div>
       <div class="patient-exam__name-exam">
@@ -11,7 +11,7 @@
          />
       </div>
     </div>
-    <div class="patient-exam__content" @click.self="click">
+    <div class="patient-exam__content" @click.self="click(status)">
       <div class="patient-exam__health-center">
         <code-info
           icon="clinic-medical"
@@ -22,7 +22,7 @@
         />
         
       </div>
-      <div class="patient-exam__status-exam" @click.self="click">
+      <div class="patient-exam__status-exam" @click.self="click(status)">
         <code-chip-status-exams :status="status" />
       </div>
       <div class="patient-exam__checkbox" >
@@ -66,8 +66,10 @@ export default {
     }
   },
   methods: {
-    click () {
-      this.$emit('click')
+    click (status) {
+      if (status === 'FINALIZADO') {
+        this.$emit('click')
+      }
     }
   }
 };
@@ -90,7 +92,6 @@ export default {
 .patient-exam:hover
   -webkit-box-shadow:  0 0 6px rgba(0,0,0,.3)
   box-shadow:  0 0 6px rgba(0,0,0,.3)
-  cursor: pointer
 .patient-exam__detail
   align-self: flex-start
   display: flex
@@ -100,6 +101,7 @@ export default {
 .patient-exam__content
   display: flex
   justify-content: space-between
+  padding: 5px
 .patient-exam__name-exam
   display: flex
   flex-direction: row
@@ -128,7 +130,7 @@ export default {
   cursor: default
 .patient-exam__checkbox
   align-self: flex-end
-  min-height: 44px
+  min-height: 29px
 .patient-exam--pendencies
   @include card-status-exams($status: "PENDENCIES", $border-large: left, $transparent: true)
 .patient-exam--finished
@@ -139,4 +141,6 @@ export default {
   @include card-status-exams($status: "IN-PROGRESS", $border-large: left, $transparent: true)
 .patient-exam--no-realized-yet
   @include card-status-exams($status: "NO-REALIZED-YET", $border-large: left, $transparent: true)
+.patient-exam--finished:hover
+  cursor: pointer
 </style>

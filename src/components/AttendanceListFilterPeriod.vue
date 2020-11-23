@@ -48,10 +48,6 @@ export default {
   mounted () {
 
   },
-  updated () {
-    console.log(this.errorBegin)
-    console.log(this.errorEnd)
-  },
   computed: {
     beginEmitter: {
       set (value) {
@@ -59,7 +55,6 @@ export default {
         this.$emit('begin', begin)
       },
       get () {
-        console.log(this.begin)
         return this.formatterDateOutput(this.begin)
       }
     },

@@ -1,8 +1,8 @@
 <template>
   <div class="patient-exams__container">
-    <div class="patient-exams__list" v-if="listExams !== undefined">
+    <div class="patient-exams__list" v-if="exams.length > 0">
       <patient-exam-list-item
-        v-for="(exam, i) in listExams"
+        v-for="(exam, i) in exams"
         :key="i" 
         :status="exam.situacao_experience"
         :name="exam.nome_procedimento"
@@ -28,8 +28,8 @@
 import CodeModal from './base/CodeModal'
 import PatientExamListItem from './PatientExamListItem'
 import PatientExamDetail from './PatientExamDetail'
-import { mapGetters } from 'vuex'
-import { NAMESPACED_ATTENDANCE } from '../utils/alias'
+import { mapActions, mapGetters } from 'vuex'
+import { NAMESPACED_EXAMS, GET_EXAMS_ATTENDANCE, GET_EXAMS_STORE } from '../utils/alias'
 //import attendance from '../store/modules/attendance'
 export default {
   name: 'PatientExamList',
@@ -38,6 +38,12 @@ export default {
     attendance: String,
     healthCenter: String
   },
+  created () {
+    console.log(this.patient)
+    console.log(this.attendance)
+    console.log(this.healthCenter)
+    this.getExams()
+  },
   components: {
     CodeModal,
     PatientExamListItem,
@@ -45,21 +51,27 @@ export default {
   },
   data () {
     return {
-      show: false
+      show: false,
+      listExams: []
     }
   },
   computed: {
-    ...mapGetters(NAMESPACED_ATTENDANCE, [
-      'exams',
-      'healthCenter',
-      'attendanceId'
-    ]),
-    listExams () {
-      return this.exams(this.healthCenter, this.attendanceId)
-    }
+    ...mapGetters(NAMESPACED_EXAMS, [
+      'exams'
+    ])
   },
   methods: {
-    
+    ...mapActions(NAMESPACED_EXAMS, {
+      requestExams: GET_EXAMS_STORE
+    }),
+    getExams () {
+      let url = GET_EXAMS_ATTENDANCE(this.healthCenter, this.attendance)
+      let headers = { 'X-Paginate': true }
+      this.requestExams({url, headers})
+        .then((resp) => console.log(resp))
+        .catch((err) => console.log({err}))
+
+    }
   }
 }
 </script>
@@ -72,7 +84,6 @@ export default {
   justify-content: space-between  
   width: 100%
   padding: 10px
-  margin-top: 60px
 .patient-exams__item
   margin: 5px 0
 #exams

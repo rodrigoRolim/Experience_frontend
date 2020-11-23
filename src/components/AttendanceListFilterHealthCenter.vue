@@ -182,7 +182,9 @@ export default {
   created () {
     //this.setInitialDates()
     //this.initFilters()
-    //this.initComponent()
+   /*  if (!this.status) {
+      this.initComponent()
+    } */
     //this.loadAttendancesByScroll()
   },
   computed: {

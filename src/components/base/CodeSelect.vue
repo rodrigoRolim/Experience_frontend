@@ -100,7 +100,6 @@ export default {
   computed: {
     selectedInput: {
       set (value) {
-        console.log(value)
         this.$emit('input', value)
         this.$emit('key', value?.id)
       },

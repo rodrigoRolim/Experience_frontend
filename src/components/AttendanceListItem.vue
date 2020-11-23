@@ -15,7 +15,8 @@
       <code-chip-status-attendance class="attendance-item__situation" :status="status"/>
       <attendance-list-item-detail
         class="attendance-item__details"
-        :idAttendance="idAttendance"
+        :attendance="attendance"
+        :health-center="healthCenter"
         :agreement="agreement"
         :dataDelivery="dataDelivery"
         :dataAttendance="dataAttendance"
@@ -29,6 +30,8 @@ import AttendanceListItemProfile from './AttendanceListItemProfile'
 import AttendanceListItemDetail from './AttendanceListItemDetail'
 import CodeChipStatusAttendance from './base/CodeChipStatusAttendance'
 import { attendanceStatus } from '../mixins/attendanceStatus'
+import { mapMutations } from 'vuex'
+import { NAMESPACED_PROPS, SET_PROPS } from '../utils/alias'
 export default {
   name: 'AttendanceListItem',
   mixins: [attendanceStatus],
@@ -37,7 +40,7 @@ export default {
     name: String,
     age: String,
     gender: String,
-    idAttendance: String,
+    attendance: String,
     healthCenter: String,
     agreement: String,
     dataAttendance: String,
@@ -63,8 +66,17 @@ export default {
   },
   methods: {
     patientExamsView () {
-      this.$router.push(`/paciente/${this.patient}/${this.idAttendance}`)
-    }
+      //{ name: 'doctorExamsPatient', params: {patient: this.patientId}}
+    
+      let patient = this.patient
+      let healthCenter = this.healthCenter
+      let attendance = this.attendance
+      this.storeProps({ patient, healthCenter, attendance })
+      this.$router.push({ name: 'healthCenterExamsPatient', params: {patient, attendance, healthCenter} })
+    },
+    ...mapMutations(NAMESPACED_PROPS, {
+      storeProps: SET_PROPS
+    })
   }
 }
 </script>

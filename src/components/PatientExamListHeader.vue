@@ -8,7 +8,7 @@
         color="rgba(71, 77, 94, 1)"
         size-info="0.9rem"
       />
-      <div class="patient-exams__checkall" v-if="hasFinalizedExam">
+     <!--  <div class="patient-exams__checkall" v-if="hasFinalizedExam">
         <code-checkbox
           text="imprimir"
           none
@@ -16,7 +16,7 @@
           size="md"
           v-model="checkAllExams"
         />
-      </div>
+      </div> -->
     </div>
     <code-drop-down bcolor="white" text="detalhes" dropdown>
       <template v-slot:content>
@@ -62,41 +62,46 @@
 <script>
 import CodeInfo from './base/CodeInfo'
 import CodeDropDown from './base/CodeDropDown'
-import CodeCheckbox from '../components/base/CodeCheckbox'
+//import CodeCheckbox from '../components/base/CodeCheckbox'
 import { mapGetters, mapActions } from 'vuex'
 import { NAMESPACED_ATTENDANCE, SELECT_EXAMS, EMPTY_EXAMS } from '../utils/alias'
 export default {
   name: 'PatientExamListHeader',
+  props: {
+    healthCenter: String,
+    attendance: String,
+    patient: String
+  },
   components: {
     CodeInfo,
     CodeDropDown,
-    CodeCheckbox
+   // CodeCheckbox
   },
   computed: {
     ...mapGetters(NAMESPACED_ATTENDANCE, [
-      'attendance',
+      'attendances',
       'exams',
-      'healthCenter',
-      'attendanceId',
-      'hasFinalizedExam',
       'printableExams'
     ]),
+    getAttendance() {
+      console.log(this.attendance)
+      return this.attendances.find((att) => att.atendimento == this.attendance)
+    },
     patientName () {
-      console.log(this.attendance(this.healthCenter, this.attendanceId))
-      return this.attendance(this.healthCenter, this.attendanceId)?.nome_cliente
+      return this.getAttendance?.nome_cliente
     },
     patientGender () {
-      return this.getGender(this.attendance(this.healthCenter, this.attendanceId)?.sexo)
+      return this.getGender(this.getAttendance?.sexo)
     },
     patientAge () {
-      return this.getAgeByBirthday(this.attendance(this.healthCenter, this.attendanceId)?.data_nas)
+      return this.getAgeByBirthday(this.getAttendance?.data_nas)
     },
     patientDelivery () {
-      return this.getDeliveryDate(this.attendance(this.healthCenter, this.attendanceId)?.data_entrega)
+      return this.getDeliveryDate(this.getAttendance?.data_entrega)
     },
     patientDoctor () {
       
-      let requesterDoctor = this.attendance(this.healthCenter, this.attendanceId)?.nome_solicitante
+      let requesterDoctor = this.getAttendance?.nome_solicitante
       let doctor = (requesterDoctor) ? "Dr(a). "  + requesterDoctor : ''
     
       return doctor
@@ -112,7 +117,7 @@ export default {
     checkAllExams (value) {
      
       if (value) {
-        let exams = this.exams(this.healthCenter, this.attendanceId)
+        let exams = this.exams(this.healthCenter, this.attendance)
         let examsFinalized = exams.filter(exam => exam.situacao === 'N')
         this.addExams(examsFinalized)
         return

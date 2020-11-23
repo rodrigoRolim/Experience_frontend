@@ -34,7 +34,7 @@ export default {
   },
   filters: {
     messageType (type) {
-      console.log(type)
+
       return 'message message--'+type
     }
   },

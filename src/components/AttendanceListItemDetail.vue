@@ -5,7 +5,7 @@
         class="attendance-detail__info"
         icon="heartbeat"
         description="ID atendimento"
-        :info="idAttendance"
+        :info="id"
         color="#778899"
         size="2x"
       />
@@ -52,7 +52,8 @@ export default {
   name: 'AttendanceListItemDetail',
   props: {
     agreement: String,
-    idAttendance: String,
+    attendance: String,
+    healthCenter: String,
     dataAttendance: String,
     dataDelivery: String,
     exams: String,
@@ -64,6 +65,33 @@ export default {
   data () {
     return {
 
+    }
+  },
+  computed: {
+    id () {
+      let hc = this.healthCenter
+      let att = this.attendance
+
+      if (this.healthCenter < 10) {
+        hc = '00' + this.healthCenter
+      }
+      if (this.healthCenter > 9) {
+        hc = '0' + this.healthCenter
+      }
+      if (this.attendance < 10) {
+        att = '0000' + this.attendance
+      }
+      if (this.attendance > 9) {
+        att = '000' + this.attendance
+      }
+      if (this.attendance > 99) {
+        att = '00' + this.attendance
+      }
+      if (this.attendance > 999) {
+        att = '0' + this.attendance
+      }
+      
+      return hc + '/' + att
     }
   }
 }
