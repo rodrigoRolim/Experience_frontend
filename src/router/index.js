@@ -98,15 +98,17 @@ const router = new VueRouter({
       path: '/posto',
       beforeEnter: authorization,
       meta: { typeUser: HEALTH_CENTER_TYPE },
+      props: true,
       component: () => import(/* webpackChunkName: 'HealthCenter' */ '@/views/HealthCenter'),
       children: [
         {
           path: '',
           name: 'healthCenterHome',
+          props: true,
           component: () => import(/* webpackChunkName: 'HealthCenter' */ '@/views/HealthCenterHome'),
         },
         {
-          path: 'paciente/:patient/:attendance',
+          path: 'paciente-exames',
           beforeEnter: authorization,
           name: 'healthCenterExamsPatient',
           props: true,

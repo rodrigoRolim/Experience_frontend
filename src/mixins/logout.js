@@ -20,10 +20,11 @@ export const logout = {
       clearAttendances: EMPTY_ATTENDANCES
     }),
     realizeLogout () {
-
+    
       let isLoggedout = this.logout()
       this.showLoadLogout = true
       if (isLoggedout) {
+        this.clearAttendances()
         this.$router.push({ path: ACESS_ROUTE }).catch((e) => {
           console.log(e)
         })

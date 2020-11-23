@@ -8,6 +8,8 @@ import accomodations from './modules/accomodations'
 import healthcenters from './modules/healthcenters'
 import registrants from './modules/registrants'
 import cancel from './modules/cancel'
+import props from './modules/props'
+import exams from './modules/exams'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -19,7 +21,9 @@ export default new Vuex.Store({
     healthcenters,
     cancel,
     patients,
-    registrants
+    registrants,
+    props,
+    exams
   },
   strict: process.env.NODE_ENV !== 'production'
 })

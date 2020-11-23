@@ -130,6 +130,10 @@ export const LOAD_ATTENDANCES = 'LOAD_ATTENDANCES'
 export const LOAD_PUSH = 'LOAD_PUSH'
 export const FILTER_ATTENDANCES_BY_NAME = 'FILTER_ATTENDANCES_BY_NAME'
 export const SELECTED_HEALTHCENTER = 'SELECTED_HEALTHCENTER'
+export const SET_PROPS = 'SET_PROPS'
+export const CLEAN_PROPS = 'CLEAN_PROPS'
+export const GET_EXAMS_STORE = 'GET_EXAMS_STORE'
+export const SET_ATTENDANCES_FILTERED = 'SET_ATTENDANCES_FILTERED'
 /**  
  * MUTATIONS TYPES AND ACTIONS' NAMES along namespace
 */
@@ -141,6 +145,8 @@ export const NAMESPACED_HEALTH_CENTERS = 'healthcenters'
 export const NAMESPACED_CANCEL = 'cancel'
 export const NAMESPACED_PATIENT = 'patients'
 export const NAMESPACED_REGISTRANTS = 'registrants'
+export const NAMESPACED_PROPS = 'props'
+export const NAMESPACED_EXAMS = 'exams'
 /**  
  * VALIDATIONS MESSAGES
 */

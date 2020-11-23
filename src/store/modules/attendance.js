@@ -48,6 +48,7 @@ let end = () => {
 }
 const state = {
   attendances: [],
+  filteredAttendances: [],
   status: '',
   statusPush: '',
   message: {},
@@ -68,16 +69,8 @@ const state = {
 
 const getters = {
   attendances: (state) => state?.attendances,
-
   name: () => (patientName) => {
     return patientName.toUpperCase()
-  },
-  healthCenter: (state) => state.selectedAttendance.healthCenter,
-  attendanceId: (state) => state.selectedAttendance.id,
-  hasFinalizedExam: (state) => {
-    return state.attendances?.some(att => {
-      return att.ExamesObj.some(exam => exam.situacao === 'N')
-    })
   },
   examsToPrint: (state) => state.selectedExams,
   status: state => state.status,
