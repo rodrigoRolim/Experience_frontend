@@ -2,23 +2,70 @@
   <div class="health-center-patient">
     <div class="health-center-patient__main" >
       <div class="health-center-patient__patient" >
-        <patient-exams-list-header></patient-exams-list-header>
+        <patient-exams-list-header
+         :patient="patient"
+         :health-center="healthCenter"
+         :attendance="attendance"
+        ></patient-exams-list-header>
       </div>
-      <div class="health-center-patient__exams" >
-        <patient-exam-list />
+      <div class="health-center-patient__exams">
+        <code-modal
+          class="health-center-patient__modal"
+          :display="displayLoading"
+        >
+          <template v-slot:modal>
+            <code-loading
+              class="health-center-patient__spin"   
+              range="50px"
+              velocity="1x"
+            />
+          </template>
+        </code-modal>
+        <patient-exam-list
+         :patient="patient"
+         :health-center="healthCenter"
+         :attendance="attendance"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import CodeModal from '../components/base/CodeModal'
+import CodeLoading from '../components/base/CodeLoading'
 import PatientExamsListHeader from '../components/PatientExamListHeader'
 import PatientExamList from '../components/PatientExamList'
+import { mapGetters } from 'vuex'
+import { NAMESPACED_PROPS, NAMESPACED_EXAMS } from '../utils/alias'
 export default {
   name: 'health-center-patientExams',
+ /*  props: {
+    attendance: String,
+    healthCenter: String,
+    patient: String
+  }, */
   components: {
+    CodeModal,
+    CodeLoading,
     PatientExamsListHeader,
     PatientExamList
+  },
+  created () {
+ 
+  },
+  computed: {
+    ...mapGetters(NAMESPACED_PROPS, [
+      'patient',
+      'healthCenter',
+      'attendance'
+    ]),
+    ...mapGetters(NAMESPACED_EXAMS, [
+      'status'
+    ]),
+    displayLoading () {
+      return this.status === 'loading'
+    }
   }
 }
 </script>
@@ -29,7 +76,6 @@ export default {
   margin-top: 60px
   @include respond-to(handhelds)
     margin-top: 60px
-  min-height: 100vh
 .health-center-patient__main
   width: 100%
   display: flex
@@ -45,13 +91,17 @@ export default {
     width: 100%
 .health-center-patient__exams
   width:  100%
-  margin-top: 90px
+  margin-top: 95px
+ 
   @include respond-to(medium-screens)
     width: 100%
-    margin-top: 60px
+    margin-top: 75px
   @include respond-to(handhelds)
     width: 100%
-    margin-top: 50px
+    margin-top: 55px
+.health-center-patient__modal
+  z-index: 2
+.health-center-patient__modal,
 .health-center-patient__sidebar,
 .health-center-patient__patient
   position: fixed
@@ -70,7 +120,7 @@ export default {
     z-index: 0
 .health-center-patient__patient
   width: 100%
-  z-index: 2
+  z-index: 3
   @include respond-to(medium-screens)
     width: 100%
   @include respond-to(handhelds)
