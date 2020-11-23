@@ -15,7 +15,8 @@
       :name="attendance.nome_cliente"
       :age="attendance.data_nas | age"
       :gender="attendance.sexo | sex"
-      :idAttendance="attendance.posto | id(attendance.atendimento)"
+      :attendance="attendance.atendimento.toString()"
+      :health-center="attendance.posto.toString()"
       :agreement="attendance.nome_convenio"
       :dataAttendance="attendance.data_atd | date"
       :dataDelivery="attendance.data_entrega | date"
@@ -94,32 +95,6 @@ export default {
 
       return [{initial: 'M', value: 'masculino'}, {initial: 'F', value: 'feminino'}]
         .find((sex) => sex.initial === value).value
-    },
-    id (healthCenter, attendance) {
-      
-      let hc = healthCenter
-      let att = attendance
-
-      if (healthCenter < 10) {
-        hc = '00' + healthCenter
-      }
-      if (healthCenter > 9) {
-        hc = '0' + healthCenter
-      }
-      if (attendance < 10) {
-        att = '0000' + attendance
-      }
-      if (attendance > 9) {
-        att = '000' + attendance
-      }
-      if (attendance > 99) {
-        att = '00' + attendance
-      }
-      if (attendance > 999) {
-        att = '0' + attendance
-      }
-      
-      return hc + '/' + att
     },
     date (dateString) {
       const delivery = new Date(dateString).toLocaleDateString("pt-BR")
