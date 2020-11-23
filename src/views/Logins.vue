@@ -167,6 +167,9 @@ export default {
       'isAuthenticated'
     ])
   },
+  created () {
+    this.redirectToPreviousPage() 
+  },
   methods: {
     messages (value) {
       console.log(value)
