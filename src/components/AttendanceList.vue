@@ -23,6 +23,7 @@
       :exams="attendance.mnemonicos"
       :status="attendance.situacao_exames_experience"
       :patient="attendance.registro.toString()"
+      :doctor="attendance.nome_solicitante"
     ></attendance-list-item>
     <div class="attendances__loading" v-if="statusPush == 'loading'" >
       <code-message

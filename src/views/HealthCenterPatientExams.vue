@@ -6,6 +6,11 @@
          :patient="patient"
          :health-center="healthCenter"
          :attendance="attendance"
+         :name="name"
+         :age="age"
+         :gender="gender"
+         :delivery="delivery"
+         :doctor="doctor"
         ></patient-exams-list-header>
       </div>
       <div class="health-center-patient__exams">
@@ -25,6 +30,7 @@
          :patient="patient"
          :health-center="healthCenter"
          :attendance="attendance"
+         
         />
       </div>
     </div>
@@ -58,7 +64,12 @@ export default {
     ...mapGetters(NAMESPACED_PROPS, [
       'patient',
       'healthCenter',
-      'attendance'
+      'attendance',
+      'name',
+      'age',
+      'gender',
+      'delivery',
+      'doctor'
     ]),
     ...mapGetters(NAMESPACED_EXAMS, [
       'status'

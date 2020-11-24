@@ -19,7 +19,11 @@
       class="modal"
     >
       <template v-slot:modal>
-        <patient-exam-detail @close="show = false"/>
+        <patient-exam-detail 
+          :health-center="healthCenter"
+          :attendance="attendance"
+          @close="show = false"
+        />
       </template>
     </code-modal>
   </div>

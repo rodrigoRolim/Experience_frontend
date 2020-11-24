@@ -14,86 +14,6 @@
           <div class="name__exame">{{item.exam}}</div>
           <div class="exame__result">{{item.value}}<span class="exame__result__unity">{{item.measurement}}</span></div>
         </div>
-       <!--  <div class="exame__content__row">
-          <div class="name__exame">LIPOGRAMA COMPLETO</div>
-          <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
-        </div>
-        <div class="exame__content__row">
-          <div class="name__exame">LIPOGRAMA COMPLETO</div>
-          <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
-        </div>
-          <div class="exame__content__row">
-          <div class="name__exame">LIPOGRAMA COMPLETO</div>
-          <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
-        </div>
-        <div class="exame__content__row">
-          <div class="name__exame">LIPOGRAMA COMPLETO</div>
-          <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
-        </div>
-        <div class="exame__content__row">
-          <div class="name__exame">LIPOGRAMA COMPLETO</div>
-          <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
-        </div>
-          <div class="exame__content__row">
-          <div class="name__exame">LIPOGRAMA COMPLETO</div>
-          <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
-        </div>
-        <div class="exame__content__row">
-          <div class="name__exame">LIPOGRAMA COMPLETO</div>
-          <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
-        </div>
-        <div class="exame__content__row">
-          <div class="name__exame">LIPOGRAMA COMPLETO</div>
-          <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
-        </div>
-          <div class="exame__content__row">
-          <div class="name__exame">LIPOGRAMA COMPLETO</div>
-          <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
-        </div>
-        <div class="exame__content__row">
-          <div class="name__exame">LIPOGRAMA COMPLETO</div>
-          <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
-        </div>
-        <div class="exame__content__row">
-          <div class="name__exame">LIPOGRAMA COMPLETO</div>
-          <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
-        </div>
-          <div class="exame__content__row">
-          <div class="name__exame">LIPOGRAMA COMPLETO</div>
-          <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
-        </div>
-        <div class="exame__content__row">
-          <div class="name__exame">LIPOGRAMA COMPLETO</div>
-          <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
-        </div>
-        <div class="exame__content__row">
-          <div class="name__exame">LIPOGRAMA COMPLETO</div>
-          <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
-        </div>
-          <div class="exame__content__row">
-          <div class="name__exame">LIPOGRAMA COMPLETO</div>
-          <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
-        </div>
-        <div class="exame__content__row">
-          <div class="name__exame">LIPOGRAMA COMPLETO</div>
-          <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
-        </div>
-        <div class="exame__content__row">
-          <div class="name__exame">LIPOGRAMA COMPLETO</div>
-          <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
-        </div>
-          <div class="exame__content__row">
-          <div class="name__exame">LIPOGRAMA COMPLETO</div>
-          <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
-        </div>
-        <div class="exame__content__row">
-          <div class="name__exame">LIPOGRAMA COMPLETO</div>
-          <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
-        </div>
-        <div class="exame__content__row">
-          <div class="name__exame">LIPOGRAMA COMPLETO</div>
-          <div class="exame__result">90 <span class="exame__result__unity">mg/dl</span></div>
-        </div> -->
       </div>
     </div>
     <div class="exame__button">
@@ -114,8 +34,14 @@
 </template>
 <script>
 import CodeButton from './base/CodeButton'
+import { GET_EXAM_RESULT } from '../utils/alias'
+import { requestResource } from '../services/api'
 export default {
   name: 'PatientExamDetail',
+  props: {
+    healthCenter: String,
+    attendance: String
+  },
   components: {
     CodeButton
   },
@@ -132,6 +58,12 @@ export default {
         { id: 7, exam: 'LIPOGRAMA COMPLETO', value: '90', measurement: 'mg/dl' }, 
       ]
     }
+  },
+  created () {
+    let url = GET_EXAM_RESULT(this.healthCenter, this.attendance)
+    requestResource({url})
+      .then((resp) => console.log(resp))
+      .catch((err) => console.log({err}))
   },
   methods: {
     close () {

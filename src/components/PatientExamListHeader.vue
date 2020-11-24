@@ -4,7 +4,7 @@
       <code-info
         size="lg"
         description="paciente"
-        :info="patientName"
+        :info="name"
         color="rgba(71, 77, 94, 1)"
         size-info="0.9rem"
       />
@@ -26,7 +26,7 @@
             icon="birthday-cake"
             size="lg"
             description="idade"
-            :info="patientAge"
+            :info="age"
             color="rgba(71, 77, 94, 1)"
           />
           <code-info
@@ -34,7 +34,7 @@
             icon="mars"
             size="lg"
             description="sexo"
-            :info="patientGender"
+            :info="gender"
             color="rgba(71, 77, 94, 1)"
           />
           <code-info 
@@ -42,7 +42,7 @@
             size="lg"
             class="patient-exams--margin patient-exams__info"
             description="previsão entrega"
-            :info="patientDelivery"
+            :info="delivery"
             color="rgba(71, 77, 94, 1)"
           />
           <code-info
@@ -50,7 +50,7 @@
             icon="user-md"
             size="lg"
             description="médico solicitante"
-            :info="patientDoctor"
+            :info="doctor"
             color="rgba(71, 77, 94, 1)"
           />
         </div>
@@ -70,7 +70,12 @@ export default {
   props: {
     healthCenter: String,
     attendance: String,
-    patient: String
+    patient: String,
+    name: String,
+    age: String,
+    gender: String,
+    delivery: String,
+    doctor: String
   },
   components: {
     CodeInfo,

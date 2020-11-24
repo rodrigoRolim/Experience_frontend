@@ -47,7 +47,8 @@ export default {
     dataDelivery: String,
     exams: String,
     status: String,
-    patient: String   
+    patient: String,
+    doctor: String   
   },
   components: {
     AttendanceListItemDetail,
@@ -71,7 +72,12 @@ export default {
       let patient = this.patient
       let healthCenter = this.healthCenter
       let attendance = this.attendance
-      this.storeProps({ patient, healthCenter, attendance })
+      let namePatient = this.name
+      let agePatient = this.age
+      let genderPatient = this.gender
+      let deliveryDate = this.dataDelivery
+      let doctor = this.doctor
+      this.storeProps({ patient, healthCenter, attendance, namePatient, agePatient, genderPatient, deliveryDate, doctor })
       this.$router.push({ name: 'healthCenterExamsPatient', params: {patient, attendance, healthCenter} })
     },
     ...mapMutations(NAMESPACED_PROPS, {
