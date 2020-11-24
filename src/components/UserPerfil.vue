@@ -208,7 +208,6 @@ export default {
   margin-top: 5px
   display: flex
   flex-direction: column
-  z-index: 4
   box-shadow: 0px 0px 3px 2px rgba(0,0,0,0.02)
 .user-perfil__menu::after
   content: " "
