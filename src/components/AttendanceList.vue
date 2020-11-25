@@ -104,7 +104,9 @@ export default {
   },
   computed: {
     ...mapGetters(NAMESPACED_AUTH, [
-      'userTypeAuthed'
+      'userTypeAuthed',
+      'userId',
+      'healthCenterLogged'
     ]),
     ...mapGetters(NAMESPACED_ATTENDANCE, [
       'attendances',
@@ -140,7 +142,7 @@ export default {
       if ((window.innerHeight + window.scrollY >= att.offsetHeight + 100) 
           && this.params.page < this.params.totalPages 
           && this.statusPush !== 'loading') {
-        let healthCenter = 0
+        let healthCenter = this.healthCenterLogged || this.userId
         let urlName = GET_ATTENDANCES(healthCenter,
             this.params.begin.split(" - ").join("-"),
             this.params.end.split(" - ").join("-"),
