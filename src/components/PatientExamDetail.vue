@@ -2,7 +2,7 @@
   <div class="exame">
     <div class="exame__header">
       <div class="exame__name">
-        <h2>LIPOGRAMA COMPLETO</h2>
+        <h2>{{examName}}</h2>
       </div>
       <div class="exame__close" @click="close">
         <font-awesome-icon icon="times" size="lg"/>
@@ -40,7 +40,9 @@ export default {
   name: 'PatientExamDetail',
   props: {
     healthCenter: String,
-    attendance: String
+    attendance: String,
+    correlative: String,
+    examName: String
   },
   components: {
     CodeButton
@@ -60,7 +62,7 @@ export default {
     }
   },
   created () {
-    let url = GET_EXAM_RESULT(this.healthCenter, this.attendance)
+    let url = GET_EXAM_RESULT(this.healthCenter, this.attendance, this.correlative)
     requestResource({url})
       .then((resp) => console.log(resp))
       .catch((err) => console.log({err}))

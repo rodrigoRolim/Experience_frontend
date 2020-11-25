@@ -8,7 +8,7 @@
         :name="exam.nome_procedimento"
         :name-health-center="exam.nome_posto_realizante"
         :mnemonico="exam.mnemonico" 
-        @click="show = true" 
+        @click="showExamResult(exam.correl)" 
         class="patient-exams__item"
       />
     </div>
@@ -22,6 +22,7 @@
         <patient-exam-detail 
           :health-center="healthCenter"
           :attendance="attendance"
+          :correlative="correl"
           @close="show = false"
         />
       </template>
@@ -56,7 +57,8 @@ export default {
   data () {
     return {
       show: false,
-      listExams: []
+      listExams: [],
+      correl: null
     }
   },
   computed: {
@@ -75,6 +77,10 @@ export default {
         .then((resp) => console.log(resp))
         .catch((err) => console.log({err}))
 
+    },
+    showExamResult (correl) {
+      this.correl = correl.toString()
+      this.show = true
     }
   }
 }

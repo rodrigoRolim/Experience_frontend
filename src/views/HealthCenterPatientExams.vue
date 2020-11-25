@@ -131,7 +131,7 @@ export default {
     z-index: 0
 .health-center-patient__patient
   width: 100%
-  z-index: 3
+  z-index: 2
   @include respond-to(medium-screens)
     width: 100%
   @include respond-to(handhelds)

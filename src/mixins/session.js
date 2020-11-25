@@ -14,7 +14,7 @@ export const session = {
         case ATTENDANCE_TYPE:
           return 'cliente'
         case PARTNER_TYPE:
-          return 'parceiro'
+          return 'posto'
       }
     }
   }

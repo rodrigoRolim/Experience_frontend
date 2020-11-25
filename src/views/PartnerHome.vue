@@ -2,8 +2,7 @@
   <div class="partner-home">
     <div class="partner-home__filter" 
       :class="{'partner-home__filter--index-up': searcherInModal}">
-      <attendance-list-filter-partner :begin="begin" :end="end" 
-        @begin="getBegin" @end="getEnd" />
+      <attendance-list-filter-partner />
       <div class="filter__searcher" :class="{'filter__searcher--modal': searcherInModal}">
         <div class="filter__content">
           <attendance-list-search
@@ -15,11 +14,17 @@
       </div>
     </div>
     <div class="partner-home__attendances">
-      <code-modal>
-        <code-loading   
-          range="40px" 
-          color="dimgray"
-        />
+      <code-modal
+        class="health_center__modal"
+        :display="displayLoading"
+      >
+        <template v-slot:modal>
+          <code-loading
+            class="health_center__loading"   
+            range="50px"
+            velocity="1x"
+          />
+        </template>
       </code-modal>
       <attendance-list />
     </div>
@@ -32,8 +37,8 @@ import AttendanceList from '../components/AttendanceList'
 import AttendanceListSearch from '../components/AttendanceListSearch'
 import CodeLoading from '../components/base/CodeLoading'
 import CodeModal from '../components/base/CodeModal'
-import { mapActions } from 'vuex'
-import { NAMESPACED_ATTENDANCE, GET_ATTENDANCES_STORE, GET_ATTENDANCES_HEALTH_CENTER } from '../utils/alias'
+import { mapGetters } from 'vuex'
+import { NAMESPACED_AUTH, NAMESPACED_ATTENDANCE} from '../utils/alias'
 export default {
   name: 'PartnerHome',
   components: {
@@ -47,56 +52,43 @@ export default {
     return {
       displayHeader: true,
       searcherInModal: false,
-      begin: '',
-      end: ''
+      message: '',
+      type: '',
+      TIME_MESSAGE: 10000,
     }
   },
   created () {
-    let healthCenter = '0' 
+   /*  let healthCenter = this.userId 
     this.begin = this.getBeginDate()
     this.end = this.getEndDate()
-
-    this.getAttendancesByHealthCenter({ url: GET_ATTENDANCES_HEALTH_CENTER(healthCenter, this.begin, this.end) })
+    let params = this.params
+    this.getAttendancesByHealthCenter({ url: GET_ATTENDANCES (healthCenter, this.begin, this.end, 'posto'), params })
       .then(resp => console.log(resp))
+      .catch((err) => console.log({err})) */
+  },
+  computed: {
+    displayLoading () {
+      return this.statusHc == 'loading' || 
+        this.statusAcc == 'loading' || 
+        this.statusRg == 'loading' || 
+        this.status == 'loading'
+    },
+    ...mapGetters(NAMESPACED_AUTH, [
+      'userId'
+    ]),
+    ...mapGetters(NAMESPACED_ATTENDANCE, [
+      'status'
+    ])
   },
   methods: {
-    ...mapActions(NAMESPACED_ATTENDANCE, {
-      getAttendancesByHealthCenter: GET_ATTENDANCES_STORE
-    }),
-    getBeginDate () {
-      let d = new Date()
-      d.setDate(d.getDate() - 5)
-      let day = d.getDate()
-      if (day < 10) {
-        day = '0' + day
-      }
-      let month = d.getMonth() + 1
-      if (month < 10) {
-        month = '0' + month
-      }
-      let year = d.getFullYear()
-      console.log(day + '/' + month + '/' + year)
-      return day + '-' + month + '-' + year
-    },
-    getEndDate () {
-      let d = new Date()
-      let day = d.getDate()
-      if (day < 10) {
-        day = '0' + day
-      }
-      let month = d.getMonth() + 1
-      if (month < 10) {
-        month = '0' + month
-      }
-      let year = d.getFullYear()
-      console.log(day + '-' + month + '-' + year)
-      return day + '-' + month + '-' + year
-    },
-    getBegin (value) {
+    messageError (value) {
       console.log(value)
-    },
-    getEnd (value) {
-      console.log(value)
+      this.message = value.message
+      this.type = value.type
+       setTimeout(() => {
+        this.message = ''
+        this.type = ''
+      }, this.TIME_MESSAGE)
     }
   }
 }

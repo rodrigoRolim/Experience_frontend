@@ -86,7 +86,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       requestResource({ url, params, method: 'GET', headers })
         .then((resp) => {
-          commit(GET_ATTENDANCES_STORE, resp.data.docs)
+          commit(GET_ATTENDANCES_STORE, resp.data.docs || resp.data)
           commit(TOTAL_PAGES, resp.data.pages)
           commit(SUCCESS)
           commit(ATTENDANCE_NOT_FOUND, {})

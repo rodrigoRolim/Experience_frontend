@@ -37,7 +37,7 @@ export const GET_PROCEDIMENTS_LIKE = (mnemonico) => `/v1/web/procedimentolike/${
 
 // exams
 export const GET_EXAMS_ATTENDANCE = (healthCenter, attendance) => `/v1/web/exame/${healthCenter}/${attendance}`
-export const GET_EXAM_RESULT = (healthCenter, attendance) => `/v1/resultado/${healthCenter}/${attendance}`
+export const GET_EXAM_RESULT = (healthCenter, attendance, correlative) => `/v1/web/resultado/${healthCenter}/${attendance}/${correlative}`
 // results
 export const GET_RESULTS = (healthCenter, attendance) => `/v1/web/resultado/${healthCenter}/${attendance}`
 /**  

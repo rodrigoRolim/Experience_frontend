@@ -49,7 +49,6 @@ export default {
   display: flex
   flex-direction: row
   vertical-align: middle
-  width: 100%
   @include respond-to(handhelds)
     width: 100%
 .info__icon
