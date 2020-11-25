@@ -180,12 +180,7 @@ export default {
     }
   },
   created () {
-    //this.setInitialDates()
-    //this.initFilters()
-   /*  if (!this.status) {
-      this.initComponent()
-    } */
-    //this.loadAttendancesByScroll()
+
   },
   computed: {
     ...mapGetters(NAMESPACED_ATTENDANCE, [
