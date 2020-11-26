@@ -180,7 +180,10 @@ export default {
     }
   },
   created () {
-
+    if (!this.params.begin || !this.params.end) {
+      this.setInitialDates() 
+    }
+    
   },
   computed: {
     ...mapGetters(NAMESPACED_ATTENDANCE, [
@@ -299,9 +302,6 @@ export default {
     }
   },
   methods: {
-    initFilters () {
-      this.filters = Object.assign({}, this.params)
-    },
     backParamsToDefault () {
       const defaultOption = {id: '', name: 'todos'}
       this.setHealthCenter(defaultOption)
