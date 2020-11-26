@@ -20,10 +20,10 @@ const getters = {
 }
 
 const actions = {
-  [GET_ATTENDANCES_REQUESTER_STORE]: ({ commit }, { url, params }) => {
+  [GET_ATTENDANCES_REQUESTER_STORE]: ({ commit }, { url, params, headers }) => {
     commit(LOADING_GET_ATTENDANCES_REQUESTER)
     return new Promise((resolve, reject) => {
-      requestResource({ url, params, method: 'GET' })
+      requestResource({ url, params, method: 'GET', headers })
         .then((resp) => {
           commit(GET_ATTENDANCES_REQUESTER_STORE, resp.data.docs)
           commit(TOTAL_ATTENDANCES, resp.data.total)
