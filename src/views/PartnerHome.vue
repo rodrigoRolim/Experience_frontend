@@ -15,12 +15,12 @@
     </div>
     <div class="partner-home__attendances">
       <code-modal
-        class="health_center__modal"
+        class="partner-home__modal"
         :display="displayLoading"
       >
         <template v-slot:modal>
           <code-loading
-            class="health_center__loading"   
+            class="partner-home__loading"   
             range="50px"
             velocity="1x"
           />
@@ -98,18 +98,24 @@ export default {
 .partner-home
   display: flex
   flex-direction: column
+  align-items: center
 .partner-home__filter--index-up
   z-index: 5
 .partner-home__filter
   position: fixed
   width: 100%
+  z-index: 2
 .partner-home__attendances
-  margin: 155px auto 0px auto 
+  margin-top: 170px
   width: 98%
   @include respond-to(handhelds)
     margin-top: 100px
   @include respond-to(medium-screens)
     margin-top: 100px
+.partner-home__modal
+  position: fixed
+.partner-home__loading
+  margin-top: 130px
 .filter__searcher
   display: flex
   align-items: center

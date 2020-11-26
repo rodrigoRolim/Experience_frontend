@@ -41,8 +41,6 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.doctor
-  min-height: 100vh
 .doctor__navbar
   position: fixed
   width: 100%

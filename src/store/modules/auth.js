@@ -30,7 +30,7 @@ const getters = {
   uniqueAttendance: state => state.uniqueAttendance,
   token: state => state.token,
   expired: state => state.expired,
-  healthCenterLogged: state => state.healthCenterLogged.id
+  healthCenterLogged: state => state.healthCenterLogged?.id
 }
 
 const actions = {
