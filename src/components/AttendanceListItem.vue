@@ -116,7 +116,8 @@ export default {
   @include respond-to(handhelds)
     align-self: center
   @include respond-to(medium-screens)
-    margin-right: 90px
+    margin-right: 80px 
+    margin-bottom: 20px
 .attendance-item:hover
   -webkit-box-shadow:  0 0 6px rgba(0,0,0,.3)
 .attendance-item--pendency

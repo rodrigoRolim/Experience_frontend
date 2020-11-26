@@ -126,7 +126,8 @@ $p-top-bott: 5px
     flex-direction: column
     width: 100%
   @include respond-to(medium-screens)
-    width: 65%
+    display: flex
+    width: 90%
 .attendance-detail__info
   @include respond-to(handhelds)
     margin: 10px 0
