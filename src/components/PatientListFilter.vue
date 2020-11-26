@@ -84,7 +84,10 @@ export default {
         limit: 10,
         page: 5
       }
-      this.getPatients({ url: GET_ATTENDANCES_REQUESTER(562, this.begin, this.end), params })
+      let headers = {
+        'X-Paginate': true
+      }
+      this.getPatients({ url: GET_ATTENDANCES_REQUESTER(this.begin, this.end), params, headers })
         .then((resp) => {
           console.log(resp)
         })

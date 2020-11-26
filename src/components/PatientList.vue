@@ -61,19 +61,25 @@ export default {
   width: 100%
 .patients__header
   display: flex
-  justify-content: flex-start
+  justify-content: center
   align-items: center 
-  margin-bottom: 10px
-  color: #368c8c
+  color: white
+  background-color: $theme
+  position: fixed
+  bottom: 0
+  padding: 15px 0
+  width: 100%
 .patients__number
-  margin-left: 15px
+  font-size: 0.9rem
+  @include respond-to(handhelds)
+    font-size: 0.7rem
 .patient__body
   display: flex
   flex-direction: row
   width: 100%
   flex-wrap: wrap
-  max-height: 500px
   padding: 0 10px
+  margin-bottom: 50px
 .patitent__body__item
   margin: 5px
   width: 100%
