@@ -153,7 +153,12 @@ export default {
       },
     }
   },
-   computed: {
+  created () {
+    if (!this.params.begin || !this.params.end) {
+      this.setInitialDates() 
+    }
+  },
+  computed: {
     ...mapGetters(NAMESPACED_ATTENDANCE, [
       'params',
       'status'
