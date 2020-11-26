@@ -213,9 +213,15 @@ export default {
     async realizeLogin () {
       this.showLoader = true
       let { doctor } = this
+      let auth = {
+        crm: doctor.crm,
+        senha: doctor.senha,
+        sigla: doctor.sigla.name.toUpperCase(),
+        uf: doctor.uf.name.toUpperCase()
+      }
       this.$emit('loading', true)
       try {
-        let resp = await this.login({ url: DOCTOR_AUTH, credentials: doctor, typeUser: DOCTOR_TYPE })
+        let resp = await this.login({ url: DOCTOR_AUTH, credentials: auth, typeUser: DOCTOR_TYPE })
         this.success(resp.status, DOCTOR_ROUTE)
       } catch (err) {
 
