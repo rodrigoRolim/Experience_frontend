@@ -9,6 +9,12 @@ import {
 
 const state = () => ({
   patients: [],
+  params: {
+    begin: null,
+    end: null,
+    limit: 10,
+    page: 1
+  },
   status: '',
   total: 0
 })

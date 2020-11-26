@@ -56,7 +56,7 @@ import CodeInput from '../components/base/CodeInput'
 import CodeButton from '../components/base/CodeButton'
 import PatientListFilterPeriod from '../components/PatientListFilterPeriod'
 import { GET_ATTENDANCES_REQUESTER, NAMESPACED_PATIENT, GET_ATTENDANCES_REQUESTER_STORE } from '../utils/alias'
-import { mapActions } from 'vuex'
+import { mapActions/* , mapMutations */ } from 'vuex'
 export default {
   name: 'PatientListFilter',
   components: {
@@ -79,10 +79,13 @@ export default {
     ...mapActions(NAMESPACED_PATIENT, {
       getPatients: GET_ATTENDANCES_REQUESTER_STORE
     }),
+  /*   ...mapMutations(NAMESPACED_PATIENT, {
+
+    }), */
     patients () {
       let params = {
         limit: 10,
-        page: 5
+        page: 1
       }
       let headers = {
         'X-Paginate': true

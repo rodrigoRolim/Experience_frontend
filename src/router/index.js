@@ -36,11 +36,13 @@ const router = new VueRouter({
       path: '/medico',
       component: () => import(/* webpackChunkName: 'Doctor' */ '@/views/Doctor'),
       beforeEnter: authorization,
+      props: true,
       meta: { typeUser: DOCTOR_TYPE },
       children: [
         {
           path: '',
           name: 'doctorHome',
+          props: true,
           component: () => import(/* webpackChunkName:  'Doctor' */ '@/views/DoctorHome')
         },
         {
