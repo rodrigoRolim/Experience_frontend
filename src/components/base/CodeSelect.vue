@@ -154,6 +154,7 @@ export default {
       selectedOption.name = selectedOption.name.toLowerCase()
       this.selectedInput = selectedOption
       this.digiteds = ''
+      this.closeList()
     },
     closeList () {
       this.showList = false
