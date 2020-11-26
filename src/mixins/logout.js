@@ -4,7 +4,8 @@ import {
   NAMESPACED_ATTENDANCE,
   AUTH_LOGOUT, 
   ACESS_ROUTE,
-  EMPTY_ATTENDANCES
+  EMPTY_ATTENDANCES,
+  EMPTY_PARAMS
 } from '../utils/alias'
 export const logout = {
   data () {
@@ -17,7 +18,8 @@ export const logout = {
       logout: AUTH_LOGOUT
     }),
     ...mapMutations(NAMESPACED_ATTENDANCE, {
-      clearAttendances: EMPTY_ATTENDANCES
+      clearAttendances: EMPTY_ATTENDANCES,
+      clearParams: EMPTY_PARAMS
     }),
     realizeLogout () {
     
@@ -25,6 +27,7 @@ export const logout = {
       this.showLoadLogout = true
       if (isLoggedout) {
         this.clearAttendances()
+        this.clearParams()
         this.$router.push({ path: ACESS_ROUTE }).catch((e) => {
           console.log(e)
         })

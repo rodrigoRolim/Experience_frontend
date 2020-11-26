@@ -26,7 +26,8 @@ import {
   NEXT_PAGE,
   REINIT_PAGINATION,
   TOTAL_PAGES,
-  FILTER_ATTENDANCES_BY_NAME
+  FILTER_ATTENDANCES_BY_NAME,
+  EMPTY_PARAMS
 } from '../../utils/alias'
 let begin = () => {
   let today = new Date()
@@ -53,8 +54,8 @@ const state = {
   statusPush: '',
   message: {},
   params: {
-    begin: begin(),
-    end: end(),
+    begin: null,
+    end: null,
     healthCenter: {id: '', name: 'todos' },
     accomodation: {id: '', name: 'todos' },
     situation: {id: '', name: 'todos' },
@@ -175,24 +176,16 @@ const mutations = {
   [END_DATE]: (state, end) => {
     state.params.end = end
   },
+  [EMPTY_PARAMS]: (state) => {
+    state.params.begin = null
+    state.params.end = null
+    state.params.name = null
+    state.params.totalPages = null
+  },
   [DEFAULT_DATES]: (state) => {
     
-    let today = new Date()
-
-    let nextDate = (today.getDate() < 10) ? '0' + today.getDate() : today.getDate()
-    let nextMonth = today.getMonth() + 1
-    let nextYear = today.getFullYear()
-    let dateFinal = nextDate + ' / ' + nextMonth + ' / ' + nextYear
-
-    today.setDate(today.getDate() - 7)
-
-    let currDate = (today.getDate() < 10) ? '0' + today.getDate() : today.getDate()
-    let currMonth = today.getMonth() + 1
-    let currYear = today.getFullYear()
-    let dateInitial = currDate + ' / ' + currMonth + ' / ' + currYear
-   
-    state.params.begin = dateInitial
-    state.params.end =  dateFinal
+    state.params.begin = begin()
+    state.params.end =  end()
   },
   [ACCOMODATION]: (state, accomodation) => {
     state.params.accomodation = accomodation
