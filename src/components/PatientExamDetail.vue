@@ -2,17 +2,24 @@
   <div class="exame">
     <div class="exame__header">
       <div class="exame__name">
-        <h2>{{examName}}</h2>
+        <h2>{{nameExam}}</h2>
       </div>
       <div class="exame__close" @click="close">
         <font-awesome-icon icon="times" size="lg"/>
       </div>
     </div>
     <div class="exam__modal__body">
-      <div class="exame__content">
-        <div class="exame__content__row" v-for="item in db" :key="item.id">
-          <div class="name__exame">{{item.exam}}</div>
-          <div class="exame__result">{{item.value}}<span class="exame__result__unity">{{item.measurement}}</span></div>
+      <div class="exam__loading" v-if="results.length == 0">
+        <code-loading
+          class="exam__spin"   
+          range="50px"
+          velocity="1x"
+        />
+      </div>
+      <div class="exame__content" v-else>
+        <div class="exame__content__row" v-for="result in results" :key="result.variavel_id">
+          <div class="name__exame">{{result.variavel_nome}}</div>
+          <div class="exame__result">{{result.valor}}<span class="exame__result__unity">{{result.variavel_unidade}}</span></div>
         </div>
       </div>
     </div>
@@ -34,6 +41,7 @@
 </template>
 <script>
 import CodeButton from './base/CodeButton'
+import CodeLoading from './base/CodeLoading'
 import { GET_EXAM_RESULT } from '../utils/alias'
 import { requestResource } from '../services/api'
 export default {
@@ -42,29 +50,23 @@ export default {
     healthCenter: String,
     attendance: String,
     correlative: String,
-    examName: String
+    nameExam: String
   },
   components: {
-    CodeButton
+    CodeButton,
+    CodeLoading
   },
   data () {
     return {
-      db: [
-        { id: 0, exam: 'LIPOGRAMA COMPLETO', value: '90', measurement: 'mg/dl' },
-        { id: 1, exam: 'LIPOGRAMA COMPLETO', value: '90', measurement: 'mg/dl' },
-        { id: 2, exam: 'LIPOGRAMA COMPLETO', value: '90', measurement: 'mg/dl' },
-        { id: 3, exam: 'LIPOGRAMA COMPLETO', value: '90', measurement: 'mg/dl' },
-        { id: 4, exam: 'LIPOGRAMA COMPLETO', value: '90', measurement: 'mg/dl' },
-        { id: 5, exam: 'LIPOGRAMA COMPLETO', value: '90', measurement: 'mg/dl' },
-        { id: 6, exam: 'LIPOGRAMA COMPLETO', value: '90', measurement: 'mg/dl' },
-        { id: 7, exam: 'LIPOGRAMA COMPLETO', value: '90', measurement: 'mg/dl' }, 
-      ]
+      results: []
     }
   },
   created () {
     let url = GET_EXAM_RESULT(this.healthCenter, this.attendance, this.correlative)
     requestResource({url})
-      .then((resp) => console.log(resp))
+      .then((resp) => {
+        this.results = resp.data
+      })
       .catch((err) => console.log({err}))
   },
   methods: {
@@ -101,6 +103,12 @@ export default {
   height: 600px
   padding: 5px 10px
   overflow: auto
+.exam__loading
+  align-self: center
+  display: flex
+  justify-content: center
+  align-items: center
+  height: 100vh
 .exame__header
   display: flex
   flex-direction: row
