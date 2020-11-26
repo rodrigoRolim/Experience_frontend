@@ -23,7 +23,7 @@ export const GET_HEALTH_CENTERS = '/v1/web/posto'
 export const GET_ATTENDANCE = (healthCenter, attendance) => `/v1/web/atendimento/${healthCenter}/${attendance}`
 export const GET_ATTENDANCES_BY_CLIENT = '/v1/web/atendimento/cliente'
 export const GET_ATTENDANCES = (healthCenter, begin, end, typeUser) => `/v1/web/atendimento/${begin}/${end}/${typeUser}/${healthCenter}`
-export const GET_ATTENDANCES_REQUESTER = (requester, begin, end) => `/v1/web/atendimento/${begin}/${end}/solicitante/${requester}`
+export const GET_ATTENDANCES_REQUESTER = (begin, end) => `/v1/web/atendimento/${begin}/${end}/solicitante`
 export const GET_ATTENDANCES_PATIENT = (client, begin, end) => `/v1/web/atendimento/${begin}/${end}/cliente/${client}`
 // filters
 export const GET_FILTERS = (begin, end, typeUser, id, resource) => `v1/web/atendimento/${begin}/${end}/${typeUser}/${id}/${resource}`
@@ -134,6 +134,7 @@ export const SET_PROPS = 'SET_PROPS'
 export const CLEAN_PROPS = 'CLEAN_PROPS'
 export const GET_EXAMS_STORE = 'GET_EXAMS_STORE'
 export const SET_ATTENDANCES_FILTERED = 'SET_ATTENDANCES_FILTERED'
+export const EMPTY_PARAMS = 'EMPTY_PARAMS'
 /**  
  * MUTATIONS TYPES AND ACTIONS' NAMES along namespace
 */
