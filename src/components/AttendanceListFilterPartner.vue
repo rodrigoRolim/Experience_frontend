@@ -73,6 +73,8 @@
             class="attendances-filter-partner__input"
             placeholder="digite o nome do paciente"
             name="patientName"
+            @input="setName"
+            :value="params.name"
           />
         </div>
         <div class="attendances-filter-partner__buttons">
@@ -127,7 +129,8 @@ import {
   DEFAULT_DATES,
   DATE_VALIDATOR,
   REINIT_PAGINATION,
-  EMPTY_ATTENDANCES
+  EMPTY_ATTENDANCES,
+  NAME
 } from '../utils/alias'
 export default {
   name: 'AttendanceListFilterPartner',
@@ -305,6 +308,7 @@ export default {
       if (this.params.realizer.id) queries['postorealizante'] = this.params.realizer.id
       if (this.params.accomodation.id) queries['acomodacao'] = this.params.accomodation.id
       if (this.params.situation.id) queries['situacao'] = this.params.situation.id
+      if (this.params.name) queries['nome'] = this.params.name
       queries['limit'] = this.params.limit
       queries['page'] = this.params.page
       return queries
@@ -338,6 +342,7 @@ export default {
       setBegin: BEGIN_DATE,
       setEnd: END_DATE,
       setAccomodation: ACCOMODATION,
+      setName: NAME,
       setSituation: SITUATION,
       setInitialDates: DEFAULT_DATES,
       renitiPage: REINIT_PAGINATION,
