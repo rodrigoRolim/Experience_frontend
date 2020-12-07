@@ -316,7 +316,6 @@ export default {
         await this.listAccomodations()
         await this.attendances()
       } catch (err) {
-        console.log({err})
         this.setMessage(this.message({ status: err.response.status, data: 'atendimento' }))
       }
     },
