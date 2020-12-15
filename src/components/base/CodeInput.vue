@@ -172,6 +172,7 @@ export default {
   flex-direction: row
   margin-left: 10px
   color: $error
+  position: absolute
 .input-wrap__text-error
   font-style: italic
   margin-bottom: 0
