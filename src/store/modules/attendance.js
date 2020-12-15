@@ -161,6 +161,9 @@ const mutations = {
   [EMPTY_ATTENDANCES]: (state) => {
     state.attendances = []
   },
+  /* [CLEAR_MESSAGE]: (state) => {
+    state.message = {}
+  }, */
   [LOADING]: (state) => {
     state.status = 'loading'
   },
@@ -191,7 +194,6 @@ const mutations = {
     state.params.accomodation = accomodation
   },
   [HEALTH_CENTER]: (state, healthCenter) => {
-    console.log(healthCenter)
     state.params.healthCenter = healthCenter
   },
   [SITUATION]: (state, situation) => {

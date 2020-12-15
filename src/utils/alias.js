@@ -7,7 +7,7 @@ export const PATIENT_AUTH = '/token/cliente'
 export const HEALTH_CENTER_AUTH = '/token/posto'
 export const ATTENDANCE_AUTH = '/token/atendimento'
 export const USER_AUTH = '/token/usuario'
-
+export const REFRESH_TOKEN = '/token/atendimento/refresh'
 /**  
  * EXPERIENCE API'S ROUTES
 */

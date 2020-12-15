@@ -46,11 +46,11 @@ const router = new VueRouter({
           component: () => import(/* webpackChunkName:  'Doctor' */ '@/views/DoctorHome')
         },
         {
-          path: 'paciente',
+          path: 'paciente-exames',
           name: 'doctorExamsPatient',
           beforeEnter: authorization,
+          props: true,
           component: () => import(/* webpackChunkName: 'Doctor' */ '@/views/DoctorPatientExams'),
-          props: true
         }
       ]
     },

@@ -6,7 +6,8 @@ import {
     AUTH_SUCCESS,
     AUTH_REINIT_STATUS,
     AUTH_REQUEST,
-    SELECTED_HEALTHCENTER
+    SELECTED_HEALTHCENTER,
+    
   } from '../../utils/alias'
 
 const state = () => ({
@@ -73,7 +74,10 @@ const actions = {
   [AUTH_REINIT_STATUS]: ({ commit, state }) => {
     commit(AUTH_REINIT_STATUS)
     return state.status === ''
-  }
+  },
+ /*  [REFRESH_TOKEN]: ({ commit }) => {
+
+  } */
 }
 
 const mutations = {
