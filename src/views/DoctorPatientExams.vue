@@ -60,9 +60,6 @@ export default {
     }
   },
   created () {
-    console.log(this.healthCenter)
-    console.log(this.attendance)
-    console.log(this.patient)
     bus.$on('sidebar', (data) => {
       this.attendances = data
     })
@@ -96,7 +93,7 @@ export default {
     width: 100%
 .doctor-patient__exams
   width:  calc( 100% - 321px )
-  margin-top: 90px
+  margin-top: 140px
   @include respond-to(medium-screens)
     width: 100%
     margin-top: 60px
