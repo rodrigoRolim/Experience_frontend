@@ -1,18 +1,20 @@
 <template>
-  <div class="calendars">
+  <div class="patient-period">
      <code-calendar
-      class="calendars__calendar"
+      class="patient-period__calendar"
       v-model="beginEmitter" 
       noBorderRight name="begin" 
       :end="end"
       placeholder="data início"
+      :error="errorBegin"
     />
-    <span class="calendars__gap">até</span>
+    <span class="patient-period__gap">até</span>
     <code-calendar
-      class="calendars__calendar"
+      class="patient-period__calendar"
       v-model="endEmitter"  
       name="end" noBorderLeft 
       :begin="begin"
+      :error="errorEnd"
       placeholder="data fim"  
     />
   </div>
@@ -22,57 +24,62 @@
 import CodeCalendar from '../components/base/CodeCalendar'
 export default {
   name: 'PatientListFilterPeriod',
+  props: {
+    begin: {
+      type: String
+    },
+    end: {
+      type: String
+    },
+    errorBegin: String,
+    errorEnd: String
+  },
   components: {
     CodeCalendar
   },
   data () {
     return {
-      begin: '',
-      end: ''
+     
     }
   },
   computed: {
     beginEmitter: {
       set (value) {
-        let begin = this.formatterDate(value)
+        let begin = this.formatterDateInput(value)
         this.$emit('begin', begin)
       },
       get () {
-        return this.begin
+        return this.formatterDateOutput(this.begin)
       }
     },
     endEmitter: {
       set (value) {
-        let end = this.formatterDate(value)
+        let end = this.formatterDateInput(value)
         this.$emit('end', end)
       },
       get () {
-        return this.end
+        return this.formatterDateOutput(this.end)
       }
     }
   },
   methods: {
-    getBegin (value) {
-      this.begin = this.formatterDate(value)
-      this.$emit('begin', value)
+    formatterDateInput (date) {
+      return date.split("/").join("-").trim()
     },
-    getEnd (value) {
-      this.end = this.formatterDate(value)
-      this.$emit('end', value) 
-    },
-    formatterDate (date) {
-      return date.split("/").reverse().join("").trim().replace(/\s/g, '-')
-    },
+    formatterDateOutput (date) {
+      return date.split("-").join("/").trim()
+    }
   }
 }
 </script>
 
 <style lang="sass" scoped>
-.calendars
+.patient-period
   display: flex
+  margin-bottom: 10px
   @include respond-to(handhelds)
     position: relative
-.calendars__gap
+.patient-period__gap
   background-color: white
   display: flex
   flex-direction: column
