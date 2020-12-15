@@ -40,9 +40,9 @@ import { NAMESPACED_EXAMS, GET_EXAMS_ATTENDANCE, GET_EXAMS_STORE } from '../util
 export default {
   name: 'PatientExamList',
   props: {
-    patient: String,
-    attendance: String,
-    healthCenter: String
+    patient: Number,
+    attendance: Number,
+    healthCenter: Number
   },
   created () {
     console.log(this.patient)

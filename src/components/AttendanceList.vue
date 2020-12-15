@@ -72,14 +72,6 @@ export default {
   destroyed () {
     this.destroyAttendancesByScroll()
   },
- /*  watch: {
-    'params.page': function (value) {
-      if (value === 1) {
-        this.destroyAttendancesByScroll()
-        //this.loadAttendancesByScroll()
-      }
-    }
-  }, */
   filters: {
     age (dateString) {
       var today = new Date();
@@ -152,11 +144,11 @@ export default {
         this.requestMoreAttendances({ url: urlName, params: this.paramsQuery(), headers })
           .then((resp) => {
             console.log(resp)
+            document.documentElement.scrollTop = 0
           })
           .catch((err) => {
             console.log({err})
           })
-       // window.removeEventListener('scroll', this.getMoreAttendances)
       } 
     },
     ...mapActions(NAMESPACED_ATTENDANCE, {
