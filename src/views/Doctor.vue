@@ -2,9 +2,9 @@
   <div class="doctor">
     <div class="doctor__navbar">
       <the-navbar logo="logo_cedro">
-        <!-- <template v-slot:collapser v-if="doctorHome">
+        <template v-slot:collapser v-if="doctorHome">
           <code-button-collapser />
-        </template> -->
+        </template>
         <template v-slot:perfil>
           <user-perfil />
         </template>
@@ -19,13 +19,13 @@
 <script>
 import TheNavbar from '../components/TheNavbar'
 import UserPerfil from '../components/UserPerfil'
-//import CodeButtonCollapser from '../components/base/CodeButtonCollapser'
+import CodeButtonCollapser from '../components/base/CodeButtonCollapser'
 export default {
   name: 'Doctor',
   components: {
     TheNavbar,
     UserPerfil,
-    //CodeButtonCollapser
+    CodeButtonCollapser
   },
   data () {
     return {
