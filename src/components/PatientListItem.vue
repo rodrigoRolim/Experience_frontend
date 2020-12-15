@@ -6,7 +6,7 @@
     <div class="patient__body">
       <div class="patient__perfil">
         <!-- <div class="patient__personal-dates"> -->
-          <div class="patient__sex patient--margin">
+          <div class="patient__sex patient--margin" v-if="sex">
             <code-info 
               class="icon"
               :icon="genderIcon"
@@ -31,21 +31,21 @@
       <div class="patient__contacts">
         <!-- <strong class="patient__contact-title">contatos</strong> -->
         <div class="patient__contact-items">
-          <div class="patient__phones patient--margin">
+          <div class="patient__phones patient--margin" v-if="phone">
             <code-info 
               class="icon"
               icon="phone"
-              info="(11) 34228718"
+              :info="phone"
               description="telefone"
               color="rgb(71, 77, 94)"
               size="lg"
             />
           </div>
-          <div class="patient__email patient--margin">
+          <div class="patient__email patient--margin" v-if="email">
             <code-info
               class="icon"
               icon="envelope"
-              info="jacintopinto@gmail.com"
+              :info="email"
               description="email"
               color="rgb(71, 77, 94)"
               size="lg"
@@ -73,8 +73,12 @@ export default {
     name: String,
     sex: String,
     age: String,
+    phone: String,
+    email: String,
     lasterAttendances: Array,
-    patientId: Number
+    patientId: Number,
+    attendanceId: Number,
+    healthCenter: Number
   },
   components: {
     CodeInfo,
@@ -119,7 +123,7 @@ export default {
   },
   methods: {
     patientExamsView () {
-      this.$router.push({ name: 'doctorExamsPatient', params: {patient: this.patientId}})
+      this.$router.push({ name: 'doctorExamsPatient', params: { patient: this.patientId, attendance: this.attendanceId, healthCenter: this.healthCenter}})
     }
   }
 }
