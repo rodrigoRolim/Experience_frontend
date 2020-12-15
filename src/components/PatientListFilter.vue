@@ -11,7 +11,14 @@
             font-size="0.9rem"
           />
           <div class="patient-list-filter__calendars">
-            <patient-list-filter-period></patient-list-filter-period>
+            <patient-list-filter-period
+              :begin="params.begin"
+              :end="params.end"
+              @begin="setBegin"
+              @end="setEnd"
+              :error-begin="validate.begin"
+              :error-end="validate.end"
+            />
           </div>
         </div>
         <div class="patient-list-filter__name-patient">
@@ -26,8 +33,8 @@
           <code-input 
             placeholder="digite o nome do paciente"
             name="patientName"
-            :width="9"
-            :height="8" 
+            @input="setNamePatient"
+            :value="params.name"
           />
         </div>
         <div class="patient-list-filter__buttons">
@@ -42,6 +49,7 @@
             size="md"
             streched
             size-icon="lg"
+            @click="confirm"
           />
         </div>
       </div>
@@ -55,10 +63,24 @@ import CodeLabel from '../components/base/CodeLabel'
 import CodeInput from '../components/base/CodeInput'
 import CodeButton from '../components/base/CodeButton'
 import PatientListFilterPeriod from '../components/PatientListFilterPeriod'
-import { GET_ATTENDANCES_REQUESTER, NAMESPACED_PATIENT, GET_ATTENDANCES_REQUESTER_STORE } from '../utils/alias'
-import { mapActions/* , mapMutations */ } from 'vuex'
+import { validator } from '../mixins/validations/validator'
+import { ltBegin, gtEnd, required, date } from '../mixins/validations/rules'
+import { messages } from '../mixins/user-messages'
+import { 
+ GET_ATTENDANCES_REQUESTER,
+ NAMESPACED_PATIENT, 
+ GET_ATTENDANCES_REQUESTER_STORE, 
+ NAME,
+ BEGIN_DATE, 
+ END_DATE,
+ DEFAULT_DATES,
+ ATTENDANCE_NOT_FOUND,
+ DATE_VALIDATOR
+} from '../utils/alias'
+import { mapActions, mapMutations, mapGetters } from 'vuex'
 export default {
   name: 'PatientListFilter',
+  mixins: [messages, validator({ ltBegin, gtEnd, required, date })],
   components: {
     CodeDropDown,
     PatientListFilterPeriod,
@@ -68,38 +90,111 @@ export default {
   },
   data () {
     return {
-      begin: '01-01-16',
-      end: '01-09-20'
+      validate: {
+        begin: '',
+        end: ''
+      }
     }
   },
   created () {
-    this.patients()
+    if (!this.params.begin || !this.params.end) {
+      this.setInitialDates() 
+    }
+    //this.patients()
+    
+  },
+  watch: {
+    'params.begin': function (value) {
+      console.log(value)
+      if (this.required(value)) {
+        console.log(this.required(value))
+        this.validate.begin = 'campo obrigatório'
+      } else if (this.gtEnd(value, this.params.end)) {
+        
+        this.validate.begin = 'data inicial inválida'
+      } else if (this.ltBegin(this.params.end, this.params.begin)){
+        
+        this.validate.end = 'data final inválida'
+      } else {
+        this.validate.begin = ''
+        this.validate.end = ''
+      }
+    },
+    'params.end': function (value) {
+      if (this.required(value)) {
+        this.validate.end = 'campo obrigatório'
+
+      } else if (this.ltBegin(value, this.params.begin)) {
+        this.validate.end = 'data final inválida'
+      } else if (this.gtEnd(this.params.begin, this.params.end)){
+        this.validate.begin = 'início inválido'
+      } else {
+        this.validate.begin = ''
+        this.validate.end = ''
+      }
+    },
+    beginAndEnd (value) {
+      let [begin, end] = value.split('|')
+      if (this.date(begin, DATE_VALIDATOR) && this.date(end, DATE_VALIDATOR)) {
+         this.patients()
+      }
+    }
+  },
+  computed: {
+    ...mapGetters(NAMESPACED_PATIENT, [
+      'params'
+    ]),
+    beginAndEnd () {
+      return `${this.params.begin}|${this.params.end}`
+    },
+    allowRequest () {
+      return !Object.values(this.validate).find((val) => val !== '')
+    },
   },
   methods: {
     ...mapActions(NAMESPACED_PATIENT, {
-      getPatients: GET_ATTENDANCES_REQUESTER_STORE
+      getPatients: GET_ATTENDANCES_REQUESTER_STORE,
+      setMessage: ATTENDANCE_NOT_FOUND
     }),
-  /*   ...mapMutations(NAMESPACED_PATIENT, {
-
-    }), */
+    ...mapMutations(NAMESPACED_PATIENT, {
+      setNamePatient: NAME,
+      setBegin: BEGIN_DATE,
+      setEnd: END_DATE,
+      setInitialDates: DEFAULT_DATES
+    }),
+    paramsQuery () {
+      let queries = {}
+      if (this.params.name) queries['nome'] = this.params.name
+      queries['limit'] = this.params.limit
+      queries['page'] = this.params.page
+      return queries
+    },
+    getURI () {
+      return GET_ATTENDANCES_REQUESTER(
+            this.params.begin.split(" - ").join("-"), 
+            this.params.end.split(" - ").join("-")
+          )
+    },
     patients () {
-      let params = {
-        limit: 10,
-        page: 1
-      }
+      
       let headers = {
         'X-Paginate': true
       }
-      this.getPatients({ url: GET_ATTENDANCES_REQUESTER(this.begin, this.end), params, headers })
+      this.getPatients({ url: this.getURI(this.params.begin, this.params.end), params: this.paramsQuery(), headers })
         .then((resp) => {
           console.log(resp)
         })
         .catch((err) => {
-          console.log(err)
-          // chama o renovador de token
-          // executo this.patients() novamente
-          // isso pode ser feito no interceptor tambem
+          //console.log(err)
+          this.setMessage(this.message({status: err.response.status, data: 'paciente'}))
         })
+    },
+    confirm () {
+      if (this.allowRequest) {
+        this.patients()
+        return
+      }
+      this.$emit("error", this.message({ status: 111 }))        
     }
   }
 }
