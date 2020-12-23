@@ -34,7 +34,7 @@ export const GET_AGREEMENT = (agreement) => `/v1/web/convenio/${agreement}`
 // procediments
 export const GET_PROCEDIMENTS = (mnemonico) => `/v1/web/procedimento/${mnemonico}`
 export const GET_PROCEDIMENTS_LIKE = (mnemonico) => `/v1/web/procedimentolike/${mnemonico}`
-
+export const GET_INSTRUCTIONS = (mnemonico) => `/v1/web/preparo/${mnemonico}`
 // exams
 export const GET_EXAMS_ATTENDANCE = (healthCenter, attendance) => `/v1/web/exame/${healthCenter}/${attendance}`
 export const GET_EXAM_RESULT = (healthCenter, attendance, correlative) => `/v1/web/resultado/${healthCenter}/${attendance}/${correlative}`
@@ -135,6 +135,7 @@ export const CLEAN_PROPS = 'CLEAN_PROPS'
 export const GET_EXAMS_STORE = 'GET_EXAMS_STORE'
 export const SET_ATTENDANCES_FILTERED = 'SET_ATTENDANCES_FILTERED'
 export const EMPTY_PARAMS = 'EMPTY_PARAMS'
+export const INSTRUCTIONS = 'INSTRUCTIONS'
 /**  
  * MUTATIONS TYPES AND ACTIONS' NAMES along namespace
 */
@@ -148,6 +149,7 @@ export const NAMESPACED_PATIENT = 'patients'
 export const NAMESPACED_REGISTRANTS = 'registrants'
 export const NAMESPACED_PROPS = 'props'
 export const NAMESPACED_EXAMS = 'exams'
+export const NAMESPACED_INSTRUCTIONS = 'instructions'
 /**  
  * VALIDATIONS MESSAGES
 */

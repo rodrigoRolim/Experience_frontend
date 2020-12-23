@@ -7,14 +7,23 @@
     > -->
       <div class="doctor-patient__sidebar"
         id="scrollbar" 
-        :class="{ 'sidebar--show': attendances, 'sidebar--hidden': !attendances }"
+        :class="{ 'sidebar--show': displaySideBar, 'sidebar--hidden': !displaySideBar }"
       >
-        <the-sidebar />
+        <the-sidebar :patient="patient" />
       </div>
    <!--  </transition> -->
     <div class="doctor-patient__main" >
       <div class="doctor-patient__patient">
-        <patient-exams-list-header></patient-exams-list-header>
+        <patient-exams-list-header
+         :patient="patient"
+         :health-center="healthCenter"
+         :attendance="attendance"
+         :name="name"
+         :age="age"
+         :gender="gender"
+         :delivery="delivery"
+         :doctor="doctor"
+        ></patient-exams-list-header>
       </div>
       <div class="doctor-patient__exams">
         <patient-exam-list 
@@ -31,23 +40,11 @@
 import PatientExamsListHeader from '../components/PatientExamListHeader'
 import PatientExamList from '../components/PatientExamList'
 import TheSidebar from '../components/TheSidebar'
+import { NAMESPACED_PROPS } from '../utils/alias'
+import { mapGetters } from 'vuex'
 import { bus } from '../main'
 export default {
   name: 'DoctorPatientExams',
-  props: {
-    healthCenter: {
-      type: Number,
-      default: null
-    },
-    attendance: {
-      type: Number,
-      default: null
-    },
-    patient: {
-      type: Number,
-      default: null
-    }
-  },
   components: {
     /* PatientExams */
     PatientExamsListHeader,
@@ -56,13 +53,25 @@ export default {
   },
   data () {
     return {
-      attendances: false
+      displaySideBar: false
     }
   },
   created () {
     bus.$on('sidebar', (data) => {
-      this.attendances = data
+      this.displaySideBar = data
     })
+  },
+  computed: {
+    ...mapGetters(NAMESPACED_PROPS, [
+      'patient',
+      'healthCenter',
+      'attendance',
+      'name',
+      'age',
+      'gender',
+      'delivery',
+      'doctor'
+    ]),
   }
 }
 </script>
@@ -93,10 +102,10 @@ export default {
     width: 100%
 .doctor-patient__exams
   width:  calc( 100% - 321px )
-  margin-top: 140px
+  margin-top: 150px
   @include respond-to(medium-screens)
     width: 100%
-    margin-top: 60px
+    margin-top: 120px
   @include respond-to(handhelds)
     width: 100%
     margin-top: 50px
