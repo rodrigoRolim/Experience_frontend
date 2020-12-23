@@ -67,18 +67,22 @@
 <script>
 import CodeInfo from './base/CodeInfo'
 import PatientListItemAttendances from './PatientListItemAttendances'
+import { mapMutations } from 'vuex'
+import { SET_PROPS, NAMESPACED_PROPS } from '../utils/alias'
 export default {
   name: 'PatientListItem',
   props: {
     name: String,
     sex: String,
     age: String,
-    phone: String,
     email: String,
+    phone: String,
+    doctor: String,
+    deliveryDate: String,
     lasterAttendances: Array,
     patientId: Number,
     attendanceId: Number,
-    healthCenter: Number
+    healthCenterId: Number
   },
   components: {
     CodeInfo,
@@ -123,8 +127,21 @@ export default {
   },
   methods: {
     patientExamsView () {
-      this.$router.push({ name: 'doctorExamsPatient', params: { patient: this.patientId, attendance: this.attendanceId, healthCenter: this.healthCenter}})
-    }
+      let patient = this.patientId
+      let healthCenter = this.healthCenterId
+      let attendance = this.attendanceId
+      let namePatient = this.name
+      let agePatient = this.age
+      let genderPatient = this.sex
+      let deliveryDate = this.deliveryDate
+      let doctor = this.doctor
+      console.log(healthCenter)
+      this.storeProps({ patient, healthCenter, attendance, namePatient, agePatient, genderPatient, deliveryDate, doctor })
+      this.$router.push({ name: 'doctorExamsPatient', params: { patient: this.patientId, attendance: this.attendanceId, healthCenter: this.healthCenterId}})
+    },
+    ...mapMutations(NAMESPACED_PROPS, {
+      storeProps: SET_PROPS
+    })
   }
 }
 </script>
