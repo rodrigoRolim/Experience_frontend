@@ -68,9 +68,9 @@ import { NAMESPACED_ATTENDANCE, SELECT_EXAMS, EMPTY_EXAMS } from '../utils/alias
 export default {
   name: 'PatientExamListHeader',
   props: {
-    healthCenter: String,
-    attendance: String,
-    patient: String,
+    healthCenter: Number,
+    attendance: Number,
+    patient: Number,
     name: String,
     age: String,
     gender: String,
@@ -79,8 +79,7 @@ export default {
   },
   components: {
     CodeInfo,
-    CodeDropDown,
-   // CodeCheckbox
+    CodeDropDown
   },
   computed: {
     ...mapGetters(NAMESPACED_ATTENDANCE, [
