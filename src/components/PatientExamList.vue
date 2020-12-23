@@ -44,8 +44,7 @@ export default {
     attendance: Number,
     healthCenter: Number
   },
-  created () {
-    console.log(this.patient)
+  mounted () {
     console.log(this.attendance)
     console.log(this.healthCenter)
     this.getExams()
@@ -77,7 +76,6 @@ export default {
       this.requestExams({url, headers})
         .then((resp) => console.log(resp))
         .catch((err) => console.log({err}))
-
     },
     showExamResult (correl, nameExam) {
       this.correl = correl.toString()
