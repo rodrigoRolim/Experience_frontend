@@ -15,16 +15,18 @@
         icon="info-circle"
       />
       <patient-list-item class="patitent__body__item"
-        v-for="(patient, i) in patients"
-        :key="i"
+        v-for="patient in patients"
+        :key="patient.atendimento"
         :name="patient.nome_cliente"
         :sex="patient.sexo | sex"
         :age="patient.data_nas | age"
         :phone="patient.telefone | phone"
+        :doctor="patient.nome_solicitante"
+        :delivery-date="patient.data_entrega | delivery"
         :laster-attendances="patient.ultimos_atendimentos"
         :patient-id="patient.registro"
         :attendance-id="patient.atendimento"
-        :health-center="patient.posto"
+        :health-center-id="patient.posto"
       />
       <div class="patients__loading" v-if="statusPush == 'loading'" >
         <code-message
@@ -81,14 +83,18 @@ export default {
       var age = today.getFullYear() - birthDate.getFullYear();
       var m = today.getMonth() - birthDate.getMonth();
       if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-          age--;
+        age--;
       }
       const ageDate = age.toString()
       return !isNaN(ageDate) ? ageDate : "";
     },
     phone (value) {
       return value.replace(/\s/g, '')
-    }
+    },
+    delivery (value) {
+      const delivery = new Date(value).toLocaleDateString("pt-BR")
+      return delivery !== "Invalid Date" ? delivery : ""
+    },
   },
   computed: {
     ...mapGetters(NAMESPACED_PATIENT, [
@@ -138,6 +144,10 @@ export default {
           })
        // window.removeEventListener('scroll', this.getMoreAttendances)
       } 
+    },
+    getDeliveryDate (dateString) {
+      const delivery = new Date(dateString).toLocaleDateString("pt-BR")
+      return delivery !== "Invalid Date" ? delivery : ""
     },
      ...mapActions(NAMESPACED_PATIENT, {
       requestMoreAttendances: PUSH_ATTENDANCES_STORE
