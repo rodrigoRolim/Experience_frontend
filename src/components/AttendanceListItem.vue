@@ -36,7 +36,6 @@ export default {
   name: 'AttendanceListItem',
   mixins: [attendanceStatus],
   props: {
-    photo: String,
     name: String,
     age: String,
     gender: String,
