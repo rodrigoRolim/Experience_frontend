@@ -40,6 +40,9 @@ export default {
       aba: 1
     }
   },
+  created () {
+
+  },
   methods: {
     closeModal () {
       this.$emit('close', false)

@@ -166,7 +166,7 @@ export default {
   flex-direction: column
   width: 100%
 .input-wrap__message-error
-  top: 38px
+  margin-top: 40px
   min-width: 120px
   display: flex
   flex-direction: row

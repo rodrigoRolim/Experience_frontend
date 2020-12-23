@@ -64,6 +64,7 @@ export default {
       let url = GET_PROCEDIMENTS_LIKE(this.mnemonic)
       this.getProcediment({ url, params })
         .then((resp) => console.log(resp))
+        .catch((error) => console.log({error}))
     }
   }
 }

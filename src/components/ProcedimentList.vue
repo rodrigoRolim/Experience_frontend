@@ -12,7 +12,7 @@
         :material="procediment.nome_material"
         :laboratory="procediment.nome_setor" 
         class="procediments__body__item" 
-        @click="show = $event"
+        @click="showInstructions(procediment.mnemonico)"
       />
       
     </div>
@@ -34,8 +34,8 @@ import ProcedimentInstructions from './ProcedimentInstructions'
 import ProcedimentListItem from './ProcedimentListItem'
 import ProcedimentListItemSearch from './ProcedimentListItemSearch'
 import CodeModal from './base/CodeModal'
-import { mapGetters } from 'vuex'
-import { NAMESPACED_PROCEDIMENT } from '../utils/alias'
+import { mapGetters, mapActions } from 'vuex'
+import { NAMESPACED_PROCEDIMENT, NAMESPACED_INSTRUCTIONS, GET_INSTRUCTIONS, INSTRUCTIONS } from '../utils/alias'
 export default {
   name: 'ProcedimentList',
   components: {
@@ -55,7 +55,16 @@ export default {
     ]),
   },
   methods: {
-    
+    showInstructions (mnemonico) {
+      this.show = !!mnemonico
+      let url = GET_INSTRUCTIONS(mnemonico)
+      this.getInstructions(url)
+        .then((resp) => console.log(resp))
+        .catch((err) => console.log(err))
+    },
+    ...mapActions(NAMESPACED_INSTRUCTIONS, {
+      getInstructions: INSTRUCTIONS
+    })
   }
 }
 </script>

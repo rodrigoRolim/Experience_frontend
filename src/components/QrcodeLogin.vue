@@ -146,6 +146,7 @@ export default {
           this.video.play()
           requestAnimationFrame(this.tick)
         })
+        .catch((error) => console.log({error}))
     },
     drawBorder (width, height) {
    

@@ -10,6 +10,7 @@ import registrants from './modules/registrants'
 import cancel from './modules/cancel'
 import props from './modules/props'
 import exams from './modules/exams'
+import instructions from './modules/instructions'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -23,7 +24,8 @@ export default new Vuex.Store({
     patients,
     registrants,
     props,
-    exams
+    exams,
+    instructions
   },
   strict: process.env.NODE_ENV !== 'production'
 })

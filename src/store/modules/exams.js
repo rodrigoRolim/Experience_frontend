@@ -36,6 +36,7 @@ const actions = {
 
 const mutations = {
   [GET_EXAMS_STORE]: (state, exams) => {
+    console.log(exams)
     state.exams = exams
   },
   [LOADING]: (state) => {

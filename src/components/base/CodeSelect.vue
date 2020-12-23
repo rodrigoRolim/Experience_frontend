@@ -54,7 +54,7 @@
           ref="items"
           role="listitem"
           v-for="(option, i) in filterOptions" 
-          :key="i"
+          :key="option.id"
           :data-value="option.id"
           :data-selected="option.id" 
           class="custom-select__option"
