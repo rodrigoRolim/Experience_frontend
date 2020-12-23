@@ -25,8 +25,7 @@ export default {
     AttendanceRelationsItem
   },
   props: {
-    attendanceDate: String,
-    listExams: String 
+    patient: String
   },
   data () {
     return {
@@ -57,9 +56,7 @@ export default {
   },
   computed: {
     ...mapGetters(NAMESPACED_ATTENDANCE, [
-      'attendances',
-      'healthCenter',
-      'attendanceId'
+      'attendances'
     ]),
     initialySelected () {
       console.log(this.healthCenter, this.attendanceId)
@@ -67,9 +64,9 @@ export default {
     }
   },
   watch: {
-    initialySelected (value) {
+    /* initialySelected (value) {
       this.selected = value
-    }
+    } */
   },
   methods: {
     ...mapActions(NAMESPACED_ATTENDANCE, {
