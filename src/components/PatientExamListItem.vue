@@ -1,14 +1,14 @@
 <template>
   <div class="patient-exam" :class="getStatus | statusModifiers" @click.self="click(status)">
     <div class="patient-exam__detail" @click.self="click(status)">
-      <code-chip :text="mnemonico" transform="uppercase" class="patient-exam__tag"></code-chip>
-      <div class="patient-exam__separator-line"></div>
+      <code-chip :text="mnemonico" transform="uppercase" class="patient-exam__tag" />
+      <div class="patient-exam__separator-line"></div> 
       <div class="patient-exam__name-exam">
-         <code-info
+        <code-info
           size="lg"
           color="rgba(71, 77, 94, 1)"
           :info="name"     
-         />
+        />
       </div>
     </div>
     <div class="patient-exam__content" @click.self="click(status)">
@@ -20,18 +20,21 @@
           color="rgba(71, 77, 94, 1)"
           :info="nameHealthCenter"     
         />
-        
       </div>
       <div class="patient-exam__status-exam" @click.self="click(status)">
         <code-chip-status-exams :status="status" />
       </div>
       <div class="patient-exam__checkbox" >
         <code-checkbox
-          v-show="status == 'FINALIZADO'"
+          v-show="status === 'FINALIZADO'"
           text="imprimir"
           none
           color="primary"
-        ></code-checkbox>
+          name="correl"
+          :checked="checkExams"
+          :value="correl.toString()"
+          @click="checkExamToPrint"
+        />
       </div>
     </div>
   </div>
@@ -42,6 +45,8 @@ import CodeChip from "./base/CodeChip";
 import CodeChipStatusExams from "./base/CodeChipStatusExams";
 import CodeCheckbox from "./base/CodeCheckbox";
 import { examStatus } from "../mixins/examStatus";
+import { mapMutations, mapGetters } from "vuex";
+import { NAMESPACED_EXAMS, CHECKED_EXAM, UNCHECKED_EXAM } from "../utils/alias"
 export default {
   name: "PatientExamList",
   mixins: [examStatus],
@@ -49,7 +54,8 @@ export default {
     status: String,
     name: String,
     nameHealthCenter: String,
-    mnemonico: String
+    mnemonico: String,
+    correl: Number
   },
   components: {
     CodeChip,
@@ -58,19 +64,39 @@ export default {
     CodeInfo
   },
   data() {
-    return {}
+    return {
+    }
+  },
+  mounted () {
+    console.log(this.correl)
   },
   filters: {
     statusModifiers (status) {
       return "patient-exam--"+status;
     }
   },
+  computed: {
+    ...mapGetters(NAMESPACED_EXAMS, [
+      'checkExams'
+    ])
+  },
   methods: {
     click (status) {
       if (status === 'FINALIZADO') {
         this.$emit('click')
       }
-    }
+    },
+    checkExamToPrint (checkbox) {
+      if (checkbox.checked) {
+        this.checkExam(checkbox.value)
+      } else {
+        this.uncheckExam(checkbox.value)
+      }
+    },
+    ...mapMutations(NAMESPACED_EXAMS, {
+      checkExam: CHECKED_EXAM,
+      uncheckExam: UNCHECKED_EXAM
+    })
   }
 };
 </script>

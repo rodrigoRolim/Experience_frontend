@@ -130,7 +130,8 @@ import {
   DATE_VALIDATOR,
   REINIT_PAGINATION,
   EMPTY_ATTENDANCES,
-  NAME
+  NAME,
+  CANCEL_PENDING_REQUESTS
 } from '../utils/alias'
 export default {
   name: 'AttendanceListFilterPartner',
@@ -259,7 +260,6 @@ export default {
         await this.listAccomodations()
         await this.attendances()
       } catch (err) {
-        console.log({err})
         this.setMessage(this.message({ status: err.response.status, data: 'atendimento' }))
       }
     },
@@ -272,6 +272,8 @@ export default {
 
       if (this.allowRequest) {
         try {
+          this.cancel()
+          document.documentElement.scrollTop = 0
           await this.attendances()
         } catch (err) {
            this.setMessage(this.message({ status: err.response.status, data: 'atendimento' }))
@@ -302,7 +304,7 @@ export default {
           })
       })
     },
-     paramsQuery () {
+    paramsQuery () {
       let queries = {}
       if (this.params.healthCenter.id) queries['postocadastro'] = this.params.healthCenter.id
       if (this.params.realizer.id) queries['postorealizante'] = this.params.realizer.id
@@ -327,14 +329,8 @@ export default {
             this.params.end.split(" - ").join("-"),
             this.getTypeUser(this.userTypeAuthed))   
           this.getAttendances({ url: urlName, params: this.paramsQuery(), headers: headers })
-          .then((res) => {
-            
-            resolve(res)
-          })
-          .catch((err) => {
-            console.log({err})
-            reject(err)
-          })
+            .then((res) => resolve(res))
+            .catch((err) => reject(err))
         })
       }
     },
@@ -354,6 +350,9 @@ export default {
     }),
     ...mapActions(NAMESPACED_ACCOMODATIONS, {
       getAccomodations: GET_ACCOMODATIONS_STORE
+    }),
+    ...mapActions({
+      cancel:CANCEL_PENDING_REQUESTS
     })
   }
 }

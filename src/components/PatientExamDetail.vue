@@ -27,7 +27,7 @@
       <code-button
         class="btn-3" 
         padding="9px 0"
-        text="gerar PDF"
+        text="imprimir"
         color="danger"
         name-icon="file-pdf"
         size-icon="lg"

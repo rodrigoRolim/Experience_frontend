@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     takeLogo(logo) {
-      let images = require.context('../assets/', false, /(\.png$)|(\.jpeg$)|(\.gif$)/)
+      let images = require.context('@/assets/', false, /(\.png$)|(\.jpeg$)|(\.gif$)/)
       return images('./' + logo + ".png")
     }
   }
