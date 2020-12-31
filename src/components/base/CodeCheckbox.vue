@@ -1,7 +1,7 @@
 <template>
-<div class="checkbox" @click="click">
+<div class="checkbox" >
   <label class="checkbox__label" ><span class="checkbox__label__text-left" v-if="left && text">{{text}}</span>
-    <input class="checkbox__input" type="checkbox" :name="name" :id="name" :value="content" v-model="inputEmitter"/>
+    <input @click="click" ref="checkbox" class="checkbox__input" type="checkbox" :name="name" :value="value" :checked="checked"/>
     <div class="checkbox__mark" :class="getSize" :style="{borderColor}">
       <div class="checkbox__mark__content" :class="getColor">
         <span class="checkmark">
@@ -43,7 +43,13 @@ export default {
     borderColor: {
       type: String
     },
-    value: Boolean
+    value: {
+      type: [String, Boolean],
+    },
+    checked: {
+      type: Boolean,
+      default: false
+    }
   },
   data () {
     return {
@@ -67,9 +73,10 @@ export default {
     }
   },
   methods: {
-   click () {
-     this.$emit('click')
-   }
+    click () { 
+      let checkbox = { checked: this.$refs.checkbox.checked, value: this.value }
+      this.$emit('click', checkbox)
+    }
   }
 }
 </script>

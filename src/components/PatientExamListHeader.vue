@@ -8,15 +8,16 @@
         color="rgba(71, 77, 94, 1)"
         size-info="0.9rem"
       />
-     <!--  <div class="patient-exams__checkall" v-if="hasFinalizedExam">
+      <div class="patient-exams__checkall" v-if="someFinalizedExam">
         <code-checkbox
           text="imprimir"
           none
-          color="theme"
+          color="primary"
           size="md"
-          v-model="checkAllExams"
+          name="all-exams"
+          @click="checkAllExams"
         />
-      </div> -->
+      </div>
     </div>
     <code-drop-down bcolor="white" text="detalhes" dropdown>
       <template v-slot:content>
@@ -62,15 +63,15 @@
 <script>
 import CodeInfo from './base/CodeInfo'
 import CodeDropDown from './base/CodeDropDown'
-//import CodeCheckbox from '../components/base/CodeCheckbox'
-import { mapGetters, mapActions } from 'vuex'
-import { NAMESPACED_ATTENDANCE, SELECT_EXAMS, EMPTY_EXAMS } from '../utils/alias'
+import CodeCheckbox from '../components/base/CodeCheckbox'
+import { mapGetters, mapMutations } from 'vuex'
+import { NAMESPACED_EXAMS, CHECKED_ALL_EXAMS, UNCHECKED_ALL_EXAMS } from '../utils/alias'
 export default {
   name: 'PatientExamListHeader',
   props: {
-    healthCenter: Number,
-    attendance: Number,
-    patient: Number,
+    healthCenter: String,
+    attendance: String,
+    patient: String,
     name: String,
     age: String,
     gender: String,
@@ -79,13 +80,15 @@ export default {
   },
   components: {
     CodeInfo,
-    CodeDropDown
+    CodeDropDown,
+    CodeCheckbox
+  },
+  created () {
+    console.log(this.someFinalizedExam)
   },
   computed: {
-    ...mapGetters(NAMESPACED_ATTENDANCE, [
-      'attendances',
-      'exams',
-      'printableExams'
+    ...mapGetters(NAMESPACED_EXAMS, [
+      'someFinalizedExam'
     ]),
     getAttendance() {
       console.log(this.attendance)
@@ -114,26 +117,19 @@ export default {
   },
   data () {
     return {
-      checkAllExams: false
-    }
-  },
-  watch: {
-    checkAllExams (value) {
-     
-      if (value) {
-        let exams = this.exams(this.healthCenter, this.attendance)
-        let examsFinalized = exams.filter(exam => exam.situacao === 'N')
-        this.addExams(examsFinalized)
-        return
-      }
-      this.emptyExams()
+      
     }
   },
   methods: {
-    ...mapActions(NAMESPACED_ATTENDANCE, {
-      addExams: SELECT_EXAMS,
-      emptyExams: EMPTY_EXAMS
-    }),
+    checkAllExams (checkbox) {
+     
+      if (checkbox.checked) {
+
+        this.checkExams()
+        return
+      }
+      this.uncheckExams()
+    },
     getGender (initial) {
       return [{initial: 'M', value: 'masculino'}, {initial: 'F', value: 'feminino'}]
         .find(item => item.initial === initial)?.value
@@ -153,7 +149,11 @@ export default {
     getDeliveryDate (dateString) {
       const delivery = new Date(dateString).toLocaleDateString("pt-BR")
       return delivery !== "Invalid Date" ? delivery : ""
-    }
+    },
+    ...mapMutations(NAMESPACED_EXAMS, {
+      checkExams: CHECKED_ALL_EXAMS,
+      uncheckExams: UNCHECKED_ALL_EXAMS
+    })
   }
 }
 </script>

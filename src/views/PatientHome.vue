@@ -16,30 +16,6 @@
         <patient-exams-list-header :health-center="healthCenter" :attendance-id="attendanceId"/>
       </div>
       <div class="patient-exams__exams">
-        <div class="patient-exams__btns-pdf" v-if="showButtons">
-          <code-button
-            class="btn-1"
-            text="imprimir"
-            name-icon="print"
-            borded
-            bolded
-            color="dark"
-            size="sm"
-            bottom
-            size-icon="lg"
-          />
-          <code-button
-            class="btn-1"
-            name-icon="file-pdf"
-            text="download"
-            borded
-            bolded
-            color="danger"
-            size="sm"
-            bottom
-            size-icon="lg"
-          />
-        </div>  
         <patient-exam-list :health-center="healthCenter" :attendance-id="attendanceId"/>
       </div>
     </div>
@@ -52,7 +28,6 @@ import PatientExamList from '../components/PatientExamList'
 import TheSidebar from '../components/TheSidebar'
 import CodeLoading from '../components/base/CodeLoading'
 import CodeModal from '../components/base/CodeModal'
-import CodeButton from '../components/base/CodeButton'
 import { bus } from '../main'
 import { mapActions, mapGetters } from 'vuex'
 import { 
@@ -60,7 +35,7 @@ import {
   GET_ATTENDANCES_BY_CLIENT,
   NAMESPACED_ATTENDANCE, 
   GET_ATTENDANCES_STORE, 
-  NAMESPACED_AUTH 
+  NAMESPACED_AUTH
 } from '../utils/alias'
 export default {
   name: 'PatientExams',
@@ -69,8 +44,7 @@ export default {
     TheSidebar,
     PatientExamList,
     CodeLoading,
-    CodeModal,
-    CodeButton 
+    CodeModal
   },
   data () {
     return {
@@ -83,7 +57,6 @@ export default {
     bus.$on('sidebar', (data) => {
       this.attendances = data
     })
-
     if (this.uniqueAttendance) {
       this.getAttendances({ url: GET_ATTENDANCE(0, 10400) })
         .then((resp) => console.log(resp))
@@ -102,9 +75,7 @@ export default {
     ...mapGetters(NAMESPACED_AUTH, [
       'uniqueAttendance'
     ]),
-    showButtons () {
-      return this.examsToPrint.length > 0
-    },
+   
     loading () {
       console.log(this.status)
       return this.status === 'loading'
@@ -145,7 +116,7 @@ export default {
   margin-left: 321px
 .patient-exams__exams
   width: 100%
-  margin-top: 90px
+  margin-top: 150px
   @include respond-to(medium-screens)
     width: 100%
     margin-top: 65px
@@ -153,17 +124,6 @@ export default {
     width: 100%
     margin-top: 0
     margin-top: 65px
-.patient-exams__btns-pdf
-  display: flex
-  justify-content: space-between
-  width: 190px
-  position: fixed
-  bottom: 30px
-  right: 10px
-  background-color: white
-  box-shadow: 0px 0px 15px -11px #000000
-  padding: 10px
-  border-radius: 4px
 .patient-exams__patient
   position: fixed
   top: 60px
