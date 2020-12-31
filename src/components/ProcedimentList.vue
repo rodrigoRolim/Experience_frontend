@@ -5,8 +5,8 @@
     </div>
     <div class="procediments__body">
       <procediment-list-item
-        v-for="(procediment, i) in procediments"
-        :key="i"
+        v-for="procediment in procediments"
+        :key="procediment.mnemonico"
         :mnemonic="procediment.mnemonico"
         :name="procediment.nome"
         :material="procediment.nome_material"
@@ -14,7 +14,6 @@
         class="procediments__body__item" 
         @click="showInstructions(procediment.mnemonico)"
       />
-      
     </div>
     <div class="modal_instructions">
       <code-modal
@@ -27,6 +26,20 @@
         </template>
       </code-modal>
     </div>
+    <div class="procediment__loading">
+      <code-modal
+        class="procediment__modal-load"
+        :display="displayLoading"
+      >
+        <template v-slot:modal>
+          <code-loading
+            class="procediment__spin"   
+            range="50px"
+            velocity="1x"
+          />
+        </template>
+      </code-modal>
+    </div>
   </div>
 </template>
 <script>
@@ -34,6 +47,7 @@ import ProcedimentInstructions from './ProcedimentInstructions'
 import ProcedimentListItem from './ProcedimentListItem'
 import ProcedimentListItemSearch from './ProcedimentListItemSearch'
 import CodeModal from './base/CodeModal'
+import CodeLoading from './base/CodeLoading'
 import { mapGetters, mapActions } from 'vuex'
 import { NAMESPACED_PROCEDIMENT, NAMESPACED_INSTRUCTIONS, GET_INSTRUCTIONS, INSTRUCTIONS } from '../utils/alias'
 export default {
@@ -42,7 +56,8 @@ export default {
     ProcedimentListItem,
     ProcedimentListItemSearch,
     ProcedimentInstructions,
-    CodeModal
+    CodeModal,
+    CodeLoading
   },
   data () {
     return {
@@ -51,14 +66,18 @@ export default {
   },
   computed: {
     ...mapGetters(NAMESPACED_PROCEDIMENT, [
-      'procediments'
+      'procediments',
+      'status'
     ]),
+    displayLoading () {
+      return this.status === 'loading'
+    }
   },
   methods: {
     showInstructions (mnemonico) {
       this.show = !!mnemonico
       let url = GET_INSTRUCTIONS(mnemonico)
-      this.getInstructions(url)
+      this.getInstructions({url})
         .then((resp) => console.log(resp))
         .catch((err) => console.log(err))
     },
@@ -87,5 +106,9 @@ export default {
 .procediments__body__item
   margin: 5px
 .modal_instructions
-  width: 100%
+  width: 100% 
+.procediment__modal-load
+  position: fixed
+.procediment__spin
+  margin-top: 90px
 </style>
