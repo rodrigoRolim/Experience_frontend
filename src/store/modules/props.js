@@ -3,7 +3,7 @@ import cookies from 'vue-cookies'
 const state = () => ({
   patient: cookies.get('props')?.patient || null,
   attendance: cookies.get('props')?.attendance || null,
-  healthCenter: cookies.get('props').healthCenter,
+  healthCenter: cookies.get('props')?.healthCenter,
   namePatient: cookies.get('props')?.namePatient || null,
   agePatient: cookies.get('props')?.agePatient || null,
   genderPatient: cookies.get('props')?.genderPatient || null,
