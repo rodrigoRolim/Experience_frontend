@@ -20,7 +20,7 @@
         </template>
         <template v-slot:body>
           <div class="procediment-instructions__wrap" v-if="aba == 1">
-            <div class="procediment-instructions__content">aqui vai as intruções do exame</div>
+            <div class="procediment-instructions__content">{{instructions.preparo}}</div>
           </div>
         </template>
       </code-menu-abas>  
@@ -30,6 +30,8 @@
 
 <script>
 import CodeMenuAbas from './base/CodeMenuAbas'
+import { mapGetters } from 'vuex'
+import { NAMESPACED_INSTRUCTIONS } from '../utils/alias'
 export default {
   name: 'ProcedimentInstructions',
   components: {
@@ -47,6 +49,11 @@ export default {
     closeModal () {
       this.$emit('close', false)
     }
+  },
+  computed: {
+    ...mapGetters(NAMESPACED_INSTRUCTIONS, [
+      'instructions'
+    ])
   }
 }
 </script>
