@@ -2,12 +2,13 @@
   <div class="patient-exams__container">
     <div class="patient-exams__list" v-if="exams.length > 0">
       <patient-exam-list-item
-        v-for="(exam, i) in exams"
-        :key="i" 
+        v-for="exam in exams"
+        :key="exam.correl" 
         :status="exam.situacao_experience"
         :name="exam.nome_procedimento"
         :name-health-center="exam.nome_posto_realizante"
         :mnemonico="exam.mnemonico" 
+        :correl="exam.correl"
         @click="showExamResult(exam.correl, exam.nome_procedimento)" 
         class="patient-exams__item"
       />
@@ -28,31 +29,32 @@
         />
       </template>
     </code-modal>
+    <patient-exams-list-actions :showsUp="someExamChecked"/>
   </div>
 </template>
 <script>
 import CodeModal from './base/CodeModal'
 import PatientExamListItem from './PatientExamListItem'
 import PatientExamDetail from './PatientExamDetail'
+import PatientExamsListActions from './PatientExamsListActions'
 import { mapActions, mapGetters } from 'vuex'
 import { NAMESPACED_EXAMS, GET_EXAMS_ATTENDANCE, GET_EXAMS_STORE } from '../utils/alias'
 //import attendance from '../store/modules/attendance'
 export default {
   name: 'PatientExamList',
   props: {
-    patient: Number,
-    attendance: Number,
-    healthCenter: Number
+    patient: String,
+    attendance: String,
+    healthCenter: String
   },
   mounted () {
-    console.log(this.attendance)
-    console.log(this.healthCenter)
     this.getExams()
   },
   components: {
     CodeModal,
     PatientExamListItem,
-    PatientExamDetail
+    PatientExamDetail,
+    PatientExamsListActions
   },
   data () {
     return {
@@ -63,7 +65,8 @@ export default {
   },
   computed: {
     ...mapGetters(NAMESPACED_EXAMS, [
-      'exams'
+      'exams',
+      'someExamChecked'
     ])
   },
   methods: {
@@ -72,7 +75,7 @@ export default {
     }),
     getExams () {
       let url = GET_EXAMS_ATTENDANCE(this.healthCenter, this.attendance)
-      let headers = { 'X-Paginate': true }
+      let headers = { 'X-Paginate': false }
       this.requestExams({url, headers})
         .then((resp) => console.log(resp))
         .catch((err) => console.log({err}))
@@ -86,7 +89,6 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-
 .patient-exams__list
   display: flex
   flex-flow: row wrap
