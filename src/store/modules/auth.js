@@ -7,6 +7,7 @@ import {
     AUTH_REINIT_STATUS,
     AUTH_REQUEST,
     SELECTED_HEALTHCENTER,
+    REFRESH_TOKEN,
     
   } from '../../utils/alias'
 
@@ -75,14 +76,41 @@ const actions = {
     commit(AUTH_REINIT_STATUS)
     return state.status === ''
   },
- /*  [REFRESH_TOKEN]: ({ commit }) => {
+  [REFRESH_TOKEN]: ({ commit }, { url }) => {
+    return new Promise((resolve, reject) => {
+      requestToken({ url })
+      .then((resp) => {
+        let newUser_session = {
+          token: resp.data.token,
+          user_type: cookies.get('user-session').user_type,
+          user_name: cookies.get('user-session').user_name,
+          identify: cookies.get('user-session').identify,
+          uniqueAttendance: cookies.get('user-session').uniqueAttendance
+        }
+        cookies.remove('user-session')
+        cookies.set('user-session', newUser_session)
+        resolve(resp)
+      })
+      .catch((err) => {
 
-  } */
+        commit(AUTH_ERROR, err)
+        cookies.remove('user-session')
+        reject(err)
+      })
+    })
+  }
 }
 
 const mutations = {
   [AUTH_REQUEST]: state => {
     state.status = 'loading'
+  },
+  [REFRESH_TOKEN]: (state, newSession) => {
+    state.token = newSession.token
+    state.user = newSession.user_name
+    state.identify = newSession.identify
+    state.userType = newSession.user_type
+    state.uniqueAttendance = newSession.uniqueAttendance
   },
   [SELECTED_HEALTHCENTER]: (state, healthcenter) => {
     cookies.set('healthcenter-logged', healthcenter)
