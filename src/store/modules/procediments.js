@@ -2,9 +2,9 @@ import { requestResource } from '../../services/api'
 import { 
   GET_PROCEDIMENTS_STORE,
   GET_PROCEDIMENTS_LIKE_STORE, 
-  SUCCESS_GET_PROCEDIMENT, 
-  ERROR_GET_PROCEDIMENT, 
-  LOADING_GET_PROCEDIMENT,
+  SUCCESS, 
+  ERROR, 
+  LOADING,
   CANCEL_REQUEST,
   DELETE_SOURCE
 } from '../../utils/alias'
@@ -17,36 +17,37 @@ const state = () => ({
 
 const getters = {
   procediments: (state) => state.procediments,
-  procediment: (state) => state.procediment
+  procediment: (state) => state.procediment,
+  status: (state) => state.status
 }
 
 const actions = {
   [GET_PROCEDIMENTS_STORE]: ({ commit }, { url }) => {
+    commit(LOADING)
     return new Promise((resolve, reject) => {
-      commit(LOADING_GET_PROCEDIMENT)
       requestResource({ url, method: 'GET' })
         .then((resp) => {
           commit(GET_PROCEDIMENTS_STORE, resp.data)
-          commit(SUCCESS_GET_PROCEDIMENT)
+          commit(SUCCESS)
           resolve(resp)
         })
         .catch((err) => {
-          commit(ERROR_GET_PROCEDIMENT)
+          commit(ERROR)
           reject(err)
         })
     })
   },
   [GET_PROCEDIMENTS_LIKE_STORE]: ({ commit, state }, { url, params }) => {
     return new Promise((resolve, reject) => {
-      commit(LOADING_GET_PROCEDIMENT)
+      commit(LOADING)
       requestResource({ url, params, method: 'GET', source: state.source })
         .then((resp) => {
           commit(GET_PROCEDIMENTS_LIKE_STORE, resp.data)
-          commit(SUCCESS_GET_PROCEDIMENT)
+          commit(SUCCESS)
           resolve(resp)
         })
         .catch((err) => {
-          commit(ERROR_GET_PROCEDIMENT)
+          commit(ERROR)
           reject(err)
         })
     })
@@ -67,13 +68,13 @@ const mutations = {
   [DELETE_SOURCE]: (state) => {
     delete state.source
   },
-  [LOADING_GET_PROCEDIMENT]: (state) => {
+  [LOADING]: (state) => {
     state.status = 'loading'
   },
-  [SUCCESS_GET_PROCEDIMENT]: (state) => {
+  [SUCCESS]: (state) => {
     state.status = 'ok'
   },
-  [ERROR_GET_PROCEDIMENT]: (state) => {
+  [ERROR]: (state) => {
     state.status = 'error'
   }
 }
