@@ -40,6 +40,7 @@ export const GET_EXAMS_ATTENDANCE = (healthCenter, attendance) => `/v1/web/exame
 export const GET_EXAM_RESULT = (healthCenter, attendance, correlative) => `/v1/web/resultado/${healthCenter}/${attendance}/${correlative}`
 // results
 export const GET_RESULTS = (healthCenter, attendance) => `/v1/web/resultado/${healthCenter}/${attendance}`
+export const GET_PDFS = (healthCenter, attendance) => `/laudo/${healthCenter}/${attendance}`
 /**  
  * ROUTERS OF PAGE
 */
@@ -136,6 +137,11 @@ export const GET_EXAMS_STORE = 'GET_EXAMS_STORE'
 export const SET_ATTENDANCES_FILTERED = 'SET_ATTENDANCES_FILTERED'
 export const EMPTY_PARAMS = 'EMPTY_PARAMS'
 export const INSTRUCTIONS = 'INSTRUCTIONS'
+export const CHECKED_EXAM = 'CHECKED_EXAM'
+export const UNCHECKED_EXAM = 'UNCHECKED_EXAM'
+export const CHECKED_ALL_EXAMS = 'CHECKED_ALL_EXAMS'
+export const UNCHECKED_ALL_EXAMS = 'UNCHECKED_ALL_EXAMS'
+export const GET_EXAMS_PDFS = 'GET_EXAMS_PDFS'
 /**  
  * MUTATIONS TYPES AND ACTIONS' NAMES along namespace
 */
@@ -159,7 +165,7 @@ export const INCOMPLETE_ID = 'ID incompleto'
 export const INCOMPLETE_CPF = 'cpf incompleto'
 export const INVALID_DATA = 'data inválida'
 export const INCOMPLET_CRM = 'crm incompleto'
-export const MESSAGE_STATUS_403 = 'dados incorretos, verifique seus dados e tente novamente'
+export const MESSAGE_STATUS_403 = 'sessão expirada. Deslogue e logue novamente'
 export const MESSAGE_STATUS_111 = 'preencha ou corrija os campos alertados'
 export const MESSAGE_STATUS_401 = 'dados incorretos, verifique seus dados e tente novamente'
 export const MESSAGE_STATUS_404 = (data) => `${data}(s) não encontrado(s)`
