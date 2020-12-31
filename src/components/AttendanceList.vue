@@ -1,5 +1,5 @@
 <template>
-  <div class="attendances" id="attendances">
+  <div class="attendances" ref="attendances">
     <code-message
       v-if="message.message"
       class="attendances__message"
@@ -11,7 +11,7 @@
     <attendance-list-item
       class="attendances_items"
       v-else
-      v-for="(attendance, i) in attendances" v-bind:key="i"
+      v-for="attendance in attendances" :key="attendance.atendimento"
       :name="attendance.nome_cliente"
       :age="attendance.data_nas | age"
       :gender="attendance.sexo | sex"
@@ -25,14 +25,15 @@
       :patient="attendance.registro.toString()"
       :doctor="attendance.nome_solicitante"
     ></attendance-list-item>
-    <div class="attendances__loading" v-if="statusPush == 'loading'" >
+    <div class="attendances__loading" v-if="statusPush === 'loading'" >
       <code-message
         :message="messageLoad"
         :typeMessage="typeMessageLoad"
         position="center"
       >
         <template>
-          <code-loading class="code-loading"  
+          <code-loading class="code-loading"
+          v-if="statusPush === 'loading'"  
           sizeIcon="xs" 
           range="40px" 
           color="dimgray"/>
@@ -47,7 +48,14 @@ import CodeLoading from './base/CodeLoading'
 import AttendanceListItem from './AttendanceListItem'
 import { session } from '../mixins/session'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
-import { NAMESPACED_ATTENDANCE, PUSH_ATTENDANCES_STORE, GET_ATTENDANCES, NEXT_PAGE, LOAD_PUSH, NAMESPACED_AUTH } from '../utils/alias'
+import { 
+  NAMESPACED_ATTENDANCE, 
+  PUSH_ATTENDANCES_STORE, 
+  GET_ATTENDANCES, 
+  NEXT_PAGE, 
+  LOAD_PUSH, 
+  NAMESPACED_AUTH 
+} from '../utils/alias'
 export default {
   name: 'AttendanceList',
   props: {
@@ -106,7 +114,13 @@ export default {
       'status',
       'params',
       'statusPush'
-    ])
+    ]),
+    hasMoreAttendances () {
+      let att = this.$refs.attendances
+      return (window.innerHeight + window.scrollY >= att.offsetHeight + 100) 
+          && this.params.page < this.params.totalPages 
+          && this.statusPush !== 'loading' && this.statusPush !== 'error' && this.status !== 'loading'
+    } 
   },
   methods: {
     loadAttendancesByScroll () {
@@ -129,11 +143,7 @@ export default {
     },
     getMoreAttendances () {
 
-      let att = document.getElementById('attendances')
-
-      if ((window.innerHeight + window.scrollY >= att.offsetHeight + 100) 
-          && this.params.page < this.params.totalPages 
-          && this.statusPush !== 'loading') {
+      if (this.hasMoreAttendances) {
         let healthCenter = this.healthCenterLogged || this.userId
         let urlName = GET_ATTENDANCES(healthCenter,
             this.params.begin.split(" - ").join("-"),
@@ -144,12 +154,17 @@ export default {
         this.requestMoreAttendances({ url: urlName, params: this.paramsQuery(), headers })
           .then((resp) => {
             console.log(resp)
-            document.documentElement.scrollTop = 0
+            this.repositionScrollBar(0)
           })
           .catch((err) => {
+            console.log(this.statusPush)
             console.log({err})
+            this.repositionScrollBar(0)
           })
       } 
+    },
+    repositionScrollBar(pos) {
+      document.documentElement.scrollTop = pos
     },
     ...mapActions(NAMESPACED_ATTENDANCE, {
       requestMoreAttendances: PUSH_ATTENDANCES_STORE
