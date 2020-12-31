@@ -13,10 +13,10 @@ const serverExperience = axios.create({
 
 serverExperience.interceptors.request.use(
   config => {
-   /*  const CancelToken = axios.CancelToken
+    const CancelToken = axios.CancelToken
     const source = CancelToken.source()
     config.cancelToken = source.token
-    store.commit(ADD_CANCEL_TOKEN, source) */
+    store.commit(ADD_CANCEL_TOKEN, source)
     let token = store.getters['auth/token']
 
     if (token) {
@@ -58,5 +58,10 @@ serverAuth.interceptors.request.use(
   },
   error => Promise.reject(error)
 )
+const serverPDF = axios.create({
+  baseURL: 'http://192.168.1.68:9050',
+  timeout: 10000
+})
 export { serverAuth }
 export { serverExperience }
+export { serverPDF }
