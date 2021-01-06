@@ -5,7 +5,7 @@
         class="attendance-detail__info"
         icon="heartbeat"
         description="ID atendimento"
-        :info="id"
+        :info="getAttendanceID"
         color="#778899"
         size="2x"
       />
@@ -48,8 +48,10 @@
 
 <script>
 import CodeInfo from './base/CodeInfo'
+import { attendanceID } from '../mixins/attendanceID'
 export default {
   name: 'AttendanceListItemDetail',
+  mixins: [attendanceID],
   props: {
     agreement: String,
     attendance: String,
@@ -68,30 +70,8 @@ export default {
     }
   },
   computed: {
-    id () {
-      let hc = this.healthCenter
-      let att = this.attendance
-
-      if (this.healthCenter < 10) {
-        hc = '00' + this.healthCenter
-      }
-      if (this.healthCenter > 9) {
-        hc = '0' + this.healthCenter
-      }
-      if (this.attendance < 10) {
-        att = '0000' + this.attendance
-      }
-      if (this.attendance > 9) {
-        att = '000' + this.attendance
-      }
-      if (this.attendance > 99) {
-        att = '00' + this.attendance
-      }
-      if (this.attendance > 999) {
-        att = '0' + this.attendance
-      }
-      
-      return hc + '/' + att
+    getAttendanceID () {
+      return this.id(this.healthCenter, this.attendance)
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="attendance-relation-item" @click="click">
+  <div class="attendance-relation-item" @click="loadExams">
     <div class="attendance-relation-item__header">
       <code-info
         class="attendance-relation-item__date"
@@ -13,7 +13,7 @@
         icon="heartbeat"
         size="lg"
         description="ID atendimento"
-        info="0/198901"
+        :info="getAttendanceID"
       />
     </div>
     <div class="attendance-relation-item__line"></div>
@@ -31,24 +31,41 @@
 
 <script>
 import CodeInfo from './base/CodeInfo'
+import { attendanceID } from '../mixins/attendanceID'
+import { mapActions } from 'vuex'
+import { NAMESPACED_EXAMS, GET_EXAMS_STORE, GET_EXAMS_ATTENDANCE } from '../utils/alias' 
 export default {
   name: 'AttendanceRelationsItem',
   components: {
     CodeInfo
   },
+  mixins: [attendanceID],
   props: {
     attendanceDate: String,
     listExams: String,
-    attendanceId: String
+    attendance: Number,
+    healthCenter: Number
   },
   data () {
     return {
 
     }
   },
+  computed: {
+    getAttendanceID() {
+      return this.id(this.healthCenter, this.attendance)
+    }
+  },
   methods: {
-    click () {
-      this.$emit('click')
+    ...mapActions(NAMESPACED_EXAMS, {
+      requestExams: GET_EXAMS_STORE
+    }),
+    loadExams() {
+      let url = GET_EXAMS_ATTENDANCE(this.healthCenter, this.attendance)
+      let headers = { 'X-Paginate': false }
+      this.requestExams({url, headers})
+        .then((resp) => console.log(resp))
+        .catch((err) => console.log({err}))
     }
   }
 }
