@@ -22,6 +22,7 @@ export const GET_HEALTH_CENTERS = '/v1/web/posto'
 // attendances
 export const GET_ATTENDANCE = (healthCenter, attendance) => `/v1/web/atendimento/${healthCenter}/${attendance}`
 export const GET_ATTENDANCES_BY_CLIENT = '/v1/web/atendimento/cliente'
+export const GET_ATTENDANCES_RELATIONS = (client) => `/v1/web/atendimento/cliente/${client}`
 export const GET_ATTENDANCES = (healthCenter, begin, end, typeUser) => `/v1/web/atendimento/${begin}/${end}/${typeUser}/${healthCenter}`
 export const GET_ATTENDANCES_REQUESTER = (begin, end) => `/v1/web/atendimento/${begin}/${end}/solicitante`
 export const GET_ATTENDANCES_PATIENT = (client, begin, end) => `/v1/web/atendimento/${begin}/${end}/cliente/${client}`
@@ -72,6 +73,7 @@ export const PARTNER_TYPE_NAME = 'parceiro'
  * MUTATIONS TYPES AND ACTIONS' NAMES 
 */
 export const AUTH_REQUEST = 'AUTH_REQUEST'
+export const REAUTH_REQUEST = 'REAUTH_REQUEST'
 export const AUTH_SUCCESS = 'AUTH_SUCCESS'
 export const AUTH_ERROR = 'AUTH_ERROR'
 export const AUTH_REINIT_STATUS = 'AUTH_REINIT_STATUS'
@@ -142,6 +144,8 @@ export const UNCHECKED_EXAM = 'UNCHECKED_EXAM'
 export const CHECKED_ALL_EXAMS = 'CHECKED_ALL_EXAMS'
 export const UNCHECKED_ALL_EXAMS = 'UNCHECKED_ALL_EXAMS'
 export const GET_EXAMS_PDFS = 'GET_EXAMS_PDFS'
+export const REINIT_STATE = 'REINIT_STATE'
+export const MESSAGE = 'MESSAGE'
 /**  
  * MUTATIONS TYPES AND ACTIONS' NAMES along namespace
 */
