@@ -32,6 +32,7 @@
 import CodeMenuAbas from './base/CodeMenuAbas'
 import { mapGetters } from 'vuex'
 import { NAMESPACED_INSTRUCTIONS } from '../utils/alias'
+
 export default {
   name: 'ProcedimentInstructions',
   components: {
@@ -44,13 +45,6 @@ export default {
   },
   created () {
 
-  },
-  filters: {
-    instructions(value) {
-     return rtfToHTML.fromString(value, (err, html) => {
-        return html
-      })
-    }
   },
   methods: {
     closeModal () {
@@ -82,7 +76,8 @@ export default {
   border-bottom: 1px solid lightgray
   padding: 10px 20px
 .procediment-instructions__wrap
-  height: 60vh
+  max-height: 70vh
+  overflow: auto
 .procediment-instructions__content
   padding-left: 20px
   padding-top: 20px

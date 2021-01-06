@@ -29,7 +29,7 @@
         />
       </template>
     </code-modal>
-    <patient-exams-list-actions :showsUp="someExamChecked"/>
+    <patient-exams-list-actions :showsUp="someExamChecked" />
   </div>
 </template>
 <script>
@@ -43,9 +43,9 @@ import { NAMESPACED_EXAMS, GET_EXAMS_ATTENDANCE, GET_EXAMS_STORE } from '../util
 export default {
   name: 'PatientExamList',
   props: {
-    patient: String,
-    attendance: String,
-    healthCenter: String
+    patient: Number,
+    attendance: Number,
+    healthCenter: Number
   },
   mounted () {
     this.getExams()

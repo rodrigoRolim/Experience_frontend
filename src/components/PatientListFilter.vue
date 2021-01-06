@@ -107,7 +107,6 @@ export default {
     'params.begin': function (value) {
       console.log(value)
       if (this.required(value)) {
-        console.log(this.required(value))
         this.validate.begin = 'campo obrigatório'
       } else if (this.gtEnd(value, this.params.end)) {
         

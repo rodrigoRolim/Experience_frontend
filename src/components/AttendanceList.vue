@@ -142,7 +142,7 @@ export default {
       return queries
     },
     getMoreAttendances () {
-
+      console.log(this.hasMoreAttendances)
       if (this.hasMoreAttendances) {
         let healthCenter = this.healthCenterLogged || this.userId
         let urlName = GET_ATTENDANCES(healthCenter,

@@ -135,7 +135,7 @@ export default {
       let genderPatient = this.sex
       let deliveryDate = this.deliveryDate
       let doctor = this.doctor
-      console.log(healthCenter)
+    
       this.storeProps({ patient, healthCenter, attendance, namePatient, agePatient, genderPatient, deliveryDate, doctor })
       this.$router.push({ name: 'doctorExamsPatient', params: { patient: this.patientId, attendance: this.attendanceId, healthCenter: this.healthCenterId}})
     },

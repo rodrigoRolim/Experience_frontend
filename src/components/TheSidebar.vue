@@ -10,9 +10,8 @@
 </template>
 <script>
 import AttendanceRelations from './AttendanceRelations'
-//import { mapGetters } from 'vuex'
-//import { NAMESPACED_ATTENDANCE } from '../utils/alias'
-//import db from '../db'
+import { NAMESPACED_ATTENDANCE } from '../utils/alias'
+import { mapGetters } from 'vuex'
 export default {
   name: 'TheSidebar',
   components: {
@@ -24,9 +23,9 @@ export default {
     }
   },
   computed: {
-    /* ...mapGetters(NAMESPACED_ATTENDANCE, [
+    ...mapGetters(NAMESPACED_ATTENDANCE, [
       'attendances'
-    ]) */
+    ])
   }
 }
 </script>

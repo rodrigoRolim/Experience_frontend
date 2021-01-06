@@ -349,11 +349,11 @@ export default {
       }
     },
     birthDay (value) {
-      console.log(value)
+     // console.log(this.date(value, /[0-9]{2}\/[0-9]{2}\/[0-9]{4}/g))
       if (this.required(value)) {
         this.validate.nascimento = REQUIRED_INPUT
         //eslint-disable-next-line
-      } else if (this.date(value, /[0-9]{2}\/[0-9]{2}\/[0-9]{4}/g)){
+      } else if (!this.date(value, /[0-9]{2}\/[0-9]{2}\/[0-9]{4}/g)){
         this.validate.nascimento = INVALID_DATA
       } else {
         this.validate.nascimento = ''

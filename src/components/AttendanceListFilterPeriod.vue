@@ -41,8 +41,6 @@ export default {
   },
   data () {
     return {
-      BEGIN_INITIAL: "31-07-20",
-      END_INITIAL: "31-07-20"
     }
   },
   mounted () {

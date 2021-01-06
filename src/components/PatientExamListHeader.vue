@@ -69,9 +69,9 @@ import { NAMESPACED_EXAMS, CHECKED_ALL_EXAMS, UNCHECKED_ALL_EXAMS } from '../uti
 export default {
   name: 'PatientExamListHeader',
   props: {
-    healthCenter: String,
-    attendance: String,
-    patient: String,
+    healthCenter: Number,
+    attendance: Number,
+    patient: Number,
     name: String,
     age: String,
     gender: String,
@@ -112,7 +112,6 @@ export default {
       let doctor = (requesterDoctor) ? "Dr(a). "  + requesterDoctor : ''
     
       return doctor
-
     }
   },
   data () {

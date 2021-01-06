@@ -58,9 +58,8 @@ export default {
     },
     downloadExamResult () {
       let url = GET_PDFS(this.healthCenter, this.attendance)
-      console.log(this.checkedExams)
       let params = { exames: this.checkedExams.join(',') }
-      this.getResultExam({url, params})
+      this.getResultExam({ url, params })
         .then((resp) => {
           console.log(resp)
         })
@@ -82,7 +81,7 @@ export default {
   width: 190px
   position: fixed
   z-index: 1
-  bottom: 35px
+  bottom: 20px
   right: 10px
   background-color: white
   box-shadow: 0px 0px 15px -11px #000000
