@@ -21,7 +21,11 @@
     >
       <div class="calendar__month">
         <div class="calendar__arrow calendar_prev-mth" @click="goToPrevMonth()">&lt;</div>
-        <div class="calendar__selected-month" ref="month">{{currentMonth}}</div>
+        <div class="calendar__selected-month" ref="month">
+          {{months[month]}} <code-calendar-year class="calendar__year" 
+          @outputYear="setYear"
+          :inputYear="year"/>
+        </div>
         <div class="calendar__arrow calendar__next-mth" @click="goToNextMonth()">&gt;</div>
       </div>
       <div class="calendar__week">
@@ -49,10 +53,12 @@
 
 <script>
 import CodeInput from './CodeInput'
+import CodeCalendarYear from './CodeCalendarYear'
 export default {
   name: 'CodeCalendar',
   components: {
-    CodeInput
+    CodeInput,
+    CodeCalendarYear
   },
   props: {
     placeholder: String,
@@ -85,7 +91,6 @@ export default {
       selectedDay: null,
       selectedYear: null,
       selectedWeekDay: null,
-      currentMonth: null,
       months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 
                'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 
                'Novembro', 'Dezembro'],
@@ -111,9 +116,9 @@ export default {
     let date = new Date()
     this.day = date.getDate()
     this.month = date.getMonth()
-    this.year = date.getFullYear()
+    this.year = date.getFullYear().toString()
     this.weekDay = date.getDay()
-    this.currentMonth = this.months[this.month] + ' ' + this.year
+    //this.currentMonth = this.months[this.month] + ' ' + this.year
     this.selectedYear = this.year
     this.selectedMonth = this.month
     this.selectedDay = this.day
@@ -160,6 +165,10 @@ export default {
     }
   },
   methods: {
+    setYear(value) {
+      this.year = value
+      this.populateDates()
+    },
     dateValue (value) {
       this.selectedDate = value
       return this.selectedDate
@@ -239,7 +248,7 @@ export default {
         this.month = 0
         this.year++
       }
-      this.currentMonth = this.months[this.month] + ' ' + this.year
+      //this.currentMonth = this.months[this.month] + ' ' + this.year
       this.populateDates()
     },
     goToPrevMonth () {
@@ -248,7 +257,7 @@ export default {
         this.month = 11
         this.year--
       }
-      this.currentMonth = this.months[this.month] + ' ' + this.year
+     // this.currentMonth = this.months[this.month] + ' ' + this.year
       this.populateDates()
     },
     populateDates () {
@@ -296,7 +305,6 @@ export default {
         month = '0' + month
       }
       let year = d.getFullYear()
-      
       return day + ' / ' + month + ' / ' + year
     },
     mountDate (e) {
@@ -406,4 +414,9 @@ export default {
   color: #313131
 .calendar__day--selected
   background-color: #00CA85
+.calendar__selected-month
+  display: flex
+  justify-content: space-between
+  width: 118px
+
 </style>
