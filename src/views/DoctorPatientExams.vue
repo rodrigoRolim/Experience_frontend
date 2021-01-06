@@ -9,7 +9,7 @@
         id="scrollbar" 
         :class="{ 'sidebar--show': displaySideBar, 'sidebar--hidden': !displaySideBar }"
       >
-        <the-sidebar :patient="patient" />
+        <the-sidebar />
       </div>
    <!--  </transition> -->
     <div class="doctor-patient__main" >
@@ -26,6 +26,18 @@
         ></patient-exams-list-header>
       </div>
       <div class="doctor-patient__exams">
+        <code-modal
+          class="doctor-patient__modal"
+          :display="displayLoading"
+        >
+          <template v-slot:modal>
+            <code-loading
+              class="health-center-patient__spin"   
+              range="50px"
+              velocity="1x"
+            />
+          </template>
+        </code-modal>
         <patient-exam-list 
           :health-center="healthCenter"
           :attendance="attendance"
@@ -40,13 +52,16 @@
 import PatientExamsListHeader from '../components/PatientExamListHeader'
 import PatientExamList from '../components/PatientExamList'
 import TheSidebar from '../components/TheSidebar'
-import { NAMESPACED_PROPS } from '../utils/alias'
-import { mapGetters } from 'vuex'
+import CodeModal from '../components/base/CodeModal'
+import CodeLoading from '../components/base/CodeLoading'
+import { NAMESPACED_PROPS, NAMESPACED_EXAMS, NAMESPACED_ATTENDANCE, GET_ATTENDANCES_RELATIONS, GET_ATTENDANCES_STORE } from '../utils/alias'
+import { mapGetters, mapActions } from 'vuex'
 import { bus } from '../main'
 export default {
   name: 'DoctorPatientExams',
   components: {
-    /* PatientExams */
+    CodeLoading,
+    CodeModal,
     PatientExamsListHeader,
     TheSidebar,
     PatientExamList
@@ -60,6 +75,7 @@ export default {
     bus.$on('sidebar', (data) => {
       this.displaySideBar = data
     })
+    this.getAttendancesRelations()
   },
   computed: {
     ...mapGetters(NAMESPACED_PROPS, [
@@ -72,6 +88,27 @@ export default {
       'delivery',
       'doctor'
     ]),
+    ...mapGetters(NAMESPACED_EXAMS, [
+      'status'
+    ]),
+    displayLoading() {
+      return this.status === 'loading'
+    }
+  },
+  methods: {
+    ...mapActions(NAMESPACED_ATTENDANCE, {
+      getAttendances: GET_ATTENDANCES_STORE
+    }),
+    getAttendancesRelations () {
+      let url = GET_ATTENDANCES_RELATIONS(this.patient)
+      this.getAttendances({ url })
+        .then((resp) => {
+          console.log(resp)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
   }
 }
 </script>
@@ -109,6 +146,9 @@ export default {
   @include respond-to(handhelds)
     width: 100%
     margin-top: 50px
+.doctor-patient__modal
+  z-index: 2
+.doctor-patient__modal,
 .doctor-patient__sidebar,
 .doctor-patient__patient
   position: fixed
