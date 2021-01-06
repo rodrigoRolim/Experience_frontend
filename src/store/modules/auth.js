@@ -7,8 +7,7 @@ import {
     AUTH_REINIT_STATUS,
     AUTH_REQUEST,
     SELECTED_HEALTHCENTER,
-    REFRESH_TOKEN,
-    
+    REAUTH_REQUEST    
   } from '../../utils/alias'
 
 const state = () => ({
@@ -76,7 +75,7 @@ const actions = {
     commit(AUTH_REINIT_STATUS)
     return state.status === ''
   },
-  [REFRESH_TOKEN]: ({ commit }, { url }) => {
+  [REAUTH_REQUEST]: ({ commit }, { url }) => {
     return new Promise((resolve, reject) => {
       requestToken({ url })
       .then((resp) => {
@@ -89,13 +88,13 @@ const actions = {
         }
         cookies.remove('user-session')
         cookies.set('user-session', newUser_session)
-        resolve(resp)
+        resolve(resp.token)
       })
       .catch((err) => {
 
         commit(AUTH_ERROR, err)
         cookies.remove('user-session')
-        reject(err)
+        reject(err.status)
       })
     })
   }
@@ -105,7 +104,7 @@ const mutations = {
   [AUTH_REQUEST]: state => {
     state.status = 'loading'
   },
-  [REFRESH_TOKEN]: (state, newSession) => {
+  [REAUTH_REQUEST]: (state, newSession) => {
     state.token = newSession.token
     state.user = newSession.user_name
     state.identify = newSession.identify
