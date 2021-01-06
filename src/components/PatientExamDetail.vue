@@ -35,6 +35,7 @@
         borded
         bolded
         shading
+        @click="printExamResult"
       ></code-button>
     </div>
   </div>
@@ -42,8 +43,8 @@
 <script>
 import CodeButton from './base/CodeButton'
 import CodeLoading from './base/CodeLoading'
-import { GET_EXAM_RESULT } from '../utils/alias'
-import { requestResource } from '../services/api'
+import { GET_EXAM_RESULT, GET_PDFS } from '../utils/alias'
+import { requestResource, requestPDF } from '../services/api'
 export default {
   name: 'PatientExamDetail',
   props: {
@@ -72,6 +73,17 @@ export default {
   methods: {
     close () {
       this.$emit('close')
+    },
+    printExamResult() {
+      let url = GET_PDFS(this.healthCenter, this.attendance)
+      let params = { exames: this.correlative }
+      requestPDF({ url, params })
+        .then((resp) => {
+          console.log(resp)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   }
 }
