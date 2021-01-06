@@ -7,24 +7,27 @@ import {
   UNCHECKED_EXAM,
   CHECKED_ALL_EXAMS,
   UNCHECKED_ALL_EXAMS,
-  GET_EXAMS_PDFS
+  REINIT_STATE,
+  MESSAGE
 } from '../../utils/alias'
-import { requestResource, requestPDF } from '../../services/api'
+import { httpMessage } from '../../utils/statusMessages'
+import { requestResource } from '../../services/api'
 const state = () => ({
   exams: [],
-  examPDF: '',
   checkedExams: [],
   params: {
     limit: 10,
     page: 1
   },
   checkExams: false,
-  status: ''
+  status: '',
+  message: {}
 })
 
 const getters = {
   exams: state => state.exams,
   status: state => state.status,
+  message: state => state.message,
   params: state => state.params,
   checkedExams: state => state.checkedExams,
   checkExams: state => state.checkExams,
@@ -38,7 +41,10 @@ const actions = {
     return new Promise((resolve, reject) => {
       requestResource({ url, params, method: 'GET', headers })
         .then((resp) => {
+          const expiredSession = resp.status === 401
+          const message = httpMessage({ status: resp.status, data: 'exams', experired: expiredSession })
           commit(GET_EXAMS_STORE, resp.data)
+          commit(MESSAGE, message)
           commit(SUCCESS)
           resolve(resp)
         })
@@ -48,29 +54,11 @@ const actions = {
         })
     })
   },
-  [GET_EXAMS_PDFS]: ({ commit }, { url, params }) => {
-    return new Promise((resolve, reject) => {
-      requestPDF({ url, params })
-        .then((resp) => {
-          console.log(resp)
-          commit(GET_EXAMS_PDFS, resp)
-          resolve(resp)
-        })
-        .catch((err) => {
-          console.log(err)
-          reject(err)
-        })
-    })
-  }
 }
 
 const mutations = {
   [GET_EXAMS_STORE]: (state, exams) => {
-    console.log(exams)
     state.exams = exams
-  },
-  [GET_EXAMS_PDFS]: (state, pdf) => {
-    state.examPDF = pdf
   },
   [CHECKED_EXAM]: (state, correl) => {
     let hasExam = state.checkedExams.includes(correl)
@@ -96,7 +84,18 @@ const mutations = {
   },
   [ERROR]: (state) => {
     state.status = 'error'
-  } 
+  },
+  [MESSAGE]: (state, message) => {
+    state.message = message
+  },
+  [REINIT_STATE]: (state) => {
+    state.exams = []
+    state.checkedExams = [],
+    state.params.limit = 10
+    state.params.page = 1
+    state.checkExams = false,
+    state.status = ''
+  }
 }
 
 export default {
