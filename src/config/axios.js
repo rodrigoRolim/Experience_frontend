@@ -1,6 +1,6 @@
 import axios from 'axios'
 import store from '../store/index'
-import { ADD_CANCEL_TOKEN } from '../utils/alias'
+import { ADD_CANCEL_TOKEN, REFRESH_TOKEN } from '../utils/alias'
 
 const serverExperience = axios.create({
   baseURL: 'http://192.168.1.68:9001',
@@ -30,14 +30,19 @@ serverExperience.interceptors.request.use(
   error => Promise.reject(error),
 );
 // uma boa solução para o refresh automatico do token
-/* serverExperience.interceptors.response.use(response => response, error => {
+serverExperience.interceptors.response.use(response => response, error => {
   const status = error.response ? error.response.status: null
 
-  if (status === 408) {
-    // chamar a action que realiza o refresh do token do module auth
+  if (status === 401) {
+    return refreshToken()
+      .then(token => {
+        error.config.headers['Authorization'] = 'Bearer ' + token
+        error.config.baseURL = undefined
+        return serverExperience.request(error.config)
+      })
   }
   return Promise.reject(error)
-}) */
+})
 
 const serverAuth = axios.create({
   baseURL: 'http://192.168.1.68:9000',
@@ -60,8 +65,20 @@ serverAuth.interceptors.request.use(
 )
 const serverPDF = axios.create({
   baseURL: 'http://192.168.1.68:9050',
-  timeout: 10000
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  Credentials: false
 })
+
+function refreshToken() {
+  let url = REFRESH_TOKEN
+  const refreshing = store.dispatch('auth/REAUTH_REQUEST', { url }).then(token => {
+    return Promise.resolve(token)
+  })
+  return refreshing
+}
 export { serverAuth }
 export { serverExperience }
 export { serverPDF }
