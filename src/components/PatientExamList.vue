@@ -77,8 +77,8 @@ export default {
       let url = GET_EXAMS_ATTENDANCE(this.healthCenter, this.attendance)
       let headers = { 'X-Paginate': false }
       this.requestExams({url, headers})
-        .then((resp) => console.log(resp))
-        .catch((err) => console.log({err}))
+        .then()
+        .catch()
     },
     showExamResult (correl, nameExam) {
       this.correl = correl.toString()
