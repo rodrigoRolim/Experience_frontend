@@ -1,5 +1,5 @@
 import { requestResource } from '../../services/api'
-import { GET_ACCOMODATIONS_STORE, SUCCESS, ERROR, LOADING } from '../../utils/alias'
+import { GET_ACCOMODATIONS_STORE, SUCCESS, ERROR, LOADING, REINIT_STATE } from '../../utils/alias'
 const state = () => ({
   accomodations: [],
   status: ''
@@ -48,6 +48,9 @@ const mutations = {
   },
   [ERROR]: (state) => {
     state.status = 'error'
+  },
+  [REINIT_STATE]: (state) => {
+    state.accomodations = []
   }
 }
 

@@ -4,10 +4,10 @@ import {
   NAMESPACED_ATTENDANCE,
   AUTH_LOGOUT, 
   ACESS_ROUTE,
-  EMPTY_ATTENDANCES,
-  EMPTY_PARAMS,
   NAMESPACED_PROPS,
-  CLEAN_PROPS
+  CLEAN_PROPS,
+  REINIT_STATE,
+  NAMESPACED_EXAMS
 } from '../utils/alias'
 export const logout = {
   data () {
@@ -20,8 +20,10 @@ export const logout = {
       logout: AUTH_LOGOUT
     }),
     ...mapMutations(NAMESPACED_ATTENDANCE, {
-      clearAttendances: EMPTY_ATTENDANCES,
-      clearParams: EMPTY_PARAMS
+      reinitAttendancesState: REINIT_STATE
+    }),
+    ...mapMutations(NAMESPACED_EXAMS, {
+      reinitExamsState: REINIT_STATE
     }),
     ...mapMutations(NAMESPACED_PROPS, {
       clearProps: CLEAN_PROPS
@@ -31,8 +33,8 @@ export const logout = {
       let isLoggedout = this.logout()
       this.showLoadLogout = true
       if (isLoggedout) {
-        this.clearAttendances()
-        this.clearParams()
+        this.reinitAttendancesState()
+        this.reinitExamsState()
         this.clearProps()
         this.$router.push({ path: ACESS_ROUTE }).catch((e) => {
           console.log(e)

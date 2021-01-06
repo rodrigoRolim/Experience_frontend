@@ -1,5 +1,5 @@
 import { requestResource } from '../../services/api'
-import { GET_HEALTH_CENTERS_STORE, LOADING, ERROR, SUCCESS } from "../../utils/alias"
+import { GET_HEALTH_CENTERS_STORE, LOADING, ERROR, SUCCESS, REINIT_STATE } from "../../utils/alias"
 const state = () => ({
   healthCenters: [],
   status: ''
@@ -44,6 +44,9 @@ const mutations = {
   },
   [SUCCESS]: (state) => {
     state.status = 'ok'
+  },
+  [REINIT_STATE]: (state) => {
+    state.healthCenters = []
   }
 }
 

@@ -27,13 +27,15 @@ import {
   REINIT_PAGINATION,
   TOTAL_PAGES,
   FILTER_ATTENDANCES_BY_NAME,
-  EMPTY_PARAMS
+  EMPTY_PARAMS,
+  REINIT_STATE
 } from '../../utils/alias'
 let begin = () => {
   let today = new Date()
   today.setDate(today.getDate() - 7)
   let currDate = (today.getDate() < 10) ? '0' + today.getDate() : today.getDate()
-  let currMonth = today.getMonth() + 1
+  let month = today.getMonth() + 1
+  let currMonth = (month < 10) ? '0' + month : month
   let currYear = today.getFullYear()
   let dateInitial = currDate + ' / ' + currMonth + ' / ' + currYear
   return dateInitial
@@ -42,7 +44,8 @@ let end = () => {
   let today = new Date()
 
   let nextDate = (today.getDate() < 10) ? '0' + today.getDate() : today.getDate()
-  let nextMonth = today.getMonth() + 1
+  let month = today.getMonth() + 1
+  let nextMonth = (month < 10) ? '0' + month : month
   let nextYear = today.getFullYear()
   let dateFinal = nextDate + ' / ' + nextMonth + ' / ' + nextYear
   return dateFinal
@@ -223,6 +226,23 @@ const mutations = {
   },
   [TOTAL_PAGES]: (state, pages) => {
     state.params.totalPages = pages
+  },
+  [REINIT_STATE]: (state) => {
+    state.attendances = []
+    state.attendances.filteredAttendances = []
+    state.status = ''
+    state.statusPush = ''
+    state.message = {}
+    state.params.begin = begin()
+    state.params.end = end()
+    state.params.healthCenter = {id: '', name: 'todos' }
+    state.params.accomodation = {id: '', name: 'todos' }
+    state.params.situation = {id: '', name: 'todos' }
+    state.params.realizer = {id: '', name: 'todos' }
+    state.params.name = null
+    state.params.limit = 10
+    state.params.page = 1
+    state.params.totalPages = null
   }
 }
 
