@@ -1,43 +1,44 @@
 <template>
   <div class="attendance-relations">
     <div class="attendance-relations__item"
-      v-for="(attendance, i) in attendances"
-      :key="i"
+      v-for="attendance in attendances"
+      :key="attendance.correl"
       :class="{ 'attendance-relations__item--active': setIdentifier(attendance.posto, attendance.atendimento) === selected }"
-      @click="highlight(attendance.posto, attendance.atendimento)"
+      @click="select(attendance.posto, attendance.atendimento)"
     >
       <attendance-relations-item
         :attendance-date="attendance.data_atd | data"
-        :attendance-id="attendance.posto| id(attendance.atendimento)"
-        :list-exams="getMnemonicos(attendance.ExamesObj)"
+        :attendance="attendance.atendimento"
+        :health-center="healthCenter"
+        :list-exams="attendance.mnemonicos"
       />
     </div>
   </div>
 </template>
 <script>
 import AttendanceRelationsItem from './AttendanceRelationsItem'
-import { mapGetters, mapActions } from 'vuex'
-import { NAMESPACED_ATTENDANCE, CHANGE_SELECTED_ATTENDANCE }  from '../utils/alias'
+import { mapGetters } from 'vuex'
+import { NAMESPACED_ATTENDANCE, NAMESPACED_PROPS }  from '../utils/alias'
 
 export default {
   name: 'AttendanceRelations',
   components: {
     AttendanceRelationsItem
   },
-  props: {
-    patient: String
-  },
   data () {
     return {
-      selected: ''      
+      selected: ''
     }
   },
+  created() {
+    this.selected = this.initialySelected
+  }, 
   filters: {
-    data (dateString) {
+    data(dateString) {
       const date = new Date(dateString).toLocaleDateString("pt-BR")
       return date !== "Invalid Date" ? date : ""
     },
-    age (dateString) {
+    age(dateString) {
       var today = new Date();
       var birthDate = new Date(dateString);
 
@@ -50,7 +51,7 @@ export default {
 
       return !isNaN(ageDate) ? ageDate : "";
     },
-    id (healthCenter, attendanceId) {
+    id(healthCenter, attendanceId) {
       return healthCenter + '/' + attendanceId
     }
   },
@@ -58,29 +59,20 @@ export default {
     ...mapGetters(NAMESPACED_ATTENDANCE, [
       'attendances'
     ]),
-    initialySelected () {
-      console.log(this.healthCenter, this.attendanceId)
-      return this.healthCenter + '/' + this.attendanceId
+    ...mapGetters(NAMESPACED_PROPS, [
+      'healthCenter',
+      'attendance'
+    ]),
+    initialySelected() {
+      return this.healthCenter + '/' + this.attendance
     }
   },
-  watch: {
-    /* initialySelected (value) {
-      this.selected = value
-    } */
-  },
   methods: {
-    ...mapActions(NAMESPACED_ATTENDANCE, {
-      changeSelected: CHANGE_SELECTED_ATTENDANCE
-    }),
-    getMnemonicos (exams) {
-      return exams.map(item => item.mnemonico).join(' ')
-    },
-    setIdentifier (healthCenter, attendanceId) {
+    setIdentifier(healthCenter, attendanceId) {
       return healthCenter + '/' + attendanceId
     },
-    highlight (healthCenter, attendanceId) {
+    select(healthCenter, attendanceId) {
       this.selected = this.setIdentifier(healthCenter, attendanceId)
-      this.changeSelected({healthCenter, attendanceId})
     }
   }
 }
