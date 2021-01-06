@@ -45,6 +45,13 @@ export default {
   created () {
 
   },
+  filters: {
+    instructions(value) {
+     return rtfToHTML.fromString(value, (err, html) => {
+        return html
+      })
+    }
+  },
   methods: {
     closeModal () {
       this.$emit('close', false)
