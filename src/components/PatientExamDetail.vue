@@ -48,8 +48,8 @@ import { requestResource, requestPDF } from '../services/api'
 export default {
   name: 'PatientExamDetail',
   props: {
-    healthCenter: String,
-    attendance: String,
+    healthCenter: Number,
+    attendance: Number,
     correlative: String,
     nameExam: String
   },

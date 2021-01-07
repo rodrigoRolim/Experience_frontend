@@ -23,7 +23,7 @@
         :phone="patient.telefone | phone"
         :doctor="patient.nome_solicitante"
         :delivery-date="patient.data_entrega | delivery"
-        :laster-attendances="patient.ultimos_atendimentos"
+        :lastest-attendances="patient.ultimos_atendimentos"
         :patient-id="patient.registro"
         :attendance-id="patient.atendimento"
         :health-center-id="patient.posto"

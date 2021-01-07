@@ -1,7 +1,8 @@
 <template>
   <div class="calendar-years">
     <button
-      @click="toggleListOfYears"
+      type="button"
+      @click.stop.prevent="toggleListOfYears"
       class="calendar-years__button"
     >{{selectedYear}}</button>
     <div class="calendar-years__options" v-show="displayList">

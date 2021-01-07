@@ -48,7 +48,9 @@ export default {
     healthCenter: Number
   },
   mounted () {
-    this.getExams()
+    //if (this.thereIsNoSelected) {
+      //this.getExams(this.healthCenter, this.attendance)
+    //}
   },
   components: {
     CodeModal,
@@ -67,14 +69,27 @@ export default {
     ...mapGetters(NAMESPACED_EXAMS, [
       'exams',
       'someExamChecked'
-    ])
+    ]),
+    selectedAttendance() {
+      return `${this.healthCenter}|${this.attendance}`
+    },
+    thereIsNoSelected() {
+      // console.log(this.selected.hc, this.selected.att)
+      return this.healthCenter === null && this.attendance === null
+    }
+  },
+  watch: {
+    selectedAttendance(value) {
+      let [hc, att] = value.split('|')
+      this.getExams(hc, att)
+    }
   },
   methods: {
     ...mapActions(NAMESPACED_EXAMS, {
       requestExams: GET_EXAMS_STORE
     }),
-    getExams () {
-      let url = GET_EXAMS_ATTENDANCE(this.healthCenter, this.attendance)
+    getExams (hc, att) {
+      let url = GET_EXAMS_ATTENDANCE(hc, att)
       let headers = { 'X-Paginate': false }
       this.requestExams({url, headers})
         .then()

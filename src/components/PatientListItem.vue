@@ -55,7 +55,7 @@
       </div>
       <div class="patient-list-attendances">
         <patient-list-item-attendances 
-          v-for="(attendance, i) in lasterAttendances"
+          v-for="(attendance, i) in lastestAttendances"
           :key="i"
           :attendance-id="attendance.posto | id(attendance.atendimento)"
           :attendance-date="attendance.data_atd | date"
@@ -79,7 +79,7 @@ export default {
     phone: String,
     doctor: String,
     deliveryDate: String,
-    lasterAttendances: Array,
+    lastestAttendances: Array,
     patientId: Number,
     attendanceId: Number,
     healthCenterId: Number

@@ -55,6 +55,7 @@
       </template>
     </code-modal>
     <code-modal
+      class="user-perfil__load"
       :display="showLoadLogout"
     >
       <template v-slot:modal>
@@ -234,6 +235,8 @@ export default {
   margin-bottom: 0px
 .button__perfil
   padding: 0
+.user-perfil__load
+  z-index: 4
 .fade-enter-active, .fade-leave-active
   transition: opacity .3s
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ 
