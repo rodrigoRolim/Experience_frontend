@@ -1,5 +1,5 @@
 <template>
-  <div class="attendance-relation-item" @click="loadExams">
+  <div class="attendance-relation-item">
     <div class="attendance-relation-item__header">
       <code-info
         class="attendance-relation-item__date"
@@ -32,8 +32,8 @@
 <script>
 import CodeInfo from './base/CodeInfo'
 import { attendanceID } from '../mixins/attendanceID'
-import { mapActions } from 'vuex'
-import { NAMESPACED_EXAMS, GET_EXAMS_STORE, GET_EXAMS_ATTENDANCE } from '../utils/alias' 
+import { mapMutations } from 'vuex'
+import { NAMESPACED_PROPS, SET_PROPS} from '../utils/alias' 
 export default {
   name: 'AttendanceRelationsItem',
   components: {
@@ -41,6 +41,12 @@ export default {
   },
   mixins: [attendanceID],
   props: {
+    item: Number,
+    namePatient: String,
+    deliveryDate: String,
+    gender: String,
+    age: String,
+    doctor: String,
     attendanceDate: String,
     listExams: String,
     attendance: Number,
@@ -51,22 +57,28 @@ export default {
 
     }
   },
+  created () {
+    if (this.item === 0) {
+      let healthCenter = this.healthCenter
+      let attendance = this.attendance
+      let namePatient = this.namePatient
+      let agePatient = this.age
+      let genderPatient = this.gender
+      let deliveryDate = this.deliveryDate
+      let doctor = this.doctor
+      this.storeProps({ healthCenter, attendance, namePatient, agePatient, genderPatient, deliveryDate, doctor })
+      this.$emit('selected', { healthCenter: this.healthCenter, attendance: this.attendance })
+    }
+  },
   computed: {
     getAttendanceID() {
       return this.id(this.healthCenter, this.attendance)
     }
   },
   methods: {
-    ...mapActions(NAMESPACED_EXAMS, {
-      requestExams: GET_EXAMS_STORE
+    ...mapMutations(NAMESPACED_PROPS, {
+      storeProps: SET_PROPS 
     }),
-    loadExams() {
-      let url = GET_EXAMS_ATTENDANCE(this.healthCenter, this.attendance)
-      let headers = { 'X-Paginate': false }
-      this.requestExams({url, headers})
-        .then((resp) => console.log(resp))
-        .catch((err) => console.log({err}))
-    }
   }
 }
 </script>
