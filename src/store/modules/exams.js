@@ -8,7 +8,8 @@ import {
   CHECKED_ALL_EXAMS,
   UNCHECKED_ALL_EXAMS,
   REINIT_STATE,
-  MESSAGE
+  MESSAGE,
+  SELECTED
 } from '../../utils/alias'
 import { httpMessage } from '../../utils/statusMessages'
 import { requestResource } from '../../services/api'
@@ -20,6 +21,10 @@ const state = () => ({
     page: 1
   },
   checkExams: false,
+  selected: {
+    hc: null,
+    att: null
+  },
   status: '',
   message: {}
 })
@@ -28,6 +33,7 @@ const getters = {
   exams: state => state.exams,
   status: state => state.status,
   message: state => state.message,
+  selected: state => state.selected,
   params: state => state.params,
   checkedExams: state => state.checkedExams,
   checkExams: state => state.checkExams,
@@ -88,13 +94,21 @@ const mutations = {
   [MESSAGE]: (state, message) => {
     state.message = message
   },
+  [SELECTED]: (state, selected) => {
+    state.selected.hc = selected.healthCenter
+    state.selected.att = selected.attendance
+  },
   [REINIT_STATE]: (state) => {
     state.exams = []
-    state.checkedExams = [],
+    state.checkedExams = []
     state.params.limit = 10
     state.params.page = 1
-    state.checkExams = false,
+    state.checkExams = false
     state.status = ''
+    state.healthCenter = null
+    state.attendance = null
+    state.selected.hc = null
+    state.selected.att = null
   }
 }
 
