@@ -146,6 +146,7 @@ export const UNCHECKED_ALL_EXAMS = 'UNCHECKED_ALL_EXAMS'
 export const GET_EXAMS_PDFS = 'GET_EXAMS_PDFS'
 export const REINIT_STATE = 'REINIT_STATE'
 export const MESSAGE = 'MESSAGE'
+export const SELECTED = 'SELECTED'
 /**  
  * MUTATIONS TYPES AND ACTIONS' NAMES along namespace
 */
