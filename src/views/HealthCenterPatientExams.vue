@@ -3,9 +3,9 @@
     <div class="health-center-patient__main" >
       <div class="health-center-patient__patient" >
         <patient-exams-list-header
-         :patient="patient"
-         :health-center="healthCenter"
-         :attendance="attendance"
+         :patient="parseInt(patient)"
+         :health-center="parseInt(healthCenter)"
+         :attendance="parseInt(attendance)"
          :name="name"
          :age="age"
          :gender="gender"
@@ -27,9 +27,9 @@
           </template>
         </code-modal>
         <patient-exam-list
-         :patient="patient"
-         :health-center="healthCenter"
-         :attendance="attendance"
+         :patient="parseInt(patient)"
+         :health-center="parseInt(healthCenter)"
+         :attendance="parseInt(attendance)"
          
         />
       </div>
