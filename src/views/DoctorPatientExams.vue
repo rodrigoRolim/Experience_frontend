@@ -54,7 +54,13 @@ import PatientExamList from '../components/PatientExamList'
 import TheSidebar from '../components/TheSidebar'
 import CodeModal from '../components/base/CodeModal'
 import CodeLoading from '../components/base/CodeLoading'
-import { NAMESPACED_PROPS, NAMESPACED_EXAMS, NAMESPACED_ATTENDANCE, GET_ATTENDANCES_RELATIONS, GET_ATTENDANCES_STORE } from '../utils/alias'
+import { 
+  NAMESPACED_PROPS, 
+  NAMESPACED_EXAMS, 
+  NAMESPACED_ATTENDANCE, 
+  GET_ATTENDANCES_RELATIONS, 
+  GET_ATTENDANCES_STORE 
+} from '../utils/alias'
 import { mapGetters, mapActions } from 'vuex'
 import { bus } from '../main'
 export default {
