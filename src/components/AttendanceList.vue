@@ -47,6 +47,7 @@ import CodeMessage from './base/CodeMessage'
 import CodeLoading from './base/CodeLoading'
 import AttendanceListItem from './AttendanceListItem'
 import { session } from '../mixins/session'
+import { formater } from '../mixins/formater'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { 
   NAMESPACED_ATTENDANCE, 
@@ -61,7 +62,7 @@ export default {
   props: {
     route: String 
   },
-  mixins: [session],
+  mixins: [session, formater],
   components: {
     AttendanceListItem,
     CodeMessage,
@@ -80,28 +81,7 @@ export default {
   destroyed () {
     this.destroyAttendancesByScroll()
   },
-  filters: {
-    age (dateString) {
-      var today = new Date();
-      var birthDate = new Date(dateString);
-      var age = today.getFullYear() - birthDate.getFullYear();
-      var m = today.getMonth() - birthDate.getMonth();
-      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-          age--;
-      }
-      const ageDate = age.toString()
-      return !isNaN(ageDate) ? ageDate : "";
-    },
-    sex (value) {
-
-      return [{initial: 'M', value: 'masculino'}, {initial: 'F', value: 'feminino'}]
-        .find((sex) => sex.initial === value).value
-    },
-    date (dateString) {
-      const delivery = new Date(dateString).toLocaleDateString("pt-BR")
-      return delivery !== "Invalid Date" ? delivery : ""
-    }
-  },
+  
   computed: {
     ...mapGetters(NAMESPACED_AUTH, [
       'userTypeAuthed',
