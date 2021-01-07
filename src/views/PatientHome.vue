@@ -1,22 +1,38 @@
 <template>
   <div class="patient-exams">
-    <code-modal
-      :display="loading"
-    >
-      <template v-slot:modal>
-        <code-loading/>
-      </template>
-    </code-modal>
     <div class="patient-exams__sidebar" 
       :class="{ 'sidebar--show': attendances, 'sidebar--hidden': !attendances }">
-      <the-sidebar :health-center="healthCenter" :attendance-id="attendanceId"/>
+      <the-sidebar />
     </div>
     <div class="patient-exams__main">
+      <code-modal
+        class="patient-exams__modal"
+        :display="loading"
+      >
+        <template v-slot:modal>
+          <code-loading 
+            class="patient-exams__spin"   
+            range="50px"
+            velocity="1x"
+          />
+        </template>
+      </code-modal>
       <div class="patient-exams__patient">
-        <patient-exams-list-header :health-center="healthCenter" :attendance-id="attendanceId"/>
+        <patient-exams-list-header 
+         :patient="parseInt(patient)"
+         :health-center="parseInt(healthCenter)"
+         :attendance="parseInt(attendance)"
+         :name="name"
+         :age="age"
+         :gender="gender"
+         :delivery="delivery"
+         :doctor="doctor"
+        />
       </div>
-      <div class="patient-exams__exams">
-        <patient-exam-list :health-center="healthCenter" :attendance-id="attendanceId"/>
+      <div class="patient-exams__exams" >
+        <patient-exam-list 
+          :health-center="parseInt(selected.hc)" 
+          :attendance="selected.att"/>
       </div>
     </div>
   </div>
@@ -31,11 +47,13 @@ import CodeModal from '../components/base/CodeModal'
 import { bus } from '../main'
 import { mapActions, mapGetters } from 'vuex'
 import { 
-  GET_ATTENDANCE, 
+  //GET_ATTENDANCE, 
   GET_ATTENDANCES_BY_CLIENT,
   NAMESPACED_ATTENDANCE, 
   GET_ATTENDANCES_STORE, 
-  NAMESPACED_AUTH
+  NAMESPACED_AUTH,
+  NAMESPACED_EXAMS,
+  NAMESPACED_PROPS
 } from '../utils/alias'
 export default {
   name: 'PatientExams',
@@ -48,36 +66,40 @@ export default {
   },
   data () {
     return {
-      attendances: false,
-      healthCenter: '0',
-      attendanceId: '10400'
+      attendances: false
     }
   },
   created () {
     bus.$on('sidebar', (data) => {
       this.attendances = data
     })
-    if (this.uniqueAttendance) {
-      this.getAttendances({ url: GET_ATTENDANCE(0, 10400) })
-        .then((resp) => console.log(resp))
-        .catch((err) => console.log({err}))
-    } else {
-      this.getAttendances({ url: GET_ATTENDANCES_BY_CLIENT })
-        .then((resp) => console.log(resp))
-        .catch((err) => console.log({err}))
-    }
+    console.log(this.selected)
+    this.getAttendances({ url: GET_ATTENDANCES_BY_CLIENT })
+      .then((resp) => console.log(resp))
+      .catch((err) => console.log({err}))
   },
   computed: {
     ...mapGetters(NAMESPACED_ATTENDANCE, [
-      'status',
       'examsToPrint'
     ]),
     ...mapGetters(NAMESPACED_AUTH, [
       'uniqueAttendance'
     ]),
-   
+    ...mapGetters(NAMESPACED_EXAMS, [
+      'status',
+      'selected'
+    ]),
+    ...mapGetters(NAMESPACED_PROPS, [
+      'patient',
+      'attendance',
+      'healthCenter',
+      'name',
+      'age',
+      'gender',
+      'delivery',
+      'doctor'
+    ]),
     loading () {
-      console.log(this.status)
       return this.status === 'loading'
     }
   },
@@ -119,11 +141,11 @@ export default {
   margin-top: 150px
   @include respond-to(medium-screens)
     width: 100%
-    margin-top: 65px
+    margin-top: 120px
   @include respond-to(handhelds)
     width: 100%
-    margin-top: 0
-    margin-top: 65px
+    margin-top: 50px
+
 .patient-exams__patient
   position: fixed
   top: 60px
@@ -137,6 +159,14 @@ export default {
   z-index: 4
   @include respond-to(medium-screens)
     overflow-x: hidden
+.patient-exams__modal
+  z-index: 2
+.patient-exams__spin
+  right: calc(100% - 221px)
+  @include respond-to(medium-screens)
+    right: 0
+  @include respond-to(handhelds)
+    right: 0
 .patient-exams__patient
   width: calc(100% - 321px)
   z-index: 2
