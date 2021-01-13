@@ -31,7 +31,7 @@
           none
           color="primary"
           name="correl"
-          :checked="checkExams"
+          :checked="checked(correl)"
           :value="correl.toString()"
           @click="checkExamToPrint"
         />
@@ -77,7 +77,7 @@ export default {
   },
   computed: {
     ...mapGetters(NAMESPACED_EXAMS, [
-      'checkExams'
+      'checked'
     ])
   },
   methods: {
