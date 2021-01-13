@@ -1,10 +1,10 @@
 <template>
   <header class="navbar__header">
-    <div class="navbar__logo" v-if="logo">
+    <div class="navbar__logo">
       <div class="navbar__collapser">
         <slot name="collapser"></slot>
       </div>
-      <img class="navbar__image" :src="takeLogo(logo)" alt="logo da empresa">
+      <img class="navbar__image" :src="takeLogo" alt="logo da empresa">
     </div>
     <div class="navbar__profile">
       <slot name="perfil"></slot>
@@ -29,9 +29,10 @@ export default {
   created () {
     
   },
-  methods: {
-    takeLogo(logo) {
-      let images = require.context('../assets/', false, /(\.png$)|(\.jpeg$)|(\.gif$)/)
+  computed: {
+    takeLogo() {
+      const logo = process.env.VUE_APP_THEME
+      let images = require.context('@/assets/', false, /(\.png$)|(\.jpeg$)|(\.gif$)/)
       return images('./' + logo + ".png")
     }
   }
@@ -41,7 +42,7 @@ export default {
 .navbar__header
   display: flex
   flex-direction: row
-  background-color: #f9f9f9
+  background-color: #f3f1f1
   justify-content: space-between
   min-height: 60px
   border-bottom: 1px solid rgba(0, 0, 0, 0.1)
