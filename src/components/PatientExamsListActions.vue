@@ -10,6 +10,8 @@
       size="sm"
       bottom
       size-icon="lg"
+      :disable="printing"
+      :loading="printing"
       @click="printExamResult"
     />
     <code-button
@@ -20,8 +22,11 @@
       bolded
       color="danger"
       size="sm"
+      streched
       bottom
       size-icon="lg"
+      :disable="printing"
+      :loading="printing"
       @click="downloadExamResult"
     />
   </div>  
@@ -29,9 +34,10 @@
 
 <script>
 import CodeButton from './base/CodeButton'
-import { GET_EXAMS_PDFS, GET_PDFS, NAMESPACED_EXAMS } from '../utils/alias'
+import { GET_REPORT_STORE, GET_PDFS, NAMESPACED_EXAMS, NAMESPACED_REPORT } from '../utils/alias'
 import { NAMESPACED_PROPS } from '../utils/alias'
 import { mapGetters, mapActions } from 'vuex'
+import printJS from 'print-js'
 export default {
   name: "PatientExamsListActions",
   props: {
@@ -50,26 +56,41 @@ export default {
     ]),
     ...mapGetters(NAMESPACED_EXAMS, [
       'checkedExams'
-    ])
+    ]),
+    ...mapGetters(NAMESPACED_REPORT, [
+      'status'
+    ]),
+    printing() {
+      return this.status === 'loading'
+    },
   },
   methods: {
     printExamResult () {
-
+      let url = GET_PDFS(this.healthCenter, this.attendance)
+      let params = { exames: this.checkedExams.join(',') }
+      this.getReports({ url, params })
+        .then((base64) => {
+          printJS({printable: base64, type: 'pdf', base64: true})
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     },
     downloadExamResult () {
       let url = GET_PDFS(this.healthCenter, this.attendance)
       let params = { exames: this.checkedExams.join(',') }
-      this.getResultExam({ url, params })
+      this.getReports({ url, params })
         .then((resp) => {
+          //printJS({printable: base64, type: 'pdf', base64: true, showModal:true, modalMessage: 'recuperando'})
           console.log(resp)
         })
         .catch((err) => {
           console.log(err)
         })
     },
-    ...mapActions(NAMESPACED_EXAMS, {
-      getResultExam: GET_EXAMS_PDFS
-    })
+    ...mapActions(NAMESPACED_REPORT, {
+      getReports: GET_REPORT_STORE
+    }),
   }
 }
 </script>
