@@ -30,7 +30,6 @@
          :patient="parseInt(patient)"
          :health-center="parseInt(healthCenter)"
          :attendance="parseInt(attendance)"
-         
         />
       </div>
     </div>
@@ -46,11 +45,6 @@ import { mapGetters } from 'vuex'
 import { NAMESPACED_PROPS, NAMESPACED_EXAMS } from '../utils/alias'
 export default {
   name: 'health-center-patientExams',
- /*  props: {
-    attendance: String,
-    healthCenter: String,
-    patient: String
-  }, */
   components: {
     CodeModal,
     CodeLoading,

@@ -33,7 +33,7 @@
     <div class="logins__main" :class="{'logins__main--unclickable': loading}">
       <div class="logins__content" :class="{'logins__content--up': hiddenBanner}">
          <div class="logins__banner" v-if="!hiddenBanner">
-          <laboratory-banner logo="logo_cedro"></laboratory-banner>
+          <laboratory-banner></laboratory-banner>
         </div>
         <div class="logins__menu-abas">
           <code-menu-abas>
