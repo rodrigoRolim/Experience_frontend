@@ -24,10 +24,6 @@ export default {
      
     }
   },
-  created () {
-    //document.body.style.overflow = 'hidden'
-  },
-
   watch: {
     display () {
       document.body.style.overflow =  'auto'

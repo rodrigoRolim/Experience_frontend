@@ -56,7 +56,7 @@ export default {
   cursor: pointer
 .radio__icon.radio--selected
   border: none
-  background-color: $green
+  background-color: map-get($theme-color, "default")
 .radio__icon.radio--unselected
   background-color: none
 .radio__input

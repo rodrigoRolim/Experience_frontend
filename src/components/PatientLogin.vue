@@ -573,9 +573,7 @@ export default {
       this.setCaretPosition(inputElement, currentPositionCursor + 1)
     },
     focusInput (e) {
-      console.log(e.target.name)
       this.focusedElement = e.target
-      console.log(this.focusInputList.indexOf(e.target.name))
       this.indexFocusedInput = this.focusInputList.indexOf(e.target.name);
       this.focusedInput = e.target.name;
     },
@@ -589,11 +587,8 @@ export default {
     displayKeyboard () {
      
       this.focusedInput = this.focusInputList[this.indexFocusedInput]
-      console.log(this.focusedInput)
       this.softKeyboard = !this.softKeyboard
       if (this.softKeyboard) {
-        //this.$refs[this.focusedInput].$el.focus();
-        //console.log( this.$refs[this.focusedInput])
         this.focusedInput = 'atendimento'
       }
       this.keyboardActive = !this.keyboardActive
@@ -607,6 +602,7 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+
 .login-patient
   width: 100%
 .login-patient__form
@@ -636,7 +632,7 @@ export default {
   align-items: baseline
 .login-patient__keyboard,
 .login-patient__doubt
-  color: rgb(52, 181, 131)
+  color: map-get($theme-color, "default")
   margin: 20px 0
   cursor: pointer
 .login-patient__doubt:hover

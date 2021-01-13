@@ -22,7 +22,7 @@ export default {
       type: String,
       default: 'default',
       validator: function (value) {
-        return ['success', 'error', 'warning', 'info', 'default'].indexOf(value) !== -1
+        return ['success', 'error', 'warning', 'info', 'default', 'whiteness'].indexOf(value) !== -1
       }
     },
     width: String,
@@ -84,4 +84,8 @@ export default {
   background-color: rgba(0,0,0,0.04)
   border: 1px solid lightgray
   color: dimgray
+.message--whiteness
+  background-color: white
+  border: 1px solid white
+  color: map-get($theme-color, 'letters')
 </style>

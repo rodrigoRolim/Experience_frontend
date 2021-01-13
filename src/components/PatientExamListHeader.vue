@@ -15,6 +15,7 @@
           color="primary"
           size="md"
           name="all-exams"
+          :checked="allExamsChecked"
           @click="checkAllExams"
         />
       </div>
@@ -88,31 +89,9 @@ export default {
   },
   computed: {
     ...mapGetters(NAMESPACED_EXAMS, [
-      'someFinalizedExam'
+      'someFinalizedExam',
+      'allExamsChecked'
     ]),
-    getAttendance() {
-      console.log(this.attendance)
-      return this.attendances.find((att) => att.atendimento == this.attendance)
-    },
-    patientName () {
-      return this.getAttendance?.nome_cliente
-    },
-    patientGender () {
-      return this.getGender(this.getAttendance?.sexo)
-    },
-    patientAge () {
-      return this.getAgeByBirthday(this.getAttendance?.data_nas)
-    },
-    patientDelivery () {
-      return this.getDeliveryDate(this.getAttendance?.data_entrega)
-    },
-    patientDoctor () {
-      
-      let requesterDoctor = this.getAttendance?.nome_solicitante
-      let doctor = (requesterDoctor) ? "Dr(a). "  + requesterDoctor : ''
-    
-      return doctor
-    }
   },
   data () {
     return {
@@ -128,26 +107,6 @@ export default {
         return
       }
       this.uncheckExams()
-    },
-    getGender (initial) {
-      return [{initial: 'M', value: 'masculino'}, {initial: 'F', value: 'feminino'}]
-        .find(item => item.initial === initial)?.value
-    },
-    getAgeByBirthday (dateString) {
-
-      var today = new Date();
-      var birthDate = new Date(dateString);
-      var age = today.getFullYear() - birthDate.getFullYear();
-      var m = today.getMonth() - birthDate.getMonth();
-      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-       age--;
-      }
-      const ageDate = age.toString()
-      return !isNaN(ageDate) ? ageDate : "";
-    },
-    getDeliveryDate (dateString) {
-      const delivery = new Date(dateString).toLocaleDateString("pt-BR")
-      return delivery !== "Invalid Date" ? delivery : ""
     },
     ...mapMutations(NAMESPACED_EXAMS, {
       checkExams: CHECKED_ALL_EXAMS,
