@@ -147,6 +147,8 @@ export const GET_EXAMS_PDFS = 'GET_EXAMS_PDFS'
 export const REINIT_STATE = 'REINIT_STATE'
 export const MESSAGE = 'MESSAGE'
 export const SELECTED = 'SELECTED'
+export const GET_REPORT_STORE = 'GET_REPORT_STORE' 
+export const GET_RESULT_STORE = 'GET_RESULT_STORE'
 /**  
  * MUTATIONS TYPES AND ACTIONS' NAMES along namespace
 */
@@ -160,6 +162,8 @@ export const NAMESPACED_PATIENT = 'patients'
 export const NAMESPACED_REGISTRANTS = 'registrants'
 export const NAMESPACED_PROPS = 'props'
 export const NAMESPACED_EXAMS = 'exams'
+export const NAMESPACED_REPORT = 'report'
+export const NAMESPACED_RESULTS = 'results'
 export const NAMESPACED_INSTRUCTIONS = 'instructions'
 /**  
  * VALIDATIONS MESSAGES
