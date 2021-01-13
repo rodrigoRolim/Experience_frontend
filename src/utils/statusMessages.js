@@ -5,6 +5,7 @@ import {
   MESSAGE_STATUS_404 
 } from './alias'
 export const httpMessage = ({status, typeMessage= 'default', data = 'recurso', experied = false}) => {
+  console.log(status)
   switch (status) {
     case 111:
       return { type: 'error', message: MESSAGE_STATUS_111 }
