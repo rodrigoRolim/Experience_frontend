@@ -5,7 +5,7 @@ module.exports = {
 				prependData: () => {
 					let _responsiveness = '@import "@/styles/_responsiveness.scss"';
 					let _colors = '@import "@/styles/__colors.scss"';
-					let _theme = `@import "@/styles/themes/${process.env.APP_THEME}"`
+					let _theme = `@import "@/styles/themes/${process.env.VUE_APP_THEME}"`
 					return _responsiveness + '\n' + _colors + '\n' + _theme;
 				}
 			}
