@@ -72,6 +72,24 @@ const serverPDF = axios.create({
   Credentials: false
 })
 
+serverPDF.interceptors.request.use(
+  config => {
+    const CancelToken = axios.CancelToken
+    const source = CancelToken.source()
+    config.cancelToken = source.token
+    store.commit(ADD_CANCEL_TOKEN, source)
+    let token = store.getters['auth/token']
+
+    if (token) {
+      token = 'Bearer ' + token
+      config.headers.Authorization = token
+    }
+
+    return config;
+  },
+  error => Promise.reject(error),
+);
+
 function refreshToken() {
   let url = REFRESH_TOKEN
   const refreshing = store.dispatch('auth/REAUTH_REQUEST', { url }).then(token => {
