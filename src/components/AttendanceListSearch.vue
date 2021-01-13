@@ -10,7 +10,7 @@
       icon="search"
       color-icon="#368c8c"
       @input="setName"
-      :value="params.name"
+      :value="params.name | toUpperCase"
       @enter="exec"
     />
   </div>
@@ -20,12 +20,13 @@ import CodeInput from './base/CodeInput'
 import { session } from '../mixins/session'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { NAMESPACED_ATTENDANCE, FILTER_ATTENDANCES_BY_NAME, NAMESPACED_AUTH, GET_ATTENDANCES, NAME, REINIT_PAGINATION } from '../utils/alias'
+import { uppercase } from '../mixins/formater'
 export default {
   name: 'AttendanceListSearch',
   props: {
     attendances: Array
   },
-  mixins: [session],
+  mixins: [session, uppercase],
   components: {
     CodeInput
   },
