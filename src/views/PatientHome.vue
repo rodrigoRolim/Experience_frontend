@@ -29,7 +29,15 @@
          :doctor="doctor"
         />
       </div>
-      <div class="patient-exams__exams" >
+      <div class="patient-exams__exams">
+        <code-message
+          v-if="message"
+          class="patient-exams__message"
+          :message="message.message || ''"
+          :type-message="message.type"
+          position="center"
+          icon="info-circle"
+        />
         <patient-exam-list 
           :health-center="parseInt(selected.hc)" 
           :attendance="selected.att"/>
@@ -44,6 +52,7 @@ import PatientExamList from '../components/PatientExamList'
 import TheSidebar from '../components/TheSidebar'
 import CodeLoading from '../components/base/CodeLoading'
 import CodeModal from '../components/base/CodeModal'
+import CodeMessage from '../components/base/CodeMessage'
 import { bus } from '../main'
 import { mapActions, mapGetters } from 'vuex'
 import { 
@@ -62,7 +71,8 @@ export default {
     TheSidebar,
     PatientExamList,
     CodeLoading,
-    CodeModal
+    CodeModal,
+    CodeMessage
   },
   data () {
     return {
@@ -73,7 +83,6 @@ export default {
     bus.$on('sidebar', (data) => {
       this.attendances = data
     })
-    console.log(this.selected)
     this.getAttendances({ url: GET_ATTENDANCES_BY_CLIENT })
       .then((resp) => console.log(resp))
       .catch((err) => console.log({err}))
@@ -87,7 +96,8 @@ export default {
     ]),
     ...mapGetters(NAMESPACED_EXAMS, [
       'status',
-      'selected'
+      'selected',
+      'message'
     ]),
     ...mapGetters(NAMESPACED_PROPS, [
       'patient',
