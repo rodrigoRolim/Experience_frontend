@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="exam__modal__body">
-      <div class="exam__loading" v-if="results.length == 0">
+      <div class="exam__loading" v-if="statusResults === 'loading'">
         <code-loading
           class="exam__spin"   
           range="50px"
@@ -22,6 +22,14 @@
           <div class="exame__result">{{result.valor}}<span class="exame__result__unity">{{result.variavel_unidade}}</span></div>
         </div>
       </div>
+      <code-message
+        v-if="message"
+        class="attendances__message"
+        :message="message.message || ''"
+        :typeMessage="message.type"
+        position="center"
+        icon="info-circle"
+      />
     </div>
     <div class="exame__button">
       <code-button
@@ -35,16 +43,20 @@
         borded
         bolded
         shading
+        :disable="printing"
+        :loading="printing"
         @click="printExamResult"
-      ></code-button>
+      />
     </div>
   </div>
 </template>
 <script>
 import CodeButton from './base/CodeButton'
+import CodeMessage from './base/CodeMessage'
 import CodeLoading from './base/CodeLoading'
-import { GET_EXAM_RESULT, GET_PDFS } from '../utils/alias'
-import { requestResource, requestPDF } from '../services/api'
+import { GET_EXAM_RESULT, GET_PDFS, GET_REPORT_STORE, GET_RESULT_STORE, NAMESPACED_REPORT, NAMESPACED_RESULTS } from '../utils/alias'
+import { mapActions, mapGetters } from 'vuex'
+import printJS from 'print-js'
 export default {
   name: 'PatientExamDetail',
   props: {
@@ -55,7 +67,8 @@ export default {
   },
   components: {
     CodeButton,
-    CodeLoading
+    CodeLoading,
+    CodeMessage
   },
   data () {
     return {
@@ -64,11 +77,24 @@ export default {
   },
   created () {
     let url = GET_EXAM_RESULT(this.healthCenter, this.attendance, this.correlative)
-    requestResource({url})
+    this.getResults({url})
       .then((resp) => {
-        this.results = resp.data
+        this.results = resp
       })
       .catch((err) => console.log({err}))
+  },
+  computed: {
+    printing() {
+      return this.status === 'loading'
+    },
+    ...mapGetters(NAMESPACED_REPORT, [
+      'status'
+    ]),
+    ...mapGetters(NAMESPACED_RESULTS, {
+        statusResults: 'status',
+        message: 'message'
+      }      
+    )
   },
   methods: {
     close () {
@@ -77,14 +103,21 @@ export default {
     printExamResult() {
       let url = GET_PDFS(this.healthCenter, this.attendance)
       let params = { exames: this.correlative }
-      requestPDF({ url, params })
-        .then((resp) => {
-          console.log(resp)
+      this.getReports({ url, params })
+        .then((base64) => {
+          this.close()
+          printJS({printable: base64, type: 'pdf', base64: true })
         })
         .catch((err) => {
           console.log(err)
         })
-    }
+    },
+    ...mapActions(NAMESPACED_REPORT, {
+      getReports: GET_REPORT_STORE
+    }),
+    ...mapActions(NAMESPACED_RESULTS, {
+      getResults: GET_RESULT_STORE
+    })
   }
 }
 </script>

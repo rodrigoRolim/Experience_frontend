@@ -13,7 +13,7 @@
         icon="heartbeat"
         size="lg"
         description="ID atendimento"
-        :info="getAttendanceID"
+        :info="healthCenter | id(attendance)"
       />
     </div>
     <div class="attendance-relation-item__line"></div>
@@ -31,15 +31,15 @@
 
 <script>
 import CodeInfo from './base/CodeInfo'
-import { attendanceID } from '../mixins/attendanceID'
-import { mapMutations } from 'vuex'
-import { NAMESPACED_PROPS, SET_PROPS} from '../utils/alias' 
+import { mapGetters, mapMutations } from 'vuex'
+import { NAMESPACED_EXAMS, NAMESPACED_PROPS, SET_PROPS} from '../utils/alias'
+import { attendance } from '../mixins/formater' 
 export default {
   name: 'AttendanceRelationsItem',
+  mixins: [attendance],
   components: {
     CodeInfo
   },
-  mixins: [attendanceID],
   props: {
     item: Number,
     namePatient: String,
@@ -52,13 +52,33 @@ export default {
     attendance: Number,
     healthCenter: Number
   },
-  data () {
-    return {
-
+  created () {
+    this.selectItemByDefault()
+  },
+  watch: {
+    healthCenterAndAttendance(value) {
+      const hcAndAtt = value.split('|')
+      const hc = hcAndAtt[0]
+      const att = hcAndAtt[1]
+      
+      if (+hc === this.healthCenter && +att === this.attendance) {
+        this.selectItem()
+      }
     }
   },
-  created () {
-    if (this.item === 0) {
+  computed: {
+    ...mapGetters(NAMESPACED_EXAMS, [
+      'selected'
+    ]),
+    healthCenterAndAttendance() {
+      return `${this.selected.hc}|${this.selected.att}`
+    }
+  },
+  methods: {
+    ...mapMutations(NAMESPACED_PROPS, {
+      storeProps: SET_PROPS 
+    }),
+    selectItem() {
       let healthCenter = this.healthCenter
       let attendance = this.attendance
       let namePatient = this.namePatient
@@ -66,19 +86,15 @@ export default {
       let genderPatient = this.gender
       let deliveryDate = this.deliveryDate
       let doctor = this.doctor
+      console.log('penis ', deliveryDate)
       this.storeProps({ healthCenter, attendance, namePatient, agePatient, genderPatient, deliveryDate, doctor })
       this.$emit('selected', { healthCenter: this.healthCenter, attendance: this.attendance })
+    },
+    selectItemByDefault() {
+      if (this.item === 0) {
+        this.selectItem()
+      }
     }
-  },
-  computed: {
-    getAttendanceID() {
-      return this.id(this.healthCenter, this.attendance)
-    }
-  },
-  methods: {
-    ...mapMutations(NAMESPACED_PROPS, {
-      storeProps: SET_PROPS 
-    }),
   }
 }
 </script>

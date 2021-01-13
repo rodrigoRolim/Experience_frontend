@@ -151,7 +151,7 @@ export default {
   display: flex
   flex-direction: column
   justify-content: center
-  background-color: $keyboard
+  background-color: map-get($theme-color, "default")
   @include respond-to(handhelds)
     display: none
 .keyboard__close
@@ -173,7 +173,6 @@ export default {
   display: flex
   flex-direction: row
   justify-content: center
-
 .keyboard__key
   position: relative
   display: inline-flex
@@ -187,7 +186,7 @@ export default {
   border-radius: 5px
   border: none
   color: white
-  background-color: $key
+  background-color: map-get($theme-color, "key")
   outline: none
   font-size: 16px
 .keyboard__key:active

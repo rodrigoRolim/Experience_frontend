@@ -1,7 +1,7 @@
 <template>
   <div class="laboratory-banner">
     <div class="laboratory-banner__logo">
-      <img class="laboratory-banner__image" :src="takeLogo(logo)" ref="logo" alt="logo da empresa"/>
+      <img class="laboratory-banner__image" :src="takeLogo" ref="logo" alt="logo da empresa"/>
     </div>
     <div class="laboratory-banner__header">
       <h1 class="laboratory-banner__title">Aplicação para visualização de resultados</h1>
@@ -17,18 +17,14 @@
 
 export default {
   name: 'LaboratoryBanner',
-  props: {
-    logo: {
-      type: String,
-      default: 'logo'
-    }
-  },
   data () {
     return {
     }
   },
-  methods: {
-    takeLogo(logo) {
+  computed: {
+    takeLogo() {
+      var logo = process.env.VUE_APP_THEME
+      console.log(logo)
       let images = require.context('@/assets/', false, /(\.png$)|(\.jpeg$)|(\.gif$)/)
       return images('./' + logo + ".png")
     }
@@ -46,7 +42,7 @@ export default {
   justify-content: center
   align-items: center
 .laboratory-banner__title
-  color: #4eaf6e
+  color: map-get($theme-color, "letters")
   font-weight: 100
   font-size: 1.7rem
   @include respond-to(handhelds)

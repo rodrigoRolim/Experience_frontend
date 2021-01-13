@@ -11,11 +11,11 @@
       <attendance-relations-item
         :item="i"
         :name-patient="attendance.nome_cliente"
-        :delivery-date="attendance.data_entrega | date"
-        :gender="attendance.sexo | sex"
-        :age="attendance.data_nas | age"
+        :delivery-date="attendance.data_entrega | dateFormat"
+        :gender="attendance.sexo | sexByInitial"
+        :age="attendance.data_nas | ageByBirthday"
         :doctor="attendance.nome_solicitante"
-        :attendance-date="attendance.data_atd | date"
+        :attendance-date="attendance.data_atd | dateFormat"
         :attendance="attendance.atendimento"
         :health-center="attendance.posto"
         :list-exams="attendance.mnemonicos"
@@ -28,21 +28,20 @@
 import AttendanceRelationsItem from './AttendanceRelationsItem'
 import { mapGetters, mapMutations } from 'vuex'
 import { NAMESPACED_ATTENDANCE, NAMESPACED_EXAMS, SELECTED }  from '../utils/alias'
-import { formater } from '../mixins/formater'
+import { date, age, sex } from '../mixins/formater'
 export default {
   name: 'AttendanceRelations',
   components: {
     AttendanceRelationsItem
   },
-  mixins: [formater],
+  mixins: [date, age, sex],
   data () {
     return {
       selected: ''
     }
   },
   created() {
-    //this.selected = this.setIdentifier(this.healthCenter, this.attendance)
-    //console.log(this.selected)
+
   }, 
   computed: {
     ...mapGetters(NAMESPACED_ATTENDANCE, [
@@ -64,7 +63,6 @@ export default {
       this.selectedToRequestExams({healthCenter: hc, attendance: att})
     },
     selectedByDefault(value) {
-      console.log(value)
       this.selected = this.setIdentifier(value.healthCenter, value.attendance)
       this.startExamsLoading(value.healthCenter, value.attendance)
     },
@@ -88,5 +86,5 @@ export default {
 .attendance-relations__item--initial-active
   background-color: white
   width: 305px
-  color: $green
+  color: map-get($theme-color, "letters")
 </style>
