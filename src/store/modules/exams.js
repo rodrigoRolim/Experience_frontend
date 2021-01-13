@@ -13,6 +13,7 @@ import {
 } from '../../utils/alias'
 import { httpMessage } from '../../utils/statusMessages'
 import { requestResource } from '../../services/api'
+import { correlatives } from '../../utils/correlatives'
 const state = () => ({
   exams: [],
   checkedExams: [],
@@ -20,13 +21,12 @@ const state = () => ({
     limit: 10,
     page: 1
   },
-  checkExams: false,
   selected: {
     hc: null,
     att: null
   },
   status: '',
-  message: {}
+  message: undefined
 })
 
 const getters = {
@@ -36,8 +36,9 @@ const getters = {
   selected: state => state.selected,
   params: state => state.params,
   checkedExams: state => state.checkedExams,
-  checkExams: state => state.checkExams,
+  checked: (state) => (correl) => state.checkedExams.includes(correlatives(correl)),
   someExamChecked: state => state.checkedExams.length > 0,
+  allExamsChecked: state => state.checkedExams.length === state.exams.filter(exam => exam.situacao_experience === 'FINALIZADO').length,
   someFinalizedExam: state => state.exams.some(exam => exam.situacao_experience === 'FINALIZADO'),
 }
 
@@ -46,15 +47,14 @@ const actions = {
     commit(LOADING)
     return new Promise((resolve, reject) => {
       requestResource({ url, params, method: 'GET', headers })
-        .then((resp) => {
-          const expiredSession = resp.status === 401
-          const message = httpMessage({ status: resp.status, data: 'exams', experired: expiredSession })
+        .then((resp) => {         
           commit(GET_EXAMS_STORE, resp.data)
-          commit(MESSAGE, message)
           commit(SUCCESS)
+          commit(MESSAGE, undefined)
           resolve(resp)
         })
         .catch((err) => {
+          commit(MESSAGE, err.status)
           commit(ERROR)
           reject(err)
         })
@@ -67,15 +67,16 @@ const mutations = {
     state.exams = exams
   },
   [CHECKED_EXAM]: (state, correl) => {
-    let hasExam = state.checkedExams.includes(correl)
+    let hasExam = state.checkedExams.includes(correlatives(correl))
     if (!hasExam)
-      state.checkedExams.push(correl)
+      state.checkedExams.push(correlatives(correl))
   },
   [UNCHECKED_EXAM]: (state, correl) => {
-    state.checkedExams = state.checkedExams.filter(examCorr => examCorr !== correl)
+    state.checkedExams = state.checkedExams.filter(examCorr => examCorr !== correlatives(correl))
   },
   [CHECKED_ALL_EXAMS]: (state) => {
-    state.checkedExams = state.exams.map(exam => exam.correl)
+    console.log('oi')
+    state.checkedExams = state.exams.map(exam => correlatives(exam.correl))
     state.checkExams = true
   },
   [UNCHECKED_ALL_EXAMS]: (state) => {
@@ -91,7 +92,9 @@ const mutations = {
   [ERROR]: (state) => {
     state.status = 'error'
   },
-  [MESSAGE]: (state, message) => {
+  [MESSAGE]: (state, status) => {
+    const expiredSession = status === 401
+    const message = httpMessage({ status, data: 'exams', experired: expiredSession })
     state.message = message
   },
   [SELECTED]: (state, selected) => {
@@ -109,6 +112,7 @@ const mutations = {
     state.attendance = null
     state.selected.hc = null
     state.selected.att = null
+    state.message = undefined
   }
 }
 
