@@ -5,7 +5,7 @@
         foram encontrados {{total}} atendimentos no período selecionado
       </span>
     </div>
-    <div class="patient__body" id="patient__list">
+    <div class="patient__body" ref="patients">
       <code-message
         v-if="message.message"
         class="patients__message"
@@ -18,11 +18,11 @@
         v-for="patient in patients"
         :key="patient.atendimento"
         :name="patient.nome_cliente"
-        :sex="patient.sexo | sex"
-        :age="patient.data_nas | age"
-        :phone="patient.telefone | phone"
+        :sex="patient.sexo | sexByInitial"
+        :age="patient.data_nas | ageByBirthday"
+        :phone="patient.telefone | phoneTrim"
         :doctor="patient.nome_solicitante"
-        :delivery-date="patient.data_entrega | delivery"
+        :delivery-date="patient.data_entrega | dateFormat"
         :lastest-attendances="patient.ultimos_atendimentos"
         :patient-id="patient.registro"
         :attendance-id="patient.atendimento"
@@ -35,10 +35,12 @@
           position="center"
         >
           <template>
-            <code-loading class="code-loading"  
-            sizeIcon="xs" 
-            range="40px" 
-            color="dimgray"/>
+            <code-loading 
+              class="code-loading"  
+              sizeIcon="xs" 
+              range="40px" 
+              color="dimgray"
+            />
           </template>
         </code-message>
       </div>
@@ -50,9 +52,11 @@ import PatientListItem from './PatientListItem'
 import CodeMessage from './base/CodeMessage'
 import CodeLoading from './base/CodeLoading'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
+import { sex, phone, age, date } from '../mixins/formater'
 import { NAMESPACED_PATIENT, GET_ATTENDANCES_REQUESTER, PUSH_ATTENDANCES_STORE, NEXT_PAGE, LOAD_PUSH } from '../utils/alias'
 export default {
   name: 'PatientList',
+  mixins: [sex, phone, age, date],
   components: {
     PatientListItem,
     CodeMessage,
@@ -70,31 +74,6 @@ export default {
   },
   destroyed () {
     this.destroyAttendancesByScroll()
-  },
-  filters: {
-    sex (value) {
-
-      return [{initial: 'M', value: 'masculino'}, {initial: 'F', value: 'feminino'}]
-        .find((sex) => sex.initial === value).value
-    },
-    age (dateString) {
-      var today = new Date();
-      var birthDate = new Date(dateString);
-      var age = today.getFullYear() - birthDate.getFullYear();
-      var m = today.getMonth() - birthDate.getMonth();
-      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-      }
-      const ageDate = age.toString()
-      return !isNaN(ageDate) ? ageDate : "";
-    },
-    phone (value) {
-      return value.replace(/\s/g, '')
-    },
-    delivery (value) {
-      const delivery = new Date(value).toLocaleDateString("pt-BR")
-      return delivery !== "Invalid Date" ? delivery : ""
-    },
   },
   computed: {
     ...mapGetters(NAMESPACED_PATIENT, [
@@ -121,28 +100,34 @@ export default {
       
       return queries
     },
-    getMoreAttendances () {
-
-      let att = document.getElementById('patient__list')
-
-      if ((window.innerHeight + window.scrollY >= att.offsetHeight + 100) 
+    hasMorePatients() {
+      let att = this.$refs.patients
+      return (window.innerHeight + window.scrollY >= att.offsetHeight + 100) 
           && this.params.page < this.params.totalPages 
-          && this.statusPush !== 'loading') {
-        let urlName = GET_ATTENDANCES_REQUESTER(
+          && this.statusPush !== 'loading'
+    },
+    getURL() {
+      const urlName = GET_ATTENDANCES_REQUESTER(
             this.params.begin.split(" - ").join("-"), 
             this.params.end.split(" - ").join("-")
           )
+      return urlName
+    },
+    getMoreAttendances () {
+
+      if (this.hasMorePatients()) {
+       
         this.nextPage()
         let headers = {'X-Paginate': true}
-        this.requestMoreAttendances({ url: urlName, params: this.paramsQuery(), headers })
+        this.requestMoreAttendances({ url: this.gerURL(), params: this.paramsQuery(), headers })
           .then((resp) => {
             console.log(resp)
             document.documentElement.scrollTop = 0
           })
           .catch((err) => {
             console.log({err})
+            document.documentElement.scrollTop = 0
           })
-       // window.removeEventListener('scroll', this.getMoreAttendances)
       } 
     },
     getDeliveryDate (dateString) {
