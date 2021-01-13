@@ -7,9 +7,10 @@ import {
     AUTH_REINIT_STATUS,
     AUTH_REQUEST,
     SELECTED_HEALTHCENTER,
-    REAUTH_REQUEST    
+    REAUTH_REQUEST,
+    MESSAGE
   } from '../../utils/alias'
-
+import { httpMessage } from '../../utils/statusMessages'
 const state = () => ({
   token: cookies.get('user-session')?.token || "",
   user: cookies.get('user-session')?.user_name || "",
@@ -41,7 +42,6 @@ const actions = {
 
       requestToken({ url, auth: credentials })
         .then((resp) => {
-
           let user_session = {
             token: resp.data.token,
             user_type: typeUser,
@@ -55,7 +55,7 @@ const actions = {
           resolve(resp)
         })
         .catch((err) => {
-
+          commit(MESSAGE, err.status)
           commit(AUTH_ERROR, err)
           cookies.remove('user-session')
           reject(err)
@@ -91,7 +91,7 @@ const actions = {
         resolve(resp.token)
       })
       .catch((err) => {
-
+        commit(MESSAGE, err.status)
         commit(AUTH_ERROR, err)
         cookies.remove('user-session')
         reject(err.status)
@@ -138,7 +138,12 @@ const mutations = {
     state.status = ''
     state.uniqueAttendance = true
     state.userType = ''
-  }
+  },
+  [MESSAGE]: (state, status) => {
+    const expiredSession = status === 401
+    const message = httpMessage({ status, data: 'exams', experired: expiredSession })
+    state.message = message
+  },
 }
 
 export default {
