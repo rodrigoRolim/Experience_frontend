@@ -4,27 +4,41 @@
       <strong>Relação de Atendimentos</strong>
     </div>
     <div class="sidebar__body">
-      <attendance-relations />
+      <code-message
+        v-if="message"
+        class="sidebar__message"
+        :message="message.message || ''"
+        type-message="whiteness"
+        position="flex-start"
+        icon="info-circle"
+      />
+      <attendance-relations v-else/>
     </div>
   </aside>
 </template>
 <script>
 import AttendanceRelations from './AttendanceRelations'
+import CodeMessage from './base/CodeMessage'
 import { NAMESPACED_ATTENDANCE } from '../utils/alias'
 import { mapGetters } from 'vuex'
 export default {
   name: 'TheSidebar',
   components: {
-    AttendanceRelations
+    AttendanceRelations,
+    CodeMessage
   },
   data () {
     return {
       //attendances: db.attendances.data
     }
   },
+  created () {
+    console.log(this.message)
+  },
   computed: {
     ...mapGetters(NAMESPACED_ATTENDANCE, [
-      'attendances'
+      'attendances',
+      'message'
     ])
   }
 }
@@ -43,7 +57,8 @@ export default {
 .sidebar__header
   display: flex
   position: fixed
-  width: 306px
+  top: 60px
+  width: 321px
   flex-direction: row
   justify-content: center
   align-items: center
@@ -55,7 +70,7 @@ export default {
 .sidebar__body
   display: flex
   flex-direction: column
-  margin-top: 100px
+  margin-top: 160px
   padding-bottom: 20px
 .sidebar__row
   display: flex
@@ -69,5 +84,12 @@ export default {
   user-select: none
 .sidebar__date,
 .sidebar__exams
-  overflow: hidden 
+  overflow: hidden
+.sidebar__message
+  margin: 20% 0
+  padding: 5% 0
+  width: 300px
+  align-self: center
+  border-radius: 5px
+  font-size: 14px  
 </style>
