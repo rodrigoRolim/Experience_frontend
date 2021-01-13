@@ -10,9 +10,7 @@ import {
   BEGIN_DATE,
   END_DATE,
   EMPTY_EXAMS,
-  EMPTY_ATTENDANCES,
-  ATTENDANCE_NOT_FOUND,
-//PARAMS_ATTENDANCES,
+  //EMPTY_ATTENDANCES,
   HEALTH_CENTER,
   ACCOMODATION,
   SITUATION,
@@ -28,47 +26,29 @@ import {
   TOTAL_PAGES,
   FILTER_ATTENDANCES_BY_NAME,
   EMPTY_PARAMS,
-  REINIT_STATE
+  REINIT_STATE,
+  MESSAGE
 } from '../../utils/alias'
-let begin = () => {
-  let today = new Date()
-  today.setDate(today.getDate() - 7)
-  let currDate = (today.getDate() < 10) ? '0' + today.getDate() : today.getDate()
-  let month = today.getMonth() + 1
-  let currMonth = (month < 10) ? '0' + month : month
-  let currYear = today.getFullYear()
-  let dateInitial = currDate + ' / ' + currMonth + ' / ' + currYear
-  return dateInitial
-}
-let end = () => {
-  let today = new Date()
-
-  let nextDate = (today.getDate() < 10) ? '0' + today.getDate() : today.getDate()
-  let month = today.getMonth() + 1
-  let nextMonth = (month < 10) ? '0' + month : month
-  let nextYear = today.getFullYear()
-  let dateFinal = nextDate + ' / ' + nextMonth + ' / ' + nextYear
-  return dateFinal
-}
+import { httpMessage } from '../../utils/statusMessages'
+import { begin, end } from '../../utils/initialDates'
 const state = {
   attendances: [],
   filteredAttendances: [],
   status: '',
   statusPush: '',
-  message: {},
+  message: undefined,
   params: {
     begin: null,
     end: null,
-    healthCenter: {id: '', name: 'todos' },
-    accomodation: {id: '', name: 'todos' },
-    situation: {id: '', name: 'todos' },
-    realizer: {id: '', name: 'todos' },
+    healthCenter: { id: '', name: 'todos' },
+    accomodation: { id: '', name: 'todos' },
+    situation: { id: '', name: 'todos' },
+    realizer: { id: '', name: 'todos' },
     name: null,
     limit: 10,
     page: 1,
     totalPages: null
   }
-  // guarde os filtros selecionados aqui tambem
 }
 
 const getters = {
@@ -93,10 +73,11 @@ const actions = {
           commit(GET_ATTENDANCES_STORE, resp.data.docs || resp.data)
           commit(TOTAL_PAGES, resp.data.pages)
           commit(SUCCESS)
-          commit(ATTENDANCE_NOT_FOUND, {})
+          commit(MESSAGE, undefined)
           resolve(resp)
         })
-        .catch((err) => {
+        .catch((err) => {        
+          commit(MESSAGE, err.response.status)
           commit(ERROR)
           reject(err)
         })
@@ -105,17 +86,17 @@ const actions = {
   [FILTER_ATTENDANCES_BY_NAME]: ({ commit }, { url, params, headers }) => {
     commit(REINIT_PAGINATION)
     commit(LOADING)
-    
     return new Promise((resolve, reject) => {
       requestResource({ url, params, method: 'GET', headers })
         .then((resp) => {
           commit(GET_ATTENDANCES_STORE, resp.data.docs)
           commit(TOTAL_PAGES, resp.data.pages)
           commit(SUCCESS)
-          commit(ATTENDANCE_NOT_FOUND, {})
+          commit(MESSAGE, undefined)
           resolve(resp)
         }).
         catch((err) => {
+          commit(MESSAGE, err.response.status)
           commit(ERROR)
           reject(err)
         })
@@ -128,18 +109,17 @@ const actions = {
       .then((resp) => {
         commit(PUSH_ATTENDANCES_STORE, resp.data.docs)
         commit(SUCCESS_PUSH)
+        commit(MESSAGE, undefined)
         resolve(resp)
       })
       .catch((err) => {
+        commit(MESSAGE, err.response.status)
         commit(ERROR_PUSH)
         reject(err)
       })
     })
     
   },
-  [ATTENDANCE_NOT_FOUND]: ({ commit }, message) => {
-    commit(ATTENDANCE_NOT_FOUND, message)
-  }, 
   [CHANGE_SELECTED_ATTENDANCE]: ({ commit }, {healthCenter, attendanceId}) => {
     commit(CHANGE_SELECTED_ATTENDANCE, { healthCenter, attendanceId })
   },
@@ -158,15 +138,12 @@ const mutations = {
   [PUSH_ATTENDANCES_STORE]: (state, newAttendances) => {
     state.attendances.push(...newAttendances)
   },
-  [ATTENDANCE_NOT_FOUND]: (state, message) => {
+  [MESSAGE]: (state, status) => {
+    const expiredSession = status === 401
+    const message = httpMessage({ status, data: 'atendimentos', experired: expiredSession })
     state.message = message
+    console.log(message)
   },
-  [EMPTY_ATTENDANCES]: (state) => {
-    state.attendances = []
-  },
-  /* [CLEAR_MESSAGE]: (state) => {
-    state.message = {}
-  }, */
   [LOADING]: (state) => {
     state.status = 'loading'
   },
@@ -243,6 +220,7 @@ const mutations = {
     state.params.limit = 10
     state.params.page = 1
     state.params.totalPages = null
+    state.message = undefined
   }
 }
 
