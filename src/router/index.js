@@ -77,8 +77,7 @@ const router = new VueRouter({
     },
     {
       path: '/paciente',
-      name: 'patient',
-      //beforeEnter: authorization,
+      beforeEnter: authorization,
       meta: { typeUser: PATIENT_TYPE },
       component: () => import(/* webpackChunkName: 'Patient' */ '@/views/Patient'),
       children: [
@@ -87,13 +86,7 @@ const router = new VueRouter({
           name: 'patientHome',
           component: () => import(/* webpackChunkName: 'Patient' */ '@/views/PatientHome'),
           props: true
-        },
-        //{
-        //  path: '/paciente/:id',
-        //  name: 'patientHome',
-        //  component: () => import(/* webpackChunkName: 'Patient' */ '@/views/PatientHome'),
-        //  props: true
-        //}
+        }
       ]
     },
     {
