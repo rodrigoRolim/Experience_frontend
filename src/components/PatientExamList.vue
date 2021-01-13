@@ -16,14 +16,14 @@
     <code-modal
       :normal="true"
       :display="show"
-      @display="show = $event"
+      @display="displayModal"
       class="modal"
     >
       <template v-slot:modal>
         <patient-exam-detail 
           :health-center="healthCenter"
           :attendance="attendance"
-          :correlative="correl"
+          :correlative="correl | correlative"
           :name-exam="nameExam"
           @close="show = false"
         />
@@ -38,19 +38,20 @@ import PatientExamListItem from './PatientExamListItem'
 import PatientExamDetail from './PatientExamDetail'
 import PatientExamsListActions from './PatientExamsListActions'
 import { mapActions, mapGetters } from 'vuex'
-import { NAMESPACED_EXAMS, GET_EXAMS_ATTENDANCE, GET_EXAMS_STORE } from '../utils/alias'
+import { NAMESPACED_EXAMS, GET_EXAMS_ATTENDANCE, GET_EXAMS_STORE, NAMESPACED_REPORT } from '../utils/alias'
 //import attendance from '../store/modules/attendance'
 export default {
   name: 'PatientExamList',
   props: {
     patient: Number,
-    attendance: Number,
-    healthCenter: Number
-  },
-  mounted () {
-    //if (this.thereIsNoSelected) {
-      //this.getExams(this.healthCenter, this.attendance)
-    //}
+    attendance: {
+      type: Number,
+      default: null
+    },
+    healthCenter: {
+      type: Number,
+      default: null
+    }
   },
   components: {
     CodeModal,
@@ -65,29 +66,52 @@ export default {
       correl: null
     }
   },
+  mounted() {
+    if (!this.thereIsNoSelected())
+      this.getExams(this.healthCenter, this.attendance)
+  },
+  filters: {
+    correlative(value) {
+      if (value <= 9) {
+        value = '0' + value
+      }
+      return value
+    }
+  },
   computed: {
     ...mapGetters(NAMESPACED_EXAMS, [
       'exams',
       'someExamChecked'
     ]),
+    ...mapGetters(NAMESPACED_REPORT, [
+      'status'
+    ]),
     selectedAttendance() {
+      console.log(this.healthCenter)
+      console.log(this.attendance)
       return `${this.healthCenter}|${this.attendance}`
     },
-    thereIsNoSelected() {
-      // console.log(this.selected.hc, this.selected.att)
-      return this.healthCenter === null && this.attendance === null
-    }
+    
   },
   watch: {
     selectedAttendance(value) {
+      console.log(value)
       let [hc, att] = value.split('|')
-      this.getExams(hc, att)
+      if (!this.thereIsNoSelected())
+        this.getExams(hc, att)
     }
   },
   methods: {
     ...mapActions(NAMESPACED_EXAMS, {
       requestExams: GET_EXAMS_STORE
     }),
+    thereIsNoSelected() {
+      // console.log(this.selected.hc, this.selected.att)
+      console.log(this.healthCenter)
+      console.log(this.attendance)
+      return (this.healthCenter === null || this.attendance === null) ||
+             (isNaN(this.healthCenter) || isNaN(this.attendance))
+    },
     getExams (hc, att) {
       let url = GET_EXAMS_ATTENDANCE(hc, att)
       let headers = { 'X-Paginate': false }
@@ -99,6 +123,10 @@ export default {
       this.correl = correl.toString()
       this.nameExam = nameExam
       this.show = true
+    },
+    displayModal(value) {
+      if (this.status !== 'loading')
+        this.show = value
     }
   }
 }
