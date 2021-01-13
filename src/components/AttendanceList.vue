@@ -1,7 +1,7 @@
 <template>
   <div class="attendances" ref="attendances">
     <code-message
-      v-if="message.message"
+      v-if="message"
       class="attendances__message"
       :message="message.message || ''"
       :type="message.type"
@@ -13,13 +13,13 @@
       v-else
       v-for="attendance in attendances" :key="attendance.atendimento"
       :name="attendance.nome_cliente"
-      :age="attendance.data_nas | age"
-      :gender="attendance.sexo | sex"
+      :age="attendance.data_nas | ageByBirthday"
+      :gender="attendance.sexo | sexByInitial"
       :attendance="attendance.atendimento.toString()"
       :health-center="attendance.posto.toString()"
       :agreement="attendance.nome_convenio"
-      :dataAttendance="attendance.data_atd | date"
-      :dataDelivery="attendance.data_entrega | date"
+      :dataAttendance="attendance.data_atd | dateFormat"
+      :dataDelivery="attendance.data_entrega | dateFormat"
       :exams="attendance.mnemonicos"
       :status="attendance.situacao_exames_experience"
       :patient="attendance.registro.toString()"
@@ -47,7 +47,7 @@ import CodeMessage from './base/CodeMessage'
 import CodeLoading from './base/CodeLoading'
 import AttendanceListItem from './AttendanceListItem'
 import { session } from '../mixins/session'
-import { formater } from '../mixins/formater'
+import { sex, date, age } from '../mixins/formater'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { 
   NAMESPACED_ATTENDANCE, 
@@ -62,7 +62,7 @@ export default {
   props: {
     route: String 
   },
-  mixins: [session, formater],
+  mixins: [session, sex, age, date],
   components: {
     AttendanceListItem,
     CodeMessage,
@@ -95,15 +95,16 @@ export default {
       'params',
       'statusPush'
     ]),
-    hasMoreAttendances () {
-      let att = this.$refs.attendances
-      return (window.innerHeight + window.scrollY >= att.offsetHeight + 100) 
-          && this.params.page < this.params.totalPages 
-          && this.statusPush !== 'loading' && this.statusPush !== 'error' && this.status !== 'loading'
-    } 
   },
   methods: {
+    hasMoreAttendances () {
+      let att = this.$refs.attendances
+      return (window.innerHeight + window.scrollY >= att.offsetHeight) 
+          && this.params.page < this.params.totalPages 
+          && this.statusPush !== 'loading' && this.statusPush !== 'error' && this.status !== 'loading' && this.status !== 'error'
+    },
     loadAttendancesByScroll () {
+
       window.addEventListener('scroll', this.getMoreAttendances)
     },
     destroyAttendancesByScroll () {
@@ -121,26 +122,27 @@ export default {
       
       return queries
     },
-    getMoreAttendances () {
-      console.log(this.hasMoreAttendances)
-      if (this.hasMoreAttendances) {
-        let healthCenter = this.healthCenterLogged || this.userId
-        let urlName = GET_ATTENDANCES(healthCenter,
+    configUserIdSession() {
+      return this.healthCenterLogged !== null ? this.healthCenterLogged : this.userId
+    },
+    getURL() {
+      let healthCenter = this.configUserIdSession()
+      const urlName = GET_ATTENDANCES(
+            healthCenter,
             this.params.begin.split(" - ").join("-"),
             this.params.end.split(" - ").join("-"),
-            this.getTypeUser(this.userTypeAuthed))
+            this.getTypeUser(this.userTypeAuthed)
+          )
+      return urlName
+    },
+    getMoreAttendances () {
+
+      if (this.hasMoreAttendances()) {
         this.nextPage()
         let headers = {'X-Paginate': true}
-        this.requestMoreAttendances({ url: urlName, params: this.paramsQuery(), headers })
-          .then((resp) => {
-            console.log(resp)
-            this.repositionScrollBar(0)
-          })
-          .catch((err) => {
-            console.log(this.statusPush)
-            console.log({err})
-            this.repositionScrollBar(0)
-          })
+        this.requestMoreAttendances({ url: this.getURL(), params: this.paramsQuery(), headers })
+          .then(() => this.repositionScrollBar(0))
+          .catch(() => this.repositionScrollBar(0))
       } 
     },
     repositionScrollBar(pos) {
