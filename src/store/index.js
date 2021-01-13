@@ -11,6 +11,8 @@ import cancel from './modules/cancel'
 import props from './modules/props'
 import exams from './modules/exams'
 import instructions from './modules/instructions'
+import report from './modules/report'
+import results from './modules/results'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -23,6 +25,8 @@ export default new Vuex.Store({
     cancel,
     patients,
     registrants,
+    report,
+    results,
     props,
     exams,
     instructions
