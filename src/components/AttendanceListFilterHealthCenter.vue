@@ -164,9 +164,6 @@ export default {
   },
   data () {
     return {
-      typeUser: 'posto',
-      BEGIN_INITIAL: '30/07/2019',
-      END_INITIAL: '26/09/2020',
       situations: SITUATIONS,
       validate: {
         healthCenter: '',

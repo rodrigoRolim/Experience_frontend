@@ -5,7 +5,7 @@
         class="attendance-detail__info"
         icon="heartbeat"
         description="ID atendimento"
-        :info="getAttendanceID"
+        :info="healthCenter | id(attendance)"
         color="#778899"
         size="2x"
       />
@@ -48,10 +48,10 @@
 
 <script>
 import CodeInfo from './base/CodeInfo'
-import { attendanceID } from '../mixins/attendanceID'
+import { attendance } from '../mixins/formater'
 export default {
   name: 'AttendanceListItemDetail',
-  mixins: [attendanceID],
+  mixins: [attendance],
   props: {
     agreement: String,
     attendance: String,
