@@ -33,19 +33,30 @@
     </div>
     <div class="exame__button">
       <code-button
-        class="btn-3" 
-        padding="9px 0"
+        class="exam__print"
         text="imprimir"
+        color="dark"
+        name-icon="print"
+        size-icon="lg"
+        streched
+        borded
+        bolded
+        :disable="printing"
+        :loading="printing"
+        @click="printExamResult"
+      />
+       <code-button
+        class="exam__download"
+        text="baixar pdf"
         color="danger"
         name-icon="file-pdf"
         size-icon="lg"
         streched
         borded
         bolded
-        shading
         :disable="printing"
         :loading="printing"
-        @click="printExamResult"
+        @click="downloadExamResult"
       />
     </div>
   </div>
@@ -56,9 +67,11 @@ import CodeMessage from './base/CodeMessage'
 import CodeLoading from './base/CodeLoading'
 import { GET_EXAM_RESULT, GET_PDFS, GET_REPORT_STORE, GET_RESULT_STORE, NAMESPACED_REPORT, NAMESPACED_RESULTS } from '../utils/alias'
 import { mapActions, mapGetters } from 'vuex'
-import printJS from 'print-js'
+import { pdf } from '../mixins/pdf'
+
 export default {
   name: 'PatientExamDetail',
+  mixins: [pdf],
   props: {
     healthCenter: Number,
     attendance: Number,
@@ -106,7 +119,19 @@ export default {
       this.getReports({ url, params })
         .then((base64) => {
           this.close()
-          printJS({printable: base64, type: 'pdf', base64: true })
+          this.print({printable: base64, type: 'pdf', base64: true})
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    downloadExamResult() {
+      let url = GET_PDFS(this.healthCenter, this.attendance)
+      let params = { exames: this.correlative }
+      this.getReports({ url, params })
+        .then((base64) => {
+          this.close()
+          this.download(this.nameExam, base64)
         })
         .catch((err) => {
           console.log(err)
@@ -123,6 +148,8 @@ export default {
 </script>
 <style lang="sass" scoped>
 .exame
+  display: flex
+  flex-direction: column
   background-color: white
   border-radius: 2px
   width: 700px
@@ -186,13 +213,19 @@ export default {
   padding: 13px 15px
   border-bottom: 1px solid lightgray
 .exame__button
+  align-self: flex-end
   display: flex
   flex-direction: row
-  justify-content: flex-end
+  padding: 10px
+  width: 50%
+.exam__print
   width: 100%
-  padding: 15px
-.exame__button .btn-3
-  width: 20%
+  margin: 3px 5px
+  @include respond-to(handhelds)
+    width: 100%
+.exam__download
+  width: 100%
+  margin: 3px 5px
   @include respond-to(handhelds)
     width: 100%
 </style>
