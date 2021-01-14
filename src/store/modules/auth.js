@@ -12,11 +12,11 @@ import {
   } from '../../utils/alias'
 import { httpMessage } from '../../utils/statusMessages'
 const state = () => ({
-  token: cookies.get('user-session')?.token || "",
+  token: cookies.get('user-session')?.token || null,
   user: cookies.get('user-session')?.user_name || "",
   identify: cookies.get('user-session')?.identify || "",
   status: '',
-  healthCenterLogged: cookies.get('healthcenter-logged'),
+  healthCenterLogged: cookies.get('healthcenter-logged') || undefined,
   expired: cookies.get('expired') || false,
   hasLoadedOnce: false,
   userType: cookies.get('user-session')?.user_type || "",

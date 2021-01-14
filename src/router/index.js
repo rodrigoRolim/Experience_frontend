@@ -12,12 +12,16 @@ import {
 const authorization = (to, from, next) => {
   store.dispatch(CANCEL_PENDING_REQUESTS)
   const authUser = to.matched
-    .some(record => record.meta.typeUser !== store.getters['auth/userTypeAuthed'])
-  if (!store.getters['auth/isAuthenticated'] && !authUser) {
+    .some(record => record.meta.typeUser === store.getters['auth/userTypeAuthed'])
+  //const hasToken = store.getters['auth/token'] 
+  console.log(authUser)
+  console.log(store.getters['auth/isAuthenticated'])
+  if (store.getters['auth/isAuthenticated'] && authUser) {
     
-    next('/acesso');
+    next();
+    return
   }
-  next()
+  next('/acesso')
 }
 
 const router = new VueRouter({
@@ -66,7 +70,7 @@ const router = new VueRouter({
           component: () => import(/* webpackChunkName: 'Partner' */ '@/views/PartnerHome')
         },
         {
-          path: 'paciente/:patient/:attendance',
+          path: 'paciente-exames',
           name: 'partnerExamsPatient',
           beforeEnter: authorization,
           meta: { typeUser: PARTNER_TYPE },

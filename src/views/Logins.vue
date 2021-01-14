@@ -80,7 +80,7 @@
               <doctor-login @loading="loading = $event" @error="messages" v-if="aba == 2"></doctor-login>
               <partner-login @loading="loading = $event" @error="messages" v-if="aba == 3"></partner-login>
               <health-care-login @loading="loading = $event" @error="messages" v-if="aba == 4"></health-care-login>
-              <Qrcode-login @loading="loading = $event" @error="messages" v-if="aba == 5" :play="aba == 5 ? true : false"></Qrcode-login>
+              <Qrcode-login @loading="loading = $event" @error="messages" v-if="aba == 5" :play="aba == 5 ? true : false" />
             </template>
           </code-menu-abas>
           <div class="logins__help-modal" v-if="helplogin">
@@ -267,8 +267,6 @@ html:fullscreen .logins__messages
     align-items: center
     width: 100%
   margin-top: 12vh
-html:fullscreen .logins__content
-  margin-top: 100px
 .logins__menu-abas
   width: 460px
   display: flex
@@ -283,7 +281,7 @@ html:fullscreen .logins__content
     margin-bottom: 10px
 .logins__content--up
   padding: 0
-  margin-top: 10vh
+  margin-top: 6vh
   height: 70vh
 .logins__banner
   max-width: 350px

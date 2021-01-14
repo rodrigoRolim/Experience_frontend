@@ -10,7 +10,7 @@
       icon="search"
       color-icon="#368c8c"
       @input="setName"
-      :value="params.name | toUpperCase"
+      :value="params.name"
       @enter="exec"
     />
   </div>

@@ -56,7 +56,7 @@ import CodeMessage from '../components/base/CodeMessage'
 import { bus } from '../main'
 import { mapActions, mapGetters } from 'vuex'
 import { 
-  //GET_ATTENDANCE, 
+  GET_ATTENDANCE, 
   GET_ATTENDANCES_BY_CLIENT,
   NAMESPACED_ATTENDANCE, 
   GET_ATTENDANCES_STORE, 
@@ -83,6 +83,12 @@ export default {
     bus.$on('sidebar', (data) => {
       this.attendances = data
     })
+    if (this.uniqueAttendance) {
+      this.getAttendances({ url: GET_ATTENDANCE })
+        .then((resp) => console.log(resp))
+        .catch((err) => console.log({err}))
+        return
+    }
     this.getAttendances({ url: GET_ATTENDANCES_BY_CLIENT })
       .then((resp) => console.log(resp))
       .catch((err) => console.log({err}))

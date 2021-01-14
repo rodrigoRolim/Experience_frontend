@@ -1,12 +1,12 @@
 <template>
   <div class="input-wrap">
+    <!-- <label :for="name" class="input__label">{{label}}</label> -->
     <div class="container-input">
       <i v-if="icon"
         class="container-input__icon" 
         :class="iconClasses">
         <font-awesome-icon :icon="icon" />
       </i>
-      <!-- <label for="" class="label">rotulo</label> -->
       <input 
         ref="input"
         class="container-input__input"
@@ -61,6 +61,8 @@ export default {
     value: {
       type: String
     },
+    label: String,
+    labelColor: String,
     bolder: Boolean,
     caret: {
       type: []
@@ -165,6 +167,8 @@ export default {
   display: flex
   flex-direction: column
   width: 100%
+.input__label
+  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif
 .input-wrap__message-error
   margin-top: 40px
   min-width: 120px

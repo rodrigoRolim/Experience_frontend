@@ -22,7 +22,6 @@
       bolded
       color="danger"
       size="sm"
-      streched
       bottom
       size-icon="lg"
       :disable="printing"
@@ -37,9 +36,11 @@ import CodeButton from './base/CodeButton'
 import { GET_REPORT_STORE, GET_PDFS, NAMESPACED_EXAMS, NAMESPACED_REPORT } from '../utils/alias'
 import { NAMESPACED_PROPS } from '../utils/alias'
 import { mapGetters, mapActions } from 'vuex'
-import printJS from 'print-js'
+import { pdf } from '../mixins/pdf'
+
 export default {
   name: "PatientExamsListActions",
+  mixins: [pdf],
   props: {
     showsUp: Boolean
   },
@@ -47,7 +48,9 @@ export default {
     CodeButton
   },
   data () {
-    return {}
+    return {
+      RESULTS: 'resultados'
+    }
   },
   computed: {
     ...mapGetters(NAMESPACED_PROPS, [
@@ -70,7 +73,7 @@ export default {
       let params = { exames: this.checkedExams.join(',') }
       this.getReports({ url, params })
         .then((base64) => {
-          printJS({printable: base64, type: 'pdf', base64: true})
+          this.print(base64)
         })
         .catch((err) => {
           console.log(err)
@@ -80,9 +83,8 @@ export default {
       let url = GET_PDFS(this.healthCenter, this.attendance)
       let params = { exames: this.checkedExams.join(',') }
       this.getReports({ url, params })
-        .then((resp) => {
-          //printJS({printable: base64, type: 'pdf', base64: true, showModal:true, modalMessage: 'recuperando'})
-          console.log(resp)
+        .then((base64) => {
+          this.download(this.RESULTS, base64)
         })
         .catch((err) => {
           console.log(err)

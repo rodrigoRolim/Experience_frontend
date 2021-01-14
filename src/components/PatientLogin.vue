@@ -36,11 +36,11 @@
          ></code-label>
         <code-input
           placeholder="CPF"
+          label="Cpf"
           name="cpf"
           type="text"
           required
           v-model="cpf"
-          :weight="500"
           color="#333"
           icon="user"
           :error="validate.cpf"
@@ -81,7 +81,6 @@
           v-model="idAttendance"
           :focused="focusedInput == 'atendimento'"
           @focus="focusInput"
-          :weight="600"
           color="#333"
           icon="user"
           :error="validate.atendimento"
@@ -112,13 +111,13 @@
             <font-awesome-icon icon="keyboard" size="lg"/>
           </i>
         </small>
-        <code-tooltip
+       <!--  <code-tooltip
           text="Clique aqui"
         >
-          <template>
+          <template> -->
             <small class="login-patient__doubt" @click="displayHelpToLogin">duvidas <i><font-awesome-icon icon="question-circle"/></i></small>
-          </template>
-        </code-tooltip> 
+         <!--  </template> -->
+      <!--   </code-tooltip>  -->
       </div>
       <div class="login-patient__buttons">
         <code-button
@@ -161,7 +160,7 @@ import CodeButton from './base/CodeButton'
 import CodeCalendar from './base/CodeCalendar'
 import CodeLabel from './base/CodeLabel'
 import CodeRadio from './base/CodeRadio'
-import CodeTooltip from './base/CodeTooltip'
+//import CodeTooltip from './base/CodeTooltip'
 import CodeGroupRadios from './base/CodeGroupRadios'
 import CodeInputPassword from './base/CodeInputPassword'
 import keyboardSelfService from './KeyboardSelfService'
@@ -194,7 +193,7 @@ export default {
     CodeCalendar,
     CodeLabel,
     CodeRadio,
-    CodeTooltip,
+    //CodeTooltip,
     CodeGroupRadios,
     CodeInputPassword,
     keyboardSelfService

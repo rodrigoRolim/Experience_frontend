@@ -109,11 +109,11 @@ const actions = {
       .then((resp) => {
         commit(PUSH_ATTENDANCES_STORE, resp.data.docs)
         commit(SUCCESS_PUSH)
-        commit(MESSAGE, undefined)
+        //commit(MESSAGE, undefined)
         resolve(resp)
       })
       .catch((err) => {
-        commit(MESSAGE, err.response.status)
+        //commit(MESSAGE, err.response.status)
         commit(ERROR_PUSH)
         reject(err)
       })

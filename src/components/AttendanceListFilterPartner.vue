@@ -318,6 +318,7 @@ export default {
     attendances () {
       if (!this.waitRequest) {
         let headers = { 'X-Paginate': true }
+        this.repositionScrollBar(0)
         return new Promise((resolve, reject) => {
           let healthCenter = this.userId
   

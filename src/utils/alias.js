@@ -20,7 +20,7 @@ export const GET_DOCTOR = (id) => `/v1/web/medico/${id}`
 export const GET_HEALTH_CENTERS = '/v1/web/posto'
 
 // attendances
-export const GET_ATTENDANCE = (healthCenter, attendance) => `/v1/web/atendimento/${healthCenter}/${attendance}`
+export const GET_ATTENDANCE = `/v1/web/atendimento/`
 export const GET_ATTENDANCES_BY_CLIENT = '/v1/web/atendimento/cliente'
 export const GET_ATTENDANCES_RELATIONS = (client) => `/v1/web/atendimento/cliente/${client}`
 export const GET_ATTENDANCES = (healthCenter, begin, end, typeUser) => `/v1/web/atendimento/${begin}/${end}/${typeUser}/${healthCenter}`
