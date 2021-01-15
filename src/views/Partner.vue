@@ -38,8 +38,6 @@ export default {
   top: 0
   left: 0
   z-index: 4
-.partner__main
-  margin-top: 60px
 .partner__footer
   display: none
   @include respond-to(handhelds)

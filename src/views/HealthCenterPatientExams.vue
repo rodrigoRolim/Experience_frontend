@@ -86,7 +86,6 @@ export default {
   display: flex
   flex-direction: column
   align-items: flex-end
-  width: 100%
   @include respond-to(medium-screens)
     margin-left: 0
     width: 100%

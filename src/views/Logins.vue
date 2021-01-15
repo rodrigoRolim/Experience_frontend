@@ -228,7 +228,6 @@ export default {
   display: flex
   flex-direction: column
   min-height: 100vh
-
 .logins__main
   margin-top: 50px
   width: 100%
@@ -293,6 +292,4 @@ html:fullscreen .logins__messages
     display: none
   @include respond-to(handhelds)
     display: none
-
-
 </style>

@@ -14,8 +14,8 @@ const authorization = (to, from, next) => {
   const authUser = to.matched
     .some(record => record.meta.typeUser === store.getters['auth/userTypeAuthed'])
   //const hasToken = store.getters['auth/token'] 
-  console.log(authUser)
-  console.log(store.getters['auth/isAuthenticated'])
+ // console.log(authUser)
+ // console.log(store.getters['auth/isAuthenticated'])
   if (store.getters['auth/isAuthenticated'] && authUser) {
     
     next();

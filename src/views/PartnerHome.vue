@@ -105,13 +105,14 @@ export default {
   position: fixed
   width: 100%
   z-index: 2
+  top: 60px
 .partner-home__attendances
-  margin-top: 170px
+  margin-top: 230px
   width: 98%
   @include respond-to(handhelds)
-    margin-top: 100px
+    margin-top: 160px
   @include respond-to(medium-screens)
-    margin-top: 100px
+    margin-top: 160px
 .partner-home__modal
   position: fixed
 .partner-home__loading

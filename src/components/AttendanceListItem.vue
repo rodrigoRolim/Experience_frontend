@@ -77,7 +77,7 @@ export default {
       let deliveryDate = this.dataDelivery
       let doctor = this.doctor
       this.storeProps({ patient, healthCenter, attendance, namePatient, agePatient, genderPatient, deliveryDate, doctor })
-      this.$router.push({ name: 'healthCenterExamsPatient', params: {patient, attendance, healthCenter} })
+      this.$router.push({ path: this.$route.path+'/paciente-exames', params: { patient, attendance, healthCenter } })
     },
     ...mapMutations(NAMESPACED_PROPS, {
       storeProps: SET_PROPS

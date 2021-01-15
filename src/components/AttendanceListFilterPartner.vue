@@ -260,6 +260,7 @@ export default {
         await this.listAccomodations()
         await this.attendances()
       } catch (err) {
+        console.log({err})
         this.setMessage(this.message({ status: err.response.status, data: 'atendimento' }))
       }
     },
@@ -318,7 +319,7 @@ export default {
     attendances () {
       if (!this.waitRequest) {
         let headers = { 'X-Paginate': true }
-        this.repositionScrollBar(0)
+        //this.repositionScrollBar(0)
         return new Promise((resolve, reject) => {
           let healthCenter = this.userId
   

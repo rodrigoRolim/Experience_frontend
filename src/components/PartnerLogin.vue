@@ -35,11 +35,10 @@
           id="partnerPassword"
           name="partnerPassword"
           v-model="partner.senha"
-          :width="7"
-          :height="9"
           icon="lock"
           color="#333"
           :error="validate.senha"
+          @keypress.enter="confirm"
         />
       </div>
       <div class="partner-login__utilities">
