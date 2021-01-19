@@ -98,6 +98,7 @@ export default {
   display: flex
   flex-direction: column
   width: 100%
+  z-index: 3
 .procediments__body
   display: flex
   flex-direction: column

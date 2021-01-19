@@ -69,7 +69,7 @@ export default {
 .help-login__title-h2
   margin-bottom: 10px
   font-size: 1.0rem
-  color: #368c8c
+  color: map-get($theme-color, "default")
 .help-login
   display: flex
   flex-direction: column
@@ -95,7 +95,7 @@ export default {
 .help-login__close
   margin: 0px 8px 0 0
 .help-login__title-second
-  background-color: #368c8c
+  background-color: map-get($theme-color, "default")
   color: white
   display: flex
   flex-direction: row

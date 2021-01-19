@@ -119,7 +119,6 @@ import {
   GET_ACCOMODATIONS_STORE,
   NAMESPACED_ACCOMODATIONS,
   GET_FILTERS, 
-  ATTENDANCE_NOT_FOUND,
   ACCOMODATIONS,
   SITUATIONS, 
   BEGIN_DATE,
@@ -131,7 +130,8 @@ import {
   REINIT_PAGINATION,
   EMPTY_ATTENDANCES,
   NAME,
-  CANCEL_PENDING_REQUESTS
+  CANCEL_PENDING_REQUESTS,
+  MESSAGE
 } from '../utils/alias'
 export default {
   name: 'AttendanceListFilterPartner',
@@ -260,8 +260,7 @@ export default {
         await this.listAccomodations()
         await this.attendances()
       } catch (err) {
-        console.log({err})
-        this.setMessage(this.message({ status: err.response.status, data: 'atendimento' }))
+        this.message(err.response.status)
       }
     },
     catchErrorSelect (error) {
@@ -272,15 +271,15 @@ export default {
     async confirm () {
 
       if (this.allowRequest) {
-        try {
-          this.cancel()
-          document.documentElement.scrollTop = 0
-          await this.attendances()
-        } catch (err) {
-           this.setMessage(this.message({ status: err.response.status, data: 'atendimento' }))
-        }
+          //this.cancel()
+          //document.documentElement.scrollTop = 0
+        await this.attendances()
       } else {
-        this.$emit("error", this.message({ status: 111 }))
+        const messageAlert = { 
+          message: 'preencha ou corrija os campos alertados', 
+          type: 'error'
+        }
+        this.$emit("error", messageAlert)
       }
     },
     getURI(id, typeUser, resource) {
@@ -300,7 +299,6 @@ export default {
             resolve(accomodations)     
           })
           .catch((err) => {
-            console.log(err)
             reject(err)
           })
       })
@@ -344,11 +342,11 @@ export default {
       setSituation: SITUATION,
       setInitialDates: DEFAULT_DATES,
       renitiPage: REINIT_PAGINATION,
-      emptyAttendances: EMPTY_ATTENDANCES
+      emptyAttendances: EMPTY_ATTENDANCES,
+      message: MESSAGE
     }),
     ...mapActions(NAMESPACED_ATTENDANCE, {
-      getAttendances: GET_ATTENDANCES_STORE,
-      setMessage: ATTENDANCE_NOT_FOUND
+      getAttendances: GET_ATTENDANCES_STORE
     }),
     ...mapActions(NAMESPACED_ACCOMODATIONS, {
       getAccomodations: GET_ACCOMODATIONS_STORE

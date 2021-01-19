@@ -67,7 +67,7 @@ const actions = {
   [GET_ATTENDANCES_STORE]: ({ commit }, { url, params, headers }) => {
     commit(REINIT_PAGINATION)
     commit(LOADING)
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       requestResource({ url, params, method: 'GET', headers })
         .then((resp) => {
           commit(GET_ATTENDANCES_STORE, resp.data.docs || resp.data)
@@ -79,7 +79,7 @@ const actions = {
         .catch((err) => {        
           commit(MESSAGE, err.response.status)
           commit(ERROR)
-          reject(err)
+          //reject(err)
         })
     })
   },
@@ -141,8 +141,8 @@ const mutations = {
   [MESSAGE]: (state, status) => {
     const expiredSession = status === 401
     const message = httpMessage({ status, data: 'atendimentos', experired: expiredSession })
-    state.message = message
     console.log(message)
+    state.message = message
   },
   [LOADING]: (state) => {
     state.status = 'loading'

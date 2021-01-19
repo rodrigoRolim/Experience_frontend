@@ -4,8 +4,8 @@
       <div class="attendance-list-filter-healthcenter">
         <div class="attendance-list-filter-healthcenter__period">
           <code-label
+            class="attendance-list-filter-healthcenter__label"
             label="Período"
-            color="white"
             :fontWeight="400"
             fontSize="0.9rem"
             fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
@@ -23,8 +23,8 @@
         </div>
         <div class="attendance-list-filter-healthcenter__health-center">
           <code-label
+            class="attendance-list-filter-healthcenter__label"
             label="Posto"
-            color="white"
             :fontWeight="400"
             fontSize="0.9rem"
             fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
@@ -40,8 +40,8 @@
         </div>
         <div class="attendance-list-filter-healthcenter__accomodation">
           <code-label
+            class="attendance-list-filter-healthcenter__label"
             label="Acomodação"
-            color="white"
             :fontWeight="400"
             fontSize="0.9rem"
             fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
@@ -57,8 +57,8 @@
         </div>
         <div class="attendance-list-filter-healthcenter__situation">
           <code-label
+            class="attendance-list-filter-healthcenter__label"
             label="Situação"
-            color="white"
             :fontWeight="400"
             fontSize="0.9rem"
             fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
@@ -74,8 +74,8 @@
         </div>
         <div class="attendance-list-filter-healthcenter__realizer">
           <code-label
+            class="attendance-list-filter-healthcenter__label"
             label="Posto Realizante"
-            color="white"
             :fontWeight="400"
             fontSize="0.9rem"
             fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
@@ -118,7 +118,7 @@ import AttendanceListFilterPeriod from './AttendanceListFilterPeriod'
 import { validator } from '../mixins/validations/validator'
 import { session } from '../mixins/session'
 import { isOption, ltBegin, gtEnd, required, date } from '../mixins/validations/rules'
-import { messages } from '../mixins/user-messages'
+//import { messages } from '../mixins/user-messages'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { 
   NAMESPACED_ATTENDANCE, 
@@ -130,7 +130,6 @@ import {
   NAMESPACED_ACCOMODATIONS,
   GET_HEALTH_CENTERS_STORE,
   GET_FILTERS, 
-  ATTENDANCE_NOT_FOUND,
   ACCOMODATIONS,
   REGISTER,
   SITUATIONS, 
@@ -146,7 +145,8 @@ import {
   DEFAULT_DATES,
   DATE_VALIDATOR,
   REINIT_PAGINATION,
-  EMPTY_ATTENDANCES
+  EMPTY_ATTENDANCES,
+  MESSAGE
 } from '../utils/alias'
 export default {
   name: 'AttendanceListFilter',
@@ -154,7 +154,7 @@ export default {
     begin: String,
     end: String
   },
-  mixins: [messages, validator({ isOption, ltBegin, gtEnd, required, date }), session],
+  mixins: [validator({ isOption, ltBegin, gtEnd, required, date }), session],
   components: {
     CodeButton,
     CodeSelect,
@@ -313,7 +313,7 @@ export default {
         await this.listAccomodations()
         await this.attendances()
       } catch (err) {
-        this.setMessage(this.message({ status: err.response.status, data: 'atendimento' }))
+        this.message(err.response.status)
       }
     },
     catchErrorSelect (error) {
@@ -321,16 +321,13 @@ export default {
         this.requestPrevent = true
       }
     },
-    async confirm () {
+    async confirm() {
 
       if (this.allowRequest) {
-        try {
-          await this.attendances()
-        } catch (err) {
-           this.setMessage(this.message({ status: err.response.status, data: 'atendimento' }))
-        }
+        await this.attendances()
       } else {
-        this.$emit("error", this.message({ status: 111 }))
+        const messageAlert = { message: 'preencha ou corrija os campos alertados', type: 'error'}
+        this.$emit("error", messageAlert)
       }
     },
     getURI(id, typeUser, resource) {
@@ -426,11 +423,11 @@ export default {
       setSituation: SITUATION,
       setInitialDates: DEFAULT_DATES,
       renitiPage: REINIT_PAGINATION,
-      emptyAttendances: EMPTY_ATTENDANCES
+      emptyAttendances: EMPTY_ATTENDANCES,
+      message: MESSAGE
     }),
     ...mapActions(NAMESPACED_ATTENDANCE, {
-      getAttendances: GET_ATTENDANCES_STORE,
-      setMessage: ATTENDANCE_NOT_FOUND
+      getAttendances: GET_ATTENDANCES_STORE
     }),
     ...mapActions(NAMESPACED_ACCOMODATIONS, {
       getAccomodations: GET_ACCOMODATIONS_STORE
@@ -460,6 +457,8 @@ export default {
     max-height: 500px
     overflow-y: auto
     width: 100%
+.attendance-list-filter-healthcenter__label
+  color: map-get($theme-color, "letters")
 .attendance-list-filter-healthcenter__health-center,
 .attendance-list-filter-healthcenter__accomodation,
 .attendance-list-filter-healthcenter__situation,

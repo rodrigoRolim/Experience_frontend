@@ -167,21 +167,21 @@ export default {
 .button--theme
   background-color: map-get($theme-color, "default")
 .button--primary
-  background-color: $primary
+  background-color: map-get($theme-color, "primary")
 .button--success
-  background-color: $success
+  background-color: map-get($theme-color, "success")
 .button--warning
-  background-color: $warning
+  background-color: map-get($theme-color, "warning")
 .button--danger
-  background-color: $danger
+  background-color: map-get($theme-color, "danger")
 .button--info
-  background-color: $info
+  background-color: map-get($theme-color, "info")
 .button--dark
-  background-color: $dark
+  background-color: map-get($theme-color, "dark")
 .button--brand
-  background-color: $brand
+  background-color: map-get($theme-color, "brand")
 .button--light
-  background-color: $light
+  background-color: map-get($theme-color, "light")
   color: dimgray
 .button--uppercase
   text-transform: uppercase

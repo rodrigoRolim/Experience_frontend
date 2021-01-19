@@ -191,6 +191,9 @@ input[type="text"]
   text-transform: capitalize
   letter-spacing: 0.1px
   font-size: 0.95rem !important
+  font-weight: bold
+.input-password__input
+  font-weight: bold
 .input-password__input--icon
   border-radius: 0px 0px 0px 0px
 .input-password__input--no-icon
@@ -222,6 +225,8 @@ input[type="text"]
   border-radius: 0px 4px 4px 0px
   background-color: white
   color: $icon
+.input__password
+  font-weight: bold
 .input-password--outline
   border-color: $primary
 .input-password--error

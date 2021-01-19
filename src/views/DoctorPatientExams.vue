@@ -1,17 +1,11 @@
 <template>
   <div class="doctor-patient">
-   <!--  <transition
-      name="dropside"
-      enter-active-class="sidebar--show"
-      leave-active-class="sidebar--hidden"
-    > -->
-      <div class="doctor-patient__sidebar"
-        id="scrollbar" 
-        :class="{ 'sidebar--show': displaySideBar, 'sidebar--hidden': !displaySideBar }"
-      >
-        <the-sidebar />
-      </div>
-   <!--  </transition> -->
+    <div class="doctor-patient__sidebar"
+      id="scrollbar" 
+      :class="{ 'sidebar--show': displaySideBar, 'sidebar--hidden': !displaySideBar }"
+    >
+      <the-sidebar />
+    </div>
     <div class="doctor-patient__main" >
       <div class="doctor-patient__patient">
         <patient-exams-list-header
@@ -155,7 +149,6 @@ export default {
 .doctor-patient__modal
   z-index: 2
 .doctor-patient__modal,
-.doctor-patient__sidebar,
 .doctor-patient__patient
   position: fixed
   top: 60px
@@ -166,12 +159,11 @@ export default {
   width: 321px
   overflow-y: auto
   height: 100vh
-  z-index: 4
+  z-index: 2
   @include respond-to(medium-screens)
     overflow-x: hidden
 .doctor-patient__patient
   width: calc( 100% - 321px )
-  z-index: 2
   @include respond-to(medium-screens)
     width: 100%
   @include respond-to(handhelds)

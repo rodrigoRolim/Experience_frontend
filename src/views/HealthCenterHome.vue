@@ -87,7 +87,7 @@ export default {
       console.log(value)
       this.message = value.message
       this.type = value.type
-       setTimeout(() => {
+      setTimeout(() => {
         this.message = ''
         this.type = ''
       }, this.TIME_MESSAGE)
@@ -187,6 +187,7 @@ export default {
     width: 90%
 .health-center__messages
   position: fixed
+  z-index: 2
   bottom: 0
   align-self: flex-end
   width: 100%
@@ -195,5 +196,5 @@ export default {
     width: 100%
     right: 0
     left: 0
-    top: 60px
+    bottom: 0
 </style>

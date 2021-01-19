@@ -13,7 +13,6 @@
     <div class="patient__main">
       <router-view />
     </div>
-    
   </div>
 </template>
 

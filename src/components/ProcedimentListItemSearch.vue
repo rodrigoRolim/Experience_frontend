@@ -11,6 +11,7 @@
             v-model="mnemonic"
             icon="search"
             placeholder="procedimento"
+            @keyup.enter="search"
           />
         </div>
         <div class="dropdown__button">

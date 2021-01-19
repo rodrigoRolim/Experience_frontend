@@ -2,7 +2,7 @@
   <div class="partner-home">
     <div class="partner-home__filter" 
       :class="{'partner-home__filter--index-up': searcherInModal}">
-      <attendance-list-filter-partner />
+      <attendance-list-filter-partner @error="messageError"/>
       <div class="filter__searcher" :class="{'filter__searcher--modal': searcherInModal}">
         <div class="filter__content">
           <attendance-list-search
@@ -28,6 +28,17 @@
       </code-modal>
       <attendance-list />
     </div>
+    <transition name="slide-fade">
+      <div class="partner-home__messages" v-if="message">
+        <code-message
+          class="partner-home__message-content"
+          :message="message"
+          :type-message="type"
+          position="center"
+          icon="times-circle"
+        />  
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -37,6 +48,7 @@ import AttendanceList from '../components/AttendanceList'
 import AttendanceListSearch from '../components/AttendanceListSearch'
 import CodeLoading from '../components/base/CodeLoading'
 import CodeModal from '../components/base/CodeModal'
+import CodeMessage from '../components/base/CodeMessage'
 import { mapGetters } from 'vuex'
 import { NAMESPACED_AUTH, NAMESPACED_ATTENDANCE} from '../utils/alias'
 export default {
@@ -46,7 +58,8 @@ export default {
     AttendanceList,
     AttendanceListSearch,
     CodeLoading,
-    CodeModal
+    CodeModal,
+    CodeMessage
   },
   data () {
     return {
@@ -95,12 +108,25 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+@import '../styles/transitions/__slide_fade.scss'
 .partner-home
   display: flex
   flex-direction: column
   align-items: center
 .partner-home__filter--index-up
   z-index: 5
+.partner-home__messages
+  position: fixed
+  z-index: 2
+  bottom: 0
+  align-self: flex-end
+  width: 100%
+  right: 0px
+  @include respond-to(medium-screens)
+    width: 100%
+    right: 0
+    left: 0
+    bottom: 0
 .partner-home__filter
   position: fixed
   width: 100%

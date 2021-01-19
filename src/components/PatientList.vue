@@ -152,8 +152,8 @@ export default {
   display: flex
   justify-content: center
   align-items: center 
-  color: white
-  background-color: $theme
+  color: map-get($theme-color, "letters")
+  background-color: map-get($theme-color, "default")
   position: fixed
   bottom: 0
   padding: 15px 0

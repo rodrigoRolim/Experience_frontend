@@ -103,7 +103,7 @@ export default {
   border-radius: 2px
   display: none
 .checkbox__mark
-  border: 2px solid #708090
+  border: 2px solid map-get($theme-color, "secondary")
   border-radius: 4px
 .checkbox__mark--md
   height: 29px

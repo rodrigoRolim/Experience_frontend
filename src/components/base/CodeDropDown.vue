@@ -53,7 +53,7 @@ export default {
   flex-direction: column
   justify-content: space-between
   width: 100%
-  background-color: $theme
+  background-color: map-get($theme-color, "default")
   padding: 2px
   @include respond-to(wide-screens)
     flex-direction: row

@@ -172,7 +172,7 @@ export default {
   },
   methods: {
     messages (value) {
-      console.log(value)
+      // console.log(value)
       this.contentMessage = value.message
       setTimeout(() => {
         this.contentMessage = ''

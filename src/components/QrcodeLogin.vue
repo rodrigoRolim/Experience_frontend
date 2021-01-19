@@ -93,7 +93,12 @@ export default {
     async realizeLogin (user) {
       this.$emit('loading', true)
       try {
-        let resp = await this.login({ url: ATTENDANCE_AUTH, credentials: user, typeUser: PATIENT_TYPE })
+        let resp = await this.login({ 
+            url: ATTENDANCE_AUTH, 
+            credentials: user,
+            uniqueAttendance: true, 
+            typeUser: PATIENT_TYPE 
+          })
         this.ready = false
         this.showLoader = false
         this.success(resp.status, PATIENT_ROUTE)

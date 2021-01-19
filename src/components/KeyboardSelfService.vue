@@ -66,8 +66,8 @@ export default {
     prevInput () {
       this.$emit('previousInput')
     },
-    confirm () {
-      this.$emit('confirm')
+    confirm (e) {
+      this.$emit('confirm', e)
     },
     backspace () {
       this.$emit('backspace')

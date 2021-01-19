@@ -132,7 +132,7 @@
           size-icon="lg"
           :loading="showLoader"
           velocity-loading="1x"
-          @click.prevent="confirm"
+          @click.prevent.stop="confirm"
           :disabled="authState == 'loading'"
         ></code-button>
       </div>
@@ -420,9 +420,9 @@ export default {
       })
       return fields.length > 0
     },
-    confirm (e) {
+    confirm () {
       
-      e.preventDefault()
+      //e.preventDefault()
 
       let emptyFieldAll = this.validateAllFields()
 
