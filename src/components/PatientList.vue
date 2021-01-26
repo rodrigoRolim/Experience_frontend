@@ -120,15 +120,16 @@ export default {
         this.nextPage()
         let headers = {'X-Paginate': true}
         this.requestMoreAttendances({ url: this.gerURL(), params: this.paramsQuery(), headers })
-          .then((resp) => {
-            console.log(resp)
-            document.documentElement.scrollTop = 0
+          .then(() => {
+            this.repositionScrollBar(window.innerHeight + window.scrollY)
           })
-          .catch((err) => {
-            console.log({err})
-            document.documentElement.scrollTop = 0
+          .catch(() => {
+            this.repositionScrollBar(window.innerHeight + window.scrollY)
           })
       } 
+    },
+    repositionScrollBar(pos) {
+      document.documentElement.scrollTop = pos
     },
     getDeliveryDate (dateString) {
       const delivery = new Date(dateString).toLocaleDateString("pt-BR")

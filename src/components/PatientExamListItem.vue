@@ -1,8 +1,11 @@
 <template>
-  <div class="patient-exam" :class="getStatus | statusModifiers" @click.self="click(status)">
+  <div 
+    class="patient-exam" 
+    :class="getClasses"
+    @click.self="click(status)">
     <div class="patient-exam__detail" @click.self="click(status)">
       <code-chip :text="mnemonico" transform="uppercase" class="patient-exam__tag" />
-      <div class="patient-exam__separator-line"></div> 
+      <div class="patient-exam__separator-line"></div>
       <div class="patient-exam__name-exam">
         <code-info
           size="lg"
@@ -10,6 +13,9 @@
           :info="name"     
         />
       </div>
+    </div>
+    <div class="patient-exam__print-in-lab" v-if="printInLab">
+      <small>Este exame só poderá ser impresso no laboratorio</small>
     </div>
     <div class="patient-exam__content" @click.self="click(status)">
       <div class="patient-exam__health-center">
@@ -55,7 +61,8 @@ export default {
     name: String,
     nameHealthCenter: String,
     mnemonico: String,
-    correl: Number
+    correl: Number,
+    typeDelivery: String
   },
   components: {
     CodeChip,
@@ -76,13 +83,24 @@ export default {
     }
   },
   computed: {
+    getClasses() {
+      return [
+        `patient-exam--${this.getStatus}`, 
+        { 'patient-exam--print-in-lab': this.printInLab }
+      ]
+      
+    },
     ...mapGetters(NAMESPACED_EXAMS, [
       'checked'
-    ])
+    ]),
+    printInLab() {
+      console.log(this.typeDelivery)
+      return this.typeDelivery !== '*' && this.status === 'FINALIZADO'
+    }
   },
   methods: {
     click (status) {
-      if (status === 'FINALIZADO') {
+      if (status === 'FINALIZADO' && !this.printInLab) {
         this.$emit('click')
       }
     },
@@ -157,6 +175,11 @@ export default {
 .patient-exam__checkbox
   align-self: flex-end
   min-height: 29px
+.patient-exam__print-in-lab
+  color: map-get($theme-color, "danger")
+  padding-bottom: 15px
+.patient-exam--print-in-lab
+  opacity: 0.6
 .patient-exam--pendencies
   @include card-status-exams($status: "PENDENCIES", $border-large: left, $transparent: true)
 .patient-exam--finished

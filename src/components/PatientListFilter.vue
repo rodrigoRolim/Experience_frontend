@@ -64,7 +64,7 @@ import CodeInput from '../components/base/CodeInput'
 import CodeButton from '../components/base/CodeButton'
 import PatientListFilterPeriod from '../components/PatientListFilterPeriod'
 import { validator } from '../mixins/validations/validator'
-import { ltBegin, gtEnd, required, date } from '../mixins/validations/rules'
+import { endLtBegin, beginGtEnd, required, date } from '../mixins/validations/rules'
 import { messages } from '../mixins/user-messages'
 import { 
  GET_ATTENDANCES_REQUESTER,
@@ -80,7 +80,7 @@ import {
 import { mapActions, mapMutations, mapGetters } from 'vuex'
 export default {
   name: 'PatientListFilter',
-  mixins: [messages, validator({ ltBegin, gtEnd, required, date })],
+  mixins: [messages, validator({ endLtBegin, beginGtEnd, required, date })],
   components: {
     CodeDropDown,
     PatientListFilterPeriod,
@@ -108,12 +108,12 @@ export default {
       console.log(value)
       if (this.required(value)) {
         this.validate.begin = 'campo obrigatório'
-      } else if (this.gtEnd(value, this.params.end)) {
+      } else if (this.beginGtEnd(value, this.params.end)) {
         
-        this.validate.begin = 'data inicial inválida'
-      } else if (this.ltBegin(this.params.end, this.params.begin)){
+        this.validate.begin = 'inicio inválido'
+      } else if (this.endLtBegin(this.params.begin, this.params.end)){
         
-        this.validate.end = 'data final inválida'
+        this.validate.end = 'final inválido'
       } else {
         this.validate.begin = ''
         this.validate.end = ''
@@ -123,9 +123,9 @@ export default {
       if (this.required(value)) {
         this.validate.end = 'campo obrigatório'
 
-      } else if (this.ltBegin(value, this.params.begin)) {
-        this.validate.end = 'data final inválida'
-      } else if (this.gtEnd(this.params.begin, this.params.end)){
+      } else if (this.endLtBegin(this.params.begin, value)) {
+        this.validate.end = 'final inválido'
+      } else if (this.beginGtEnd(this.params.begin, this.params.end)){
         this.validate.begin = 'início inválido'
       } else {
         this.validate.begin = ''
@@ -134,8 +134,8 @@ export default {
     },
     beginAndEnd (value) {
       let [begin, end] = value.split('|')
-      if (this.date(begin, DATE_VALIDATOR) && this.date(end, DATE_VALIDATOR)) {
-         this.patients()
+      if (this.validatePeriod(begin, end)) {
+        this.patients()
       }
     }
   },
@@ -151,6 +151,14 @@ export default {
     },
   },
   methods: {
+    validatePeriod(begin, end) {
+      return this.date(begin, DATE_VALIDATOR) && 
+             this.date(end, DATE_VALIDATOR) && 
+             !this.beginGtEnd(begin, end) &&
+             !this.endLtBegin(begin, end) &&
+             !this.required(begin) &&
+             !this.required(end)
+    },
     ...mapActions(NAMESPACED_PATIENT, {
       getPatients: GET_ATTENDANCES_REQUESTER_STORE,
       setMessage: ATTENDANCE_NOT_FOUND

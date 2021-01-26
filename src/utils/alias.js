@@ -149,6 +149,7 @@ export const MESSAGE = 'MESSAGE'
 export const SELECTED = 'SELECTED'
 export const GET_REPORT_STORE = 'GET_REPORT_STORE' 
 export const GET_RESULT_STORE = 'GET_RESULT_STORE'
+export const TYPE_DELIVERY = 'TYPE_DELIVERY'
 /**  
  * MUTATIONS TYPES AND ACTIONS' NAMES along namespace
 */

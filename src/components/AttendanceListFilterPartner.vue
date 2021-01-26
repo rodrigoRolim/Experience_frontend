@@ -108,7 +108,7 @@ import CodeButton from '../components/base/CodeButton'
 import AttendanceListFilterPeriod from '../components/AttendanceListFilterPeriod'
 import { validator } from '../mixins/validations/validator'
 import { session } from '../mixins/session'
-import { isOption, ltBegin, gtEnd, required, date } from '../mixins/validations/rules'
+import { isOption, endLtBegin, beginGtEnd, required, date } from '../mixins/validations/rules'
 import { messages } from '../mixins/user-messages'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { 
@@ -135,7 +135,7 @@ import {
 } from '../utils/alias'
 export default {
   name: 'AttendanceListFilterPartner',
-  mixins: [messages, validator({ isOption, ltBegin, gtEnd, required, date }), session],
+  mixins: [messages, validator({ isOption, endLtBegin, beginGtEnd, required, date }), session],
   components: {
     CodeDropDown,
     CodeLabel,
@@ -190,10 +190,10 @@ export default {
       if (this.required(value)) {
 
         this.validate.begin = 'campo obrigatório'
-      } else if (this.gtEnd(value, this.params.end)) {
+      } else if (this.beginGtEnd(value, this.params.end)) {
         
         this.validate.begin = 'data inicial inválida'
-      } else if (this.ltBegin(this.params.end, this.params.begin)){
+      } else if (this.endLtBegin(this.params.begin, this.params.end)){
         
         this.validate.end = 'data final inválida'
       } else {
@@ -205,9 +205,9 @@ export default {
       if (this.required(value)) {
         this.validate.end = 'campo obrigatório'
 
-      } else if (this.ltBegin(value, this.params.begin)) {
+      } else if (this.endLtBegin(this.params.begin, value)) {
         this.validate.end = 'data final inválida'
-      } else if (this.gtEnd(this.params.begin, this.params.end)){
+      } else if (this.beginGtEnd(this.params.begin, this.params.end)){
         this.validate.begin = 'início inválido'
       } else {
         this.validate.begin = ''
@@ -238,14 +238,22 @@ export default {
     },
     beginAndEnd (value) {
       let [begin, end] = value.split('|')
-      if (this.date(begin, DATE_VALIDATOR) && this.date(end, DATE_VALIDATOR)) {
+      if (this.validatePeriod(begin, end)) {
         // this.backParamsToDefault()
         this.initComponent()
       }
     }
   },
   methods: {
-     initFilters () {
+    validatePeriod(begin, end) {
+      return this.date(begin, DATE_VALIDATOR) && 
+             this.date(end, DATE_VALIDATOR) && 
+             !this.beginGtEnd(begin, end) &&
+             !this.endLtBegin(begin, end) &&
+             !this.required(begin) &&
+             !this.required(end)
+    },
+    initFilters () {
       this.filters = Object.assign({}, this.params)
     },
     backParamsToDefault () {

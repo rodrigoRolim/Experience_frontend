@@ -117,7 +117,7 @@ import CodeButton from './base/CodeButton.vue'
 import AttendanceListFilterPeriod from './AttendanceListFilterPeriod'
 import { validator } from '../mixins/validations/validator'
 import { session } from '../mixins/session'
-import { isOption, ltBegin, gtEnd, required, date } from '../mixins/validations/rules'
+import { isOption, endLtBegin, beginGtEnd, required, date } from '../mixins/validations/rules'
 //import { messages } from '../mixins/user-messages'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { 
@@ -154,7 +154,7 @@ export default {
     begin: String,
     end: String
   },
-  mixins: [validator({ isOption, ltBegin, gtEnd, required, date }), session],
+  mixins: [validator({ isOption, endLtBegin, beginGtEnd, required, date }), session],
   components: {
     CodeButton,
     CodeSelect,
@@ -219,15 +219,19 @@ export default {
   },
   watch: {
     'params.begin': function (value) {
+      // console.log(this.gtEnd(value, this.params.end))
       if (this.required(value)) {
 
         this.validate.begin = 'campo obrigatório'
-      } else if (this.gtEnd(value, this.params.end)) {
         
-        this.validate.begin = 'data inicial inválida'
-      } else if (this.ltBegin(this.params.end, this.params.begin)){
+      } else if (this.beginGtEnd(value, this.params.end)) {
         
-        this.validate.end = 'data final inválida'
+        this.validate.begin = 'data de inicio inválida'
+      } else if (this.endLtBegin(this.params.begin, this.params.end)){
+        
+        this.validate.end = 'data de fim inválida'
+      } else if (!this.date(value, DATE_VALIDATOR)) {
+        this.validate.begin = 'data inválida'
       } else {
         this.validate.begin = ''
         this.validate.end = ''
@@ -237,10 +241,12 @@ export default {
       if (this.required(value)) {
         this.validate.end = 'campo obrigatório'
 
-      } else if (this.ltBegin(value, this.params.begin)) {
-        this.validate.end = 'data final inválida'
-      } else if (this.gtEnd(this.params.begin, this.params.end)){
+      } else if (this.endLtBegin(this.params.begin, value)) {
+        this.validate.end = 'data de fim inválida'
+      } else if (this.beginGtEnd(this.params.begin, this.params.end)){
         this.validate.begin = 'início inválido'
+      } else if (!this.date(value, DATE_VALIDATOR)){
+        this.validate.end = 'data inválida'
       } else {
         this.validate.begin = ''
         this.validate.end = ''
@@ -292,13 +298,22 @@ export default {
     },
     beginAndEnd (value) {
       let [begin, end] = value.split('|')
-      if (this.date(begin, DATE_VALIDATOR) && this.date(end, DATE_VALIDATOR)) {
+      console.log(this.validatePeriod(begin, end))
+      if (this.validatePeriod(begin, end)) {
         // this.backParamsToDefault()
         this.initComponent()
       }
     }
   },
   methods: {
+    validatePeriod(begin, end) {
+      return this.date(begin, DATE_VALIDATOR) && 
+             this.date(end, DATE_VALIDATOR) && 
+             !this.beginGtEnd(begin, end) &&
+             !this.endLtBegin(begin, end) &&
+             !this.required(begin) &&
+             !this.required(end)
+    },
     backParamsToDefault () {
       const defaultOption = {id: '', name: 'todos'}
       this.setHealthCenter(defaultOption)

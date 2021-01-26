@@ -9,6 +9,7 @@
         :name-health-center="exam.nome_posto_realizante"
         :mnemonico="exam.mnemonico" 
         :correl="exam.correl"
+        :type-delivery="exam.tipo_entrega"
         @click="showExamResult(exam.correl, exam.nome_procedimento)" 
         class="patient-exams__item"
       />
