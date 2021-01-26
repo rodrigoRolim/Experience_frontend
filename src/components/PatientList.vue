@@ -133,7 +133,7 @@ export default {
     },
     getDeliveryDate (dateString) {
       const delivery = new Date(dateString).toLocaleDateString("pt-BR")
-      return delivery !== "Invalid Date" ? delivery : ''
+      return delivery !== "Invalid Date" ? delivery : ""
     },
      ...mapActions(NAMESPACED_PATIENT, {
       requestMoreAttendances: PUSH_ATTENDANCES_STORE
