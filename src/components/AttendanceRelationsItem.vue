@@ -79,6 +79,7 @@ export default {
       storeProps: SET_PROPS 
     }),
     selectItem() {
+      
       let healthCenter = this.healthCenter
       let attendance = this.attendance
       let namePatient = this.namePatient
@@ -86,9 +87,21 @@ export default {
       let genderPatient = this.gender
       let deliveryDate = this.deliveryDate
       let doctor = this.doctor
-      console.log('penis ', deliveryDate)
-      this.storeProps({ healthCenter, attendance, namePatient, agePatient, genderPatient, deliveryDate, doctor })
-      this.$emit('selected', { healthCenter: this.healthCenter, attendance: this.attendance })
+      
+      this.storeProps({ 
+        healthCenter, 
+        attendance, 
+        namePatient, 
+        agePatient, 
+        genderPatient, 
+        deliveryDate, 
+        doctor 
+      })
+      
+      this.$emit('selected', { 
+        healthCenter: this.healthCenter,
+        attendance: this.attendance 
+      })
     },
     selectItemByDefault() {
       if (this.item === 0) {
