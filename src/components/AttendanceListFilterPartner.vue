@@ -235,7 +235,11 @@ export default {
       }
     },
     waitRequest () {
-      return this.status === 'loading' || this.statusAcc === 'loading' || this.statusPush === 'loading'
+      return (
+        this.status === 'loading' || 
+        this.statusAcc === 'loading' || 
+        this.statusPush === 'loading'
+      )
     },
     beginAndEnd (value) {
       let [begin, end] = value.split('|')
