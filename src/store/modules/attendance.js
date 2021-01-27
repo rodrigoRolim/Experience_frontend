@@ -27,7 +27,8 @@ import {
   FILTER_ATTENDANCES_BY_NAME,
   EMPTY_PARAMS,
   REINIT_STATE,
-  MESSAGE
+  MESSAGE,
+  EMPTY_ATTENDANCES
 } from '../../utils/alias'
 import { httpMessage } from '../../utils/statusMessages'
 import { begin, end } from '../../utils/initialDates'
@@ -66,6 +67,7 @@ const getters = {
 const actions = {
   [GET_ATTENDANCES_STORE]: ({ commit }, { url, params, headers }) => {
     commit(REINIT_PAGINATION)
+    commit(EMPTY_ATTENDANCES)
     commit(LOADING)
     return new Promise((resolve) => {
       requestResource({ url, params, method: 'GET', headers })
@@ -196,6 +198,9 @@ const mutations = {
   },
   [REINIT_PAGINATION]: (state) => {
     state.params.page = 1
+  },
+  [EMPTY_ATTENDANCES]: (state) => {
+    state.attendances = []
   },
   [NEXT_PAGE]: (state) => {
     if (state.params.page < state.params.totalPages)

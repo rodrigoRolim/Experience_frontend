@@ -165,7 +165,8 @@ export default {
   computed: {
     ...mapGetters(NAMESPACED_ATTENDANCE, [
       'params',
-      'status'
+      'status',
+      'statusPush'
     ]),
     ...mapGetters(NAMESPACED_AUTH, [
       'userId',
@@ -182,7 +183,7 @@ export default {
       return `${this.params.begin}|${this.params.end}`
     },
     disableConfirm () {
-      return this.status == 'loading' || this.statusAcc == 'loading' 
+      return this.status === 'loading' || this.statusPush === 'loading' 
     }
   },
   watch: {
@@ -234,7 +235,7 @@ export default {
       }
     },
     waitRequest () {
-      return this.statusAcc == 'loading' || this.status == 'loading'
+      return this.status === 'loading' || this.statusAcc === 'loading' || this.statusPush === 'loading'
     },
     beginAndEnd (value) {
       let [begin, end] = value.split('|')
