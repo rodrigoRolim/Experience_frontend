@@ -193,7 +193,6 @@ export default {
     CodeCalendar,
     CodeLabel,
     CodeRadio,
-    //CodeTooltip,
     CodeGroupRadios,
     CodeInputPassword,
     keyboardSelfService
@@ -249,6 +248,9 @@ export default {
         return this.code
       },
       set (value) {
+        let arrIdentifier = this.splitIdAttendance(value)
+        this.attendance = arrIdentifier[1]
+        this.healthCenter = this.getNumberHealthCenter(arrIdentifier[0])
         this.code = value
       }
     },
@@ -262,45 +264,53 @@ export default {
     },
     idAttendance: {
       get () {
-        return this.code
+        return this.identifier
       },
       set (value) {
-        let arrIdentifier = this.splitIdAttendance(value)
-        this.attendance = arrIdentifier[1]
-        this.healthCenter = this.getNumberHealthCenter(arrIdentifier[0])
-        this.code = value
+        this.identifier = value
       }
     },
     attendance: {
-      get () {
+      get() {
         return this.patient.atendimento
       },
-      set (value) {
+      set(value) {
         this.patient.atendimento = value
       }
     },
     healthCenter: {
-      get () {
+      get() {
         return this.patient.posto
       },
-      set (value) {
+      set(value) {
         this.patient.posto = value
       }
     },
     password: {
-      get () {
+      get() {
         return this.patient.senha
       },
-      set (value) {
+      set(value) {
         this.patient.senha = value
       }
     },
-    getCredentials () {
+    getCredentials() {
+      
       let { patient } = this
+      
       if (this.visibility === 'CPF') {
-        return Object.assign({cpf: patient.cpf.replace(/\s/g, ''), nascimento: patient.nascimento.replace(/\s/g, ''), senha: patient.senha})
+        return Object.assign({
+          cpf: patient.cpf.replace(/\s/g, ''), 
+          nascimento: patient.nascimento.replace(/\s/g, ''), 
+          senha: patient.senha
+        })
       }
-      return Object.assign({atendimento: patient.atendimento, posto: patient.posto, senha: patient.senha})
+
+      return Object.assign({
+        atendimento: patient.atendimento, 
+        posto: patient.posto, 
+        senha: patient.senha
+      })
     },
     validator () {
       if (this.visibility === 'CPF') {
@@ -473,8 +483,11 @@ export default {
 
       const caretPosition = this.getCaretPosition()
      
-      let currentValue = (this.indexFocusedInput === 0)? this.idAttendance : this.patient[this.focusInputList[this.indexFocusedInput]];
+      let currentValue = (this.indexFocusedInput === 0)? this.idAttendance : 
+        this.patient[this.focusInputList[this.indexFocusedInput]];
+      
       const newValue = this.deleteChar(currentValue, caretPosition - 1);
+      
       if (this.indexFocusedInput === 0) {
         this.idAttendance = newValue
       } else {
