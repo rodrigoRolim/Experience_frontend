@@ -6,17 +6,12 @@
           bind="partnerCode"
           label="Código Parceiro"
           color="#676a6c"
-          :fontWeight="700"
-          fontSize="0.8rem"
         ></code-label>
         <code-input
           placeholder="Código do parceiro"
           name="partnerCode"
           type="text"
           v-model="partner.posto"
-          :width="7"
-          :height="9"
-          :weight="500"
           color="#333"
           icon="handshake"
           numeric
@@ -28,8 +23,6 @@
           bind="partnerPassword"
           label="Senha"
           color="#676a6c"
-          :fontWeight="700"
-          fontSize="0.8rem"
         ></code-label>
          <code-input-password
           id="partnerPassword"
@@ -146,8 +139,10 @@ export default {
         this.success(resp.status, PARTNER_ROUTE)
       } catch (err) {
 
-        let refused = err.message === 'Network Error' ? 502 : undefined
-        this.error(refused || err.response.status) 
+        //let refused = err.message === 'Network Error' ? 502 : undefined
+        //this.error(refused || err.response.status) 
+        console.log(this.message)
+        this.error()
         this.$emit('loading', false)
       }
     }

@@ -2,7 +2,8 @@ import {
   MESSAGE_STATUS_111, 
   MESSAGE_STATUS_502, 
   MESSAGE_STATUS_401, 
-  MESSAGE_STATUS_404 
+  MESSAGE_STATUS_404,
+  MESSAGE_STATUS_400
 } from './alias'
 export const httpMessage = ({status, typeMessage= 'default', data = 'recurso', experied = false}) => {
   console.log(status)
@@ -16,6 +17,8 @@ export const httpMessage = ({status, typeMessage= 'default', data = 'recurso', e
     case 502:
       return { type: 'error', message: MESSAGE_STATUS_502}
     case 400:
-      return { type: 'error', message: 'fluxo de dados mal formados'}
+      return { type: 'error', message: MESSAGE_STATUS_400 }
+    case 500: 
+      return { type: 'error', message: 'error no servidor'}
   }
 }

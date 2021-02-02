@@ -1,9 +1,9 @@
 import axios from 'axios'
 import store from '../store/index'
 import { ADD_CANCEL_TOKEN, REFRESH_TOKEN } from '../utils/alias'
-
+console.log(document.documentElement.dataset)
 const serverExperience = axios.create({
-  baseURL: 'http://192.168.1.68:9001',
+  baseURL: document.documentElement.dataset.endpoint,
   timeout: 4000000,
   headers: {
     'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ serverExperience.interceptors.response.use(response => response, error => {
 })
 
 const serverAuth = axios.create({
-  baseURL: 'http://192.168.1.68:9000',
+  baseURL: document.documentElement.dataset.endpoint,
   timeout: 5000000,
   headers: {
     'Content-Type': 'application/json'
@@ -64,7 +64,7 @@ serverAuth.interceptors.request.use(
   error => Promise.reject(error)
 )
 const serverPDF = axios.create({
-  baseURL: 'http://192.168.1.68:9050',
+  baseURL: document.documentElement.dataset.endpoint,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json'

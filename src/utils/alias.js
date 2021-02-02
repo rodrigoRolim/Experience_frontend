@@ -150,6 +150,7 @@ export const SELECTED = 'SELECTED'
 export const GET_REPORT_STORE = 'GET_REPORT_STORE' 
 export const GET_RESULT_STORE = 'GET_RESULT_STORE'
 export const TYPE_DELIVERY = 'TYPE_DELIVERY'
+
 /**  
  * MUTATIONS TYPES AND ACTIONS' NAMES along namespace
 */
@@ -180,6 +181,7 @@ export const MESSAGE_STATUS_111 = 'preencha ou corrija os campos alertados'
 export const MESSAGE_STATUS_401 = 'dados incorretos, verifique seus dados e tente novamente'
 export const MESSAGE_STATUS_404 = (data) => `${data}(s) não encontrado(s)`
 export const MESSAGE_STATUS_502 = 'conexão recusada, servidor pode está desativado'
+export const MESSAGE_STATUS_400 = 'ocorreu um problema'
 /**
  * VALIDATORS REGEX
  * 

@@ -82,6 +82,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+@import "../../styles/__themes.sass"
 .checkbox
   display: flex
   flex-direction: row
@@ -150,22 +151,21 @@ export default {
   align-items: center
   height: 100% 
 .checkmark--theme
-  background-color: map-get($theme-color, "default")
+  background-color: $color__default
 .checkmark--primary
-  background-color: map-get($theme-color, "primary")
+  background-color: $color__primary
 .checkmark--success
-  background-color: map-get($theme-color, "success")
+  background-color: $color__success
 .checkmark--warning
-  background-color: map-get($theme-color, "warning")
+  background-color: $color__warning
 .checkmark--danger
-  background-color: map-get($theme-color, "danger")
+  background-color: $color__danger
 .checkmark--info
-  background-color: map-get($theme-color, "info")
+  background-color: $color__info
 .checkmark--dark
-  background-color: map-get($theme-color, "dark")
+  background-color: $color__dark
 .checkmark--brand
-  background-color: map-get($theme-color, "brand")
+  background-color: $color__brand
 .checkmark--light
-  background-color: map-get($theme-color, "light")
-
+  background-color: $color__light
 </style>

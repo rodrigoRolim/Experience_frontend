@@ -160,7 +160,7 @@ export default {
     margin-top: 120px
   @include respond-to(handhelds)
     width: 100%
-    margin-top: 50px
+    margin-top: 60px
 
 .patient-exams__patient
   position: fixed

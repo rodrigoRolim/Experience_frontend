@@ -86,6 +86,7 @@ const actions = {
     })
   },
   [FILTER_ATTENDANCES_BY_NAME]: ({ commit }, { url, params, headers }) => {
+    commit(MESSAGE, undefined)
     commit(REINIT_PAGINATION)
     commit(LOADING)
     return new Promise((resolve, reject) => {
@@ -94,7 +95,6 @@ const actions = {
           commit(GET_ATTENDANCES_STORE, resp.data.docs)
           commit(TOTAL_PAGES, resp.data.pages)
           commit(SUCCESS)
-          commit(MESSAGE, undefined)
           resolve(resp)
         }).
         catch((err) => {

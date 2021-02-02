@@ -16,12 +16,12 @@ const getters = {
 
 const actions = {
   [GET_RESULT_STORE]: ({ commit }, { url }) => {
+    commit(MESSAGE, undefined)
     commit(LOADING)
     return new Promise((resolve, reject) => {
       requestResource({ url })
         .then((resp) => {
           commit(SUCCESS)
-          commit(MESSAGE, undefined)
           commit(GET_RESULT_STORE, resp.data)
           resolve(resp.data)
         })

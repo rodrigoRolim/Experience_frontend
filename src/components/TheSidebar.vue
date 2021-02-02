@@ -44,12 +44,12 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-
+@import "../styles/__themes"
 .sidebar
   position: relative
   display: flex
   flex-direction: column
-  background-color: map-get($theme-color, "default")
+  background-color: $color__default
   padding-bottom: 50px
   min-height: 100%
   width: 321px
@@ -62,7 +62,7 @@ export default {
   flex-direction: row
   justify-content: center
   align-items: center
-  background-color: map-get($theme-color, "default")
+  background-color: $color__default
   height: 100px
   color: white
 .sidebar__date
@@ -79,7 +79,6 @@ export default {
   margin-left: 10px
   @include respond-to(handhelds)
     border-radius: 4px
-  color: $green
   cursor: pointer
   user-select: none
 .sidebar__date,

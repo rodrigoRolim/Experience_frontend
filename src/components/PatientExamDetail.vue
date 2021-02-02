@@ -41,8 +41,8 @@
         streched
         borded
         bolded
-        :disable="printing"
-        :loading="printing"
+        :disable="loadingFile"
+        :loading="loadingFile"
         @click="printExamResult"
       />
        <code-button
@@ -54,8 +54,8 @@
         streched
         borded
         bolded
-        :disable="printing"
-        :loading="printing"
+        :disable="loadingFile"
+        :loading="loadingFile"
         @click="downloadExamResult"
       />
     </div>
@@ -97,7 +97,7 @@ export default {
       .catch((err) => console.log({err}))
   },
   computed: {
-    printing() {
+    loadingFile() {
       return this.status === 'loading'
     },
     ...mapGetters(NAMESPACED_REPORT, [
@@ -114,6 +114,7 @@ export default {
       this.$emit('close')
     },
     printExamResult() {
+
       let url = GET_PDFS(this.healthCenter, this.attendance)
       let params = { exames: this.correlative }
       this.getReports({ url, params })
@@ -170,7 +171,6 @@ export default {
 .exam__modal__body
   display: flex
   flex-direction: column
-  justify-content: space-between
   max-height: 75vh
   height: 600px
   padding: 5px 10px

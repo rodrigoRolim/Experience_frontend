@@ -146,6 +146,7 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+@import "../styles/__themes"
 .patients
   display: flex
   flex-direction: column
@@ -153,8 +154,8 @@ export default {
   display: flex
   justify-content: center
   align-items: center 
-  color: map-get($theme-color, "letters")
-  background-color: map-get($theme-color, "default")
+  color: $color__letters
+  background-color: $color__default
   position: fixed
   bottom: 0
   padding: 15px 0

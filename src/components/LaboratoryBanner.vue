@@ -23,8 +23,8 @@ export default {
   },
   computed: {
     takeLogo() {
-      var logo = process.env.VUE_APP_THEME
-      console.log(logo)
+      var logo = document.documentElement.dataset.logo
+      console.log(document.documentElement.dataset)
       let images = require.context('@/assets/', false, /(\.png$)|(\.jpeg$)|(\.gif$)/)
       return images('./' + logo + ".png")
     }

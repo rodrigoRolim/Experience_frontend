@@ -229,6 +229,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+@import "../../styles/__themes.sass"
 .custom-select 
   position: relative
 .custom-select__modal
@@ -293,10 +294,10 @@ export default {
 .custom-select__line-l--required,
 .custom-select__line-r--required,
 .custom-select__arrow--required
-  border-color: $error !important
+  border-color: $color__danger !important
   border-width: 2px !important
 .custom-select__icon--required
-  border-color: $error !important
+  border-color: $color__danger !important
   color: $error !important
   border-width: 2px !important
 .custom-select__input::placeholder

@@ -18,6 +18,7 @@ const state = () => ({
   status: '',
   healthCenterLogged: cookies.get('healthcenter-logged') || undefined,
   expired: cookies.get('expired') || false,
+  message: undefined,
   hasLoadedOnce: false,
   userType: cookies.get('user-session')?.user_type || "",
   uniqueAttendance: cookies.get('user-session')?.uniqueAttendance
@@ -32,14 +33,14 @@ const getters = {
   uniqueAttendance: state => state.uniqueAttendance,
   token: state => state.token,
   expired: state => state.expired,
-  healthCenterLogged: state => state.healthCenterLogged?.id
+  healthCenterLogged: state => state.healthCenterLogged?.id,
+  message: state =>  state.message
 }
 
 const actions = {
   [AUTH_REQUEST]: ({ commit }, { url, uniqueAttendance, credentials, typeUser }) => {
     return new Promise((resolve, reject) => {
       commit(AUTH_REQUEST)
-
       requestToken({ url, auth: credentials })
         .then((resp) => {
           let user_session = {
@@ -49,13 +50,14 @@ const actions = {
             identify: resp.data.identificacao,
             uniqueAttendance
           }
+          commit(MESSAGE, undefined)
           commit(AUTH_SUCCESS, user_session)
           cookies.remove('user-session')
           cookies.set('user-session', user_session)
           resolve(resp)
         })
         .catch((err) => {
-          commit(MESSAGE, err.status)
+          commit(MESSAGE, err.response.status)
           commit(AUTH_ERROR, err)
           cookies.remove('user-session')
           reject(err)
@@ -138,8 +140,10 @@ const mutations = {
     state.status = ''
     state.uniqueAttendance = true
     state.userType = ''
+    state.message = undefined
   },
   [MESSAGE]: (state, status) => {
+    console.log(status)
     const expiredSession = status === 401
     const message = httpMessage({ status, data: 'exams', experired: expiredSession })
     state.message = message

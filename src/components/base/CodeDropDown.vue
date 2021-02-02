@@ -45,7 +45,7 @@ export default {
 </script>
 <style lang="sass" scoped>
 @import "../../styles/animations/_dropdown.sass"
-
+@import "../../styles/__themes.sass"
 @include an-dropdown($max-height: 660px, $duration-hidden: 0.6s, $duration-visible: 0.6s)
 
 .dropdown
@@ -53,7 +53,7 @@ export default {
   flex-direction: column
   justify-content: space-between
   width: 100%
-  background-color: map-get($theme-color, "default")
+  background-color: $color__default
   padding: 2px
   @include respond-to(wide-screens)
     flex-direction: row

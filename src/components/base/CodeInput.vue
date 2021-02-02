@@ -162,7 +162,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-
+@import "../../styles/__themes"
 .input-wrap
   display: flex
   flex-direction: column
@@ -198,7 +198,7 @@ export default {
   border-radius: 4px
 .container-input__icon.container-input__icon--outline,
 .container-input__input--outline
-  border-color: $primary
+  border-color: $color__primary
 .container-input__icon.container-input__icon--outline-error,
 .container-input--error
   border-color: $error

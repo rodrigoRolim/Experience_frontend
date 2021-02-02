@@ -62,6 +62,7 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+@import "../styles/__themes.sass"
 .help-login__title-instruct-acess
   padding: 0
   margin: 0
@@ -69,7 +70,7 @@ export default {
 .help-login__title-h2
   margin-bottom: 10px
   font-size: 1.0rem
-  color: map-get($theme-color, "default")
+  color: $color__default
 .help-login
   display: flex
   flex-direction: column
@@ -95,7 +96,7 @@ export default {
 .help-login__close
   margin: 0px 8px 0 0
 .help-login__title-second
-  background-color: map-get($theme-color, "default")
+  background-color: $color__default
   color: white
   display: flex
   flex-direction: row

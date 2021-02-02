@@ -30,8 +30,8 @@
         />  
       </div>
     </transition>
-    <div class="logins__main" :class="{'logins__main--unclickable': loading}">
-      <div class="logins__content" :class="{'logins__content--up': hiddenBanner}">
+    <div class="logins__main" :class="{ 'logins__main--unclickable': loading }">
+      <div class="logins__content" :class="{ 'logins__content--up': hiddenBanner }">
          <div class="logins__banner" v-if="!hiddenBanner">
           <laboratory-banner></laboratory-banner>
         </div>
@@ -191,7 +191,7 @@ export default {
     },
     redirectToPreviousPage () {
       if (this.isAuthenticated) {
-        switch(this.userTypeAuthed) {
+        switch (this.userTypeAuthed) {
           case DOCTOR_TYPE:
             this.$router.push({ path: DOCTOR_ROUTE })
             break

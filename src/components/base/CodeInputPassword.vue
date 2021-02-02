@@ -161,6 +161,7 @@ export default {
 
 <style lang="sass" scoped>
 @import '../../styles/fonts/_fontello'
+@import "../../styles/__themes.sass"
 .input-password
   display: flex
   flex-direction: row
@@ -224,20 +225,20 @@ input[type="text"]
   border-left: none
   border-radius: 0px 4px 4px 0px
   background-color: white
-  color: $icon
+  color: $color__icon
 .input__password
   font-weight: bold
 .input-password--outline
-  border-color: $primary
+  border-color: $color__primary
 .input-password--error
-  border-color: $error
+  border-color: $color__danger
   border-width: 2px
-  color: $error
+  color: $color__danger
 .input-password-wrap__message-error
   display: flex
   flex-direction: row
   margin-left: 10px
-  color: $error
+  color: $color__danger
 .input-password-wrap__text-error
   font-style: italic
   margin-bottom: 0

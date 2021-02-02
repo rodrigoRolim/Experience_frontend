@@ -108,9 +108,7 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-
-@import '../../styles/_themes'
-
+@import "../../styles/__themes.sass"
 .button
   border: 1px solid transparent
   color: white
@@ -165,23 +163,23 @@ export default {
   opacity: 0.8
   color: rgba(0,0,0,0.5)
 .button--theme
-  background-color: map-get($theme-color, "default")
+  background-color: $color__default
 .button--primary
-  background-color: map-get($theme-color, "primary")
+  background-color: $color__primary
 .button--success
-  background-color: map-get($theme-color, "success")
+  background-color: $color__success
 .button--warning
-  background-color: map-get($theme-color, "warning")
+  background-color: $color__warning
 .button--danger
-  background-color: map-get($theme-color, "danger")
+  background-color: $color__danger
 .button--info
-  background-color: map-get($theme-color, "info")
+  background-color: $color__info
 .button--dark
-  background-color: map-get($theme-color, "dark")
+  background-color: $color__dark
 .button--brand
-  background-color: map-get($theme-color, "brand")
+  background-color: $color__brand
 .button--light
-  background-color: map-get($theme-color, "light")
+  background-color: $color__light
   color: dimgray
 .button--uppercase
   text-transform: uppercase
@@ -191,37 +189,39 @@ export default {
   text-transform: capitalize
 .button--theme.button--transparent
   background-color: transparent
-  color: $theme
-  border: 1px solid $theme
+  color: $color__default
+  border: 1px solid $color__default
 .button--primary.button--transparent
   background-color: transparent
-  color: $primary
-  border: 1px solid $primary
+  color: $color__primary
+  border: 1px solid $color__primary
 .button--success.button--transparent
   background-color: transparent
-  color: $success
-  border: 1px solid $success
+  color: $color__success
+  border: 1px solid $color__success
 .button--warning.button--transparent
   background-color: transparent
-  color: $warning
-  border: 1px solid $warning
+  color: $color__warning
+  border: 1px solid $color__warning
 .button--danger.button--transparent
   background-color: transparent
-  color: $danger
-  border: 1px solid $danger
+  color: $color__danger
+  border: 1px solid $color__danger
 .button--info.button--transparent
   background-color: transparent
-  color: $info
-  border: 1px solid $info
+  color: $color__info
+  border: 1px solid $color__info
 .button--dark.button--transparent
   background-color: transparent
-  color: $dark
-  border: 1px solid $dark
+  color: $color__dark
+  border: 1px solid $color__dark
 .button--transparent-brand
   background-color: transparent
-  color: $brand
-  border: 1px solid $brand
+  color: $color__brand
+  border: 1px solid $color__brand
 .button--bottom-text
   display: flex
   flex-direction: column
+.button--bottom-text .button__icon
+  margin: 0
 </style>

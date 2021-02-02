@@ -13,13 +13,12 @@ const getters = {
 
 const actions = {
   [GET_REPORT_STORE]: ({ commit }, { url, params }) => {
+    commit(MESSAGE, undefined)
     commit(LOADING)
     return new Promise((resolve, reject) => {
       requestPDF({ url, params })
         .then((resp) => {
           commit(SUCCESS)
-          commit(MESSAGE, undefined)
-          console.log(resp)
           resolve(resp.data)
         })
         .catch((err) => {

@@ -33,7 +33,7 @@
 
 <script>
 import CodeButton from './base/CodeButton'
-import { GET_REPORT_STORE, GET_PDFS, NAMESPACED_EXAMS, NAMESPACED_REPORT } from '../utils/alias'
+import { GET_REPORT_STORE, GET_PDFS, NAMESPACED_EXAMS, NAMESPACED_REPORT, NAMESPACED_AUTH } from '../utils/alias'
 import { NAMESPACED_PROPS } from '../utils/alias'
 import { mapGetters, mapActions } from 'vuex'
 import { pdf } from '../mixins/pdf'
@@ -47,21 +47,21 @@ export default {
   components: {
     CodeButton
   },
-  data () {
-    return {
-      RESULTS: 'resultados'
-    }
-  },
   computed: {
     ...mapGetters(NAMESPACED_PROPS, [
       'healthCenter',
       'attendance'
     ]),
     ...mapGetters(NAMESPACED_EXAMS, [
-      'checkedExams'
+      'checkedExams',
+      'numberCheckedExams',
+      'findExamNameByCorrel'
     ]),
     ...mapGetters(NAMESPACED_REPORT, [
       'status'
+    ]),
+    ...mapGetters(NAMESPACED_AUTH, [
+      'userName'
     ]),
     printing() {
       return this.status === 'loading'
@@ -80,11 +80,15 @@ export default {
         })
     },
     downloadExamResult () {
+
       let url = GET_PDFS(this.healthCenter, this.attendance)
       let params = { exames: this.checkedExams.join(',') }
+      let namePDF = (this.numberCheckedExams > 1) ? this.userName : 
+        this.findExamNameByCorrel(this.checkedExams[0])
+      
       this.getReports({ url, params })
         .then((base64) => {
-          this.download(this.RESULTS, base64)
+          this.download(namePDF, base64)
         })
         .catch((err) => {
           console.log(err)

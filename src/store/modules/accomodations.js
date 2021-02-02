@@ -23,7 +23,6 @@ const actions = {
     return new Promise((resolve, reject) => {
       requestResource({ url, method: 'GET' })
         .then((resp) => {
-          console.log(resp)
           commit(GET_ACCOMODATIONS_STORE, resp.data)
           commit(SUCCESS)
           resolve(resp.data)

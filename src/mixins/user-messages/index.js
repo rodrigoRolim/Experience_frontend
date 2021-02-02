@@ -21,6 +21,8 @@ export const messages = {
           return { type: 'error', message: MESSAGE_STATUS_502}
         case 400:
           return { type: 'error', message: 'fluxo de dados mal formados'}
+        case 500:
+          return { type: 'error', message: 'erro interno do servidor'}
       }
     }
   }

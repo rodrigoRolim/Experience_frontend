@@ -614,7 +614,7 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-
+@import "../styles/__themes"
 .login-patient
   width: 100%
 .login-patient__form
@@ -644,7 +644,7 @@ export default {
   align-items: baseline
 .login-patient__keyboard,
 .login-patient__doubt
-  color: map-get($theme-color, "default")
+  color: $color__default
   margin: 20px 0
   cursor: pointer
 .login-patient__doubt:hover

@@ -44,6 +44,7 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+@import "../../styles/__themes.sass"
 .message
   border-radius: 1px
   display: flex
@@ -87,5 +88,5 @@ export default {
 .message--whiteness
   background-color: white
   border: 1px solid white
-  color: map-get($theme-color, 'letters')
+  color: $color__default
 </style>

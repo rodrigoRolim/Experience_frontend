@@ -36,6 +36,8 @@ const getters = {
   selected: state => state.selected,
   params: state => state.params,
   checkedExams: state => state.checkedExams,
+  numberCheckedExams: state => state.checkedExams.length,
+  findExamNameByCorrel: state => (correl) => state.exams.find(ex => correlatives(ex.correl) !== correl).nome_procedimento,
   checked: (state) => (correl) => state.checkedExams.includes(correlatives(correl)),
   someExamChecked: state => state.checkedExams.length > 0,
   allExamsChecked: state => state.checkedExams.length === state.exams.filter(exam => exam.situacao_experience === 'FINALIZADO').length,
@@ -44,13 +46,13 @@ const getters = {
 
 const actions = {
   [GET_EXAMS_STORE]: ({commit}, { url, params = {}, headers }) => {
+    commit(MESSAGE, undefined)
     commit(LOADING)
     return new Promise((resolve, reject) => {
       requestResource({ url, params, method: 'GET', headers })
         .then((resp) => {         
           commit(GET_EXAMS_STORE, resp.data)
           commit(SUCCESS)
-          commit(MESSAGE, undefined)
           resolve(resp)
         })
         .catch((err) => {
@@ -75,7 +77,7 @@ const mutations = {
     state.checkedExams = state.checkedExams.filter(examCorr => examCorr !== correlatives(correl))
   },
   [CHECKED_ALL_EXAMS]: (state) => {
-    console.log('oi')
+
     state.checkedExams = state.exams.map(exam => correlatives(exam.correl))
     state.checkExams = true
   },

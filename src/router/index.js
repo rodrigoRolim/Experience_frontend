@@ -9,6 +9,7 @@ import {
   CANCEL_PENDING_REQUESTS, 
 } from '../utils/alias'
 
+
 const authorization = (to, from, next) => {
   store.dispatch(CANCEL_PENDING_REQUESTS)
   const authUser = to.matched
@@ -21,19 +22,41 @@ const authorization = (to, from, next) => {
     next();
     return
   }
-  next('/acesso')
+  next(to.path)
+}
+
+const getLaboratory = (to, from, next) => {
+  // document.documentElement.dataset.rootPath = to.path
+  let customAccess = {}
+  if (to.path === '/lab-cedro') {
+    customAccess = {
+      endpoint: process.env.VUE_APP_API_CEDRO,
+      theme: "cedro",
+      logo: "cedro",
+      rootPath: to.path
+    }
+    localStorage.setItem('custom-access', JSON.stringify(customAccess))
+    
+  }
+  if (to.path === '/lab-cortez') {
+    customAccess = {
+      endpoint: process.env.VUE_APP_API_CORTEZ,
+      theme: "cortez",
+      logo: "cortez",
+      rootPath: to.path
+    }
+    localStorage.setItem('custom-access', JSON.stringify(customAccess))
+  }
+  next()
 }
 
 const router = new VueRouter({
   mode: 'history',
   routes: [
     {
-      path: '/',
-      redirect: { name: 'logins' }
-    },
-    {
-      path: '/acesso',
+      path: '/lab-*',
       name: 'logins',
+      beforeEnter: getLaboratory,
       component: () => import(/* webpackChunkName: 'Logins' */ '@/views/Logins')
     },
     {

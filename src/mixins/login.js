@@ -1,20 +1,21 @@
-import { messages } from '../mixins/user-messages'
-import { mapGetters, mapActions, mapMutations } from 'vuex'
+
+import { mapGetters,  mapMutations } from 'vuex'
 import { NAMESPACED_ATTENDANCE, NAMESPACED_PROPS, NAMESPACED_AUTH, AUTH_REINIT_STATUS, EMPTY_PARAMS, CLEAN_PROPS } from '../utils/alias'
 export const login = {
-  mixins: [messages],
+
   data () {
     return {
       showLoader: false
     }
   },
   computed: {
-    ...mapGetters('auth', [
-      'authState'
+    ...mapGetters(NAMESPACED_AUTH, [
+      'authState',
+      'message'
     ])
   },
   methods: {
-    ...mapActions(NAMESPACED_AUTH, {
+    ...mapMutations(NAMESPACED_AUTH, {
       reinitState: AUTH_REINIT_STATUS
     }),
     ...mapMutations(NAMESPACED_ATTENDANCE, {
@@ -31,27 +32,25 @@ export const login = {
         this.clearProps()
         this.$router.push({ path: pathName })
         .catch((err) => {
-          let options = {
-            status: '401'
-          }
-          this.error(options)
+        
+          this.error(this.message)
           throw new Error(`Problem handling something: ${err}.`);
         })
 
       }
     },
-    error (options) {
+    error (options = this.message) {
       if (this.authState == 'error') {
         this.showLoader = false
-        let reinited = this.reinitState()
-        console.log(reinited)
-        if (reinited) {
+        this.reinitState()
+        //if (!reinited) {
           this.emitMessage(options)
-        }
+        //}
       }
     },
-    emitMessage (options) {
-      this.$emit('error', this.message(options))
+    emitMessage (message) {
+      console.log(this.message)
+      this.$emit('error', message)
     }
   }
 }

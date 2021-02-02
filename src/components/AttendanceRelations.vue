@@ -71,6 +71,7 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+@import "../styles/__themes.sass"
 .attendance-relations__item
   display: flex
   flex-flow: row wrap
@@ -86,5 +87,5 @@ export default {
 .attendance-relations__item--initial-active
   background-color: white
   width: 305px
-  color: map-get($theme-color, "letters")
+  color: $color__letters
 </style>

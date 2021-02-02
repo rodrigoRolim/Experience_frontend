@@ -42,6 +42,7 @@ export default {
 
 <style lang="sass" scoped>
 @import '../../styles/animations/__loading.scss'
+@import "../../styles/__themes.sass"
 
 .container-ring
   display: flex
@@ -51,16 +52,16 @@ export default {
   position: relative
   width: 80px
   height: 80px
-  color:  map-get($theme-color, "default")
+  color:  $color__default
 .container-ring__sector 
   box-sizing: border-box
   display: block
   position: absolute
   width: 64px
   height: 64px
-  border: 4px solid  map-get($theme-color, "default")
+  border: 4px solid  $color__default
   border-radius: 50%
-  border-color:  map-get($theme-color, "default") rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.1)
+  border-color: $color__default rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.1)
 .container-ring__sector--1x
   animation: lds-ring 0.4s linear infinite
 .container-ring__sector--2x

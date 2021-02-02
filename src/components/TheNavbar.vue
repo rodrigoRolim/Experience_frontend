@@ -31,7 +31,7 @@ export default {
   },
   computed: {
     takeLogo() {
-      const logo = process.env.VUE_APP_THEME
+      const logo = document.documentElement.dataset.logo
       let images = require.context('@/assets/', false, /(\.png$)|(\.jpeg$)|(\.gif$)/)
       return images('./' + logo + ".png")
     }

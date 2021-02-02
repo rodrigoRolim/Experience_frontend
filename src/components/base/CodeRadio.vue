@@ -42,6 +42,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+@import "../../styles/__themes.sass"
 .radio
   display: flex
   flex-direction: row
@@ -56,7 +57,7 @@ export default {
   cursor: pointer
 .radio__icon.radio--selected
   border: none
-  background-color: map-get($theme-color, "default")
+  background-color: $color__default
 .radio__icon.radio--unselected
   background-color: none
 .radio__input

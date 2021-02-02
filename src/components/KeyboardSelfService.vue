@@ -139,6 +139,7 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+@import "../styles/__themes.sass"
 .keyboard
   font-size: 14px
   padding: 10px 0
@@ -151,7 +152,7 @@ export default {
   display: flex
   flex-direction: column
   justify-content: center
-  background-color: map-get($theme-color, "default")
+  background-color: $color__default
   @include respond-to(handhelds)
     display: none
 .keyboard__close
@@ -186,11 +187,11 @@ export default {
   border-radius: 5px
   border: none
   color: white
-  background-color: map-get($theme-color, "key")
+  background-color: $color__key
   outline: none
   font-size: 16px
 .keyboard__key:active
-  background-color: $key-active
+  background-color: $color__key--active
 .keyboard__key--wide
   width: 8%
   max-width: 8%
