@@ -3,7 +3,7 @@ import store from '../store/index'
 import { ADD_CANCEL_TOKEN, REFRESH_TOKEN } from '../utils/alias'
 console.log(document.documentElement.dataset)
 const serverExperience = axios.create({
-  baseURL: document.documentElement.dataset.endpoint,
+  baseURL:  JSON.parse(localStorage.getItem('custom-access')).endpoint + ":9001",
   timeout: 4000000,
   headers: {
     'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ serverExperience.interceptors.response.use(response => response, error => {
 })
 
 const serverAuth = axios.create({
-  baseURL: document.documentElement.dataset.endpoint,
+  baseURL: JSON.parse(localStorage.getItem('custom-access')).endpoint + ":9000",
   timeout: 5000000,
   headers: {
     'Content-Type': 'application/json'
