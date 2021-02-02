@@ -9,11 +9,20 @@
 export default {
   name: 'App',
   components: {
+
+  },
+  created() {
+    const customAccess = JSON.parse(localStorage.getItem('custom-access'))
+    document.documentElement.dataset.endpoint = customAccess.endpoint
+    document.documentElement.dataset.theme = customAccess.theme
+    document.documentElement.dataset.logo = customAccess.logo
+    document.documentElement.dataset.rootPath = customAccess.rootPath
   }
 }
 </script>
 
 <style lang="sass">
+@import "./styles/__themes"
 body
   padding: 0
   margin: 0
