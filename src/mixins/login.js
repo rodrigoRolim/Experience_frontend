@@ -39,12 +39,12 @@ export const login = {
 
       }
     },
-    error (options = this.message) {
+    error (message = this.message) {
       if (this.authState == 'error') {
         this.showLoader = false
         this.reinitState()
         //if (!reinited) {
-          this.emitMessage(options)
+        this.emitMessage(message)
         //}
       }
     },

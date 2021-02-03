@@ -57,7 +57,11 @@ const actions = {
           resolve(resp)
         })
         .catch((err) => {
-          commit(MESSAGE, err.response.status)
+          let refused = err.message == 'Network Error' ? 502 : undefined
+          let options = {
+            status: refused || err.response.status
+          }
+          commit(MESSAGE, options.status)
           commit(AUTH_ERROR, err)
           cookies.remove('user-session')
           reject(err)
@@ -93,10 +97,10 @@ const actions = {
         resolve(resp.token)
       })
       .catch((err) => {
-        commit(MESSAGE, err.status)
+        commit(MESSAGE, err.response.status)
         commit(AUTH_ERROR, err)
         cookies.remove('user-session')
-        reject(err.status)
+        reject(err.response.status)
       })
     })
   }
