@@ -176,7 +176,7 @@ export const INCOMPLETE_ID = 'ID incompleto'
 export const INCOMPLETE_CPF = 'cpf incompleto'
 export const INVALID_DATA = 'data inválida'
 export const INCOMPLET_CRM = 'crm incompleto'
-export const MESSAGE_STATUS_403 = 'sessão expirada. Deslogue e logue novamente'
+export const MESSAGE_STATUS_403 = 'dados incorretos, verifique seus dados e tente novamente'
 export const MESSAGE_STATUS_111 = 'preencha ou corrija os campos alertados'
 export const MESSAGE_STATUS_401 = 'dados incorretos, verifique seus dados e tente novamente'
 export const MESSAGE_STATUS_404 = (data) => `${data}(s) não encontrado(s)`
