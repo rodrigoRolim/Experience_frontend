@@ -103,7 +103,8 @@ export default {
   display: flex
   flex-direction: column
   align-items: center
-  padding: 10px
+  padding: 0 10px
+  margin-top: 10px
   @include respond-to(handhelds)
     margin-top: 120px
 .procediments__body__item

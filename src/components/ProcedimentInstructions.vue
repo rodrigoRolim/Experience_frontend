@@ -14,7 +14,14 @@
       </div>
     </div>
     <div class="procediment-instructions__body">
-      <code-menu-abas>
+      <div class="procediment-instructions__loading" v-if="status === 'loading'">
+        <code-loading
+          class="exam__spin"   
+          range="50px"
+          velocity="1x"
+        />
+      </div>
+      <code-menu-abas v-else>
         <template v-slot:header>
           <div @click="aba = 1" class="aba" :class="{ 'active-aba': aba == 1 }">Instruções de Exame</div>
         </template>
@@ -30,13 +37,15 @@
 
 <script>
 import CodeMenuAbas from './base/CodeMenuAbas'
+import CodeLoading from './base/CodeLoading'
 import { mapGetters } from 'vuex'
 import { NAMESPACED_INSTRUCTIONS } from '../utils/alias'
 
 export default {
   name: 'ProcedimentInstructions',
   components: {
-    CodeMenuAbas
+    CodeMenuAbas,
+    CodeLoading
   },
   data () {
     return {
@@ -53,7 +62,8 @@ export default {
   },
   computed: {
     ...mapGetters(NAMESPACED_INSTRUCTIONS, [
-      'instructions'
+      'instructions',
+      'status'
     ])
   }
 }
@@ -101,5 +111,11 @@ export default {
   font-size: 1.2rem
   font-weight: 600
 .procediment-instructions__body
-  margin-top: 20px 
+  margin-top: 20px
+.procediment-instructions__loading
+  align-self: center
+  display: flex
+  justify-content: center
+  align-items: center
+  height: 70vh
 </style>
