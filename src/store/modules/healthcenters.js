@@ -41,6 +41,7 @@ const mutations = {
   },
   [ERROR]: (state) => {
     state.status = 'error'
+    state.healthCenters = []
   },
   [SUCCESS]: (state) => {
     state.status = 'ok'

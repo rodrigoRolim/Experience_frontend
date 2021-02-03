@@ -6,7 +6,8 @@ import {
   ERROR, 
   LOADING,
   CANCEL_REQUEST,
-  DELETE_SOURCE
+  DELETE_SOURCE,
+  EMPTY_STATE
 } from '../../utils/alias'
 
 const state = () => ({
@@ -24,6 +25,7 @@ const getters = {
 const actions = {
   [GET_PROCEDIMENTS_STORE]: ({ commit }, { url }) => {
     commit(LOADING)
+    commit(EMPTY_STATE)
     return new Promise((resolve, reject) => {
       requestResource({ url, method: 'GET' })
         .then((resp) => {
@@ -33,6 +35,7 @@ const actions = {
         })
         .catch((err) => {
           commit(ERROR)
+          commit(EMPTY_STATE)
           reject(err)
         })
     })
@@ -76,6 +79,9 @@ const mutations = {
   },
   [ERROR]: (state) => {
     state.status = 'error'
+  },
+  [EMPTY_STATE]: (state) => {
+    state.procediments = ''
   }
 }
 

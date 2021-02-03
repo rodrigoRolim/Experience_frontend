@@ -47,6 +47,7 @@ const mutations = {
   },
   [ERROR]: (state) => {
     state.status = 'error'
+    state.accomodations = []
   },
   [REINIT_STATE]: (state) => {
     state.accomodations = []

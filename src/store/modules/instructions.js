@@ -41,6 +41,7 @@ const mutations = {
   },
   [ERROR]: (state) => {
     state.status = 'error'
+    state.instructions = ''
   }
 }
 

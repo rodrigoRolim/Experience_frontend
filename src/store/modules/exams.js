@@ -40,8 +40,8 @@ const getters = {
   findExamNameByCorrel: state => (correl) => state.exams.find(ex => correlatives(ex.correl) !== correl).nome_procedimento,
   checked: (state) => (correl) => state.checkedExams.includes(correlatives(correl)),
   someExamChecked: state => state.checkedExams.length > 0,
-  allExamsChecked: state => state.checkedExams.length === state.exams.filter(exam => exam.situacao_experience === 'FINALIZADO').length,
-  someFinalizedExam: state => state.exams.some(exam => exam.situacao_experience === 'FINALIZADO'),
+  allExamsChecked: state => state.checkedExams.length === state.exams.filter(exam => exam.situacao_experience === 'FINALIZADO' && exam.tipo_entrega == '*').length,
+  someFinalizedExam: state => state.exams.some(exam => exam.situacao_experience === 'FINALIZADO' && exam.tipo_entrega == '*'),
 }
 
 const actions = {
@@ -93,6 +93,7 @@ const mutations = {
   },
   [ERROR]: (state) => {
     state.status = 'error'
+    state.exams = []
   },
   [MESSAGE]: (state, status) => {
     const expiredSession = status === 401

@@ -3,7 +3,6 @@ import {
   NAMESPACED_AUTH,
   NAMESPACED_ATTENDANCE,
   AUTH_LOGOUT, 
-  ACESS_ROUTE,
   NAMESPACED_PROPS,
   CLEAN_PROPS,
   REINIT_STATE,
@@ -36,7 +35,7 @@ export const logout = {
         this.reinitAttendancesState()
         this.reinitExamsState()
         this.clearProps()
-        this.$router.push({ path: ACESS_ROUTE }).catch((e) => {
+        this.$router.push({ path: JSON.parse(localStorage.getItem('custom-access')).rootPath }).catch((e) => {
           console.log(e)
         })
       }

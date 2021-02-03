@@ -26,7 +26,7 @@ export const sex = {
 
 export const uppercase = {
   filters: {
-    toUppercase(value) {
+    toUpperCase(value) {
       return value.toUpperCase()
     }
   }
