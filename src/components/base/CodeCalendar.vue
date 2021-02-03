@@ -1,6 +1,6 @@
 <template>
   <div :class="name | calendarName" ref="calendar" >
-    <div class="calendar__selected-date" ref="selected_date" @click="showDateToggle">
+    <div class="calendar__input_selected-date" ref="selected_date" @click="showDateToggle">
       <code-input
         :placeholder="placeholder"
         :icon="icon"
@@ -21,10 +21,12 @@
     >
       <div class="calendar__month">
         <div class="calendar__arrow calendar_prev-mth" @click="goToPrevMonth()">&lt;</div>
-        <div class="calendar__selected-month" ref="month">
-          {{months[month]}} <code-calendar-year class="calendar__year" 
-          @outputYear="setYear"
-          :inputYear="year"/>
+        <div class="calendar__selected-date" ref="month">
+          <code-calendar-year class="calendar__selected-year" 
+            @outputYear="setYear"
+            :inputYear="year"
+          />
+         <div class="calendar__selected-month"> {{months[month]}}</div> 
         </div>
         <div class="calendar__arrow calendar__next-mth" @click="goToNextMonth()">&gt;</div>
       </div>
@@ -156,15 +158,38 @@ export default {
 
       if (values[0]) values[0] = this.checkValue(values[0], 31)
       if (values[1]) values[1] = this.checkValue(values[1], 12)
-
+      console.log(values)
       var output = values.map(function (v, i) {
         return v.length == 2 && i < 2 ? v + ' / ' : v
       })
-
+      this.getWrittenMonthByUser(values[0], values[1], values[2])
       this.selectedDate = output.join('').substr(0, 14)
     }
   },
   methods: {
+    isValidWrittenDate(writtenDay, writtenMonth, writtenYear) {
+
+      return !!writtenDay   &&
+             !!writtenMonth &&
+             !!writtenYear  &&
+             writtenDay.length > 1 &&
+             writtenMonth.length > 1 &&
+             writtenYear > 3
+
+    },
+    getWrittenMonthByUser(writtenDay, writtenMonth, writtenYear) {
+      if (this.isValidWrittenDate(writtenDay, writtenMonth, writtenYear)) {
+        this.day = +writtenDay
+        this.month = +writtenMonth
+        this.year = writtenYear
+
+        this.selectedDay = this.day
+        this.selectedMonth = this.month
+        this.selectedYear = this.year
+        console.log(this.selectedDay)
+        this.populateDates()
+      }
+    },
     setYear(value) {
       this.year = value
       this.populateDates()
@@ -352,7 +377,7 @@ export default {
   width: 100%
   cursor: pointer
   user-select: none
-.calendar .calendar__selected-date
+.calendar .calendar__input_selected-date
   width: 100%
   height: 100%
   display: flex
@@ -414,9 +439,9 @@ export default {
   color: #313131
 .calendar__day--selected
   background-color: #00CA85
-.calendar__selected-month
+.calendar__selected-date
   display: flex
-  justify-content: space-between
+  flex-direction: column
+  align-items: center
   width: 118px
-
 </style>
