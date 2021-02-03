@@ -281,10 +281,12 @@ export default {
 .custom-select__option
   list-style-type: none
   cursor: pointer
-  margin: 5px 0px
-  padding: 5px 10px
+  padding: 8px 10px
   text-transform: uppercase
-  font-size: 0.9rem
+  font-size: 0.85rem
+  font-weight: 400
+.custom-select__option:hover
+  background-color: rgba(0, 0, 0, 0.1)
 .custom-select__select
   display: flex
 .custom-select__select:focus
