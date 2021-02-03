@@ -457,6 +457,7 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+@import "../styles/__themes"
 .attendance-list-filter-healthcenter
   display: flex
   flex-direction: row
@@ -473,7 +474,7 @@ export default {
     overflow-y: auto
     width: 100%
 .attendance-list-filter-healthcenter__label
-  color: map-get($theme-color, "letters")
+  color: $color__text
 .attendance-list-filter-healthcenter__health-center,
 .attendance-list-filter-healthcenter__accomodation,
 .attendance-list-filter-healthcenter__situation,
