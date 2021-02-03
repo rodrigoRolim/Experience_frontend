@@ -23,7 +23,11 @@
         placeholder="selecione uma opção" 
       />
       <input :name="name" style="display:none" autocomplete="address-level4"/>
-      <span class="custom-select__arrow" :class="{'custom-select__arrow--required': error}">
+      <span 
+        class="custom-select__arrow" 
+        :class="{'custom-select__arrow--required': error}"
+        @click="toggle"
+      >
         <div 
           class="custom-select__line-l"
           :class="{
@@ -166,6 +170,13 @@ export default {
       this.showList = true
       this.lineAnimation = true
       this.showModalList = true
+    },
+    toggle() {
+      if (this.showList) {
+        this.closeList()
+      } else {
+        this.openList()
+      }
     },
     searchOptionByName (optionName) {
       return this.filterOptionsByKeys.filter((option) => option.name.toLowerCase() === optionName)
