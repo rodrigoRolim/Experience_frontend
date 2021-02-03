@@ -107,8 +107,8 @@ export default {
         this.ready = false
         this.showLoader = true
         this.getCamera()
-        let refused = err.message == 'Network Error' ? 502 : undefined
-        this.error(refused || err.response.status) 
+        //let refused = err.message == 'Network Error' ? 502 : undefined
+        this.error() 
         this.$emit('loading', false)
       }
     },
@@ -142,7 +142,7 @@ export default {
       this.canvas.strokeStyle = color
       this.canvas.stroke()
     },
-    getCamera () {
+    getCamera() {
       navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } })
         .then((stream) => {
           this.video.srcObject = stream
@@ -153,7 +153,7 @@ export default {
         })
         .catch((error) => console.log({error}))
     },
-    drawBorder (width, height) {
+    drawBorder(width, height) {
    
       if (this.index == height) {
         this.direction = false
@@ -175,7 +175,7 @@ export default {
       this.canvas.strokeStyle = 'red'
       this.canvas.stroke()
     },
-    tick () {
+    tick() {
       if (this.video.readyState === this.video.HAVE_ENOUGH_DATA && this.$refs.canvas) {
         this.showLoader = true
         this.ready = true
