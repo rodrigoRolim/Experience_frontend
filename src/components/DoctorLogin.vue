@@ -224,12 +224,8 @@ export default {
         let resp = await this.login({ url: DOCTOR_AUTH, credentials: auth, typeUser: DOCTOR_TYPE })
         this.success(resp.status, DOCTOR_ROUTE)
       } catch (err) {
-        console.log({err})
-        let refusedStatus = err.message === 'Network Error' ? 502 : undefined
-        let options = {
-          status: refusedStatus || err.response.status
-        }
-        this.error(options)
+       
+        this.error()
         this.$emit('loading', false)
       }
     }
