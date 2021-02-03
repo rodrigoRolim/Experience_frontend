@@ -25,8 +25,12 @@ export default {
     }
   },
   watch: {
-    display () {
-      document.body.style.overflow =  'auto'
+    display() {
+      if (document.body.style.overflow === 'hidden') {
+        document.body.style.overflow = 'auto'
+        return
+      }
+      document.body.style.overflow = 'hidden'
     }
   },
   methods: {
@@ -37,6 +41,8 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+.modal
+  overflow: auto
 .modal--black,
 .modal--white
   overflow: auto

@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="procediment-instructions__body">
-       <code-menu-abas>
+      <code-menu-abas>
         <template v-slot:header>
           <div @click="aba = 1" class="aba" :class="{ 'active-aba': aba == 1 }">Instruções de Exame</div>
         </template>
@@ -75,9 +75,6 @@ export default {
   justify-content: center
   border-bottom: 1px solid lightgray
   padding: 10px 20px
-.procediment-instructions__wrap
-  max-height: 70vh
-  overflow: auto
 .procediment-instructions__content
   padding-left: 20px
   padding-top: 20px
