@@ -32,7 +32,7 @@
       </div>
       <div class="patient-exam__checkbox" >
         <code-checkbox
-          v-show="status === 'FINALIZADO'"
+          v-show="status === 'FINALIZADO' && !printInLab"
           text="imprimir"
           none
           color="primary"
