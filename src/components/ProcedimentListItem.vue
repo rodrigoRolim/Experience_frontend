@@ -18,7 +18,7 @@
       <div class="procediment__lab procediment__body--space-around">
         <code-info
           icon="clinic-medical"
-          description="Laboratorio"
+          description="Setor"
           :info="laboratory"
           color="rgb(71, 77, 94)"
           size="lg"
@@ -73,12 +73,12 @@ export default {
   align-items: flex-end
   @include respond-to(medium-screens)
     justify-content: center
-    margin-top: 30px
+    margin-top: 15px
   @include respond-to(handhelds)
     flex-direction: column
     align-items: flex-start
-    margin-top: 30px
-  width: 90%
+    margin-top: 0px
+  width: 100%
 .procediment__header
   display: flex
   flex-direction: row
@@ -87,11 +87,17 @@ export default {
   @include respond-to(handhelds)
     justify-content: center
 .procediment__name
-  font-weight: 600
+  font-weight: 500
+  font-size: 12px
   margin-left: 10px
   text-transform: uppercase
   @include respond-to(handhelds)
     font-size: 12px
+.procediment__material,
+.procediment__lab
+  width: 200px
 .procediment__body--space-around
-  margin: 10px 20px
+  margin: 0px 20px
+  @include respond-to(handhelds)
+    margin: 10px 20px
 </style>
