@@ -6,7 +6,7 @@
           <div class="procediments__menu">
             <code-button
               class="procediments__sign"
-              text="sign-in" 
+              text="acessar" 
               borded
               letters="uppercase"
               color="dark"
@@ -16,7 +16,7 @@
               transparent
               @click="redirectToLogin"
             />
-            <code-button
+            <!-- <code-button
               class="procediments__manual"
               text="manuais"
               borded
@@ -25,7 +25,7 @@
               name-icon="book-medical"
               size-icon="lg"
               transparent
-            />
+            /> -->
           </div>
         </template>
       </the-navbar>
@@ -68,7 +68,7 @@ export default {
   width: 100%
   z-index: 2
 .procediments__sign
-  margin-right: 15px
+  margin-right: 20px
 .procediments__list
   margin-top: 120px
   @include respond-to(handhelds)
