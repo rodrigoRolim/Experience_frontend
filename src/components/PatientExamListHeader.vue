@@ -10,7 +10,8 @@
       />
       <div class="patient-exams__checkall" v-if="someFinalizedExam">
         <code-checkbox
-          text="imprimir"
+          text="selecionar todos"
+          left
           none
           color="primary"
           size="md"
