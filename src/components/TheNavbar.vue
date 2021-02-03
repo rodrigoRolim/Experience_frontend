@@ -6,7 +6,7 @@
       </div>
       <img class="navbar__image" :src="takeLogo" alt="logo da empresa">
     </div>
-    <div class="navbar__profile">
+    <div class="navbar__profile-user">
       <slot name="perfil"></slot>
     </div>
   </header>
@@ -76,7 +76,7 @@ export default {
   margin-right: 20px
   @include respond-to(wide-screens)
     display: none
-.navbar__profile
+.navbar__profile-user
   display: flex
   flex-direction: row
   justify-content: center

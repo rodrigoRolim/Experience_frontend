@@ -226,15 +226,10 @@ export default {
           typeUser: HEALTH_CENTER_TYPE 
         })
         .then((resp) => {
-          this.success(resp.status, HEALTH_CENTER_ROUTE)
+          this.success(resp.response.status, HEALTH_CENTER_ROUTE)
         })
-        .catch((err) => {
-          console.log({err})
-          let refusedStatus = err.message === 'Network Error' ? 502 : undefined
-          let options = {
-            status: refusedStatus || err.response.status
-          }
-          this.error(options) 
+        .catch(() => {
+          this.error() 
           this.$emit('loading', false)
         })
     }

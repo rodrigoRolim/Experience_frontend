@@ -468,12 +468,8 @@ export default {
         .then((resp) => {
           this.success(resp.status, PATIENT_ROUTE)
         })
-        .catch((err) => {
-          let refused = err.message == 'Network Error' ? 502 : undefined
-          let options = {
-            status: refused || err.response.status
-          }
-          this.error(options) 
+        .catch(() => {
+          this.error() 
           this.$emit('loading', false)
         })
         

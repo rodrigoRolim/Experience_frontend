@@ -6,6 +6,8 @@
           bind="partnerCode"
           label="Código Parceiro"
           color="#676a6c"
+          :fontWeight="700"
+          fontSize="0.8rem"
         ></code-label>
         <code-input
           placeholder="Código do parceiro"
@@ -23,6 +25,8 @@
           bind="partnerPassword"
           label="Senha"
           color="#676a6c"
+          :fontWeight="700"
+          fontSize="0.8rem"
         ></code-label>
          <code-input-password
           id="partnerPassword"
