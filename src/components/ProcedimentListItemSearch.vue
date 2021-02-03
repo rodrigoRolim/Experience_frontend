@@ -8,7 +8,7 @@
             type="text"
             :width="12"
             :height="10"
-            v-model="mnemonic"
+            v-model="upperMnemonic"
             icon="search"
             placeholder="procedimento"
             @keyup.enter="search"
@@ -54,6 +54,16 @@ export default {
       mnemonic: '',
       LIMIT: 10,
       PAGE: 1
+    }
+  },
+  computed: {
+    upperMnemonic: {
+      get() {
+        return this.mnemonic
+      },
+      set(value) {
+        this.mnemonic = value.toUpperCase()
+      }
     }
   },
   methods: {
