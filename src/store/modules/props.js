@@ -8,7 +8,8 @@ const state = () => ({
   agePatient: cookies.get('props')?.agePatient || null,
   genderPatient: cookies.get('props')?.genderPatient || null,
   deliveryDate: cookies.get('props')?.deliveryDate || null,
-  doctor: cookies.get('props')?.doctor || null
+  doctor: cookies.get('props')?.doctor || null,
+  healthInsurance: cookies.get('props')?.healthInsurance || null
 })
 
 const getters = {
@@ -19,7 +20,8 @@ const getters = {
   age: state => state.agePatient,
   gender: state => state.genderPatient,
   delivery: state => state.deliveryDate,
-  doctor: state => state.doctor
+  doctor: state => state.doctor,
+  healthInsurance: state => state.healthInsurance
 }
 
 const actions = {
@@ -37,7 +39,8 @@ const mutations = {
       agePatient: payload.agePatient,
       genderPatient: payload.genderPatient,
       deliveryDate: payload.deliveryDate,
-      doctor: payload.doctor
+      doctor: payload.doctor,
+      healthInsurance: payload.healthInsurance
     }
 
     cookies.set('props', props)
@@ -50,6 +53,7 @@ const mutations = {
     state.genderPatient = payload.genderPatient
     state.deliveryDate = payload.deliveryDate
     state.doctor = payload.doctor
+    state.healthInsurance = payload.healthInsurance
   },
   [CLEAN_PROPS]: (state) => {
     cookies.remove('props')
@@ -61,6 +65,7 @@ const mutations = {
     state.genderPatient = null
     state.deliveryDate = null
     state.doctor = null
+    state.healthInsurance = null
   }
 }
 

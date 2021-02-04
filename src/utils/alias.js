@@ -79,7 +79,6 @@ export const AUTH_ERROR = 'AUTH_ERROR'
 export const AUTH_REINIT_STATUS = 'AUTH_REINIT_STATUS'
 export const AUTH_LOGOUT = 'AUTH_LOGOUT'
 export const GET_ATTENDANCES_STORE = 'GET_ATTENDANCES_STORE'
-export const GET_ATTENDANCES_REQUESTER_STORE = 'GET_ATTENDANCES_REQUESTER_STORE'
 export const GET_ACCOMODATIONS_STORE = 'GET_ACCOMODATIONS_STORE'
 export const CANCEL_REQUEST = 'CANCEL_REQUEST'
 export const DELETE_SOURCE = 'DELETE_SOURCE'
@@ -109,9 +108,6 @@ export const BEGIN_DATE = 'BEGIN_DATE'
 export const END_DATE = 'END_DATE'
 export const EMPTY_EXAMS = 'EMPTY_EXAMS'
 export const EMPTY_ATTENDANCES = 'EMPTY_ATTENDANCES'
-export const ATTENDANCE_NOT_FOUND = 'ATTENDANCE_NOT_FOUND'
-export const LOADING_GET_ATTENDANCES_REQUESTER = 'LOADING_GET_ATTENDANCES_REQUESTER'
-export const SUCCESS_GET_ATTENDANCES_REQUESTER = 'SUCCESS_GET_ATTENDANCES_REQUESTER'
 export const ERROR_GET_ATTENDANCES_REQUESTER = 'ERROR_GET_ATTENDANCES_REQUESTER'
 export const TOTAL_ATTENDANCES = 'TOTAL_ATTENDANCES'
 export const GET_REGISTRANTS_STORE = 'GET_REGISTRANTS_STORE'
@@ -151,7 +147,9 @@ export const GET_REPORT_STORE = 'GET_REPORT_STORE'
 export const GET_RESULT_STORE = 'GET_RESULT_STORE'
 export const TYPE_DELIVERY = 'TYPE_DELIVERY'
 export const EMPTY_STATE = 'EMPTY_STATE'
-
+export const GET_PATIENT_STORE = 'GET_PATIENT_STORE'
+export const TOTAL_PATIENTS = 'TOTAL_PATIENTS'
+export const PUSH_PATIENT_STORE = 'PUSH_PATIENT_STORE'
 /**  
  * MUTATIONS TYPES AND ACTIONS' NAMES along namespace
 */
@@ -183,6 +181,7 @@ export const MESSAGE_STATUS_401 = 'dados incorretos, verifique seus dados e tent
 export const MESSAGE_STATUS_404 = (data) => `${data}(s) não encontrado(s)`
 export const MESSAGE_STATUS_502 = 'conexão recusada, servidor pode está desativado'
 export const MESSAGE_STATUS_400 = 'ocorreu um problema'
+export const MESSAGE_STATUS_498 = 'o servidor parece está indisponível'
 /**
  * VALIDATORS REGEX
  * 

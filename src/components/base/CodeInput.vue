@@ -227,4 +227,9 @@ export default {
   color: $icon
 .container-input--bold
   font-weight: 700
+input::placeholder
+  font-size: 0.8rem !important
+  font-weight: 600 !important
+  opacity: 0.65
+  text-transform: none !important
 </style>

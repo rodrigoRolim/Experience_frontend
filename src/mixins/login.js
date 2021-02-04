@@ -40,13 +40,13 @@ export const login = {
       }
     },
     error (message = this.message) {
-      if (this.authState == 'error') {
+      //if (this.authState == 'error') {
         this.showLoader = false
         this.reinitState()
         //if (!reinited) {
         this.emitMessage(message)
         //}
-      }
+      //}
     },
     emitMessage (message) {
       console.log(this.message)

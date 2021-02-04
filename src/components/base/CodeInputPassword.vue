@@ -191,7 +191,7 @@ input[type="text"]
   font-family: Avenir, Helvetica, Arial, sans-serif
   text-transform: capitalize
   letter-spacing: 0.1px
-  font-size: 0.95rem !important
+  font-size: 0.95rem 
   font-weight: bold
 .input-password__input
   font-weight: bold
@@ -246,4 +246,8 @@ input[type="text"]
   transition: opacity .3s
 .fade-enter, .fade-leave-to 
   opacity: 0
+input::placeholder
+  font-size: 0.8rem !important
+  font-weight: 600 !important
+  opacity: 0.65
 </style>
