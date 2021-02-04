@@ -28,7 +28,10 @@ const authorization = (to, from, next) => {
 const getLaboratory = (to, from, next) => {
   // document.documentElement.dataset.rootPath = to.path
   let customAccess = {}
-  if (to.path === '/lab-cedro') {
+  let currentPath = JSON.parse(localStorage.getItem('custom-access')).rootPath | undefined
+  const isCedroAccess = currentPath === '/lab-cedro' || currentPath === undefined
+  const isCortezAccess = currentPath === '/lab-cortez' || currentPath === undefined
+  if (to.path === '/lab-cedro' && isCedroAccess) {
     customAccess = {
       endpoint: process.env.VUE_APP_API_CEDRO,
       theme: "cedro",
@@ -38,7 +41,7 @@ const getLaboratory = (to, from, next) => {
     localStorage.setItem('custom-access', JSON.stringify(customAccess))
     
   }
-  if (to.path === '/lab-cortez') {
+  if (to.path === '/lab-cortez' && isCortezAccess) {
     customAccess = {
       endpoint: process.env.VUE_APP_API_CORTEZ,
       theme: "cortez",
