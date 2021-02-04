@@ -118,15 +118,16 @@ export default {
     let date = new Date()
     this.day = date.getDate()
     this.month = date.getMonth()
+  
     this.year = date.getFullYear().toString()
     this.weekDay = date.getDay()
-    //this.currentMonth = this.months[this.month] + ' ' + this.year
+
     this.selectedYear = this.year
     this.selectedMonth = this.month
     this.selectedDay = this.day
     this.selectedWeekDay = this.weekDay
 
-    this.populateDates()
+    this.populateDates(this.month, this.year)
     this.togglePositionCalendar()
   },
   computed: {
@@ -155,14 +156,17 @@ export default {
       var values = input.split('/').map(function(v) {
         return v.replace(/\D/g, '')
       });
-
+     
+      
       if (values[0]) values[0] = this.checkValue(values[0], 31)
       if (values[1]) values[1] = this.checkValue(values[1], 12)
-      console.log(values)
+      
+      this.getWrittenMonthByUser(+values[0], +values[1] - 1, +values[2])
+      
       var output = values.map(function (v, i) {
         return v.length == 2 && i < 2 ? v + ' / ' : v
       })
-      this.getWrittenMonthByUser(values[0], values[1], values[2])
+      
       this.selectedDate = output.join('').substr(0, 14)
     }
   },
@@ -178,21 +182,24 @@ export default {
 
     },
     getWrittenMonthByUser(writtenDay, writtenMonth, writtenYear) {
-      if (this.isValidWrittenDate(writtenDay, writtenMonth, writtenYear)) {
-        this.day = +writtenDay
-        this.month = +writtenMonth
+      console.log(writtenDay)
+      console.log(writtenMonth)
+      console.log(writtenYear)
+     // if (this.isValidWrittenDate(writtenDay, writtenMonth, writtenYear)) {
+        this.day = writtenDay
+        this.month = writtenMonth
         this.year = writtenYear
 
         this.selectedDay = this.day
         this.selectedMonth = this.month
         this.selectedYear = this.year
-        console.log(this.selectedDay)
-        this.populateDates()
-      }
+       
+        this.populateDates(this.month, this.year)
+      //}
     },
     setYear(value) {
       this.year = value
-      this.populateDates()
+      this.populateDates(this.month, this.year)
     },
     dateValue (value) {
       this.selectedDate = value
@@ -207,15 +214,23 @@ export default {
       return str;
     },
     unselectableDates (day) {
-     
-      if (day) {
 
-        let date = new Date(this.year + '-' + (this.month + 1) + '-' + day)
+      if (day) {
+   
+        let date = new Date(this.year, this.month, day)
         var begin, end
-        if (this.begin) begin = this.begin.split(" - ").reverse().join("-")
-        if (this.end) end = this.end.split(" - ").reverse().join("-") 
-  
-        return new Date(begin) > date || new Date(end) < date
+        
+        if (this.begin) {
+          begin = this.begin.split(" - ")
+          return new Date(begin[2], begin[1], begin[0]) >= date
+        }
+        
+        if (this.end) {
+          end = this.end.split(" - ")
+          return new Date(end[2], end[1], end[0]) <= date
+        } 
+
+        return true
       }
       return true
     },
@@ -226,7 +241,7 @@ export default {
         this.selectedDay = day
         this.selectedMonth = this.month + 1
         this.selectedYear = this.year
-        this.populateDates()
+        this.populateDates(this.month, this.year)
       }
       
     },
@@ -283,16 +298,16 @@ export default {
         this.year--
       }
      // this.currentMonth = this.months[this.month] + ' ' + this.year
-      this.populateDates()
+      this.populateDates(this.month, this.year)
     },
-    populateDates () {
+    populateDates (month, year) {
       
       this.days = []
-      let amount_days = this.daysInMonth(this.month, this.year)
+      let amount_days = this.daysInMonth(month, year)
       this.selected = -1
       let i = 0
       let j = 0
-      let first_day = (new Date(this.year, this.month)).getDay()
+      let first_day = (new Date(year, month)).getDay()
       
       while (i < amount_days) {
         
@@ -303,9 +318,11 @@ export default {
           j++
           this.days.push('')
         }
+        console.log(this.name, this.selectedMonth)
+        console.log(this.name, this.month)
         if (this.selectedDay == (i + 1) && 
-            this.selectedYear == this.year && 
-            this.selectedMonth == this.month) {
+            this.selectedYear == year && 
+            this.selectedMonth == month) {
 
           this.selected = this.selectedDay
         }
