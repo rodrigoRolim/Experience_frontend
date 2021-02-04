@@ -20,6 +20,7 @@
         normal
         :display="show"
         @display="show = $event"
+        position="start"
       >
         <template v-slot:modal>
           <procediment-instructions @close="show = $event"></procediment-instructions>
@@ -30,6 +31,7 @@
       <code-modal
         class="procediment__modal-load"
         :display="displayLoading"
+        position="center"
       >
         <template v-slot:modal>
           <code-loading

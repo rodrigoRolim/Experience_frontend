@@ -133,6 +133,7 @@ import {
   CANCEL_PENDING_REQUESTS,
   MESSAGE
 } from '../utils/alias'
+import { httpMessage } from '../utils/statusMessages'
 export default {
   name: 'AttendanceListFilterPartner',
   mixins: [messages, validator({ isOption, endLtBegin, beginGtEnd, required, date }), session],
@@ -191,25 +192,30 @@ export default {
       if (this.required(value)) {
 
         this.validate.begin = 'campo obrigatório'
+        
       } else if (this.beginGtEnd(value, this.params.end)) {
         
-        this.validate.begin = 'data inicial inválida'
+        this.validate.begin = 'data de inicio inválida'
       } else if (this.endLtBegin(this.params.begin, this.params.end)){
         
-        this.validate.end = 'data final inválida'
+        this.validate.end = 'data de fim inválida'
+      } else if (!this.date(value, DATE_VALIDATOR)) {
+        this.validate.begin = 'data inválida'
       } else {
         this.validate.begin = ''
         this.validate.end = ''
       }
     },
     'params.end': function (value) {
-      if (this.required(value)) {
+       if (this.required(value)) {
         this.validate.end = 'campo obrigatório'
 
       } else if (this.endLtBegin(this.params.begin, value)) {
-        this.validate.end = 'data final inválida'
+        this.validate.end = 'data de fim inválida'
       } else if (this.beginGtEnd(this.params.begin, this.params.end)){
         this.validate.begin = 'início inválido'
+      } else if (!this.date(value, DATE_VALIDATOR)){
+        this.validate.end = 'data inválida'
       } else {
         this.validate.begin = ''
         this.validate.end = ''
@@ -273,7 +279,11 @@ export default {
         await this.listAccomodations()
         await this.attendances()
       } catch (err) {
-        this.message(err.response.status)
+        if (err.response.status === 404) {
+          this.message(err.response.status)
+        } else {
+          this.$emit('error', httpMessage({ status: err.response.status }))
+        }
       }
     },
     catchErrorSelect (error) {
@@ -288,11 +298,8 @@ export default {
           //document.documentElement.scrollTop = 0
         await this.attendances()
       } else {
-        const messageAlert = { 
-          message: 'preencha ou corrija os campos alertados', 
-          type: 'error'
-        }
-        this.$emit("error", messageAlert)
+
+        this.$emit("error", httpMessage({ status: 111 }))
       }
     },
     getURI(id, typeUser, resource) {
@@ -330,12 +337,12 @@ export default {
     attendances () {
       if (!this.waitRequest) {
         let headers = { 'X-Paginate': true }
-        //this.repositionScrollBar(0)
+ 
         return new Promise((resolve, reject) => {
           let healthCenter = this.userId
   
           this.renitiPage()
-          //console.log("page: ", this.params.page)
+    
           let urlName = GET_ATTENDANCES(
             healthCenter,
             this.params.begin.split(" - ").join("-"),

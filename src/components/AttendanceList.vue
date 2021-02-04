@@ -3,8 +3,8 @@
     <code-message
       v-if="message"
       class="attendances__message"
-      :message="message.message || ''"
-      :type="message.type"
+      :message="message.content || ''"
+      :type-message="message.type"
       position="center"
       icon="info-circle"
     />
@@ -24,6 +24,7 @@
       :status="attendance.situacao_exames_experience"
       :patient="attendance.registro.toString()"
       :doctor="attendance.nome_solicitante"
+      :health-insurance="attendance.nome_convenio"
     ></attendance-list-item>
     <div class="attendances__loading" v-if="statusPush === 'loading'" >
       <code-message
@@ -33,10 +34,11 @@
       >
         <template>
           <code-loading class="code-loading"
-          v-if="statusPush === 'loading'"  
-          sizeIcon="xs" 
-          range="40px" 
-          color="dimgray"/>
+            v-if="statusPush === 'loading'"  
+            sizeIcon="xs" 
+            range="40px" 
+            color="dimgray"
+          />
         </template>
       </code-message>
     </div>

@@ -1,6 +1,14 @@
 <template>
   <div class="patient-exams__container">
-    <div class="patient-exams__list" v-if="exams.length > 0">
+    <code-message
+      v-if="message"
+      class="patients__message"
+      :message="message.content || ''"
+      :type-message="message.type"
+      position="center"
+      icon="info-circle"
+    />
+    <div class="patient-exams__list" v-if="exams.length > 0 && !message">
       <patient-exam-list-item
         v-for="exam in exams"
         :key="exam.correl" 
@@ -82,14 +90,13 @@ export default {
   computed: {
     ...mapGetters(NAMESPACED_EXAMS, [
       'exams',
-      'someExamChecked'
+      'someExamChecked',
+      'message'
     ]),
     ...mapGetters(NAMESPACED_REPORT, [
       'status'
     ]),
     selectedAttendance() {
-      console.log(this.healthCenter)
-      console.log(this.attendance)
       return `${this.healthCenter}|${this.attendance}`
     },
     

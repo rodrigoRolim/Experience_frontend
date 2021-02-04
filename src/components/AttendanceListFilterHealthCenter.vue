@@ -148,6 +148,7 @@ import {
   EMPTY_ATTENDANCES,
   MESSAGE
 } from '../utils/alias'
+import { httpMessage } from '../utils/statusMessages'
 export default {
   name: 'AttendanceListFilter',
   props: {
@@ -328,7 +329,12 @@ export default {
         await this.listAccomodations()
         await this.attendances()
       } catch (err) {
-        this.message(err.response.status)
+        if (err.response.status === 404) {
+          this.message(err.response.status)
+        } else {
+          this.$emit('error', httpMessage({ status: err.response.status }))
+        }
+          
       }
     },
     catchErrorSelect (error) {
@@ -339,10 +345,11 @@ export default {
     async confirm() {
 
       if (this.allowRequest) {
+        
         await this.attendances()
       } else {
-        const messageAlert = { message: 'preencha ou corrija os campos alertados', type: 'error'}
-        this.$emit("error", messageAlert)
+       
+        this.$emit("error", httpMessage({ status: 111 }))
       }
     },
     getURI(id, typeUser, resource) {

@@ -168,6 +168,7 @@ import { required, min, date, cpfValide } from '../mixins/validations/rules'
 import { validator } from '../mixins/validations/validator'
 import { cpf, identifier } from '../mixins/masks'
 import { login } from '../mixins/login';
+import { httpMessage } from '../utils/statusMessages'
 import {
   NAMESPACED_AUTH, 
   AUTH_REQUEST, 
@@ -442,7 +443,7 @@ export default {
         return
       }
       if (emptyFieldAll || this.validator) {
-        this.emitMessage({status: 111})
+        this.error(httpMessage({ status: 111 }))
       }
 
     },

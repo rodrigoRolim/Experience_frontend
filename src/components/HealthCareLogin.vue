@@ -92,6 +92,7 @@ import { required, isOption } from '../mixins/validations/rules'
 import { validator } from '../mixins/validations/validator'
 import { login } from '../mixins/login'
 import { mapActions, mapMutations } from 'vuex'
+import { httpMessage } from '../utils/statusMessages'
 import { 
   NAMESPACED_AUTH,
   AUTH_REQUEST, 
@@ -135,7 +136,8 @@ export default {
         this.list = res.data
       })
       .catch((err) => {
-        this.emitMessage({status: err.response.status, data: 'postos'})
+        let status = (err.response) ? err.response.status : 408
+        this.error(httpMessage({ status: status, data: 'postos' }))
       })
   },
   destroyed () {
@@ -212,7 +214,7 @@ export default {
         return
       }
       if (emptyField) {
-        this.emitMessage({status: 111})
+        this.error(httpMessage({status: 111, data: 'postos'}))
       }
     },
     realizeLogin () {
@@ -226,6 +228,7 @@ export default {
           typeUser: HEALTH_CENTER_TYPE 
         })
         .then((resp) => {
+          console.log({resp})
           this.success(resp.response.status, HEALTH_CENTER_ROUTE)
         })
         .catch(() => {

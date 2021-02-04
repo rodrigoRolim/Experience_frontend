@@ -1,5 +1,5 @@
 <template>
-  <div :class="typeMessage | messageType" :style="{width, justifyContent: position}">
+  <div class="message" :class="typeMessage | messageType" :style="{width, justifyContent: position}">
     <p class="message__icon"><font-awesome-icon :icon="icon" v-if="icon"/><slot></slot></p>
     <p class="message__content">{{message}}</p>
   </div>
@@ -46,7 +46,7 @@ export default {
 <style lang="sass" scoped>
 @import "../../styles/__themes.sass"
 .message
-  border-radius: 1px
+  border-radius: 4px
   display: flex
   flex-direction: row
   justify-content: center

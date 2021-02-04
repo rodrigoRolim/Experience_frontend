@@ -7,10 +7,10 @@
     </div>
     <div class="patient__body" ref="patients">
       <code-message
-        v-if="message.message"
+        v-if="message"
         class="patients__message"
-        :message="message.message || ''"
-        :type="message.type"
+        :message="message.content || ''"
+        :type-message="message.type"
         position="center"
         icon="info-circle"
       />

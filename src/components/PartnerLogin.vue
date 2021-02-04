@@ -69,6 +69,7 @@ import { validator } from '../mixins/validations/validator'
 import { login } from '../mixins/login'
 import { mapActions } from 'vuex'
 import { USER_AUTH, PARTNER_TYPE, PARTNER_ROUTE, AUTH_REQUEST, NAMESPACED_AUTH } from '../utils/alias'
+import { httpMessage } from '../utils/statusMessages'
 export default {
   name: 'PartnerLogin',
   mixins: [validator({required}), login],
@@ -132,7 +133,7 @@ export default {
         return
       } 
       if (emptyField) {
-        this.emitMessage({status: 111})
+        this.error(httpMessage({status: 111}))
       }    
     },
     async realizeLogin () {

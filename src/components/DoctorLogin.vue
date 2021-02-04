@@ -48,7 +48,6 @@
           color="#676a6c"
           :fontWeight="700"
           fontSize="0.8rem"
-          
         ></code-label>
         <code-input
           placeholder="Número Conselho Profissional"
@@ -115,6 +114,7 @@ import { validator } from '../mixins/validations/validator'
 import { login } from '../mixins/login';
 import { mapActions } from 'vuex'
 import { NAMESPACED_AUTH, AUTH_REQUEST, DOCTOR_AUTH, DOCTOR_ROUTE, DOCTOR_TYPE, REQUIRED_INPUT, INCOMPLET_CRM } from '../utils/alias'
+import { httpMessage } from '../utils/statusMessages'
 export default {
   name: 'DoctorLogin',
   mixins: [validator({required, min}), login],
@@ -207,7 +207,7 @@ export default {
         return
       } 
       if (emptyInvalidFields || this.validator) {
-        this.emitMessage({status: 111})
+        this.error(httpMessage({status: 111}))
       }    
     },
     async realizeLogin () {
@@ -255,7 +255,6 @@ export default {
   display: flex
   flex-direction: column
   padding: 20px
-.doctor-login__selects,
 .doctor-login__crm,
 .doctor-login__password,
 .doctor-login__uf,
