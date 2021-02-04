@@ -69,12 +69,11 @@ import { messages } from '../mixins/user-messages'
 import { 
  GET_ATTENDANCES_REQUESTER,
  NAMESPACED_PATIENT, 
- GET_ATTENDANCES_REQUESTER_STORE, 
+ GET_PATIENT_STORE, 
  NAME,
  BEGIN_DATE, 
  END_DATE,
  DEFAULT_DATES,
- ATTENDANCE_NOT_FOUND,
  DATE_VALIDATOR
 } from '../utils/alias'
 import { mapActions, mapMutations, mapGetters } from 'vuex'
@@ -160,8 +159,7 @@ export default {
              !this.required(end)
     },
     ...mapActions(NAMESPACED_PATIENT, {
-      getPatients: GET_ATTENDANCES_REQUESTER_STORE,
-      setMessage: ATTENDANCE_NOT_FOUND
+      getPatients: GET_PATIENT_STORE
     }),
     ...mapMutations(NAMESPACED_PATIENT, {
       setNamePatient: NAME,
@@ -192,8 +190,8 @@ export default {
           console.log(resp)
         })
         .catch((err) => {
-          //console.log(err)
-          this.setMessage(this.message({status: err.response.status, data: 'paciente'}))
+          console.log(err)
+          //this.setMessage(this.message({status: err.response.status, data: 'paciente'}))
         })
     },
     confirm () {
