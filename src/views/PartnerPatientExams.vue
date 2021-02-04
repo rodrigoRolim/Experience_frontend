@@ -16,6 +16,7 @@
       <code-modal
         class="partner-patient__modal"
         :display="displayLoading"
+        position="center"
       >
         <template v-slot:modal>
           <code-loading

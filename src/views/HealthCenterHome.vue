@@ -26,6 +26,7 @@
       <code-modal
         class="health_center__modal"
         :display="displayLoading"
+        position="center"
       >
         <template v-slot:modal>
           <code-loading

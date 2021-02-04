@@ -20,11 +20,11 @@
       </the-navbar>
     </div>
     <transition name="slide-fade">
-      <div class="logins__messages" v-if="contentMessage">
+      <div class="logins__messages" v-if="messageToUser !== undefined">
         <code-message
           class="logins__message"
-          :message="contentMessage"
-          type-message="error"
+          :message="messageToUser.content"
+          :type-message="messageToUser.type"
           position="center"
           icon="times-circle"
         />  
@@ -151,14 +151,14 @@ export default {
       aba: 1,
       hiddenBanner: false,
       helplogin: false,
-      contentMessage: '',
+      messageToUser: undefined,
       TIME_MESSAGE: 10000,
       loading: false
     }
   },
   watch: {
     aba () {
-      this.contentMessage = ''
+      this.messageToUser = undefined
     }
   },
   computed: {
@@ -173,9 +173,10 @@ export default {
   methods: {
     messages (value) {
       // console.log(value)
-      this.contentMessage = value.message
+      this.messageToUser = value
+      console.log(value)
       setTimeout(() => {
-        this.contentMessage = ''
+        this.messageToUser = undefined
       }, this.TIME_MESSAGE)
     },
     redirectToProcediments () {

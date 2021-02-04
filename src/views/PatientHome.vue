@@ -8,6 +8,7 @@
       <code-modal
         class="patient-exams__modal"
         :display="loading"
+        position="center"
       >
         <template v-slot:modal>
           <code-loading 

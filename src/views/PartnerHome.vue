@@ -16,6 +16,7 @@
     <div class="partner-home__attendances">
       <code-modal
         class="partner-home__modal"
+        position="center"
         :display="displayLoading"
       >
         <template v-slot:modal>
@@ -32,8 +33,8 @@
       <div class="partner-home__messages" v-if="message">
         <code-message
           class="partner-home__message-content"
-          :message="message"
-          :type-message="type"
+          :message="message.content"
+          :type-message="message.type"
           position="center"
           icon="times-circle"
         />  
@@ -65,19 +66,9 @@ export default {
     return {
       displayHeader: true,
       searcherInModal: false,
-      message: '',
-      type: '',
+      message: undefined,
       TIME_MESSAGE: 10000,
     }
-  },
-  created () {
-   /*  let healthCenter = this.userId 
-    this.begin = this.getBeginDate()
-    this.end = this.getEndDate()
-    let params = this.params
-    this.getAttendancesByHealthCenter({ url: GET_ATTENDANCES (healthCenter, this.begin, this.end, 'posto'), params })
-      .then(resp => console.log(resp))
-      .catch((err) => console.log({err})) */
   },
   computed: {
     displayLoading () {
@@ -96,11 +87,9 @@ export default {
   methods: {
     messageError (value) {
       console.log(value)
-      this.message = value.message
-      this.type = value.type
+      this.message = value
        setTimeout(() => {
-        this.message = ''
-        this.type = ''
+        this.message = undefined
       }, this.TIME_MESSAGE)
     }
   }

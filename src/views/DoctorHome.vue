@@ -7,6 +7,7 @@
       <code-modal
         class="doctor-home__modal"
         :display="displayLoading"
+        position="center"
       >
         <template v-slot:modal>
           <code-loading

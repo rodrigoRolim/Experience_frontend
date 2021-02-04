@@ -50,6 +50,14 @@
           />
           <code-info
             class="patient-exams--margin patient-exams__info"
+            icon="credit-card"
+            size="lg"
+            description="convenio"
+            :info="healthInsurance"
+            color="rgba(71, 77, 94, 1)"
+          />
+          <code-info
+            class="patient-exams--margin patient-exams__info"
             icon="user-md"
             size="lg"
             description="médico solicitante"
@@ -67,19 +75,9 @@ import CodeInfo from './base/CodeInfo'
 import CodeDropDown from './base/CodeDropDown'
 import CodeCheckbox from '../components/base/CodeCheckbox'
 import { mapGetters, mapMutations } from 'vuex'
-import { NAMESPACED_EXAMS, CHECKED_ALL_EXAMS, UNCHECKED_ALL_EXAMS } from '../utils/alias'
+import { NAMESPACED_EXAMS, CHECKED_ALL_EXAMS, UNCHECKED_ALL_EXAMS, NAMESPACED_PROPS } from '../utils/alias'
 export default {
   name: 'PatientExamListHeader',
-  props: {
-    healthCenter: Number,
-    attendance: Number,
-    patient: Number,
-    name: String,
-    age: String,
-    gender: String,
-    delivery: String,
-    doctor: String
-  },
   components: {
     CodeInfo,
     CodeDropDown,
@@ -93,6 +91,17 @@ export default {
       'someFinalizedExam',
       'allExamsChecked'
     ]),
+    ...mapGetters(NAMESPACED_PROPS, [
+        'healthCenter',
+        'attendance',
+        'patient',
+        'name',
+        'age',
+        'gender',
+        'delivery',
+        'doctor',
+        'healthInsurance'
+    ])
   },
   data () {
     return {
