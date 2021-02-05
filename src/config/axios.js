@@ -5,7 +5,7 @@ import { ADD_CANCEL_TOKEN, REFRESH_TOKEN } from '../utils/alias'
 (function() {
   
   let customAccess = {}
-  let currentPath = window.location.pathname | undefined
+  let currentPath = window.location.pathname
   const isCedroAccess = currentPath === '/lab-cedro' || currentPath === undefined
   const isCortezAccess = currentPath === '/lab-cortez' || currentPath === undefined
   console.log(currentPath)
