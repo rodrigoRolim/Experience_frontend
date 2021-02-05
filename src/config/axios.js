@@ -32,7 +32,7 @@ import { ADD_CANCEL_TOKEN, REFRESH_TOKEN } from '../utils/alias'
     localStorage.setItem('custom-access', JSON.stringify(customAccess))
   }
 })()
-console.log(localStorage.getItem('custom-acces'))
+console.log(localStorage.getItem('custom-access'))
 const serverExperience = axios.create({
   baseURL:  JSON.parse(localStorage.getItem('custom-access')).endpoint + ":9001",
   timeout: 4000000,
