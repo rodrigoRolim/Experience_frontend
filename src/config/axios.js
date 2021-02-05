@@ -1,7 +1,38 @@
 import axios from 'axios'
 import store from '../store/index'
 import { ADD_CANCEL_TOKEN, REFRESH_TOKEN } from '../utils/alias'
-console.log(document.documentElement.dataset)
+
+(function() {
+  
+  let customAccess = {}
+  let currentPath = window.location.pathname | undefined
+  const isCedroAccess = currentPath === '/lab-cedro' || currentPath === undefined
+  const isCortezAccess = currentPath === '/lab-cortez' || currentPath === undefined
+
+  if (isCedroAccess) {
+
+    customAccess = {
+      endpoint: process.env.VUE_APP_API_CEDRO,
+      theme: "cedro",
+      logo: "cedro",
+      rootPath: '/lab-cedro'
+    }
+    localStorage.setItem('custom-access', JSON.stringify(customAccess))
+    
+  }
+
+  if (isCortezAccess) {
+ 
+    customAccess = {
+      endpoint: process.env.VUE_APP_API_CORTEZ,
+      theme: "cortez",
+      logo: "cortez",
+      rootPath: '/lab-cortez'
+    }
+    localStorage.setItem('custom-access', JSON.stringify(customAccess))
+  }
+})()
+console.log("axios")
 const serverExperience = axios.create({
   baseURL:  JSON.parse(localStorage.getItem('custom-access')).endpoint + ":9001",
   timeout: 4000000,
@@ -45,13 +76,14 @@ serverExperience.interceptors.response.use(response => response, error => {
 })
 
 const serverAuth = axios.create({
-  baseURL: JSON.parse(localStorage.getItem('custom-access')).endpoint + ":9000",
+  baseURL: process.env.VUE_APP_API_CORTEZ + ":9000",
   timeout: 5000000,
   headers: {
     'Content-Type': 'application/json'
   },
   Credentials: false
 })
+
 serverAuth.interceptors.request.use(
   config => {
     const CancelToken = axios.CancelToken
@@ -64,7 +96,7 @@ serverAuth.interceptors.request.use(
   error => Promise.reject(error)
 )
 const serverPDF = axios.create({
-  baseURL: document.documentElement.dataset.endpoint,
+  baseURL: process.env.VUE_APP_API_CORTEZ + ':9050',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json'
@@ -97,6 +129,7 @@ function refreshToken() {
   })
   return refreshing
 }
+
 export { serverAuth }
 export { serverExperience }
 export { serverPDF }

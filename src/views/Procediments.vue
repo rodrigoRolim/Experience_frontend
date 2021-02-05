@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     redirectToLogin () {
-      this.$router.push({path: document.documentElement.dataset.rootPath})
+      this.$router.push({path: JSON.parse(localStorage.getItem('custom-access')).rootPath})
     }
   }
 }

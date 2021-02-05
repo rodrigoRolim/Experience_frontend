@@ -1,6 +1,6 @@
 import { serverExperience, serverAuth, serverPDF } from '../config/axios'
 import axios from 'axios'
-
+console.log('api')
 export const requestResource = ({ url = '', params, data = {}, method = 'GET', headers = {} }) => {
 
   return serverExperience({
@@ -18,7 +18,7 @@ export const multipleRequests = (cbs = []) => {
 }
 
 export const requestToken = ({ url, auth }) => {
-
+  console.log('asdasdasd')
   return serverAuth.post(url, auth)
 }
 

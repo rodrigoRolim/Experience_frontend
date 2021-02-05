@@ -21,10 +21,11 @@ export default {
     return {
     }
   },
+  created() {console.log("banner")},
   computed: {
     takeLogo() {
-      var logo = document.documentElement.dataset.logo
-      console.log(document.documentElement.dataset)
+
+      var logo = JSON.parse(localStorage.getItem('custom-access')).logo
       let images = require.context('@/assets/', false, /(\.png$)|(\.jpeg$)|(\.gif$)/)
       return images('./' + logo + ".png")
     }

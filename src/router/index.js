@@ -9,14 +9,13 @@ import {
   CANCEL_PENDING_REQUESTS, 
 } from '../utils/alias'
 
+console.log('routes')
 
 const authorization = (to, from, next) => {
   store.dispatch(CANCEL_PENDING_REQUESTS)
   const authUser = to.matched
     .some(record => record.meta.typeUser === store.getters['auth/userTypeAuthed'])
-  //const hasToken = store.getters['auth/token'] 
- // console.log(authUser)
- // console.log(store.getters['auth/isAuthenticated'])
+
   if (store.getters['auth/isAuthenticated'] && authUser) {
     
     next();
@@ -26,27 +25,29 @@ const authorization = (to, from, next) => {
 }
 
 const getLaboratory = (to, from, next) => {
-  // document.documentElement.dataset.rootPath = to.path
+
   let customAccess = {}
-  let currentPath = JSON.parse(localStorage.getItem('custom-access')).rootPath | undefined
+  let currentPath = JSON.parse(localStorage.getItem('custom-access')).rootPath
   const isCedroAccess = currentPath === '/lab-cedro' || currentPath === undefined
   const isCortezAccess = currentPath === '/lab-cortez' || currentPath === undefined
-  if (to.path === '/lab-cedro' && isCedroAccess) {
+
+  if (to.path === '/lab-cedro' || isCedroAccess) {
+    
     customAccess = {
       endpoint: process.env.VUE_APP_API_CEDRO,
       theme: "cedro",
       logo: "cedro",
-      rootPath: to.path
+      rootPath: '/lab-cedro'
     }
     localStorage.setItem('custom-access', JSON.stringify(customAccess))
-    
   }
-  if (to.path === '/lab-cortez' && isCortezAccess) {
+  if (to.path === '/lab-cortez' || isCortezAccess) {
+ 
     customAccess = {
       endpoint: process.env.VUE_APP_API_CORTEZ,
       theme: "cortez",
       logo: "cortez",
-      rootPath: to.path
+      rootPath: '/lab-cortez'
     }
     localStorage.setItem('custom-access', JSON.stringify(customAccess))
   }

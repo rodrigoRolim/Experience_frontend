@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "serve": "vue-cli-service  serve",
+    "build": "vue-cli-service -r dotenv/config build",
     "lint": "vue-cli-service lint",
-    "start": "node server.js",
+    "start": "node -r dotenv/config server.js",
     "stop": "pkill --signal SIGINT experience"
   },
   "dependencies": {
@@ -15,6 +15,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.9",
     "axios": "^0.21.1",
     "core-js": "^3.6.4",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsqr": "^1.2.0",
     "print-js": "^1.5.0",
