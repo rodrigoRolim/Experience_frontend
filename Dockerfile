@@ -4,6 +4,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
+ENV VUE_APP_API_CORTEZ=http://192.168.1.68
+ENV VUE_APP_API_CEDRO=http://192.168.1.68
 RUN npm run build
 
 # production stage
