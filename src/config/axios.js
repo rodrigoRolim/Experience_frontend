@@ -8,7 +8,8 @@ import { ADD_CANCEL_TOKEN, REFRESH_TOKEN } from '../utils/alias'
   let currentPath = window.location.pathname | undefined
   const isCedroAccess = currentPath === '/lab-cedro' || currentPath === undefined
   const isCortezAccess = currentPath === '/lab-cortez' || currentPath === undefined
-
+  console.log(currentPath)
+  console.log(process.env.VUE_APP_API_CEDRO)
   if (isCedroAccess) {
 
     customAccess = {
