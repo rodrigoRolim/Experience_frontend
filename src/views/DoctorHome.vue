@@ -23,8 +23,8 @@
       <div class="doctor-home__messages" v-if="message">
         <code-message
           class="doctor-home__message-content"
-          :message="message"
-          :type-message="type"
+          :message="message.content"
+          :type-message="message.type"
           position="center"
           icon="times-circle"
         />  
@@ -67,12 +67,9 @@ export default {
   },
   methods: {
     messageError (value) {
-      console.log(value)
-      this.message = value.message
-      this.type = value.type
+      this.message = value
        setTimeout(() => {
         this.message = ''
-        this.type = ''
       }, this.TIME_MESSAGE)
     }
   }

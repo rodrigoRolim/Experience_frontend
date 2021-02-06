@@ -7,7 +7,7 @@
       <code-message
         v-if="message"
         class="sidebar__message"
-        :message="message.message || ''"
+        :message="message.content || ''"
         type-message="whiteness"
         position="flex-start"
         icon="info-circle"
@@ -32,9 +32,6 @@ export default {
       //attendances: db.attendances.data
     }
   },
-  created () {
-    console.log(this.message)
-  },
   computed: {
     ...mapGetters(NAMESPACED_ATTENDANCE, [
       'attendances',
@@ -52,13 +49,13 @@ export default {
   background-color: $color__default
   padding-bottom: 50px
   min-height: 100%
-  width: 321px
+  width: 301px
   border-right: 1px solid rgba(0,0,0,0.01)
 .sidebar__header
   display: flex
   position: fixed
   top: 60px
-  width: 321px
+  width: 301px
   flex-direction: row
   justify-content: center
   align-items: center

@@ -83,9 +83,6 @@ export default {
     CodeDropDown,
     CodeCheckbox
   },
-  created () {
-    console.log(this.someFinalizedExam)
-  },
   computed: {
     ...mapGetters(NAMESPACED_EXAMS, [
       'someFinalizedExam',

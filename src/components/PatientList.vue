@@ -5,7 +5,7 @@
         foram encontrados {{total}} atendimentos no período selecionado
       </span>
     </div>
-    <div class="patient__body" ref="patients">
+    <div class="patient__body" ref="patients" >
       <code-message
         v-if="message"
         class="patients__message"
@@ -27,6 +27,7 @@
         :patient-id="patient.registro"
         :attendance-id="patient.atendimento"
         :health-center-id="patient.posto"
+        :health-insurance="patient.nome_convenio"
       />
       <div class="patients__loading" v-if="statusPush == 'loading'" >
         <code-message
@@ -53,7 +54,7 @@ import CodeMessage from './base/CodeMessage'
 import CodeLoading from './base/CodeLoading'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { sex, phone, age, date } from '../mixins/formater'
-import { NAMESPACED_PATIENT, GET_ATTENDANCES_REQUESTER, PUSH_ATTENDANCES_STORE, NEXT_PAGE, LOAD_PUSH } from '../utils/alias'
+import { NAMESPACED_PATIENT, GET_ATTENDANCES_REQUESTER, PUSH_PATIENT_STORE, NEXT_PAGE, LOAD_PUSH } from '../utils/alias'
 export default {
   name: 'PatientList',
   mixins: [sex, phone, age, date],
@@ -136,7 +137,7 @@ export default {
       return delivery !== "Invalid Date" ? delivery : ""
     },
      ...mapActions(NAMESPACED_PATIENT, {
-      requestMoreAttendances: PUSH_ATTENDANCES_STORE
+      requestMoreAttendances: PUSH_PATIENT_STORE
     }),
     ...mapMutations(NAMESPACED_PATIENT, {
       nextPage: NEXT_PAGE,
@@ -158,10 +159,10 @@ export default {
   background-color: $color__default
   position: fixed
   bottom: 0
-  padding: 15px 0
+  padding: 12px 0
   width: 100%
 .patients__number
-  font-size: 0.9rem
+  font-size: 0.8rem
   @include respond-to(handhelds)
     font-size: 0.7rem
 .patient__body

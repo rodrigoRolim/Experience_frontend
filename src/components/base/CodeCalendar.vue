@@ -182,9 +182,7 @@ export default {
 
     },
     getWrittenMonthByUser(writtenDay, writtenMonth, writtenYear) {
-      console.log(writtenDay)
-      console.log(writtenMonth)
-      console.log(writtenYear)
+
      // if (this.isValidWrittenDate(writtenDay, writtenMonth, writtenYear)) {
         this.day = writtenDay
         this.month = writtenMonth
@@ -318,8 +316,7 @@ export default {
           j++
           this.days.push('')
         }
-        console.log(this.name, this.selectedMonth)
-        console.log(this.name, this.month)
+
         if (this.selectedDay == (i + 1) && 
             this.selectedYear == year && 
             this.selectedMonth == month) {

@@ -75,12 +75,12 @@ export default {
     CodeModal,
     CodeMessage
   },
-  data () {
+  data() {
     return {
       attendances: false
     }
   },
-  created () {
+  created() {
     bus.$on('sidebar', (data) => {
       this.attendances = data
     })
@@ -116,7 +116,7 @@ export default {
       'delivery',
       'doctor'
     ]),
-    loading () {
+    loading() {
       return this.status === 'loading'
     }
   },
@@ -124,10 +124,10 @@ export default {
     ...mapActions(NAMESPACED_ATTENDANCE, {
       getAttendances: GET_ATTENDANCES_STORE
     }),
-    printExams () {
+    printExams() {
       
     },
-    downloadExams () {}
+    downloadExams() {}
   }
 }
 </script>
@@ -141,7 +141,7 @@ export default {
     margin-bottom: 40px
   min-height: 100vh
 .patient-exams__main
-  width: calc( 100% - 321px )
+  width: calc( 100% - 301px )
   display: flex
   flex-direction: column
   align-items: flex-end
@@ -152,7 +152,7 @@ export default {
     margin-top: 0
     margin-left: 0
     width: 100%
-  margin-left: 321px
+  margin-left: 301px
 .patient-exams__exams
   width: 100%
   margin-top: 150px
@@ -185,7 +185,7 @@ export default {
   @include respond-to(handhelds)
     right: 0
 .patient-exams__patient
-  width: calc(100% - 321px)
+  width: calc(100% - 301px)
   z-index: 2
   @include respond-to(medium-screens)
     width: 100%

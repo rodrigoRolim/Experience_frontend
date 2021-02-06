@@ -82,7 +82,8 @@ export default {
     lastestAttendances: Array,
     patientId: Number,
     attendanceId: Number,
-    healthCenterId: Number
+    healthCenterId: Number,
+    healthInsurance: String
   },
   components: {
     CodeInfo,
@@ -135,9 +136,10 @@ export default {
       let genderPatient = this.sex
       let deliveryDate = this.deliveryDate
       let doctor = this.doctor
-    
-      this.storeProps({ patient, healthCenter, attendance, namePatient, agePatient, genderPatient, deliveryDate, doctor })
-      this.$router.push({ name: 'doctorExamsPatient', params: { patient: this.patientId, attendance: this.attendanceId, healthCenter: this.healthCenterId}})
+      let healthInsurance = this.healthInsurance
+      console.log(patient)
+      this.storeProps({ patient, healthCenter, attendance, namePatient, agePatient, genderPatient, deliveryDate, doctor, healthInsurance })
+      this.$router.push({ name: 'doctorExamsPatient', params: { patient: this.patientId, attendance: this.attendanceId, healthCenter: this.healthCenterId, healthInsurance}})
     },
     ...mapMutations(NAMESPACED_PROPS, {
       storeProps: SET_PROPS

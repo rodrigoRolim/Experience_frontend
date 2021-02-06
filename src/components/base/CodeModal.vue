@@ -85,9 +85,10 @@ export default {
   background-color: white
 .modal__content
   position: relative
-  margin: 48px 0
+  margin: 15px 0
 .modal--center
   align-items: center
+  margin: 0
 .modal--start
   align-items: flex-start
 .modal--end

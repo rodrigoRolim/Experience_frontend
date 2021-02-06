@@ -30,7 +30,7 @@ const actions = {
 
 const mutations = {
   [SET_PROPS]: (state, payload) => {
-
+    console.log(payload)
     let props = {
       patient: payload.patient,
       healthCenter: payload.healthCenter,

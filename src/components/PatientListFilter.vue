@@ -65,7 +65,6 @@ import CodeButton from '../components/base/CodeButton'
 import PatientListFilterPeriod from '../components/PatientListFilterPeriod'
 import { validator } from '../mixins/validations/validator'
 import { endLtBegin, beginGtEnd, required, date } from '../mixins/validations/rules'
-import { messages } from '../mixins/user-messages'
 import { 
  GET_ATTENDANCES_REQUESTER,
  NAMESPACED_PATIENT, 
@@ -77,9 +76,10 @@ import {
  DATE_VALIDATOR
 } from '../utils/alias'
 import { mapActions, mapMutations, mapGetters } from 'vuex'
+import { httpMessage } from '../utils/statusMessages'
 export default {
   name: 'PatientListFilter',
-  mixins: [messages, validator({ endLtBegin, beginGtEnd, required, date })],
+  mixins: [validator({ endLtBegin, beginGtEnd, required, date })],
   components: {
     CodeDropDown,
     PatientListFilterPeriod,
@@ -190,7 +190,11 @@ export default {
           console.log(resp)
         })
         .catch((err) => {
-          console.log(err)
+          const status = err.response.status
+          if (status !== 404) {
+            this.$emit('error', httpMessage({ status: err.response.status, data: 'paciente' }))
+            return
+          }
           //this.setMessage(this.message({status: err.response.status, data: 'paciente'}))
         })
     },
@@ -199,7 +203,7 @@ export default {
         this.patients()
         return
       }
-      this.$emit("error", this.message({ status: 111 }))        
+      this.$emit("error", httpMessage({ status: 111 }))        
     }
   }
 }

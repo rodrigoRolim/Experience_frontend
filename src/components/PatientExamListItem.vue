@@ -94,7 +94,7 @@ export default {
       'checked'
     ]),
     printInLab() {
-      console.log(this.typeDelivery)
+ 
       return this.typeDelivery !== '*' && this.status === 'FINALIZADO'
     }
   },

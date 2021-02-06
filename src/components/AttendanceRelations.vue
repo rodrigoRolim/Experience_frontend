@@ -65,8 +65,7 @@ export default {
     selectedByDefault(value) {
       this.selected = this.setIdentifier(value.healthCenter, value.attendance)
       this.startExamsLoading(value.healthCenter, value.attendance)
-    },
-    
+    }
   }
 }
 </script>
@@ -77,7 +76,7 @@ export default {
   flex-flow: row wrap
   border-top-left-radius: 4px
   border-bottom-left-radius: 4px
-  margin: 0 15px
+  margin-left: 10px
   color: white
   padding: 20px 10px
   cursor: pointer
@@ -86,6 +85,6 @@ export default {
 .attendance-relations__item--active,
 .attendance-relations__item--initial-active
   background-color: white
-  width: 305px
+  width: 290px
   color: $color__letters
 </style>

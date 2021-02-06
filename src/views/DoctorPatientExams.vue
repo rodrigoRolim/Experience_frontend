@@ -8,16 +8,7 @@
     </div>
     <div class="doctor-patient__main" >
       <div class="doctor-patient__patient">
-        <patient-exams-list-header
-         :patient="patient"
-         :health-center="healthCenter"
-         :attendance="attendance"
-         :name="name"
-         :age="age"
-         :gender="gender"
-         :delivery="delivery"
-         :doctor="doctor"
-        ></patient-exams-list-header>
+        <patient-exams-list-header />
       </div>
       <div class="doctor-patient__exams">
         <code-modal
@@ -81,12 +72,7 @@ export default {
     ...mapGetters(NAMESPACED_PROPS, [
       'patient',
       'healthCenter',
-      'attendance',
-      'name',
-      'age',
-      'gender',
-      'delivery',
-      'doctor'
+      'attendance'
     ]),
     ...mapGetters(NAMESPACED_EXAMS, [
       'status'
@@ -99,15 +85,11 @@ export default {
     ...mapActions(NAMESPACED_ATTENDANCE, {
       getAttendances: GET_ATTENDANCES_STORE
     }),
-    getAttendancesRelations () {
+    async getAttendancesRelations () {
+      console.log(this.patient)
       let url = GET_ATTENDANCES_RELATIONS(this.patient)
-      this.getAttendances({ url })
-        .then((resp) => {
-          console.log(resp)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+      await this.getAttendances({ url })
+       
     }
   }
 }
@@ -138,14 +120,14 @@ export default {
     margin-left: 0
     width: 100%
 .doctor-patient__exams
-  width:  calc( 100% - 321px )
+  width:  calc( 100% - 301px )
   margin-top: 150px
   @include respond-to(medium-screens)
     width: 100%
     margin-top: 120px
   @include respond-to(handhelds)
     width: 100%
-    margin-top: 50px
+    margin-top: 60px
 .doctor-patient__modal
   z-index: 2
 .doctor-patient__modal,
@@ -156,14 +138,14 @@ export default {
   @include respond-to(wide-screens)
     display: block
   position: fixed
-  width: 321px
+  width: 301px
   overflow-y: auto
   height: 100vh
   z-index: 2
   @include respond-to(medium-screens)
     overflow-x: hidden
 .doctor-patient__patient
-  width: calc( 100% - 321px )
+  width: calc( 100% - 301px )
   @include respond-to(medium-screens)
     width: 100%
   @include respond-to(handhelds)

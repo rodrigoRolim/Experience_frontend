@@ -27,6 +27,7 @@
       :display="show"
       @display="displayModal"
       class="modal"
+      position="center"
     >
       <template v-slot:modal>
         <patient-exam-detail 
@@ -103,7 +104,6 @@ export default {
   },
   watch: {
     selectedAttendance(value) {
-      console.log(value)
       let [hc, att] = value.split('|')
       if (!this.thereIsNoSelected())
         this.getExams(hc, att)
@@ -114,9 +114,8 @@ export default {
       requestExams: GET_EXAMS_STORE
     }),
     thereIsNoSelected() {
-      // console.log(this.selected.hc, this.selected.att)
-      console.log(this.healthCenter)
-      console.log(this.attendance)
+
+
       return (this.healthCenter === null || this.attendance === null) ||
              (isNaN(this.healthCenter) || isNaN(this.attendance))
     },

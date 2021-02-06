@@ -9,8 +9,6 @@ import {
   CANCEL_PENDING_REQUESTS, 
 } from '../utils/alias'
 
-console.log('routes')
-
 const authorization = (to, from, next) => {
   store.dispatch(CANCEL_PENDING_REQUESTS)
   const authUser = to.matched

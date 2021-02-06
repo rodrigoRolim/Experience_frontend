@@ -109,17 +109,17 @@ const actions = {
     commit(LOADING_PUSH)
     return new Promise((resolve, reject) => {
       requestResource({ url, params, method: 'GET', headers})
-      .then((resp) => {
-        commit(PUSH_ATTENDANCES_STORE, resp.data.docs)
-        commit(SUCCESS_PUSH)
-        //commit(MESSAGE, undefined)
-        resolve(resp)
-      })
-      .catch((err) => {
-        //commit(MESSAGE, err.response.status)
-        commit(ERROR_PUSH)
-        reject(err)
-      })
+        .then((resp) => {
+          commit(PUSH_ATTENDANCES_STORE, resp.data.docs)
+          commit(SUCCESS_PUSH)
+          //commit(MESSAGE, undefined)
+          resolve(resp)
+        })
+        .catch((err) => {
+          //commit(MESSAGE, err.response.status)
+          commit(ERROR_PUSH)
+          reject(err)
+        })
     })
     
   },
