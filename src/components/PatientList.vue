@@ -119,7 +119,7 @@ export default {
        
         this.nextPage()
         let headers = {'X-Paginate': true}
-        this.requestMoreAttendances({ url: this.gerURL(), params: this.paramsQuery(), headers })
+        this.requestMoreAttendances({ url: this.getURL(), params: this.paramsQuery(), headers })
           .then(() => {
             this.repositionScrollBar(window.innerHeight + window.scrollY)
           })
