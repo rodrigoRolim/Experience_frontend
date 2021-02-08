@@ -1,7 +1,24 @@
 <template>
   <div class="health-center">
     <div class="health-center__navbar">
-      <the-navbar logo="logo_cedro">
+      <the-navbar>
+        <template v-slot:home>
+          <code-tooltip
+            text="lista de atendimentos"
+          >
+            <template v-slot:element>
+              <code-button
+                color="icon"
+                name-icon="clipboard-list"
+                size-icon="2x"
+                size="sm"
+                borded
+                bolded
+                @click="redirectToAttendanceListView"
+              />
+            </template>
+          </code-tooltip>
+        </template>
         <template v-slot:perfil>
           <user-perfil></user-perfil>
         </template>
@@ -10,24 +27,31 @@
     <div class="health-center__main">
       <router-view />
     </div>
-    
   </div>
 </template>
 
 <script>
 import TheNavbar from '../components/TheNavbar'
 import UserPerfil from '../components/UserPerfil'
-
+import CodeButton from '../components/base/CodeButton'
+import CodeTooltip from '../components/base/CodeTooltip'
 export default {
   name: 'HealthCenterHome',
   components: {
     TheNavbar,
-    UserPerfil
+    UserPerfil,
+    CodeButton,
+    CodeTooltip
   },
   data () {
     return {
       viewport: null,
       screen: -1
+    }
+  },
+  methods: {
+    redirectToAttendanceListView() {
+      this.$router.replace('/posto')
     }
   }
 }

@@ -14,6 +14,7 @@
         <code-modal
           class="doctor-patient__modal"
           :display="displayLoading"
+          position="center"
         >
           <template v-slot:modal>
             <code-loading

@@ -165,6 +165,7 @@ export default {
 .attendances
   display: flex
   flex-direction: column
+  margin-bottom: 45px
 .attendances__message
   width: 400px
   align-self: center
@@ -174,5 +175,4 @@ export default {
     width:90%
 .attendances__loading
   margin: 5px 
-
 </style>

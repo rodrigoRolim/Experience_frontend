@@ -1,6 +1,6 @@
 <template>
   <div class="tooltip">
-    <slot></slot>
+    <slot name="element"></slot>
     <div class="tooltip__content">
       <small>{{text}}</small>
     </div>

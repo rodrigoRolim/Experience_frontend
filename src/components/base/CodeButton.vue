@@ -15,7 +15,7 @@
       <i v-if="nameIcon && !loading" class="button__icon"
         :class="{'button__icon--rounded': rounded}"
       ><font-awesome-icon :icon="nameIcon" :size="sizeIcon"/></i>
-      <span v-if="!rounded && !loading">{{text}}</span>
+      <span v-if="!rounded && !loading && text" class="button__text">{{text}}</span>
     </div>
    </button>
 </template>
@@ -120,18 +120,18 @@ export default {
   display: flex
   align-items: center
   justify-content: center
+.button__text
+  margin-left: 10px
 .button:hover
   opacity: 0.9
 .button--streched
   width: 100%
-.button__icon
-  margin-right: 8px
 .button:active
   opacity: 0.7
 .button--borded
   border-radius: 3px
 .button--sm
-  padding: 8px 9px
+  padding: 8px 13px
 .button--md
   padding: 10px 12px
 .button--lg
@@ -181,6 +181,8 @@ export default {
 .button--light
   background-color: $color__light
   color: dimgray
+.button--icon
+  background-color: $color__icon
 .button--uppercase
   text-transform: uppercase
 .button--lowercase
@@ -224,4 +226,6 @@ export default {
   flex-direction: column
 .button--bottom-text .button__icon
   margin: 0
+.button--bottom-text .button__text
+  margin-left: 0
 </style>

@@ -294,5 +294,5 @@ html:fullscreen .logins__messages
   @include respond-to(handhelds)
     display: none
 .logins__manual
-  margin-right: 20px 
+  margin-right: 20px
 </style>

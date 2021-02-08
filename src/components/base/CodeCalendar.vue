@@ -183,7 +183,7 @@ export default {
     },
     getWrittenMonthByUser(writtenDay, writtenMonth, writtenYear) {
 
-     // if (this.isValidWrittenDate(writtenDay, writtenMonth, writtenYear)) {
+     if (this.isValidWrittenDate(writtenDay, writtenMonth, writtenYear)) {
         this.day = writtenDay
         this.month = writtenMonth
         this.year = writtenYear
@@ -193,7 +193,7 @@ export default {
         this.selectedYear = this.year
        
         this.populateDates(this.month, this.year)
-      //}
+      }
     },
     setYear(value) {
       this.year = value
@@ -228,9 +228,9 @@ export default {
           return new Date(end[2], end[1], end[0]) <= date
         } 
 
-        return true
+        return false
       }
-      return true
+      return false
     },
     selectDay (day) {
   
@@ -287,7 +287,7 @@ export default {
         this.year++
       }
       //this.currentMonth = this.months[this.month] + ' ' + this.year
-      this.populateDates()
+      this.populateDates(this.month, this.year)
     },
     goToPrevMonth () {
       this.month--
@@ -299,7 +299,7 @@ export default {
       this.populateDates(this.month, this.year)
     },
     populateDates (month, year) {
-      
+      console.log(month, year)
       this.days = []
       let amount_days = this.daysInMonth(month, year)
       this.selected = -1

@@ -49,6 +49,11 @@
         />  
       </div>
     </transition>
+    <div class="health-center__footer" v-if="total">
+      <span class="health-center__number">
+        foram encontrados {{total}} atendimentos no período selecionado
+      </span>
+    </div>
   </div>
 </template>
 
@@ -102,7 +107,8 @@ export default {
         this.status == 'loading'
     },
     ...mapGetters(NAMESPACED_ATTENDANCE, [
-      'status'
+      'status',
+      'total'
     ]),
     ...mapGetters(NAMESPACED_ACCOMODATIONS, {
       accomodations: 'accomodations',
@@ -121,6 +127,7 @@ export default {
 
 <style lang="sass" scoped>
 @import '../styles/transitions/__slide_fade.scss'
+@import "../styles/__themes"
 .health-center
   display: flex
   flex-direction: column
@@ -198,4 +205,18 @@ export default {
     right: 0
     left: 0
     bottom: 0
+.health-center__footer
+  display: flex
+  justify-content: center
+  align-items: center 
+  color: $color__letters
+  background-color: $color__default
+  position: fixed
+  bottom: 0
+  padding: 12px 0
+  width: 100%
+.health-center__number
+  font-size: 0.8rem
+  @include respond-to(handhelds)
+    font-size: 0.7rem
 </style>

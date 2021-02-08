@@ -1,6 +1,7 @@
 <template>
   <div class="info" 
-    :class="positionDescription">
+    :class="positionDescription"
+  >
     <span class="info__icon" v-if="icon"><font-awesome-icon :icon="icon" :size="size" :style="{color: color}"/></span>
     <div class="info__label" 
       :class="{
@@ -34,10 +35,11 @@ export default {
   },
   computed: {
     positionDescription () {
+      console.log(this.wideHidden)
       return { 
         'info--bottom': this.bottom, 
         'info--left': this.left,
-        'info__content--hidden': this.mobileHidden  
+        'info__content--hidden': this.mobileHidden
       }
     }
   }

@@ -2,6 +2,23 @@
   <div class="partner">
     <div class="partner__navbar"> 
       <the-navbar logo="logo_cedro">
+        <template v-slot:home>
+          <code-tooltip
+            text="lista de atendimentos"
+          >
+            <template v-slot:element>
+              <code-button
+                color="icon"
+                name-icon="clipboard-list"
+                size-icon="2x"
+                size="sm"
+                borded
+                bolded
+                @click="redirectToAttendanceListView"
+              />
+            </template>
+          </code-tooltip>
+        </template>
         <template v-slot:perfil>
           <user-perfil />
         </template>
@@ -16,16 +33,25 @@
 <script>
 import TheNavbar from '../components/TheNavbar'
 import UserPerfil from '../components/UserPerfil'
-
+import CodeButton from '../components/base/CodeButton'
+import CodeTooltip from '../components/base/CodeTooltip'
 export default {
   name: 'Partner',
   components: {
     TheNavbar,
-    UserPerfil
+    UserPerfil,
+    CodeTooltip,
+    CodeButton
   },
   data () {
     return {
      
+    }
+  },
+  methods: {
+    redirectToAttendanceListView() {
+      if (this.$router.path === '/parceiro')
+        this.$router.replace('/parceiro')
     }
   }
 }

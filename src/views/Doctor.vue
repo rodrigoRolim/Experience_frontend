@@ -2,7 +2,24 @@
   <div class="doctor">
     <div class="doctor__navbar">
       <the-navbar logo="logo_cedro">
-        <template v-slot:collapser v-if="doctorHome">
+        <template v-slot:home>
+          <code-tooltip
+            text="lista de pacientes"
+          >
+            <template v-slot:element>
+              <code-button
+                color="icon"
+                name-icon="clipboard-list"
+                size-icon="2x"
+                size="sm"
+                borded
+                bolded
+                @click="redirectToPatientListView"
+              />
+            </template>
+          </code-tooltip>
+        </template>
+        <template v-slot:collapser v-if="isDoctorPatientExams">
           <code-button-collapser />
         </template>
         <template v-slot:perfil>
@@ -20,12 +37,16 @@
 import TheNavbar from '../components/TheNavbar'
 import UserPerfil from '../components/UserPerfil'
 import CodeButtonCollapser from '../components/base/CodeButtonCollapser'
+import CodeButton from '../components/base/CodeButton.vue'
+import CodeTooltip from '../components/base/CodeTooltip.vue'
 export default {
   name: 'Doctor',
   components: {
     TheNavbar,
     UserPerfil,
-    CodeButtonCollapser
+    CodeButtonCollapser,
+    CodeButton,
+    CodeTooltip
   },
   data () {
     return {
@@ -33,8 +54,13 @@ export default {
     }
   },
   computed: {
-    doctorHome () {
+    isDoctorPatientExams() {
       return !(this.$route.path == '/medico')
+    }
+  },
+  methods: {
+    redirectToPatientListView() {
+      this.$router.replace('/medico')
     }
   }
 }

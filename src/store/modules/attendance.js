@@ -54,6 +54,7 @@ const state = {
 
 const getters = {
   attendances: (state) => state?.attendances,
+  total: (state) => state.attendances.length,
   name: () => (patientName) => {
     return patientName.toUpperCase()
   },

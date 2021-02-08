@@ -123,11 +123,7 @@ export default {
   methods: {
     ...mapActions(NAMESPACED_ATTENDANCE, {
       getAttendances: GET_ATTENDANCES_STORE
-    }),
-    printExams() {
-      
-    },
-    downloadExams() {}
+    })
   }
 }
 </script>

@@ -226,14 +226,14 @@ export default {
     overflow-y: auto
     width: 100%
 .patient-list-filter__name-patient
-  width: 50%
+  width: 56%
 .patient-list-filter__period
   width: 30%
 .patient-list-filter__buttons
   display: flex
   align-items: flex-end
   justify-content: center
-  width: 18%
+  width: 12%
   height: 60px
 .patient-list-filter__name-patient,
 .patient-list-filter__period,

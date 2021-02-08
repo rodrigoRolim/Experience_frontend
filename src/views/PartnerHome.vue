@@ -40,6 +40,11 @@
         />  
       </div>
     </transition>
+    <div class="partner__footer" v-if="total">
+      <span class="partner__number">
+        foram encontrados {{total}} atendimentos no período selecionado
+      </span>
+    </div>
   </div>
 </template>
 
@@ -81,7 +86,8 @@ export default {
       'userId'
     ]),
     ...mapGetters(NAMESPACED_ATTENDANCE, [
-      'status'
+      'status',
+      'total'
     ])
   },
   methods: {
@@ -98,6 +104,7 @@ export default {
 
 <style lang="sass" scoped>
 @import '../styles/transitions/__slide_fade.scss'
+@import "../styles/__themes"
 .partner-home
   display: flex
   flex-direction: column
@@ -173,4 +180,18 @@ export default {
 .filter__input
   @include respond-to(handhelds)
     width: 98%
+.partner__footer
+  display: flex
+  justify-content: center
+  align-items: center 
+  color: $color__letters
+  background-color: $color__default
+  position: fixed
+  bottom: 0
+  padding: 12px 0
+  width: 100%
+.partner__number
+  font-size: 0.8rem
+  @include respond-to(handhelds)
+    font-size: 0.7rem
 </style>

@@ -6,17 +6,16 @@
           <code-info
             left
             icon="user"
-            :info="userName"
             size="lg"
-            size-info="0.64rem"
+            size-info="0.625rem"
             color="lightslategray"
             mobile-hidden
           />
         </div>
         <i class="user-perfil__icon">
           <transition name="fade" mode="out-in">
-            <font-awesome-icon icon="caret-down" size="lg" v-if="!show" key="down"/>
-            <font-awesome-icon icon="caret-up" size="lg" v-if="show" key="up"/>
+            <font-awesome-icon icon="caret-down" size="lg" v-if="!show" key="down" />
+            <font-awesome-icon icon="caret-up" size="lg" v-if="show" key="up" />
           </transition>
         </i>
       </button>
@@ -24,23 +23,22 @@
     <transition name="fade" mode="in-out">
       <div class="user-perfil__menu" v-show="show">
         <div class="user-perfil__user-info">
-          <span class="user-perfil__name">{{userName}}</span>
-         <div class="user-perfil__plus">
-           <code-info
+          <div class="user-perfil__plus">
+            <code-info
               :icon="typeUserIcon"
               size="2x"
               :info="typeUser"
               :description="typeUserDescription"
               color="lightslategray"
-           />
-         </div>
+            />
+          </div>
         </div>
         <div class="user-perfil__change-password-wrap" @click="enableModal"> 
-          <i><font-awesome-icon icon="user-edit" :style="{color: 'gray'}"/></i>
+          <i><font-awesome-icon icon="user-edit" :style="{color: 'lightslategray'}"/></i>
           <span class="user-perfil__change-password">alterar senha</span>
         </div>
         <div class="user-perfil__logout-wrap" @click="realizeLogout">
-          <i><font-awesome-icon icon="sign-out-alt" :style="{color: 'gray'}"/></i>
+          <i><font-awesome-icon icon="sign-out-alt" :style="{color: 'lightslategray'}"/></i>
           <span class="user-perfil__logout">sair</span>
         </div>
       </div>
@@ -99,8 +97,11 @@ export default {
     ]),
     typeUser () {
 
-      if(this.userTypeAuthed === '1' || this.userTypeAuthed === '3') {
+      if (this.userTypeAuthed === '1' || this.userTypeAuthed === '3') {
         return this.date(this.userId)
+      }
+      if (this.userTypeAuthed === '2' || this.userTypeAuthed === '5') {
+        return this.userName
       }
       return this.userId
     },
@@ -186,11 +187,10 @@ export default {
   min-height: 50px
 .user-perfil__plus
   display: flex
+  padding: 10px 14px
 .user-perfil__name
-  @include respond-to(handhelds)
-    display: flex
-    padding: 0 10px
-  display: none
+  display: flex
+  padding: 0 10px
 .user-perfil__user
   display: flex
   flex-direction: row
@@ -199,7 +199,7 @@ export default {
   color: lightslategray
   margin-left: 13px
 .user-perfil__menu
-  right: 100px
+  right: 30px
   @include respond-to(handhelds)
     right: 70px
   position: absolute

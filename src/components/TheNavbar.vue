@@ -6,11 +6,15 @@
       </div>
       <img class="navbar__image" :src="takeLogo" alt="logo da empresa">
     </div>
-    <div class="navbar__profile-user">
-      <slot name="perfil"></slot>
+    <div class="navbar__navigation">
+      <div class="navbar__home">
+       <slot name="home"></slot>
+      </div>
+      <div class="navbar__user-perfil">
+        <slot name="perfil"></slot>
+      </div>
     </div>
   </header>
-  
 </template>
 <script>
 
@@ -76,10 +80,22 @@ export default {
   margin-right: 20px
   @include respond-to(wide-screens)
     display: none
-.navbar__profile-user
+.navbar__user-perfil
   display: flex
   flex-direction: row
-  justify-content: center
   align-items: center
+  justify-content: flex-end
   margin-right: 20px
+  @include respond-to(handhelds)
+    width: 120px
+.navbar__home
+  display: flex
+  justify-content: flex-start
+  align-items: center
+.navbar__navigation
+  display: flex
+  width: 170px
+  justify-content: space-between
+  @include respond-to(handhelds)
+    width: 160px
 </style>

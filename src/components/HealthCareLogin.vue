@@ -229,7 +229,7 @@ export default {
         })
         .then((resp) => {
           console.log({resp})
-          this.success(resp.response.status, HEALTH_CENTER_ROUTE)
+          this.success(resp.status, HEALTH_CENTER_ROUTE)
         })
         .catch(() => {
           this.error() 
@@ -239,7 +239,7 @@ export default {
   }  
 }
 </script>
-<style lang="sass" scoped>
+<style lang="sass" s.coped>
 .login-partner
   background-color: white
 .healthcare-login__form
