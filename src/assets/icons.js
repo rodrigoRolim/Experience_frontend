@@ -1,4 +1,5 @@
 import {
+  faClipboardList,
   faUserInjured,
   faNotesMedical,
   faListUl,
@@ -59,6 +60,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 export default {
+  faClipboardList,
   faUserInjured,
   faNotesMedical,
   faCandyCane,
