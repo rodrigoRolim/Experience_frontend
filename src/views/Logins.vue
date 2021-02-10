@@ -1,6 +1,6 @@
 <template>
   <div class="logins" id="login">
-    <div class="logins__navbar" v-if="!hiddenBanner">
+    <div class="logins__navbar" v-if="!fullscreenMode">
       <the-navbar logo="logo_cedro">
         <template v-slot:perfil>
           <div class="logins__menu">
@@ -30,10 +30,10 @@
         />  
       </div>
     </transition>
-    <div class="logins__main" :class="{ 'logins__main--unclickable': loading }">
-      <div class="logins__content" :class="{ 'logins__content--up': hiddenBanner }">
-         <div class="logins__banner" v-if="!hiddenBanner">
-          <laboratory-banner></laboratory-banner>
+    <div class="logins__main" :class="{ 'logins__main--unclickable': loading, 'logins_main--fullscreen': fullscreenMode }">
+      <div class="logins__content" :class="{ 'logins__content--up': fullscreenMode }">
+        <div class="logins__banner" >
+          <laboratory-banner :fullscreenMode="!fullscreenMode"></laboratory-banner>
         </div>
         <div class="logins__menu-abas">
           <code-menu-abas>
@@ -45,14 +45,14 @@
                   mobile-hidden
                 />
               </div>
-              <div v-if="!hiddenBanner" @click="aba = 2" class="aba" :class="{ 'aba--active-aba': aba == 2 }">
+              <div v-if="!fullscreenMode" @click="aba = 2" class="aba" :class="{ 'aba--active-aba': aba == 2 }">
                  <code-info
                   icon="stethoscope"
                   info="médico"
                   mobile-hidden
                 />
               </div>
-              <div v-if="!hiddenBanner" @click="aba = 3" class="aba" :class="{ 'aba--active-aba': aba == 3 }">
+              <div v-if="!fullscreenMode" @click="aba = 3" class="aba" :class="{ 'aba--active-aba': aba == 3 }">
                 <code-info
                   icon="handshake"
                   info="parceiro"
@@ -60,7 +60,7 @@
                 />
                 
               </div>
-              <div v-if="!hiddenBanner" @click="aba = 4" class="aba" :class="{ 'aba--active-aba': aba == 4 }">
+              <div v-if="!fullscreenMode" @click="aba = 4" class="aba" :class="{ 'aba--active-aba': aba == 4 }">
                 <code-info
                   icon="clinic-medical"
                   info="posto"
@@ -149,7 +149,7 @@ export default {
   data () {
     return {
       aba: 1,
-      hiddenBanner: false,
+      fullscreenMode: false,
       helplogin: false,
       messageToUser: undefined,
       TIME_MESSAGE: 10000,
@@ -183,12 +183,18 @@ export default {
       this.$router.push({ path: PROCEDIMENT_ROUTE })
     },
     displayKeyboard (value) {
-      this.hiddenBanner = value
-      if (value) {
+      this.fullscreenMode = value
+      let isFullscreen = (document.fullscreenElement) ? true : false
+      console.log(value)
+      console.log(this.fullscreenMode)
+      if (value && !isFullscreen) {
+        console.log("enable fullscreen")
         document.documentElement.requestFullscreen()
         return
+      } else {
+        console.log("disable fullscreen")
+        document.exitFullscreen() 
       }
-      document.exitFullscreen()   
     },
     redirectToPreviousPage () {
       if (this.isAuthenticated) {
@@ -236,6 +242,8 @@ export default {
   flex-direction: row
   justify-content: space-evenly
   min-height: 89vh
+.logins_main--fullscreen
+  margin-top: 0
 .logins__main--unclickable
   pointer-events: none
   cursor: progress
@@ -280,9 +288,11 @@ html:fullscreen .logins__messages
     height: 100%
     margin-bottom: 10px
 .logins__content--up
+  flex-direction: column
+  align-items: center
   padding: 0
-  margin-top: 6vh
-  height: 70vh
+  margin-top: 0
+  height: 67vh
 .logins__banner
   max-width: 350px
   display: flex
