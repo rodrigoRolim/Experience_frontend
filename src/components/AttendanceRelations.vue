@@ -19,6 +19,8 @@
         :attendance="attendance.atendimento"
         :health-center="attendance.posto"
         :list-exams="attendance.mnemonicos"
+        :health-insurance="attendance.nome_convenio"
+        :patient="attendance.registro"
         @selected="selectedByDefault"
       />
     </div>
