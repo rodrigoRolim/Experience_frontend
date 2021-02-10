@@ -50,7 +50,9 @@ export default {
     attendanceDate: String,
     listExams: String,
     attendance: Number,
-    healthCenter: Number
+    healthCenter: Number,
+    healthInsurance: String,
+    patient: Number
   },
   created () {
     this.selectItemByDefault()
@@ -80,7 +82,7 @@ export default {
       storeProps: SET_PROPS 
     }),
     selectItem() {
-      
+      let patient = this.patient
       let healthCenter = this.healthCenter
       let attendance = this.attendance
       let namePatient = this.namePatient
@@ -88,15 +90,18 @@ export default {
       let genderPatient = this.gender
       let deliveryDate = this.deliveryDate
       let doctor = this.doctor
-      
+      let healthInsurance = this.healthInsurance
+
       this.storeProps({ 
+        patient,
         healthCenter, 
         attendance, 
         namePatient, 
         agePatient, 
         genderPatient, 
         deliveryDate, 
-        doctor 
+        doctor,
+        healthInsurance
       })
       
       this.$emit('selected', { 
