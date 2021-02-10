@@ -6,7 +6,7 @@
     <div class="laboratory-banner__header">
       <h1 class="laboratory-banner__title">Aplicação para visualização de resultados</h1>
     </div>
-    <div class="laboratory-banner__info-versions">
+    <div class="laboratory-banner__info-versions" v-if="fullscreenMode">
       <small class="laboratory-banner__experience">experience: v2.0</small>
       <small class="laboratory-banner__datasnap">datasnap: v2.0.3.0</small>
     </div>
@@ -17,6 +17,9 @@
 
 export default {
   name: 'LaboratoryBanner',
+  props: {
+    fullscreenMode: Boolean
+  },
   data () {
     return {
     }
@@ -61,5 +64,6 @@ export default {
 .laboratory-banner__logo,
 .laboratory-banner__header,
 .laboratory-banner__info-versions
-  margin: 0.2em 0
+  margin-top: 0.2rem
+  margin-bottom: 0
 </style>
