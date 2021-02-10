@@ -87,6 +87,7 @@ const mutations = {
   },
   [LOADING]: (state) => {
     state.status = 'loading'
+    state.exams = []
   },
   [SUCCESS]: (state) => {
     state.status = 'ok'

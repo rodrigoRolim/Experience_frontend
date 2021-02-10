@@ -26,10 +26,11 @@ const getLaboratory = (to, from, next) => {
 
   let customAccess = {}
   let currentPath = JSON.parse(localStorage.getItem('custom-access')).rootPath
-  const isCedroAccess = currentPath === '/lab-cedro' || currentPath === undefined
-  const isCortezAccess = currentPath === '/lab-cortez' || currentPath === undefined
-
-  if (to.path === '/lab-cedro' || isCedroAccess) {
+  const isCedroAccess = currentPath === '/lab-cedro' && to.path === '/lab-cedro'
+  const isCortezAccess = currentPath === '/lab-cortez' && to.path === '/lab-cortez'
+  console.log(isCedroAccess, isCortezAccess)
+  
+  if (isCedroAccess) {
     
     customAccess = {
       endpoint: process.env.VUE_APP_API_CEDRO,
@@ -39,7 +40,7 @@ const getLaboratory = (to, from, next) => {
     }
     localStorage.setItem('custom-access', JSON.stringify(customAccess))
   }
-  if (to.path === '/lab-cortez' || isCortezAccess) {
+  if (isCortezAccess) {
  
     customAccess = {
       endpoint: process.env.VUE_APP_API_CORTEZ,

@@ -1,7 +1,7 @@
 import { SET_PROPS, CLEAN_PROPS } from '../../utils/alias'
 import cookies from 'vue-cookies'
 const state = () => ({
-  patient: cookies.get('props')?.patient || null,
+  patient: cookies.get('props')?.patient,
   attendance: cookies.get('props')?.attendance || null,
   healthCenter: cookies.get('props')?.healthCenter,
   namePatient: cookies.get('props')?.namePatient || null,
@@ -30,7 +30,7 @@ const actions = {
 
 const mutations = {
   [SET_PROPS]: (state, payload) => {
-    console.log(payload)
+    cookies.remove('props')
     let props = {
       patient: payload.patient,
       healthCenter: payload.healthCenter,

@@ -58,7 +58,7 @@ export const HEALTH_CENTER_PATIENT_ROUTE = (patient, attendance) => `/paciente/$
  * USER TYPES
 */
 export const DOCTOR_TYPE = '0'
-export const PATIENT_TYPE = '1' // acessp paciente com cpf
+export const PATIENT_TYPE = '1' // acesso paciente com cpf
 export const HEALTH_CENTER_TYPE = '2'
 export const USER_TYPE = '3' //qrcode
 export const ATTENDANCE_TYPE = '4' // acesso paciente com atendimento
@@ -209,7 +209,35 @@ export const REGISTER = 'postoscadastro'
   { id: 'EP', name: 'Pendentes'},
   { id: '', name: 'todos'}
 ]
-
+export const UFS = [
+  { id: 12,	name: 'AC' },
+  { id: 27,	name: 'AL' },
+  { id: 13,	name: 'AM' },
+  { id: 16,	name: 'AP' },
+  { id: 29,	name: 'BA' },
+  { id: 23,	name: 'CE' },
+  { id: 53,	name: 'DF' },
+  { id: 32,	name: 'ES' },
+  { id: 52,	name: 'GO' },
+  { id: 21,	name: 'MA' },
+  { id: 31,	name: 'MG' },
+  { id: 50,	name: 'MS' },
+  { id: 51,	name: 'MT' },
+  { id: 15,	name: 'PA' },
+  { id: 25,	name: 'PB' },
+  { id: 26,	name: 'PE' },
+  { id: 22,	name: 'PI' },
+  { id: 41,	name: 'PR' },
+  { id: 33,	name: 'RJ' },
+  { id: 24,	name: 'RN' },
+  { id: 11,	name: 'RO' },
+  { id: 14,	name: 'RR' },
+  { id: 43,	name: 'RS' },
+  { id: 42,	name: 'SC' },
+  { id: 28,	name: 'SE' },
+  { id: 35,	name: 'SP' },
+  { id: 17,	name: 'TO' }
+]
 /**
  * LIMIT AND PAGE
  * 

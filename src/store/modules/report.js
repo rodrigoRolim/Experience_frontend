@@ -23,7 +23,8 @@ const actions = {
         })
         .catch((err) => {
           commit(ERROR)
-          commit(MESSAGE, err.response.status)
+          let status = (err.response) ? err.response.status : 408
+          commit(MESSAGE, status)
           reject(err)
         })
     });
