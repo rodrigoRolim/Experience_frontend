@@ -2,8 +2,8 @@
   <div class="patient-exams__container">
     <code-message
       v-if="message"
-      class="patients__message"
-      :message="message.content || ''"
+      class="patients-exams__message"
+      :message="message.content"
       :type-message="message.type"
       position="center"
       icon="info-circle"
@@ -44,6 +44,7 @@
 </template>
 <script>
 import CodeModal from './base/CodeModal'
+import CodeMessage from './base/CodeMessage'
 import PatientExamListItem from './PatientExamListItem'
 import PatientExamDetail from './PatientExamDetail'
 import PatientExamsListActions from './PatientExamsListActions'
@@ -65,6 +66,7 @@ export default {
   },
   components: {
     CodeModal,
+    CodeMessage,
     PatientExamListItem,
     PatientExamDetail,
     PatientExamsListActions
@@ -152,4 +154,13 @@ export default {
   max-height: 400px
   overflow-y: auto
   overflow-x: hidden
+.patients-exams__message
+  width: 400px
+  align-self: center
+  margin: 100px auto 0 auto
+  padding: 30px 0
+  @include respond-to(widescreen)
+    margin-left: 301px
+  @include respond-to(handhelds)
+    width:90%
 </style>

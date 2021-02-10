@@ -23,6 +23,7 @@
     <transition name="fade" mode="in-out">
       <div class="user-perfil__menu" v-show="show">
         <div class="user-perfil__user-info">
+          <span class="user-perfil__name" v-if="userTypeAuthed === '0'">{{doctorName}}</span>
           <div class="user-perfil__plus">
             <code-info
               :icon="typeUserIcon"
@@ -95,12 +96,12 @@ export default {
       'userId',
       'userTypeAuthed'
     ]),
+    doctorName() {
+      return 'Dr(a). ' + this.userName
+    },
     typeUser () {
 
-      if (this.userTypeAuthed === '1' || this.userTypeAuthed === '3') {
-        return this.date(this.userId)
-      }
-      if (this.userTypeAuthed === '2' || this.userTypeAuthed === '5') {
+      if (this.userTypeAuthed !== '0') {
         return this.userName
       }
       return this.userId
@@ -124,13 +125,13 @@ export default {
         case '0':
           return 'crm'
         case '1': 
-          return 'data nascimento'
+          return 'paciente'
         case '2':
           return 'posto'
         case '3':
-          return 'data nascimento'
+          return 'paciente'
         case '4':
-          return 'data nascimento'
+          return 'paciente'
         case '5':
           return 'posto'
         default: 

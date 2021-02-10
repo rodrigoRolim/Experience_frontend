@@ -20,28 +20,32 @@
       </code-modal>
       <div class="patient-exams__patient">
         <patient-exams-list-header 
-         :patient="parseInt(patient)"
-         :health-center="parseInt(healthCenter)"
-         :attendance="parseInt(attendance)"
-         :name="name"
-         :age="age"
-         :gender="gender"
-         :delivery="delivery"
-         :doctor="doctor"
+          :patient="parseInt(patient)"
+          :health-center="parseInt(healthCenter)"
+          :attendance="parseInt(attendance)"
+          :name="name"
+          :age="age"
+          :gender="gender"
+          :delivery="delivery"
+          :doctor="doctor"
+          :health-insurance="healthInsurance"
         />
       </div>
-      <div class="patient-exams__exams">
+      <transition name="slide-fade">
         <code-message
-          v-if="message"
+          v-if="displayMessage"
           class="patient-exams__message"
-          :message="message.message || ''"
+          :message="message.content || ''"
           :type-message="message.type"
           position="center"
           icon="info-circle"
         />
+      </transition>
+      <div class="patient-exams__exams">
         <patient-exam-list 
           :health-center="parseInt(selected.hc)" 
-          :attendance="selected.att"/>
+          :attendance="selected.att"
+        />
       </div>
     </div>
   </div>
@@ -63,7 +67,8 @@ import {
   GET_ATTENDANCES_STORE, 
   NAMESPACED_AUTH,
   NAMESPACED_EXAMS,
-  NAMESPACED_PROPS
+  NAMESPACED_PROPS,
+  NAMESPACED_REPORT
 } from '../utils/alias'
 export default {
   name: 'PatientExams',
@@ -77,7 +82,8 @@ export default {
   },
   data() {
     return {
-      attendances: false
+      attendances: false,
+      displayMessage: false
     }
   },
   created() {
@@ -103,8 +109,7 @@ export default {
     ]),
     ...mapGetters(NAMESPACED_EXAMS, [
       'status',
-      'selected',
-      'message'
+      'selected'
     ]),
     ...mapGetters(NAMESPACED_PROPS, [
       'patient',
@@ -114,10 +119,24 @@ export default {
       'age',
       'gender',
       'delivery',
-      'doctor'
+      'doctor',
+      'healthInsurance'
+    ]),
+    ...mapGetters(NAMESPACED_REPORT, [
+      'message'
     ]),
     loading() {
       return this.status === 'loading'
+    }
+  },
+  watch: {
+    message(value) {
+      if (value) {
+        this.displayMessage = true
+        setTimeout(() => {
+          this.displayMessage = false
+        }, 10000)
+      }
     }
   },
   methods: {
@@ -130,6 +149,7 @@ export default {
 
 <style lang="sass" scoped>
 @import '../styles/animations/__dropside'
+@import '../styles/transitions/__slide_fade.scss'
 .patient-exams
   display: flex
   @include respond-to(handhelds)
@@ -158,7 +178,6 @@ export default {
   @include respond-to(handhelds)
     width: 100%
     margin-top: 60px
-
 .patient-exams__patient
   position: fixed
   top: 60px
@@ -187,4 +206,9 @@ export default {
     width: 100%
   @include respond-to(handhelds)
     width: 100%
+.patient-exams__message
+  width: 100%
+  position: fixed
+  z-index: 999
+  bottom: 0
 </style>

@@ -175,7 +175,7 @@ export default {
   display: flex
   flex-direction: row
   margin-left: 10px
-  color: $error
+  color: $color__danger
   position: absolute
 .input-wrap__text-error
   font-style: italic
@@ -201,7 +201,7 @@ export default {
   border-color: $color__primary
 .container-input__icon.container-input__icon--outline-error,
 .container-input--error
-  border-color: $error
+  border-color: $color__danger
   border-width: 2px
   color: $danger
 .container-input

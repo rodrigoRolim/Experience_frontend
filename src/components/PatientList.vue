@@ -155,7 +155,7 @@ export default {
   display: flex
   justify-content: center
   align-items: center 
-  color: $color__letters
+  color: $color__text
   background-color: $color__default
   position: fixed
   bottom: 0

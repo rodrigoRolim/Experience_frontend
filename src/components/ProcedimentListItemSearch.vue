@@ -6,11 +6,9 @@
           <code-input 
             name="procediment"
             type="text"
-            :width="12"
-            :height="10"
             v-model="upperMnemonic"
             icon="search"
-            placeholder="procedimento"
+            placeholder="pesquisar procedimento por mnemonico"
             @keyup.enter="search"
           />
         </div>
@@ -95,11 +93,11 @@ export default {
   @include respond-to(handhelds)
     flex-direction: column
 .dropdown__search
-  width: 84%
+  width: 86%
   @include respond-to(handhelds)
     width: 100%
 .dropdown__button
-  width: 14%
+  width: 12%
   @include respond-to(handhelds)
     margin-top: 20px
     width: 100%

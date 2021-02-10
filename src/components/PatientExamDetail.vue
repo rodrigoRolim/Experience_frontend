@@ -25,7 +25,7 @@
       <code-message
         v-if="message"
         class="attendances__message"
-        :message="message.message || ''"
+        :message="message.content || ''"
         :typeMessage="message.type"
         position="center"
         icon="info-circle"
@@ -123,6 +123,7 @@ export default {
           this.print({printable: base64, type: 'pdf', base64: true})
         })
         .catch((err) => {
+          this.close()
           console.log(err)
         })
     },
@@ -135,6 +136,7 @@ export default {
           this.download(this.nameExam, base64)
         })
         .catch((err) => {
+          this.close()
           console.log(err)
         })
     },

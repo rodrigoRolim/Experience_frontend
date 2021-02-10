@@ -59,7 +59,6 @@ export default {
   justify-content: center
   align-items: center
   border-radius: 16px
-  min-width: 80px
 .chip__content
   color: white
   font-size: 0.8rem

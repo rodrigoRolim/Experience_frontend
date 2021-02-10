@@ -12,7 +12,7 @@
     </div>
     <div
       class="dropdown__contents"
-      :class="{'dropdown--visible': show && dropdown, 'dropdown--hidden': !show && dropdown}"
+      :class="{ 'dropdown--visible': show && dropdown, 'dropdown--hidden': !show && dropdown }"
       >
       <slot name="content"></slot>
     </div>
@@ -44,9 +44,11 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-@import "../../styles/animations/_dropdown.sass"
+
 @import "../../styles/__themes.sass"
-@include an-dropdown($max-height: 660px, $duration-hidden: 0.6s, $duration-visible: 0.6s)
+$max-height: 660px
+$duration-hidden: 0.6s
+$duration-visible: 0.6s
 
 .dropdown
   display: flex
@@ -77,7 +79,28 @@ export default {
 .dropdown__button-icon
   margin-right: 10px
 .dropdown__contents
+  
+  @include respond-to(handhelds)
+    max-height: 0
+    overflow: hidden
+    -webkit-transition: max-height $duration-visible ease-in
+    transition: max-height $duration-visible ease-in
+  @include respond-to(medium-screens)
+    max-height: 0
+    overflow: hidden
+    -webkit-transition: max-height $duration-visible ease-in
+    transition: max-height $duration-visible ease-in
   width: 100%
+.dropdown--visible
+  @include respond-to(handhelds)
+    max-height: $max-height
+  @include respond-to(medium-screens)
+    max-height: $max-height
+.dropdown--hidden
+  @include respond-to(handhelds)
+    max-height: 0
+  @include respond-to(medium-screens)
+    max-height: 0
 .fade-enter-active, .fade-leave-active
   transition: opacity .3s
 .fade-enter, .fade-leave-to
