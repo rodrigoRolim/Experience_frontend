@@ -1,6 +1,6 @@
 <template>
   <div class="doctor-home">
-    <div class="doctor-home__filter">
+    <div class="doctor-home__filter" :class="{'doctor-home__filter--up-hidden': hiddenElement}">
       <patient-list-filter @error="messageError"/>
     </div>
     <div class="doctor-home__list">
@@ -41,8 +41,10 @@ import CodeLoading from '../components/base/CodeLoading'
 import CodeMessage from '../components/base/CodeMessage'
 import { mapGetters} from 'vuex'
 import { NAMESPACED_PATIENT } from '../utils/alias'
+import { hiddenByScroll } from '../mixins/hiddenByScroll'
 export default {
   name: 'DoctorHome',
+  mixins: [hiddenByScroll],
   components: {
     PatientList,
     PatientListFilter,
@@ -83,6 +85,9 @@ export default {
   top: 60px
   left: 0
   z-index: 2
+  transition: top 0.3s
+.doctor-home__filter--up-hidden
+  top: 0px
 .doctor-home__list
   margin-top: 170px
   @include respond-to(medium-screens)

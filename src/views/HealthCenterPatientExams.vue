@@ -1,7 +1,7 @@
 <template>
   <div class="health-center-patient">
     <div class="health-center-patient__main" >
-      <div class="health-center-patient__patient" >
+      <div class="health-center-patient__patient" :class="{ 'health-center-patient__patient--up-hidden': hiddenElement }">
         <patient-exams-list-header
          :patient="parseInt(patient)"
          :health-center="parseInt(healthCenter)"
@@ -43,9 +43,11 @@ import CodeLoading from '../components/base/CodeLoading'
 import PatientExamsListHeader from '../components/PatientExamListHeader'
 import PatientExamList from '../components/PatientExamList'
 import { mapGetters } from 'vuex'
+import { hiddenByScroll } from '../mixins/hiddenByScroll'
 import { NAMESPACED_PROPS, NAMESPACED_EXAMS } from '../utils/alias'
 export default {
   name: 'health-center-patientExams',
+  mixins: [hiddenByScroll],
   components: {
     CodeModal,
     CodeLoading,
@@ -125,8 +127,12 @@ export default {
 .health-center-patient__patient
   width: 100%
   z-index: 2
+  top: 60px
+  transition: top 0.3s
   @include respond-to(medium-screens)
     width: 100%
   @include respond-to(handhelds)
     width: 100%
+.health-center-patient__patient--up-hidden
+  top: 0
 </style>

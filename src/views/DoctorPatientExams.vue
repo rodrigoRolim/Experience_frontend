@@ -7,7 +7,7 @@
       <the-sidebar />
     </div>
     <div class="doctor-patient__main" >
-      <div class="doctor-patient__patient">
+      <div class="doctor-patient__patient" :class="{ 'doctor-patient__patient--up-hidden': hiddenElement }">
         <patient-exams-list-header />
       </div>
       <div class="doctor-patient__exams">
@@ -40,6 +40,7 @@ import PatientExamList from '../components/PatientExamList'
 import TheSidebar from '../components/TheSidebar'
 import CodeModal from '../components/base/CodeModal'
 import CodeLoading from '../components/base/CodeLoading'
+import { hiddenByScroll } from '../mixins/hiddenByScroll'
 import { 
   NAMESPACED_PROPS, 
   NAMESPACED_EXAMS, 
@@ -51,6 +52,7 @@ import { mapGetters, mapActions } from 'vuex'
 import { bus } from '../main'
 export default {
   name: 'DoctorPatientExams',
+  mixins: [hiddenByScroll],
   components: {
     CodeLoading,
     CodeModal,
@@ -131,10 +133,13 @@ export default {
     margin-top: 60px
 .doctor-patient__modal
   z-index: 2
-.doctor-patient__modal,
+.doctor-patient__modal
+  position: fixed
+  top: 60px
 .doctor-patient__patient
   position: fixed
   top: 60px
+  transition: top 0.3s
 .doctor-patient__sidebar
   @include respond-to(wide-screens)
     display: block
@@ -151,4 +156,6 @@ export default {
     width: 100%
   @include respond-to(handhelds)
     width: 100%
+.doctor-patient__patient--up-hidden
+  top: 0
 </style>

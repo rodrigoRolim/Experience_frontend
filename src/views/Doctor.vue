@@ -1,6 +1,6 @@
 <template>
   <div class="doctor">
-    <div class="doctor__navbar">
+    <div class="doctor__navbar" :class="{ 'doctor__navbar--up-hidden': hiddenElement }">
       <the-navbar logo="logo_cedro">
         <template v-slot:home>
           <code-tooltip
@@ -39,8 +39,10 @@ import UserPerfil from '../components/UserPerfil'
 import CodeButtonCollapser from '../components/base/CodeButtonCollapser'
 import CodeButton from '../components/base/CodeButton.vue'
 import CodeTooltip from '../components/base/CodeTooltip.vue'
+import { hiddenByScroll } from '../mixins/hiddenByScroll'
 export default {
   name: 'Doctor',
+  mixins: [hiddenByScroll],
   components: {
     TheNavbar,
     UserPerfil,
@@ -60,7 +62,8 @@ export default {
   },
   methods: {
     redirectToPatientListView() {
-      this.$router.replace('/medico')
+      if (this.$route.path !== '/medico')
+        this.$router.replace('/medico')
     }
   }
 }
@@ -73,6 +76,9 @@ export default {
   top: 0
   left: 0
   z-index: 3
+  transition: top 0.3s
+.doctor__navbar--up-hidden
+  top: -61px
 .doctor__main
   width: 100%
 .doctor__footer

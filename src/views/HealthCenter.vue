@@ -1,6 +1,6 @@
 <template>
   <div class="health-center">
-    <div class="health-center__navbar">
+    <div class="health-center__navbar" :class="{ 'health-center--up-hidden': hiddenElement }">
       <the-navbar>
         <template v-slot:home>
           <code-tooltip
@@ -35,8 +35,10 @@ import TheNavbar from '../components/TheNavbar'
 import UserPerfil from '../components/UserPerfil'
 import CodeButton from '../components/base/CodeButton'
 import CodeTooltip from '../components/base/CodeTooltip'
+import { hiddenByScroll } from '../mixins/hiddenByScroll'
 export default {
   name: 'HealthCenterHome',
+  mixins: [hiddenByScroll],
   components: {
     TheNavbar,
     UserPerfil,
@@ -51,20 +53,24 @@ export default {
   },
   methods: {
     redirectToAttendanceListView() {
-      this.$router.replace('/posto')
+      if (this.$route.path !== '/posto')
+        this.$router.replace('/posto')
     }
   }
 }
 </script>
 
 <style lang="sass" scoped>
-@import "../styles/animations/__dropdown.sass"
+
 .health-center__navbar
   position: fixed
   width: 100%
   top: 0
   left: 0
   z-index: 3
+  transition: top 0.3s
+.health-center--up-hidden
+  top: -61px
 .health-center__footer
   display: none
   @include respond-to(handhelds)
