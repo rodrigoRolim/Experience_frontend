@@ -169,7 +169,7 @@ export default {
   text-transform: uppercase
 .keyboard__row__keys
   width: 100%
-  height: 7.7vh
+  height: 6vh
   max-height: 50px
   display: flex
   flex-direction: row
@@ -181,7 +181,7 @@ export default {
   align-items: center
   justify-content: center
   margin: 3px
-  width: 6%
+  width: 5%
   min-width: 20px
   max-width: 6%
   border-radius: 5px
