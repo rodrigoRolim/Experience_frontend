@@ -113,7 +113,7 @@ import { required, min } from '../mixins/validations/rules'
 import { validator } from '../mixins/validations/validator'
 import { login } from '../mixins/login';
 import { mapActions } from 'vuex'
-import { NAMESPACED_AUTH, AUTH_REQUEST, DOCTOR_AUTH, DOCTOR_ROUTE, DOCTOR_TYPE, REQUIRED_INPUT, INCOMPLET_CRM } from '../utils/alias'
+import { NAMESPACED_AUTH, AUTH_REQUEST, DOCTOR_AUTH, DOCTOR_ROUTE, DOCTOR_TYPE, REQUIRED_INPUT, INCOMPLET_CRM, UFS } from '../utils/alias'
 import { httpMessage } from '../utils/statusMessages'
 export default {
   name: 'DoctorLogin',
@@ -127,9 +127,7 @@ export default {
   },
   data () {
     return {
-      ufs: [{
-        id: 1, name: 'MA'
-      }],
+      ufs: UFS,
       crs: [{id: 1, name: 'CRM'}],
       doctor: {
         sigla: '',
@@ -144,6 +142,9 @@ export default {
         senha: ''
       }
     }
+  },
+  created() {
+    console.log(UFS)
   },
   computed: {
     validator () {
