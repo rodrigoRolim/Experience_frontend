@@ -96,9 +96,13 @@ export default {
   width: 86%
   @include respond-to(handhelds)
     width: 100%
+  @include respond-to(medium-screens)
+    width: 83%
 .dropdown__button
   width: 12%
   @include respond-to(handhelds)
     margin-top: 20px
     width: 100%
+  @include respond-to(medium-screens)
+    width: 15%
 </style>

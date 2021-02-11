@@ -12,7 +12,7 @@
     </div>
     <div
       class="dropdown__contents"
-      :class="{ 'dropdown--visible': show && dropdown, 'dropdown--hidden': !show && dropdown }"
+      :class="{'dropdown__contents--isdropable': dropdown, 'dropdown--visible': show && dropdown, 'dropdown--hidden': !show && dropdown }"
       >
       <slot name="content"></slot>
     </div>
@@ -79,18 +79,20 @@ $duration-visible: 0.6s
 .dropdown__button-icon
   margin-right: 10px
 .dropdown__contents
-  
   @include respond-to(handhelds)
-    max-height: 0
     overflow: hidden
     -webkit-transition: max-height $duration-visible ease-in
     transition: max-height $duration-visible ease-in
   @include respond-to(medium-screens)
-    max-height: 0
     overflow: hidden
     -webkit-transition: max-height $duration-visible ease-in
     transition: max-height $duration-visible ease-in
   width: 100%
+.dropdown__contents--isdropable
+  @include respond-to(handhelds)
+    max-height: 0
+  @include respond-to(medium-screens)
+    max-height: 0
 .dropdown--visible
   @include respond-to(handhelds)
     max-height: $max-height
