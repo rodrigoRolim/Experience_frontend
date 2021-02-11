@@ -59,7 +59,7 @@ import CodeModal from '../components/base/CodeModal'
 import CodeMessage from '../components/base/CodeMessage'
 import { mapGetters } from 'vuex'
 import { hiddenByScroll } from '../mixins/hiddenByScroll'
-import { NAMESPACED_AUTH, NAMESPACED_ATTENDANCE} from '../utils/alias'
+import { NAMESPACED_AUTH, NAMESPACED_ATTENDANCE, NAMESPACED_HEALTH_CENTERS, NAMESPACED_ACCOMODATIONS, NAMESPACED_REGISTRANTS} from '../utils/alias'
 export default {
   name: 'PartnerHome',
   mixins: [hiddenByScroll],
@@ -81,11 +81,6 @@ export default {
   },
   computed: {
     displayLoading () {
-      console.log(this.statusHc)
-      console.log(this.statusHc == 'loading' || 
-             this.statusAcc == 'loading' || 
-             this.statusRg == 'loading' || 
-             this.status == 'loading')
       return this.statusHc == 'loading' || 
              this.statusAcc == 'loading' || 
              this.statusRg == 'loading' || 
@@ -94,6 +89,15 @@ export default {
     ...mapGetters(NAMESPACED_AUTH, [
       'userId'
     ]),
+    ...mapGetters(NAMESPACED_HEALTH_CENTERS, {
+      statusHc: 'status'
+    }),
+    ...mapGetters(NAMESPACED_ACCOMODATIONS, {
+      statusAcc: 'status'
+    }),
+    ...mapGetters(NAMESPACED_REGISTRANTS, {
+      statusRg: 'status'
+    }),
     ...mapGetters(NAMESPACED_ATTENDANCE, [
       'status',
       'total'

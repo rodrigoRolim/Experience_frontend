@@ -6,8 +6,11 @@ import { ADD_CANCEL_TOKEN, REFRESH_TOKEN } from '../utils/alias'
   
   let customAccess = {}
   let currentPath = window.location.pathname
-  const isCedroAccess = currentPath === '/lab-cedro' || currentPath === undefined
-  const isCortezAccess = currentPath === '/lab-cortez' || currentPath === undefined
+  let rootPath = JSON.parse(localStorage.getItem('custom-access')).rootPath
+  console.log(currentPath)
+
+  const isCedroAccess = currentPath === '/lab-cedro' || rootPath === '/lab-cedro'
+  const isCortezAccess = currentPath === '/lab-cortez' || rootPath === '/lab-cortez'
 
   if (isCedroAccess) {
 
