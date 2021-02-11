@@ -279,8 +279,8 @@ export default {
         await this.listAccomodations()
         await this.attendances()
       } catch (err) {
-        if (err.response.status === 404) {
-          this.message(err.response.status)
+        if (!err.response) {
+          this.message(408)
         } else {
           this.$emit('error', httpMessage({ status: err.response.status }))
         }

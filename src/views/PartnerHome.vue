@@ -81,10 +81,15 @@ export default {
   },
   computed: {
     displayLoading () {
+      console.log(this.statusHc)
+      console.log(this.statusHc == 'loading' || 
+             this.statusAcc == 'loading' || 
+             this.statusRg == 'loading' || 
+             this.status == 'loading')
       return this.statusHc == 'loading' || 
-        this.statusAcc == 'loading' || 
-        this.statusRg == 'loading' || 
-        this.status == 'loading'
+             this.statusAcc == 'loading' || 
+             this.statusRg == 'loading' || 
+             this.status == 'loading'
     },
     ...mapGetters(NAMESPACED_AUTH, [
       'userId'
@@ -96,7 +101,7 @@ export default {
   },
   methods: {
     messageError (value) {
-      console.log(value)
+
       this.message = value
        setTimeout(() => {
         this.message = undefined
