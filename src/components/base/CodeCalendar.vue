@@ -299,7 +299,7 @@ export default {
       this.populateDates(this.month, this.year)
     },
     populateDates (month, year) {
-      console.log(month, year)
+
       this.days = []
       let amount_days = this.daysInMonth(month, year)
       this.selected = -1

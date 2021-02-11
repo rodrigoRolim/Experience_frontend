@@ -58,12 +58,11 @@ export default {
     
       return queries
     },
-    exec () {
+    async exec () {
       let headers = {'X-Paginate': true}
       this.renitiPage()
-      this.filterAttendanceByName({ url: this.getURI(this.healthCenterLogged), params: this.paramsQuery(), headers })
-        .then((resp) => console.log(resp))
-        .catch((err) => console.log({err}))
+      await this.filterAttendanceByName({ url: this.getURI(this.healthCenterLogged), params: this.paramsQuery(), headers })
+
     },
     getURI(id) {
       return GET_ATTENDANCES(

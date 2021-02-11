@@ -348,7 +348,7 @@ export default {
       }
     },
     cpf (value) {
-      console.log(value)
+ 
       if (this.required(value)) {
         this.validate.cpf = REQUIRED_INPUT
         //eslint-disable-next-line
@@ -359,7 +359,7 @@ export default {
       }
     },
     birthDay (value) {
-     // console.log(this.date(value, /[0-9]{2}\/[0-9]{2}\/[0-9]{4}/g))
+
       if (this.required(value)) {
         this.validate.nascimento = REQUIRED_INPUT
         //eslint-disable-next-line
@@ -502,7 +502,7 @@ export default {
       return arrStr.join('');
     },
     insertChar (str, pos, char) {
-      console.log(str)
+
       return str.substr(0, pos) + char + str.substr(pos, str.length)
     },
     getCaretPosition () {

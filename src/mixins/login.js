@@ -26,14 +26,14 @@ export const login = {
     }),
     success (status, pathName) {
       // debugger // eslint-disable-line
-      console.log(this.authState)
+
       if (this.authState == 'success' && status == 200) {
         this.showLoader = false
         this.clearParams()
         this.clearProps()
         this.$router.push({ path: pathName })
         .catch((err) => {
-          console.log({err})
+
           this.error(this.message)
           throw new Error(`Problem handling something: ${err}.`);
         })
@@ -50,7 +50,7 @@ export const login = {
       //}
     },
     emitMessage (message) {
-      console.log(this.message)
+
       this.$emit('error', message)
     }
   }

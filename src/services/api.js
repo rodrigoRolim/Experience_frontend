@@ -18,7 +18,7 @@ export const multipleRequests = (cbs = []) => {
 }
 
 export const requestToken = ({ url, auth }) => {
-  console.log('asdasdasd')
+
   return serverAuth.post(url, auth)
 }
 

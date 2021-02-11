@@ -147,7 +147,6 @@ const mutations = {
     state.message = undefined
   },
   [MESSAGE]: (state, status) => {
-    console.log(status)
     const expiredSession = status === 401
     const message = httpMessage({ status, data: 'exams', experired: expiredSession })
     state.message = message

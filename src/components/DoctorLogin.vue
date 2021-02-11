@@ -143,9 +143,6 @@ export default {
       }
     }
   },
-  created() {
-    console.log(UFS)
-  },
   computed: {
     validator () {
     

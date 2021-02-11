@@ -44,7 +44,7 @@ export default {
         return this.inputYear
       },
       set(value) {
-        console.log(value)
+
         this.$emit('outputYear', value)
       }
     },

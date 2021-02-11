@@ -24,7 +24,7 @@ export default {
     return {
     }
   },
-  created() {console.log("banner")},
+
   computed: {
     takeLogo() {
 
@@ -37,6 +37,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+@import '../styles/__themes'
 .laboratory-banner
   display: flex
   flex-direction: column
@@ -46,7 +47,7 @@ export default {
   justify-content: center
   align-items: center
 .laboratory-banner__title
-  color: map-get($theme-color, "letters")
+  color: $color__letters
   font-weight: 100
   font-size: 1.7rem
   @include respond-to(handhelds)

@@ -146,7 +146,7 @@ export default {
 
         //let refused = err.message === 'Network Error' ? 502 : undefined
         //this.error(refused || err.response.status) 
-        console.log(this.message)
+
         this.error()
         this.$emit('loading', false)
       }

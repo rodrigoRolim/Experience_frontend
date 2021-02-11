@@ -76,12 +76,10 @@ export default {
     }
   },
   methods: {
-    showInstructions (mnemonico) {
+    async showInstructions (mnemonico) {
       this.show = !!mnemonico
       let url = GET_INSTRUCTIONS(mnemonico)
-      this.getInstructions({url})
-        .then((resp) => console.log(resp))
-        .catch((err) => console.log(err))
+      await this.getInstructions({url})
     },
     ...mapActions(NAMESPACED_INSTRUCTIONS, {
       getInstructions: INSTRUCTIONS

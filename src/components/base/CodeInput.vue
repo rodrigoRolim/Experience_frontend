@@ -82,9 +82,6 @@ export default {
     }
   },
   watch: {
-    error (value) {
-      console.log(value)
-    },
     focused (value) {
 
       if (value) {

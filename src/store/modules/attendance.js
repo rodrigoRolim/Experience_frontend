@@ -144,7 +144,6 @@ const mutations = {
   },
   [MESSAGE]: (state, status) => {
     const message = httpMessage({ status, data: 'atendimentos' })
-    console.log(message)
     state.message = message
   },
   [LOADING]: (state) => {

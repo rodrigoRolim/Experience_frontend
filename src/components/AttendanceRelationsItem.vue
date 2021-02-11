@@ -56,7 +56,7 @@ export default {
   },
   created () {
     this.selectItemByDefault()
-    console.log(this.attendance)
+
   },
   watch: {
     healthCenterAndAttendance(value) {

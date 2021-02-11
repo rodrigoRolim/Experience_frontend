@@ -36,7 +36,7 @@ export const logout = {
         this.reinitExamsState()
         this.clearProps()
         this.$router.push({ path: JSON.parse(localStorage.getItem('custom-access')).rootPath }).catch((e) => {
-          console.log(e)
+          console.error({e})
         })
       }
     }

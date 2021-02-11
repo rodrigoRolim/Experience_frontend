@@ -220,7 +220,7 @@ export default {
   },
   watch: {
     'params.begin': function (value) {
-      // console.log(this.gtEnd(value, this.params.end))
+
       if (this.required(value)) {
 
         this.validate.begin = 'campo obrigatório'
@@ -299,7 +299,7 @@ export default {
     },
     beginAndEnd (value) {
       let [begin, end] = value.split('|')
-      console.log(this.validatePeriod(begin, end))
+
       if (this.validatePeriod(begin, end)) {
         // this.backParamsToDefault()
         this.initComponent()
@@ -369,7 +369,7 @@ export default {
             resolve(accomodations)     
           })
           .catch((err) => {
-            console.log(err)
+
             reject(err)
           })
       })
@@ -383,7 +383,7 @@ export default {
             resolve(healthCenters)
           })
           .catch((err) => {
-            console.log({err})
+
             reject(err)
           })
       })
@@ -396,7 +396,7 @@ export default {
             resolve(healthCenters)
           })
           .catch((err) => {
-            console.log({err})
+
             reject(err)
           })
       })
@@ -418,7 +418,7 @@ export default {
           let healthCenter = this.healthCenterLogged//this.userId
   
           this.renitiPage()
-          //console.log("page: ", this.params.page)
+
           let urlName = GET_ATTENDANCES(
             healthCenter,
             this.params.begin.split(" - ").join("-"),
@@ -430,7 +430,7 @@ export default {
             resolve(res)
           })
           .catch((err) => {
-            console.log({err})
+
             reject(err)
           })
         })

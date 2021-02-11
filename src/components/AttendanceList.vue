@@ -139,7 +139,7 @@ export default {
       return urlName
     },
     getMoreAttendances () {
-      console.log(this.hasMoreAttendances())
+
       if (this.hasMoreAttendances()) {
         this.nextPage()
         let headers = {'X-Paginate': true}

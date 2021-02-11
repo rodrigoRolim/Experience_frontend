@@ -104,7 +104,7 @@ export default {
   },
   watch: {
     'params.begin': function (value) {
-      console.log(value)
+
       if (this.required(value)) {
         this.validate.begin = 'campo obrigatório'
       } else if (this.beginGtEnd(value, this.params.end)) {
@@ -180,23 +180,20 @@ export default {
             this.params.end.split(" - ").join("-")
           )
     },
-    patients () {
+    async patients () {
       
       let headers = {
         'X-Paginate': true
       }
-      this.getPatients({ url: this.getURI(this.params.begin, this.params.end), params: this.paramsQuery(), headers })
-        .then((resp) => {
-          console.log(resp)
-        })
-        .catch((err) => {
-          const status = err.response.status
-          if (status !== 404) {
-            this.$emit('error', httpMessage({ status: err.response.status, data: 'paciente' }))
-            return
-          }
-          //this.setMessage(this.message({status: err.response.status, data: 'paciente'}))
-        })
+      try {
+         await this.getPatients({ url: this.getURI(this.params.begin, this.params.end), params: this.paramsQuery(), headers })
+      } catch(err) {
+        const status = err.response.status
+        if (status !== 404) {
+          this.$emit('error', httpMessage({ status: err.response.status, data: 'paciente' }))
+          return
+        }
+      }
     },
     confirm () {
       if (this.allowRequest) {

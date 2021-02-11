@@ -68,31 +68,21 @@ export default {
     },
   },
   methods: {
-    printExamResult () {
+    async printExamResult () {
       let url = GET_PDFS(this.healthCenter, this.attendance)
       let params = { exames: this.checkedExams.join(',') }
-      this.getReports({ url, params })
-        .then((base64) => {
-          this.print(base64)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+      let base64 = await this.getReports({ url, params })
+      this.print(base64)
     },
-    downloadExamResult () {
+    async downloadExamResult () {
 
       let url = GET_PDFS(this.healthCenter, this.attendance)
       let params = { exames: this.checkedExams.join(',') }
       let namePDF = (this.numberCheckedExams > 1) ? this.userName : 
         this.findExamNameByCorrel(this.checkedExams[0])
       
-      this.getReports({ url, params })
-        .then((base64) => {
-          this.download(namePDF, base64)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+      let base64 = await this.getReports({ url, params })
+      this.download(namePDF, base64)        
     },
     ...mapActions(NAMESPACED_REPORT, {
       getReports: GET_REPORT_STORE

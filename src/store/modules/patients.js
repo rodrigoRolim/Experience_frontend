@@ -60,7 +60,6 @@ const actions = {
           resolve(resp)
         })
         .catch((err) => {
-          console.log({err})
           let status = ''
           if (!err.response) {
             status = 408
@@ -105,9 +104,7 @@ const mutations = {
     state.status = 'error'
   },
   [MESSAGE]: (state, status) => {
-    console.log(status)
     const message = httpMessage({ status, data: 'paciente' })
-    console.log(message)
     state.message = message
   },
   [GET_PATIENT_STORE]: (state, patients) => {

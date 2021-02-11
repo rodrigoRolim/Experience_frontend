@@ -140,9 +140,6 @@ export default {
         this.error(httpMessage({ status: status, data: 'postos' }))
       })
   },
-  destroyed () {
-    console.log('destroyed posto')
-  },
   computed: {
     list: {
       get () {
@@ -228,7 +225,7 @@ export default {
           typeUser: HEALTH_CENTER_TYPE 
         })
         .then((resp) => {
-          console.log({resp})
+
           this.success(resp.status, HEALTH_CENTER_ROUTE)
         })
         .catch(() => {

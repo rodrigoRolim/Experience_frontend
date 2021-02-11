@@ -18,7 +18,7 @@ export const pdf = {
       document.body.appendChild(link)
       link.href = data
       link.download = name+".pdf"
-      console.log(link)
+
       link.click()
       window.URL.revokeObjectURL(data)
       link.remove()

@@ -68,12 +68,10 @@ export default {
     ...mapActions(NAMESPACED_PROCEDIMENT, {
       getProcediment: GET_PROCEDIMENTS_LIKE_STORE
     }),
-    search () {
+    async search () {
       let params = { limit: this.LIMIT, page: this.PAGE}
       let url = GET_PROCEDIMENTS_LIKE(this.mnemonic)
-      this.getProcediment({ url, params })
-        .then((resp) => console.log(resp))
-        .catch((error) => console.log({error}))
+      await this.getProcediment({ url, params })
     }
   }
 }

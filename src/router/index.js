@@ -28,7 +28,6 @@ const getLaboratory = (to, from, next) => {
   let currentPath = JSON.parse(localStorage.getItem('custom-access')).rootPath
   const isCedroAccess = currentPath === '/lab-cedro' && to.path === '/lab-cedro'
   const isCortezAccess = currentPath === '/lab-cortez' && to.path === '/lab-cortez'
-  console.log(isCedroAccess, isCortezAccess)
   
   if (isCedroAccess) {
     

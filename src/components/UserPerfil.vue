@@ -88,7 +88,6 @@ export default {
   },
   mounted () {
     this.dropdownEvent()
-    console.log(this.userTypeAuthed)
   },
   computed: {
     ...mapGetters(NAMESPACED_AUTH, [

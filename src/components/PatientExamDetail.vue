@@ -94,7 +94,7 @@ export default {
       .then((resp) => {
         this.results = resp
       })
-      .catch((err) => console.log({err}))
+      //.catch((err) => console.log({err}))
   },
   computed: {
     loadingFile() {
@@ -122,9 +122,8 @@ export default {
           this.close()
           this.print({printable: base64, type: 'pdf', base64: true})
         })
-        .catch((err) => {
+        .catch(() => {
           this.close()
-          console.log(err)
         })
     },
     downloadExamResult() {
@@ -135,9 +134,8 @@ export default {
           this.close()
           this.download(this.nameExam, base64)
         })
-        .catch((err) => {
+        .catch(() => {
           this.close()
-          console.log(err)
         })
     },
     ...mapActions(NAMESPACED_REPORT, {

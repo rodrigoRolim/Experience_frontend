@@ -35,7 +35,7 @@ export default {
   },
   computed: {
     positionDescription () {
-      console.log(this.wideHidden)
+
       return { 
         'info--bottom': this.bottom, 
         'info--left': this.left,
