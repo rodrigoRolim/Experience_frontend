@@ -15,7 +15,7 @@
       <i v-if="nameIcon && !loading" class="button__icon"
         :class="{'button__icon--rounded': rounded}"
       ><font-awesome-icon :icon="nameIcon" :size="sizeIcon"/></i>
-      <span v-if="!rounded && !loading && text" class="button__text">{{text}}</span>
+      <span v-if="!rounded && !loading && text" class="button__text" :class="{'button--text--hidden': this.roundedMobile}">{{text}}</span>
     </div>
    </button>
 </template>
@@ -32,13 +32,20 @@ export default {
       default: 'primary',
       validator: function (value) {
         return ['theme','primary', 'success', 'warning', 
-                'danger', 'info', 'dark', 'brand', 'light'].indexOf(value) !== -1
+                'danger', 'info', 'dark', 'brand', 'light', 'icon'].indexOf(value) !== -1
       }
     },
     text: {
       type: String
     },
     size: {
+      type: String,
+      default: 'md',
+      validator: function (value) {
+        return ['sm', 'md', 'lg'].indexOf(value) !== -1
+      }
+    },
+    sizeMobile: {
       type: String,
       default: 'md',
       validator: function (value) {
@@ -65,6 +72,7 @@ export default {
     shading: Boolean,
     bolded: Boolean,
     rounded: Boolean,
+    roundedMobile: Boolean,
     borded: Boolean,
     streched: Boolean,
     transparent: Boolean,
@@ -85,6 +93,10 @@ export default {
       return [
          { 
             'button--rounded': this.rounded,
+            'button--rounded--mobile': this.roundedMobile,
+            'button--rounded--mobile--sm': this.roundedMobile && this.sizeMobile === 'sm',
+            'button--rounded--mobile--md': this.roundedMobile && this.sizeMobile === 'md',
+            'button--rounded--mobile--lg': this.roundedMobile && this.sizeMobile === 'lg',
             'button--rounded--sm': this.rounded && this.size == 'sm',
             'button--rounded-md': this.rounded && this.size == 'md',
             'button--rounded-lg': this.rounded && this.size == 'lg',   
@@ -94,7 +106,7 @@ export default {
             'button--streched': this.streched,
             'button--transparent': this.transparent,
             'button--loading': this.loading,
-            'button--disabled': this.disable
+            'button--disabled': this.disable,
          }, 
           'button--'+this.size, 'button--'+this.color, 'button--'+this.letters,
       ]
@@ -139,12 +151,33 @@ export default {
 .button--rounded
   border-radius: 100%
   padding: 5px
+.button--rounded--mobile
+  @include respond-to(handhelds)
+    display: flex
+    align-items: center
+    justify-content: center
+    border-radius: 100%
+.button--rounded--mobile--sm
+  @include respond-to(hanhelds)
+    width: 30px
+    height: 30px
+    padding: 0
 .button--roudend--sm
   width: 30px
   height: 30px
+.button--rounded--mobile--md
+  @include respond-to(hanhelds)
+    width: 40px
+    height: 40px
+    padding: 0
 .button--rounded-md
   width: 40px
   height: 40px
+.button--rounded--mobile--lg
+  @include respond-to(handhelds)
+    width: 50px
+    height: 50px
+    padding: 0
 .button--rounded-lg
   width: 50px
   height: 50px
@@ -162,6 +195,9 @@ export default {
 .button.button--disabled
   opacity: 0.8
   color: rgba(0,0,0,0.5)
+.button--text--hidden
+  @include respond-to(handhelds)
+    display: none
 .button--theme
   background-color: $color__default
 .button--primary

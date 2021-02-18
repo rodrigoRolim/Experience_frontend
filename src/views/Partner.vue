@@ -8,6 +8,7 @@
           >
             <template v-slot:element>
               <code-button
+                class="partner__home-btn"
                 color="icon"
                 name-icon="clipboard-list"
                 size-icon="2x"
@@ -61,6 +62,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+@import '../styles/__themes'
 .partner__navbar
   position: fixed
   width: 100%
@@ -81,4 +83,8 @@ export default {
 .partner__exams,
 .partner__patient
   cursor: default
+.partner__home-btn
+  @include respond-to(handhelds)
+    background-color: transparent
+    color: $color__icon
 </style>

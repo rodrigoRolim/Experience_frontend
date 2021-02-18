@@ -35,7 +35,9 @@ export const logout = {
         this.reinitAttendancesState()
         this.reinitExamsState()
         this.clearProps()
-        this.$router.push({ path: JSON.parse(localStorage.getItem('custom-access')).rootPath }).catch((e) => {
+        let currLoginPath = JSON.parse(localStorage.getItem('custom-access')).rootPath
+        localStorage.removeItem('custom-access')
+        this.$router.push({ path: currLoginPath }).catch((e) => {
           console.error({e})
         })
       }

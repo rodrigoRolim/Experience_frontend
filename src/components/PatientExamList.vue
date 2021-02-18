@@ -12,12 +12,12 @@
       <patient-exam-list-item
         v-for="exam in exams"
         :key="exam.correl" 
-        :status="exam.situacao_experience"
-        :name="exam.nome_procedimento"
-        :name-health-center="exam.nome_posto_realizante"
+        :status="exam.situacaoExperience"
+        :name="exam.nomeProcedimento"
+        :name-health-center="exam.nomePostoRealizante"
         :mnemonico="exam.mnemonico" 
         :correl="exam.correl"
-        :type-delivery="exam.tipo_entrega"
+        :type-delivery="exam.tipoEntrega"
         @click="showExamResult(exam.correl, exam.nome_procedimento)" 
         class="patient-exams__item"
       />

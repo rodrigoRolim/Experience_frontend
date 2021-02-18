@@ -161,6 +161,7 @@ export default {
   bottom: 0
   padding: 12px 0
   width: 100%
+  z-index: 3
 .patients__number
   font-size: 0.8rem
   @include respond-to(handhelds)

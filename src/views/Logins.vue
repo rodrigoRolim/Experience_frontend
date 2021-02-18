@@ -168,7 +168,7 @@ export default {
     ])
   },
   created () {
-    this.redirectToPreviousPage() 
+    //this.redirectToPreviousPage() 
   },
   methods: {
     messages (value) {

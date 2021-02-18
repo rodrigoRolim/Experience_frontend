@@ -49,6 +49,7 @@ const actions = {
   [GET_PATIENT_STORE]: ({ commit }, { url, params, headers }) => {
     commit(LOADING)
     commit(MESSAGE, undefined)
+    commit(TOTAL_PATIENTS, 0)
     commit(GET_PATIENT_STORE, [])
     return new Promise((resolve, reject) => {
       requestResource({ url, params, method: 'GET', headers })
@@ -96,6 +97,7 @@ const actions = {
 const mutations = {
   [LOADING]: (state) => {
     state.status = 'loading'
+    state.patients = []
   },
   [SUCCESS]: (state) => {
     state.status = 'success'

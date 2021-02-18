@@ -9,7 +9,6 @@ import {
   faExclamationCircle, 
   faTimesCircle,
   faCheckCircle,
-  faCandyCane,
   faMars,
   faVenus,
   faFlask,
@@ -32,7 +31,6 @@ import {
   faQuestionCircle,
   faKeyboard,
   faStethoscope,
-  faBeer,
   faClinicMedical,
   faFilePdf,
   faArrowAltCircleDown,
@@ -56,14 +54,14 @@ import {
   faLongArrowAltLeft,
   faLongArrowAltRight,
   faBookMedical,
-  faPrint
+  faPrint,
+  faDownload
 } from '@fortawesome/free-solid-svg-icons'
 
 export default {
   faClipboardList,
   faUserInjured,
   faNotesMedical,
-  faCandyCane,
   faArrowLeft,
   faCheckCircle,
   faUser, 
@@ -92,7 +90,6 @@ export default {
   faQuestionCircle,
   faKeyboard,
   faStethoscope,
-  faBeer,
   faClinicMedical,
   faFilePdf,
   faArrowAltCircleDown,
@@ -117,5 +114,6 @@ export default {
   faLongArrowAltRight,
   faListUl,
   faBookMedical,
-  faPrint
+  faPrint,
+  faDownload
 }

@@ -3,14 +3,13 @@ import store from '../store/index'
 import { ADD_CANCEL_TOKEN, REFRESH_TOKEN } from '../utils/alias'
 
 (function() {
-  
+  //localStorage.removeItem('custom-access')
   let customAccess = {}
   let currentPath = window.location.pathname
-  let rootPath = JSON.parse(localStorage.getItem('custom-access')).rootPath
-  console.log(currentPath)
+  //let storedPath = JSON.parse(localStorage.getItem('custom-access'))?.rootPath
 
-  const isCedroAccess = currentPath === '/lab-cedro' || rootPath === '/lab-cedro'
-  const isCortezAccess = currentPath === '/lab-cortez' || rootPath === '/lab-cortez'
+  const isCedroAccess = currentPath === '/lab-cedro'
+  const isCortezAccess = currentPath === '/lab-cortez'
 
   if (isCedroAccess) {
 
@@ -21,7 +20,7 @@ import { ADD_CANCEL_TOKEN, REFRESH_TOKEN } from '../utils/alias'
       rootPath: '/lab-cedro'
     }
     localStorage.setItem('custom-access', JSON.stringify(customAccess))
-    
+    return 
   }
 
   if (isCortezAccess) {
@@ -35,9 +34,9 @@ import { ADD_CANCEL_TOKEN, REFRESH_TOKEN } from '../utils/alias'
     localStorage.setItem('custom-access', JSON.stringify(customAccess))
   }
 })()
-console.log(localStorage.getItem('custom-access'))
+
 const serverExperience = axios.create({
-  baseURL:  JSON.parse(localStorage.getItem('custom-access')).endpoint + ":9001",
+  baseURL:  JSON.parse(localStorage.getItem('custom-access'))?.endpoint + ":9001",
   timeout: 4000000,
   headers: {
     'Content-Type': 'application/json',
@@ -79,7 +78,7 @@ serverExperience.interceptors.response.use(response => response, error => {
 })
 
 const serverAuth = axios.create({
-  baseURL: process.env.VUE_APP_API_CORTEZ + ":9000",
+  baseURL: JSON.parse(localStorage.getItem('custom-access'))?.endpoint + ":9000",
   timeout: 5000000,
   headers: {
     'Content-Type': 'application/json'
@@ -99,7 +98,7 @@ serverAuth.interceptors.request.use(
   error => Promise.reject(error)
 )
 const serverPDF = axios.create({
-  baseURL: process.env.VUE_APP_API_CORTEZ + ':9050',
+  baseURL: JSON.parse(localStorage.getItem('custom-access'))?.endpoint  + ':9050',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json'

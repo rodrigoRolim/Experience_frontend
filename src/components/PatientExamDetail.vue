@@ -47,9 +47,9 @@
       />
        <code-button
         class="exam__download"
-        text="baixar pdf"
+        text="download"
         color="danger"
-        name-icon="file-pdf"
+        name-icon="download"
         size-icon="lg"
         streched
         borded
@@ -212,12 +212,16 @@ export default {
   width: 100%
   padding: 13px 15px
   border-bottom: 1px solid lightgray
+  @include respond-to(handhelds)
+    font-size: 0.8rem
 .exame__button
   align-self: flex-end
   display: flex
   flex-direction: row
   padding: 10px
   width: 50%
+  @include respond-to(handhelds)
+    width: 100%
 .exam__print
   width: 100%
   margin: 3px 5px
@@ -228,4 +232,9 @@ export default {
   margin: 3px 5px
   @include respond-to(handhelds)
     width: 100%
+.name__exame
+  word-break: break-all
+  width: 75%
+  @include respond-to(handhelds)
+    width: 200px
 </style>

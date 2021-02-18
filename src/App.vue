@@ -10,9 +10,9 @@ export default {
   name: 'App',
   created() {
     const customAccess = JSON.parse(localStorage.getItem('custom-access'))
-    document.documentElement.dataset.theme = customAccess.theme
-    document.documentElement.dataset.logo = customAccess.logo
-    document.documentElement.dataset.rootPath = customAccess.rootPath
+    document.documentElement.dataset.theme = customAccess?.theme
+    document.documentElement.dataset.logo = customAccess?.logo
+    document.documentElement.dataset.rootPath = customAccess?.rootPath
   }
 }
 </script>

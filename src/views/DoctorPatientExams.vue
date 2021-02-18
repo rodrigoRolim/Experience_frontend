@@ -18,7 +18,7 @@
         >
           <template v-slot:modal>
             <code-loading
-              class="health-center-patient__spin"   
+              class="doctor-patient__spin"   
               range="50px"
               velocity="1x"
             />
@@ -77,11 +77,14 @@ export default {
       'healthCenter',
       'attendance'
     ]),
-    ...mapGetters(NAMESPACED_EXAMS, [
-      'status'
-    ]),
+    ...mapGetters(NAMESPACED_EXAMS, {
+      statusExams: 'status'
+    }),
+    ...mapGetters(NAMESPACED_ATTENDANCE, {
+      statusAtt: 'status'
+    }),
     displayLoading() {
-      return this.status === 'loading'
+      return this.statusAtt === 'loading' || this.statusExams === 'loading'
     }
   },
   methods: {
@@ -89,7 +92,7 @@ export default {
       getAttendances: GET_ATTENDANCES_STORE
     }),
     async getAttendancesRelations () {
-      console.log(this.patient)
+
       let url = GET_ATTENDANCES_RELATIONS(this.patient)
       await this.getAttendances({ url })
        
@@ -133,6 +136,12 @@ export default {
     margin-top: 60px
 .doctor-patient__modal
   z-index: 2
+.doctor-patient__spin
+  right: calc(100% - 221px)
+  @include respond-to(medium-screens)
+    right: 0
+  @include respond-to(handhelds)
+    right: 0
 .doctor-patient__modal
   position: fixed
   top: 60px
@@ -147,7 +156,7 @@ export default {
   width: 301px
   overflow-y: auto
   height: 100vh
-  z-index: 2
+  z-index: 3
   @include respond-to(medium-screens)
     overflow-x: hidden
 .doctor-patient__patient

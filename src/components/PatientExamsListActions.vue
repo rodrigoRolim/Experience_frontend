@@ -9,6 +9,8 @@
       color="dark"
       size="sm"
       bottom
+      rounded-mobile
+      size-mobile="lg"
       size-icon="lg"
       :disable="printing"
       :loading="printing"
@@ -16,13 +18,15 @@
     />
     <code-button
       class="btn-1"
-      name-icon="file-pdf"
+      name-icon="download"
       text="download"
       borded
       bolded
       color="danger"
       size="sm"
       bottom
+      rounded-mobile
+      size-mobile="lg"
       size-icon="lg"
       :disable="printing"
       :loading="printing"
@@ -95,7 +99,7 @@ export default {
 .patient-exams-list-actions
   display: flex
   justify-content: space-between
-  width: 190px
+  width: 200px
   position: fixed
   z-index: 1
   bottom: 20px
@@ -104,4 +108,7 @@ export default {
   box-shadow: 0px 0px 15px -11px #000000
   padding: 10px
   border-radius: 4px
+  @include respond-to(handhelds)
+    box-shadow: none
+    width: 140px
 </style>

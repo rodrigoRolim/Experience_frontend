@@ -56,9 +56,13 @@
     <code-modal
       class="user-perfil__load"
       :display="showLoadLogout"
+      position="center"
     >
       <template v-slot:modal>
-        <code-loading/>
+        <code-loading
+          range="50px"
+          velocity="1x"
+        />
       </template>
     </code-modal>
   </div>
@@ -200,8 +204,6 @@ export default {
   margin-left: 13px
 .user-perfil__menu
   right: 30px
-  @include respond-to(handhelds)
-    right: 70px
   position: absolute
   background-color: white
   border: 1px solid lightgray

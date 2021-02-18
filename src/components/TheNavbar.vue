@@ -76,6 +76,8 @@ export default {
   align-items: center
   margin-left: 20px
   width: 15%
+  @include respond-to(handhelds)
+    width: auto
 .navbar__collapser
   margin-right: 20px
   @include respond-to(wide-screens)
@@ -87,7 +89,7 @@ export default {
   justify-content: flex-end
   margin-right: 20px
   @include respond-to(handhelds)
-    width: 120px
+    width: 90px
 .navbar__home
   display: flex
   justify-content: flex-start
@@ -97,5 +99,5 @@ export default {
   width: 170px
   justify-content: space-between
   @include respond-to(handhelds)
-    width: 160px
+    width: 135px
 </style>

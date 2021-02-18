@@ -24,6 +24,7 @@ import {
   NEXT_PAGE,
   REINIT_PAGINATION,
   TOTAL_PAGES,
+  TOTAL_ATTENDANCES,
   FILTER_ATTENDANCES_BY_NAME,
   EMPTY_PARAMS,
   REINIT_STATE,
@@ -49,12 +50,13 @@ const state = {
     limit: 10,
     page: 1,
     totalPages: null
-  }
+  },
+  total: 0
 }
 
 const getters = {
   attendances: (state) => state?.attendances,
-  total: (state) => state.attendances.length,
+  total: (state) => state.total,
   name: () => (patientName) => {
     return patientName.toUpperCase()
   },
@@ -69,11 +71,13 @@ const actions = {
   [GET_ATTENDANCES_STORE]: ({ commit }, { url, params, headers }) => {
     commit(REINIT_PAGINATION)
     commit(EMPTY_ATTENDANCES)
+    commit(TOTAL_ATTENDANCES, 0)
     commit(LOADING)
     return new Promise((resolve, reject) => {
       requestResource({ url, params, method: 'GET', headers })
         .then((resp) => {
           commit(GET_ATTENDANCES_STORE, resp.data.docs || resp.data)
+          commit(TOTAL_ATTENDANCES, resp.data.total)
           commit(TOTAL_PAGES, resp.data.pages)
           commit(SUCCESS)
           commit(MESSAGE, undefined)
@@ -201,6 +205,9 @@ const mutations = {
   },
   [EMPTY_ATTENDANCES]: (state) => {
     state.attendances = []
+  },
+  [TOTAL_ATTENDANCES]: (state, total) => {
+    state.total = total
   },
   [NEXT_PAGE]: (state) => {
     if (state.params.page < state.params.totalPages)

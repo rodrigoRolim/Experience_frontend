@@ -21,13 +21,22 @@
           velocity="1x"
         />
       </div>
-      <code-menu-abas v-else>
+      <div class="procediment-instructions__message"  v-if="message">
+         <code-message
+          class="procediment-instructions__message-content"
+          :message="message.content || ''"
+          :typeMessage="message.type"
+          position="center"
+          icon="info-circle"
+        />
+      </div>
+      <code-menu-abas v-if="status !== 'loading' && !message">
         <template v-slot:header>
-          <div @click="aba = 1" class="aba" :class="{ 'active-aba': aba == 1 }">Instruções de Exame</div>
+          <div @click="aba = 1" class="aba" :class="{ 'aba--active': aba == 1 }">Instruções de Exame</div>
         </template>
         <template v-slot:body>
           <div class="procediment-instructions__wrap" v-if="aba == 1">
-            <div class="procediment-instructions__content">{{instructions.preparo}}</div>
+            <div class="procediment-instructions__content" v-html="instructions"></div>
           </div>
         </template>
       </code-menu-abas>  
@@ -38,6 +47,7 @@
 <script>
 import CodeMenuAbas from './base/CodeMenuAbas'
 import CodeLoading from './base/CodeLoading'
+import CodeMessage from './base/CodeMessage'
 import { mapGetters } from 'vuex'
 import { NAMESPACED_INSTRUCTIONS } from '../utils/alias'
 
@@ -45,15 +55,13 @@ export default {
   name: 'ProcedimentInstructions',
   components: {
     CodeMenuAbas,
-    CodeLoading
+    CodeLoading,
+    CodeMessage
   },
   data () {
     return {
       aba: 1
     }
-  },
-  created () {
-
   },
   methods: {
     closeModal () {
@@ -63,7 +71,8 @@ export default {
   computed: {
     ...mapGetters(NAMESPACED_INSTRUCTIONS, [
       'instructions',
-      'status'
+      'status',
+      'message'
     ])
   }
 }
@@ -86,8 +95,7 @@ export default {
   border-bottom: 1px solid lightgray
   padding: 10px 20px
 .procediment-instructions__content
-  padding-left: 20px
-  padding-top: 20px
+  padding: 20px
 .procediment-instruction__close
   display: flex
   flex-direction: row
@@ -118,4 +126,24 @@ export default {
   justify-content: center
   align-items: center
   height: 70vh
+.aba--active
+  display: flex
+  align-items: center
+  justify-content: center
+  border: 1px solid lightgray
+  border-top-right-radius: 4px
+  border-top-left-radius: 4px
+  border-bottom: none
+  background-color: white
+  margin-bottom: -1px
+.aba--active.aba
+  padding-bottom: 12px
+  color: #5f5e5e
+.procediment-instructions__message
+  display: flex
+  align-items: center
+  justify-content: center
+  height: 50vh
+.procediment-instructions__message-content
+  width: 50%
 </style>

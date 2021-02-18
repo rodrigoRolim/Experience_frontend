@@ -130,8 +130,8 @@ export default {
     patientExamsView () {
      
       let patient = this.patientId
-      let healthCenter = this.healthCenterId
-      let attendance = this.attendanceId
+     /*  let healthCenter = this.healthCenterId
+      let attendance = this.attendanceId */
       let namePatient = this.name
       let agePatient = this.age
       let genderPatient = this.sex
@@ -139,7 +139,7 @@ export default {
       let doctor = this.doctor
       let healthInsurance = this.healthInsurance
 
-      this.storeProps({ patient, healthCenter, attendance, namePatient, agePatient, genderPatient, deliveryDate, doctor, healthInsurance })
+      this.storeProps({ patient, /* healthCenter, attendance, */ namePatient, agePatient, genderPatient, deliveryDate, doctor, healthInsurance })
       this.$router.push({ name: 'doctorExamsPatient', params: { patient: this.patientId, attendance: this.attendanceId, healthCenter: this.healthCenterId, healthInsurance}})
     },
     ...mapMutations(NAMESPACED_PROPS, {

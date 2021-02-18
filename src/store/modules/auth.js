@@ -21,7 +21,8 @@ const state = () => ({
   message: undefined,
   hasLoadedOnce: false,
   userType: cookies.get('user-session')?.user_type || "",
-  uniqueAttendance: cookies.get('user-session')?.uniqueAttendance
+  uniqueAttendance: cookies.get('user-session')?.uniqueAttendance,
+  accessPath: cookies.get('user-session')?.accessPath || ""
 })
 
 const getters = {
@@ -34,13 +35,15 @@ const getters = {
   token: state => state.token,
   expired: state => state.expired,
   healthCenterLogged: state => state.healthCenterLogged?.id,
-  message: state =>  state.message
+  message: state =>  state.message,
+  accessPath: state => state.accessPath
 }
 
 const actions = {
   [AUTH_REQUEST]: ({ commit }, { url, uniqueAttendance, credentials, typeUser }) => {
     return new Promise((resolve, reject) => {
       commit(AUTH_REQUEST)
+      console.log(JSON.parse(localStorage.getItem('custom-access'))?.rootPath)
       requestToken({ url, auth: credentials })
         .then((resp) => {
           let user_session = {
@@ -48,6 +51,7 @@ const actions = {
             user_type: typeUser,
             user_name: resp.data.nome,
             identify: resp.data.identificacao,
+            accessPath: JSON.parse(localStorage.getItem('custom-access'))?.rootPath,
             uniqueAttendance
           }
           commit(MESSAGE, undefined)
@@ -128,6 +132,7 @@ const mutations = {
     state.identify = session.identify
     state.userType = session.user_type
     state.uniqueAttendance = session.uniqueAttendance
+    state.accessPath = session.accessPath
     state.hasLoadedOnce = true
   },
   [AUTH_ERROR]: (state) => {

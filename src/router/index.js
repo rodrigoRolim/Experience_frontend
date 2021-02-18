@@ -10,24 +10,28 @@ import {
 } from '../utils/alias'
 
 const authorization = (to, from, next) => {
+  
   store.dispatch(CANCEL_PENDING_REQUESTS)
+  
+  const storedPath = JSON.parse(localStorage.getItem('custom-access'))?.rootPath
   const authUser = to.matched
     .some(record => record.meta.typeUser === store.getters['auth/userTypeAuthed'])
+  const accessPath = store.getters['auth/accessPath']
 
-  if (store.getters['auth/isAuthenticated'] && authUser) {
+  if (store.getters['auth/isAuthenticated'] && authUser && storedPath === accessPath) {
     
     next();
     return
   }
-  next(to.path)
+  next(storedPath)
 }
 
 const getLaboratory = (to, from, next) => {
 
   let customAccess = {}
-  let currentPath = JSON.parse(localStorage.getItem('custom-access')).rootPath
-  const isCedroAccess = currentPath === '/lab-cedro' && to.path === '/lab-cedro'
-  const isCortezAccess = currentPath === '/lab-cortez' && to.path === '/lab-cortez'
+  let currentPath = JSON.parse(localStorage.getItem('custom-access'))?.rootPath
+  const isCedroAccess = currentPath === '/lab-cedro' || to.path === '/lab-cedro'
+  const isCortezAccess = currentPath === '/lab-cortez' || to.path === '/lab-cortez'
   
   if (isCedroAccess) {
     

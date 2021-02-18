@@ -1,19 +1,24 @@
-import { INSTRUCTIONS, LOADING, SUCCESS, ERROR } from '../../utils/alias'
+import { INSTRUCTIONS, LOADING, SUCCESS, ERROR, MESSAGE } from '../../utils/alias'
 import { requestResource } from '../../services/api'
+import { httpMessage } from '../../utils/statusMessages'
 
 const state = () => ({
   instructions: '',
-  status: ''
+  status: '',
+  message: undefined
 })
 
 const getters = {
   instructions: (state) => state.instructions,
-  status: (state) => state.status
+  status: (state) => state.status,
+  message: (state) => state.message
 }
 
 const actions = {
   [INSTRUCTIONS]: ({commit}, {url}) => {
     commit(LOADING)
+    commit(MESSAGE, undefined)
+    commit(INSTRUCTIONS, '')
     return new Promise((resolve, reject) => {
       requestResource({url})
         .then((resp) => {
@@ -23,6 +28,8 @@ const actions = {
         })
         .catch((err) => {
           commit(ERROR)
+          commit(INSTRUCTIONS, '')
+          commit(MESSAGE, err.response.status)
           reject(err)
         })
     })
@@ -42,6 +49,10 @@ const mutations = {
   [ERROR]: (state) => {
     state.status = 'error'
     state.instructions = ''
+  },
+  [MESSAGE]: (state, status) => {
+    const message = httpMessage({ status, data: 'procedimentos', typeMessage: 'error' })
+    state.message = message
   }
 }
 
