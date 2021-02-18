@@ -34,9 +34,11 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+@import '../../styles/__themes'
 .code-label
   margin-left: 5px
   margin-bottom: 5px
 .code-label__label
   font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif
+  color: $color__letters
 </style>

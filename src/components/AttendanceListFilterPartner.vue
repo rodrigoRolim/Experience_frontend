@@ -6,7 +6,7 @@
           <code-label
             class="attendances-filter-partner__label"
             label="Período"
-            color="white"
+            
             :fontWeight="400"
             fontSize="0.9rem"
             fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
@@ -26,7 +26,7 @@
           <code-label
             class="attendances-filter-partner__label"
             label="Acomodação"
-            color="white"
+            
             :fontWeight="400"
             fontSize="0.9rem"
             fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
@@ -45,7 +45,6 @@
           <code-label
             class="attendances-filter-partner__label"
             label="Situação"
-            color="white"
             :fontWeight="400"
             fontSize="0.9rem"
             fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
@@ -64,7 +63,6 @@
           <code-label
             class="attendances-filter-partener__label"
             label="nome paciente"
-            color="white"
             :fontWeight="400"
             fontSize="0.9rem"
             fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
