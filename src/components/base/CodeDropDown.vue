@@ -80,11 +80,9 @@ $duration-visible: 0.6s
   margin-right: 10px
 .dropdown__contents
   @include respond-to(handhelds)
-    overflow: hidden
     -webkit-transition: max-height $duration-visible ease-in
     transition: max-height $duration-visible ease-in
   @include respond-to(medium-screens)
-    overflow: hidden
     -webkit-transition: max-height $duration-visible ease-in
     transition: max-height $duration-visible ease-in
   width: 100%
@@ -101,8 +99,10 @@ $duration-visible: 0.6s
 .dropdown--hidden
   @include respond-to(handhelds)
     max-height: 0
+    overflow: hidden
   @include respond-to(medium-screens)
     max-height: 0
+    overflow: hidden
 .fade-enter-active, .fade-leave-active
   transition: opacity .3s
 .fade-enter, .fade-leave-to

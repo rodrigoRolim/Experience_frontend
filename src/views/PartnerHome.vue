@@ -105,8 +105,9 @@ export default {
   },
   methods: {
     messageError (value) {
-
-      this.message = value
+      this.message = {}
+      this.message['content'] = value
+      this.message['type'] = 'error'
        setTimeout(() => {
         this.message = undefined
       }, this.TIME_MESSAGE)

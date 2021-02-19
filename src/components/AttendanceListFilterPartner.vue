@@ -107,7 +107,6 @@ import AttendanceListFilterPeriod from '../components/AttendanceListFilterPeriod
 import { validator } from '../mixins/validations/validator'
 import { session } from '../mixins/session'
 import { isOption, endLtBegin, beginGtEnd, required, date } from '../mixins/validations/rules'
-import { messages } from '../mixins/user-messages'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { 
   NAMESPACED_ATTENDANCE, 
@@ -134,7 +133,7 @@ import {
 import { httpMessage } from '../utils/statusMessages'
 export default {
   name: 'AttendanceListFilterPartner',
-  mixins: [messages, validator({ isOption, endLtBegin, beginGtEnd, required, date }), session],
+  mixins: [validator({ isOption, endLtBegin, beginGtEnd, required, date }), session],
   components: {
     CodeDropDown,
     CodeLabel,
@@ -248,7 +247,7 @@ export default {
     beginAndEnd (value) {
       let [begin, end] = value.split('|')
       if (this.validatePeriod(begin, end)) {
-        // this.backParamsToDefault()
+
         this.initComponent()
       }
     }
@@ -280,7 +279,7 @@ export default {
         if (!err.response) {
           this.message(408)
         } else {
-          this.$emit('error', httpMessage({ status: err.response.status }))
+          this.message(err.response.status)
         }
       }
     },

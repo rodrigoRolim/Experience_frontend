@@ -17,9 +17,9 @@
         />
       </div>
       <div class="exame__content" v-else>
-        <div class="exame__content__row" v-for="result in results" :key="result.variavel_id">
-          <div class="name__exame">{{result.variavel_nome}}</div>
-          <div class="exame__result">{{result.valor}}<span class="exame__result__unity">{{result.variavel_unidade}}</span></div>
+        <div class="exame__content__row" v-for="result in results" :key="result.variavelId">
+          <div class="name__exame">{{result.variavelNome}}</div>
+          <div class="exame__result">{{result.valor}}<span class="exame__result__unity">{{result.variavelUnidade}}</span></div>
         </div>
       </div>
       <code-message

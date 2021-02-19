@@ -9,8 +9,8 @@
         :key="procediment.mnemonico"
         :mnemonic="procediment.mnemonico"
         :name="procediment.nome"
-        :material="procediment.nome_material"
-        :laboratory="procediment.nome_setor" 
+        :material="procediment.nomeMaterial"
+        :laboratory="procediment.nomeSetor" 
         class="procediments__body__item" 
         @click="showInstructions(procediment.mnemonico)"
       />

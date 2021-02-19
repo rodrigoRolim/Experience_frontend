@@ -12,19 +12,19 @@
       class="attendances_items"
       v-else
       v-for="attendance in attendances" :key="attendance.atendimento"
-      :name="attendance.nome_cliente"
-      :age="attendance.data_nas | ageByBirthday"
+      :name="attendance.nomeCliente"
+      :age="attendance.dataNas | ageByBirthday"
       :gender="attendance.sexo | sexByInitial"
       :attendance="attendance.atendimento.toString()"
       :health-center="attendance.posto.toString()"
-      :agreement="attendance.nome_convenio"
-      :dataAttendance="attendance.data_atd | dateFormat"
-      :dataDelivery="attendance.data_entrega | dateFormat"
+      :agreement="attendance.nomeConvenio"
+      :dataAttendance="attendance.dataAtd | dateFormat"
+      :dataDelivery="attendance.dataEntrega | dateFormat"
       :exams="attendance.mnemonicos"
-      :status="attendance.situacao_exames_experience"
+      :status="attendance.situacaoExamesExperience"
       :patient="attendance.registro.toString()"
-      :doctor="attendance.nome_solicitante"
-      :health-insurance="attendance.nome_convenio"
+      :doctor="attendance.nomeSolicitante"
+      :health-insurance="attendance.nomeConvenio"
     ></attendance-list-item>
     <div class="attendances__loading" v-if="statusPush === 'loading'" >
       <code-message

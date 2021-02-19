@@ -17,17 +17,17 @@
       <patient-list-item class="patitent__body__item"
         v-for="patient in patients"
         :key="patient.atendimento"
-        :name="patient.nome_cliente"
+        :name="patient.nomeCliente"
         :sex="patient.sexo | sexByInitial"
-        :age="patient.data_nas | ageByBirthday"
+        :age="patient.dataNas | ageByBirthday"
         :phone="patient.telefone | phoneTrim"
-        :doctor="patient.nome_solicitante"
-        :delivery-date="patient.data_entrega | dateFormat"
+        :doctor="patient.nomeSolicitante"
+        :delivery-date="patient.dataEntrega | dateFormat"
         :lastest-attendances="patient.ultimos_atendimentos"
         :patient-id="patient.registro"
         :attendance-id="patient.atendimento"
         :health-center-id="patient.posto"
-        :health-insurance="patient.nome_convenio"
+        :health-insurance="patient.nomeConvenio"
       />
       <div class="patients__loading" v-if="statusPush == 'loading'" >
         <code-message
