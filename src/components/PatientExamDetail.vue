@@ -19,7 +19,9 @@
       <div class="exame__content" v-else>
         <div class="exame__content__row" v-for="result in results" :key="result.variavelId">
           <div class="name__exame">{{result.variavelNome}}</div>
-          <div class="exame__result">{{result.valor}}<span class="exame__result__unity">{{result.variavelUnidade}}</span></div>
+          <div class="exame__result">
+            <div class="exam__value">{{result.valor}}</div>
+            <span class="exame__result__unity">{{result.variavelUnidade}}</span></div>
         </div>
       </div>
       <code-message
@@ -163,11 +165,17 @@ export default {
   margin-left: 5px
   font-style: italic
 .exame__result
+  display: flex
+  justify-content: flex-end
+  align-self: flex-end
   letter-spacing: 0.5px
+  width: 25%
 .exame__header .exame__name
   text-align: center
   margin: 0px auto
   color: gray
+h2
+  font-weight: 400
 .exam__modal__body
   display: flex
   flex-direction: column

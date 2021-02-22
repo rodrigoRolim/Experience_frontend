@@ -10,6 +10,7 @@
         :noBorderRight="noBorderRight"
         :noBorderLeft="noBorderLeft"
         bolder
+        @enter="enterEvent"
         @blur="mountDate"
         :error="error"
       /> 
@@ -171,6 +172,9 @@ export default {
     }
   },
   methods: {
+    enterEvent(e) {
+      this.$emit('enter', e)
+    },
     isValidWrittenDate(writtenDay, writtenMonth, writtenYear) {
 
       return !!writtenDay   &&

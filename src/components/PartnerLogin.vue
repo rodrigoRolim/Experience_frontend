@@ -17,6 +17,7 @@
           color="#333"
           icon="handshake"
           numeric
+          @enter="confirm"
           :error="validate.posto"
         />
       </div>
@@ -34,6 +35,7 @@
           v-model="partner.senha"
           icon="lock"
           color="#333"
+          @enter="confirm"
           :error="validate.senha"
           @keypress.enter="confirm"
         />
@@ -48,7 +50,6 @@
           letters="uppercase"
           color="theme"
           size="md"
-          shading
           streched
           size-icon="lg"
           :loading="showLoader"
@@ -143,9 +144,6 @@ export default {
         let resp = await this.login({ url: USER_AUTH, credentials: partner, typeUser: PARTNER_TYPE })
         this.success(resp.status, PARTNER_ROUTE)
       } catch (err) {
-
-        //let refused = err.message === 'Network Error' ? 502 : undefined
-        //this.error(refused || err.response.status) 
 
         this.error()
         this.$emit('loading', false)

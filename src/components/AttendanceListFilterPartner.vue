@@ -26,7 +26,6 @@
           <code-label
             class="attendances-filter-partner__label"
             label="Acomodação"
-            
             :fontWeight="400"
             fontSize="0.9rem"
             fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'

@@ -44,6 +44,7 @@
           color="#333"
           icon="user"
           :error="validate.cpf"
+          @enter="confirm"
         />
       </div>
       <div class="login-patient__birthday" v-if="visibility !== 'ID'">
@@ -61,6 +62,7 @@
             icon="birthday-cake" 
             placeholder="data de nascimento"
             :error="validate.nascimento"
+            @enter="confirm"
          />
 
       </div>
@@ -81,6 +83,7 @@
           v-model="idAttendance"
           :focused="focusedInput == 'atendimento'"
           @focus="focusInput"
+          @enter="confirm"
           color="#333"
           icon="user"
           :error="validate.atendimento"
@@ -100,6 +103,7 @@
           id="patient-password"
           icon="lock"
           @focus="focusInput"
+          @enter="confirm"
           v-model="password"
           :focused="focusedInput == 'senha'"
           :error="validate.senha"
@@ -127,7 +131,6 @@
           letters="uppercase"
           color="theme"
           size="md"
-          shading
           streched
           size-icon="lg"
           :loading="showLoader"

@@ -18,7 +18,7 @@
         :mnemonico="exam.mnemonico" 
         :correl="exam.correl"
         :type-delivery="exam.tipoEntrega"
-        @click="showExamResult(exam.correl, exam.nome_procedimento)" 
+        @click="showExamResult(exam.correl, exam.nomeProcedimento)" 
         class="patient-exams__item"
       />
     </div>

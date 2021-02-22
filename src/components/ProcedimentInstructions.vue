@@ -3,7 +3,7 @@
     <div class="procediment-instructions__header">
       <div class="procediment-instructions__titles">
         <span class="procediment-instructions__procediment-title">
-         GLICEMIA POS DEXTROSE 15 MIN APOS 75G
+        {{instructions.nomeExame}}
         </span>
         <span class="procediment-instructions__instructions-title">
           Instruções de Exame
@@ -36,7 +36,7 @@
         </template>
         <template v-slot:body>
           <div class="procediment-instructions__wrap" v-if="aba == 1">
-            <div class="procediment-instructions__content" v-html="instructions"></div>
+            <div class="procediment-instructions__content" v-html="instructions.Preparo"></div>
           </div>
         </template>
       </code-menu-abas>  

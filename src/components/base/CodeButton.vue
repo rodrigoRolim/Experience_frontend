@@ -128,6 +128,9 @@ export default {
   line-height: 1.42857143
   outline: none
   cursor: pointer
+.button:focus
+  border: 1px solid $color__primary
+  opacity: 0.7
 .button__content
   display: flex
   align-items: center

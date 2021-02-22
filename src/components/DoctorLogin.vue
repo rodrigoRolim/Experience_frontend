@@ -16,8 +16,6 @@
             name="attendance"
             option="conselho profissional"
             v-model="doctor.sigla"
-            :width="7"
-            :height="9"
             :error="validate.sigla"
           ></code-select>
         </div>
@@ -35,8 +33,6 @@
             :options="ufs"
             option="UF conselho"
             v-model="doctor.uf"
-            :width="7"
-            :height="9"
             :error="validate.uf"
           ></code-select>
        </div>
@@ -52,14 +48,12 @@
         <code-input
           placeholder="Número Conselho Profissional"
           name="numcrm"
-          :width="7"
-          :height="9"
-          :weight="500"
           icon="stethoscope"
           v-model="doctor.crm"
           color="#333"
           numeric
           :error="validate.crm"
+          @enter="confirm"
         />
       </div>
       <div class="doctor-login__password">
@@ -76,6 +70,7 @@
           :width="7"
           :height="9"
           icon="lock"
+          @enter="confirm"
           v-model="doctor.senha"
           :error="validate.senha"
         />
@@ -90,7 +85,6 @@
           letters="uppercase"
           color="theme"
           size="md"
-          shading
           streched
           size-icon="lg"
           :loading="showLoader"

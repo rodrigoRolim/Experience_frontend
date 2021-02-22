@@ -12,7 +12,11 @@
     </div>
     <div
       class="dropdown__contents"
-      :class="{'dropdown__contents--isdropable': dropdown, 'dropdown--visible': show && dropdown, 'dropdown--hidden': !show && dropdown }"
+      :class="{
+        'dropdown__contents--isdropable': dropdown, 
+        'dropdown--visible': show && dropdown, 
+        'dropdown--hidden': !show && dropdown,
+        'dropdown--overflow': hiddenElements }"
       >
       <slot name="content"></slot>
     </div>
@@ -29,7 +33,8 @@ export default {
   },
   data () {
     return {
-      show: false
+      show: false,
+      hiddenElements: false
     }
   },
   created () {
@@ -37,8 +42,14 @@ export default {
   methods: {
     showContent () {
       // document.body.style.overflow = (!this.show) ? 'hidden' : 'auto'
-
+      this.overflow()
       this.show = !this.show
+    },
+    overflow() {
+      this.hiddenElements = true
+      setTimeout(() => {
+        this.hiddenElements = false
+      }, 600)
     }
   }
 }
@@ -79,6 +90,7 @@ $duration-visible: 0.6s
 .dropdown__button-icon
   margin-right: 10px
 .dropdown__contents
+  max-height: $max-height
   @include respond-to(handhelds)
     -webkit-transition: max-height $duration-visible ease-in
     transition: max-height $duration-visible ease-in
@@ -96,6 +108,8 @@ $duration-visible: 0.6s
     max-height: $max-height
   @include respond-to(medium-screens)
     max-height: $max-height
+.dropdown--overflow
+  overflow: hidden
 .dropdown--hidden
   @include respond-to(handhelds)
     max-height: 0

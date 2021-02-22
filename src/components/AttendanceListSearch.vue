@@ -9,9 +9,8 @@
       required
       icon="search"
       color-icon="#368c8c"
-      @input="setName"
-      :value="params.name"
-      @enter="exec"
+      v-model="namePatient"
+      @enter="search"
     />
   </div>
 </template>
@@ -33,17 +32,26 @@ export default {
   data () {
     return {
       modal: false,
-      namePatient: ''
+      name: ''
     }
   },
   computed: {
     ...mapGetters (NAMESPACED_AUTH, [
       'userTypeAuthed',
-      'healthCenterLogged'
+      'healthCenterLogged',
+      'userId'
     ]),
     ...mapGetters (NAMESPACED_ATTENDANCE, [
       'params'
-    ])
+    ]),
+    namePatient: {
+      set(value) {
+        this.name = value.toUpperCase()
+      },
+      get() {
+        return this.name.toUpperCase()
+      }
+    }
   },
   methods: {
     paramsQuery () {
@@ -54,17 +62,19 @@ export default {
       if (this.params.situation.id) queries['situacao'] = this.params.situation.id
       queries['limit'] = this.params.limit
       queries['page'] = this.params.page
-      if (this.params.name) queries['nome'] = this.params.name
+      if (this.params.name) queries['nome'] = this.namePatient
     
       return queries
     },
-    async exec () {
+    async search() {
       let headers = {'X-Paginate': true}
+      const id = this.healthCenterLogged || this.userId
       this.renitiPage()
-      await this.filterAttendanceByName({ url: this.getURI(this.healthCenterLogged), params: this.paramsQuery(), headers })
+      await this.filterAttendanceByName({ url: this.getURI(id), params: this.paramsQuery(), headers })
 
     },
     getURI(id) {
+      console.log(id)
       return GET_ATTENDANCES(
           id,
           this.params.begin.split(" - ").join("-"),
