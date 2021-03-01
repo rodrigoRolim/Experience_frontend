@@ -68,14 +68,17 @@ const getters = {
 }
 
 const actions = {
-  [GET_ATTENDANCES_STORE]: ({ commit }, { url, params, headers }) => {
+  [GET_ATTENDANCES_STORE]: ({ commit }, { url, params = {}, headers = {} }) => {
     commit(REINIT_PAGINATION)
     commit(EMPTY_ATTENDANCES)
     commit(TOTAL_ATTENDANCES, 0)
     commit(LOADING)
+    console.log(url)
     return new Promise((resolve, reject) => {
       requestResource({ url, params, method: 'GET', headers })
         .then((resp) => {
+          console.log(resp)
+          console.log(url)
           commit(GET_ATTENDANCES_STORE, resp.data.docs || resp.data)
           commit(TOTAL_ATTENDANCES, resp.data.total)
           commit(TOTAL_PAGES, resp.data.pages)

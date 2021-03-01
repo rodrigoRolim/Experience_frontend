@@ -37,11 +37,11 @@ const getters = {
   params: state => state.params,
   checkedExams: state => state.checkedExams,
   numberCheckedExams: state => state.checkedExams.length,
-  findExamNameByCorrel: state => (correl) => state.exams.find(ex => correlatives(ex.correl) !== correl).nome_procedimento,
+  findExamNameByCorrel: state => (correl) => state.exams.find(ex => correlatives(ex.correl) !== correl).nomeProcedimento,
   checked: (state) => (correl) => state.checkedExams.includes(correlatives(correl)),
   someExamChecked: state => state.checkedExams.length > 0,
-  allExamsChecked: state => state.checkedExams.length === state.exams.filter(exam => exam.situacao_experience === 'FINALIZADO' && exam.tipo_entrega == '*').length,
-  someFinalizedExam: state => state.exams.some(exam => exam.situacao_experience === 'FINALIZADO' && exam.tipo_entrega == '*'),
+  allExamsChecked: state => state.checkedExams.length === state.exams.filter(exam => exam.situacaoExperience === 'FINALIZADO' && exam.tipoEntrega == '*').length,
+  someFinalizedExam: state => state.exams.some(exam => exam.situacaoExperience === 'FINALIZADO' && exam.tipoEntrega == '*'),
 }
 
 const actions = {
@@ -98,7 +98,7 @@ const mutations = {
   },
   [MESSAGE]: (state, status) => {
     const expiredSession = status === 401
-    const message = httpMessage({ status, data: 'exams', experired: expiredSession })
+    const message = httpMessage({ status, data: 'exams', expired: expiredSession })
     state.message = message
   },
   [SELECTED]: (state, selected) => {
