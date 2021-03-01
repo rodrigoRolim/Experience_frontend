@@ -141,6 +141,7 @@ export default {
     getMoreAttendances () {
 
       if (this.hasMoreAttendances()) {
+   
         this.nextPage()
         let headers = {'X-Paginate': true}
         this.requestMoreAttendances({ url: this.getURL(), params: this.paramsQuery(), headers })

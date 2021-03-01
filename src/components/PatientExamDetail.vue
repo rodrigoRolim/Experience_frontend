@@ -156,7 +156,6 @@ export default {
   background-color: white
   border-radius: 2px
   width: 700px
-  min-height: 90vh
   @include respond-to(handhelds)
     width: 95vw
     border-radius: 6px

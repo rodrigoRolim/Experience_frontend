@@ -8,6 +8,7 @@
             label="Período"
             :fontWeight="400"
             fontSize="0.9rem"
+            color="white"
             fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
           ></code-label>
           <div class="period__dates">
@@ -27,6 +28,7 @@
             label="Posto"
             :fontWeight="400"
             fontSize="0.9rem"
+            color="white"
             fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
           ></code-label>
           <code-select
@@ -44,6 +46,7 @@
             label="Acomodação"
             :fontWeight="400"
             fontSize="0.9rem"
+            color="white"
             fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
           ></code-label>
           <code-select
@@ -59,6 +62,7 @@
           <code-label
             class="attendance-list-filter-healthcenter__label"
             label="Situação"
+            color="white"
             :fontWeight="400"
             fontSize="0.9rem"
             fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
@@ -78,6 +82,7 @@
             label="Posto Realizante"
             :fontWeight="400"
             fontSize="0.9rem"
+            color="white"
             fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
           ></code-label>
           <code-select
