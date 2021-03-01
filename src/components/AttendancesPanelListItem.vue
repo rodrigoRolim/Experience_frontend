@@ -64,11 +64,11 @@ export default {
    counter() {
       const dateCurr = new Date()
       let hours = Math.abs(this.attendanceTime - dateCurr.getTime()) / 36e5
-      let roundHours = hours.toString().split(".")[0]
-      let minutes = (hours - roundHours)*60
-      let roundMinutes = minutes.toString().split(".")[0]
-      let seconds = (minutes - roundMinutes)*60
-      this.timeWaiting = roundHours + ":" + roundMinutes + ":" + seconds.toString().split(".")[0]
+      let integerHours = hours.toString().split(".")[0]
+      let minutes = (hours - integerHours)*60
+      let integerMinutes = minutes.toString().split(".")[0]
+      let seconds = (minutes - integerMinutes)*60
+      this.timeWaiting = integerHours + ":" + integerMinutes + ":" + seconds.toString().split(".")[0]
    }
   }
 }
