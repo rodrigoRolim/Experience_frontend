@@ -92,3 +92,25 @@ export const correlative = {
     }
   }
 }
+
+export const time = {
+  filters: {
+    time(date) {
+      const datetime = date.split(" ")
+      const dateComplete = datetime[0].split("-")
+      const day = dateComplete[2]
+      const month = +dateComplete[1] - 1
+      const year = dateComplete[0]
+      const time = datetime[1].split(":")
+      const hour = time[0]
+      const min = time[1]
+      const second = time[2]
+      console.log(datetime)
+      console.log(time)
+      console.log(day, month, year)
+      const dateInMiliSec = new Date(year, month, day, hour, min, second).getTime()
+      console.log(new Date(year, month, day, hour, min, second))
+      return dateInMiliSec
+    }
+  }
+}
