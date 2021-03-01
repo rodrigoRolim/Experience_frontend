@@ -231,6 +231,7 @@ export default {
   width: 100%
   top: 0
   right: 0
+  z-index: 1
 .logins
   display: flex
   flex-direction: column
