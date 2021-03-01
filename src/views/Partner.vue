@@ -1,6 +1,10 @@
 <template>
   <div class="partner">
-    <div class="partner__navbar" :class="{ 'partner__navbar--up-hidden': hiddenElement }"> 
+    <div
+      v-if="hiddenNavOnPanelAttendaces"
+      class="partner__navbar" 
+      :class="{ 'partner__navbar--up-hidden': hiddenElement }"
+    > 
       <the-navbar logo="logo_cedro">
         <template v-slot:home>
           <code-tooltip
@@ -49,6 +53,11 @@ export default {
   data () {
     return {
      
+    }
+  },
+  computed: {
+    hiddenNavOnPanelAttendaces() {
+      return this.$route.path === '/parceiro/painel-attendances'
     }
   },
   methods: {

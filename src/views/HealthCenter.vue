@@ -1,10 +1,14 @@
 <template>
   <div class="health-center">
-    <div class="health-center__navbar" :class="{ 'health-center--up-hidden': hiddenElement }">
+    <div
+      v-if="hiddenNavOnPanelAttendaces"
+      class="health-center__navbar" 
+      :class="{ 'health-center--up-hidden': hiddenElement }"
+    >
       <the-navbar>
         <template v-slot:home>
           <code-tooltip
-            text="lista de atendimentos"
+            text="lista atendimentos"
           >
             <template v-slot:element>
               <code-button
@@ -51,6 +55,11 @@ export default {
       screen: -1
     }
   },
+  computed: {
+    hiddenNavOnPanelAttendaces() {
+      return this.$route.path === '/posto/painel-attendances'
+    }
+  },
   methods: {
     redirectToAttendanceListView() {
       if (this.$route.path !== '/posto')
@@ -61,7 +70,6 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-
 .health-center__navbar
   position: fixed
   width: 100%
