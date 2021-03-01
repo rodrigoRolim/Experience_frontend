@@ -244,3 +244,5 @@ export const UFS = [
  * 
  * **/
 export const LIMIT = 100
+/* keys */
+export const LS_ROUTE_KEY = 'LAST_ROUTE'

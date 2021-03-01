@@ -6,7 +6,8 @@ import {
   PARTNER_TYPE, 
   HEALTH_CENTER_TYPE, 
   // EMPTY_ATTENDANCES, 
-  CANCEL_PENDING_REQUESTS, 
+  CANCEL_PENDING_REQUESTS,
+  LS_ROUTE_KEY
 } from '../utils/alias'
 
 const authorization = (to, from, next) => {
@@ -21,6 +22,11 @@ const authorization = (to, from, next) => {
   if (store.getters['auth/isAuthenticated'] && authUser && storedPath === accessPath) {
     
     next();
+    return
+  }
+  if (store.getters['auth/isAuthenticated']) {
+
+    next(localStorage.getItem(LS_ROUTE_KEY));
     return
   }
   next(storedPath)
@@ -81,7 +87,7 @@ const router = new VueRouter({
         {
           path: 'paciente-exames',
           name: 'doctorExamsPatient',
-          beforeEnter: authorization,
+         // beforeEnter: authorization,
           props: true,
           component: () => import(/* webpackChunkName: 'Doctor' */ '@/views/DoctorPatientExams'),
         }
@@ -101,10 +107,16 @@ const router = new VueRouter({
         {
           path: 'paciente-exames',
           name: 'partnerExamsPatient',
-          beforeEnter: authorization,
+          //beforeEnter: authorization,
           meta: { typeUser: PARTNER_TYPE },
           component: () => import(/* webpackChunkName: 'Partner' */ '@/views/PartnerPatientExams'),
           props: true
+        },
+        {
+          path: 'painel-atendimentos',
+          //beforeEnter: authorization,
+          name: 'AttendancesPainelPartner',
+          component: () => import(/* webpackChunkName: 'Procediments' */ '@/views/AttendancesPainel')
         }
       ]
     },
@@ -137,10 +149,16 @@ const router = new VueRouter({
         },
         {
           path: 'paciente-exames',
-          beforeEnter: authorization,
+          //beforeEnter: authorization,
           name: 'healthCenterExamsPatient',
           props: true,
           component: () => import(/* webpackChunkName: 'HealthCenter' */ '@/views/HealthCenterPatientExams')
+        },
+        {
+          path: 'painel-atendimentos',
+          //beforeEnter: authorization,
+          name: 'AttendancesPainelHealthCenter',
+          component: () => import(/* webpackChunkName: 'Procediments' */ '@/views/AttendancesPainel')
         }
       ]
     },
@@ -157,4 +175,7 @@ const router = new VueRouter({
   ]
 })
 
+router.afterEach(to => {
+  localStorage.setItem(LS_ROUTE_KEY, to.path)
+})
 export default router
