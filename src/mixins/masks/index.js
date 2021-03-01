@@ -35,11 +35,11 @@ export const identifier = {
         console.log('hi')
         input = input.substr(0, input.length - 3)
       }
-      console.log('input:', input)
+
       let values = input.split(/\//).map(function(v) {
         return v.replace(/\D/g, '')
       });
-      console.log(value)
+
       let output = values.map(function (v, i) {
         return (v.length >= 3 && i == 0) ? v + ' / ' : v
       })

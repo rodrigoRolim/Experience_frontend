@@ -105,11 +105,9 @@ export const time = {
       const hour = time[0]
       const min = time[1]
       const second = time[2]
-      console.log(datetime)
-      console.log(time)
-      console.log(day, month, year)
+
       const dateInMiliSec = new Date(year, month, day, hour, min, second).getTime()
-      console.log(new Date(year, month, day, hour, min, second))
+
       return dateInMiliSec
     }
   }

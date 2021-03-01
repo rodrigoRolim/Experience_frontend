@@ -57,7 +57,7 @@ export default {
   },
   computed: {
     hiddenNavOnPanelAttendaces() {
-      return this.$route.path === '/posto/painel-attendances'
+      return this.$route.path !== '/posto/painel-attendances'
     }
   },
   methods: {

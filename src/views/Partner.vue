@@ -57,7 +57,8 @@ export default {
   },
   computed: {
     hiddenNavOnPanelAttendaces() {
-      return this.$route.path === '/parceiro/painel-attendances'
+      console.log(this.$route.path)
+      return this.$route.path !== '/parceiro/painel-attendances'
     }
   },
   methods: {
