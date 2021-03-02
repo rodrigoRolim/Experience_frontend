@@ -10,16 +10,16 @@
     >
       <attendance-relations-item
         :item="i"
-        :name-patient="attendance.nome_cliente"
-        :delivery-date="attendance.data_entrega | dateFormat"
+        :name-patient="attendance.nomeCliente"
+        :delivery-date="attendance.dataEntrega | dateFormat"
         :gender="attendance.sexo | sexByInitial"
-        :age="attendance.data_nas | ageByBirthday"
-        :doctor="attendance.nome_solicitante"
-        :attendance-date="attendance.data_atd | dateFormat"
+        :age="attendance.dataNas | ageByBirthday"
+        :doctor="attendance.nomeSolicitante"
+        :attendance-date="attendance.dataAtd | dateFormat"
         :attendance="attendance.atendimento"
         :health-center="attendance.posto"
         :list-exams="attendance.mnemonicos"
-        :health-insurance="attendance.nome_convenio"
+        :health-insurance="attendance.nomeConvenio"
         :patient="attendance.registro"
         @selected="selectedByDefault"
       />

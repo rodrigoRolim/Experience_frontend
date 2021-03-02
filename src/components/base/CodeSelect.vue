@@ -277,7 +277,6 @@ export default {
     bottom: 0
     width: 100px
     position: static
-
 .custom-select__option
   list-style-type: none
   cursor: pointer

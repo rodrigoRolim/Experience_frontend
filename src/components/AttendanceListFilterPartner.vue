@@ -374,6 +374,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+@import "../styles/__themes"
 .attendances-filter-partner
   display: flex
   flex-direction: row
@@ -389,6 +390,8 @@ export default {
     max-height: 450px
     overflow-y: auto
     width: 100%
+.attendance-list-filter-healthcenter__label
+  color: $color__text
 .attendances-filter-partner__accomodation,
 .attendances-filter-partner__situation
   width: 15%

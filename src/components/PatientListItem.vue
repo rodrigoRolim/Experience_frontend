@@ -158,6 +158,8 @@ export default {
   padding: 10px
   background-color: rgba(0,0,0,0.03)
   cursor: pointer
+  -webkit-box-shadow: 0 1px 0 rgb(9 30 66 / 25%)
+  box-shadow: 0 1px 0 rgb(9 30 66 / 25%)
 .patient__body
   display: flex
   margin-top: 10px

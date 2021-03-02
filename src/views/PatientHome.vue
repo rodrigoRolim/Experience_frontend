@@ -1,7 +1,9 @@
 <template>
   <div class="patient-exams">
-    <div class="patient-exams__sidebar" 
-      :class="{ 'sidebar--show': attendances, 'sidebar--hidden': !attendances }">
+    <div 
+      class="patient-exams__sidebar" 
+      :class="{ 'sidebar--show': attendances, 'sidebar--hidden': !attendances }"
+    >
       <the-sidebar />
     </div>
     <div class="patient-exams__main">
