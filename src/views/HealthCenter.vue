@@ -1,7 +1,7 @@
 <template>
   <div class="health-center">
     <div
-      v-if="hiddenNavOnPanelAttendaces"
+      v-if="hiddenNavOnPanelAttendaces()"
       class="health-center__navbar" 
       :class="{ 'health-center--up-hidden': hiddenElement }"
     >
@@ -55,12 +55,10 @@ export default {
       screen: -1
     }
   },
-  computed: {
-    hiddenNavOnPanelAttendaces() {
-      return this.$route.path !== '/posto/painel-attendances'
-    }
-  },
   methods: {
+    hiddenNavOnPanelAttendaces() {
+      return this.$route.path !== '/posto/painel-atendimentos'
+    },
     redirectToAttendanceListView() {
       if (this.$route.path !== '/posto')
         this.$router.replace('/posto')

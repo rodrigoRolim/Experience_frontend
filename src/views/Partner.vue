@@ -1,7 +1,7 @@
 <template>
   <div class="partner">
     <div
-      v-if="hiddenNavOnPanelAttendaces"
+      v-if="hiddenNavOnPanelAttendaces()"
       class="partner__navbar" 
       :class="{ 'partner__navbar--up-hidden': hiddenElement }"
     > 
@@ -55,13 +55,11 @@ export default {
      
     }
   },
-  computed: {
+  methods: {
     hiddenNavOnPanelAttendaces() {
       console.log(this.$route.path)
-      return this.$route.path !== '/parceiro/painel-attendances'
-    }
-  },
-  methods: {
+      return this.$route.path !== '/parceiro/painel-atendimentos'
+    },
     redirectToAttendanceListView() {
 
       if (this.$route.path !== '/parceiro')

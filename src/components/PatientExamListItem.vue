@@ -133,6 +133,8 @@ export default {
   border-radius: 2px
   min-height: 120px
   user-select: none
+  -webkit-box-shadow: 0 1px 0 rgb(9 30 66 / 25%)
+  box-shadow: 0 1px 0 rgb(9 30 66 / 25%)
 .patient-exam:hover
   -webkit-box-shadow:  0 0 6px rgba(0,0,0,.3)
   box-shadow:  0 0 6px rgba(0,0,0,.3)

@@ -111,6 +111,8 @@ export default {
   padding: 10px
   cursor: pointer
   border-radius: 5px
+  -webkit-box-shadow: 0 1px 0 rgb(9 30 66 / 25%)
+  box-shadow: 0 1px 0 rgb(9 30 66 / 25%)
 .attendance-item__header
   height: 20px
 .attendance-item__name-patient
