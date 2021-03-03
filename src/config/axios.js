@@ -1,41 +1,16 @@
 import axios from 'axios'
 import store from '../store/index'
 import { ADD_CANCEL_TOKEN, REFRESH_TOKEN } from '../utils/alias'
+import { getLabRouter } from './lab-router'
 
-(function() {
-  //localStorage.removeItem('custom-access')
-  let customAccess = {}
-  let currentPath = window.location.pathname
-  //let storedPath = JSON.parse(localStorage.getItem('custom-access'))?.rootPath
+let currentPath = window.location.pathname
 
-  const isCedroAccess = currentPath === '/lab-cedro'
-  const isCortezAccess = currentPath === '/lab-cortez'
+let laboratory = ''
 
-  if (isCedroAccess) {
+if (currentPath === '/lab-cedro') laboratory = 'cedro' 
+if (currentPath === '/lab-cortez') laboratory = 'cortez'
 
-    customAccess = {
-      endpoint: process.env.VUE_APP_API_CEDRO,
-      theme: "cedro",
-      logo: "cedro",
-      mask: process.env.VUE_APP_MASK_ATTENDANCE_CEDRO,
-      rootPath: '/lab-cedro'
-    }
-    localStorage.setItem('custom-access', JSON.stringify(customAccess))
-    return 
-  }
-
-  if (isCortezAccess) {
- 
-    customAccess = {
-      endpoint: process.env.VUE_APP_API_CORTEZ,
-      theme: "cortez",
-      logo: "cortez",
-      mask: process.env.VUE_APP_MASK_ATTENDANCE_CORTEZ,
-      rootPath: '/lab-cortez'
-    }
-    localStorage.setItem('custom-access', JSON.stringify(customAccess))
-  }
-})()
+getLabRouter(laboratory)
 
 const serverExperience = axios.create({
   baseURL:  JSON.parse(localStorage.getItem('custom-access'))?.endpoint + ":9001",
