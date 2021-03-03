@@ -1,5 +1,11 @@
 <template>
 <div class="input-password__wrap">
+  <label
+    v-if="label"
+    :for="name" 
+    class="input-password__label"
+    :class="labelClasses"
+  >{{label}}</label>
    <div class="input-password">
       <i 
         class="input-password__icon"
@@ -11,7 +17,7 @@
       <input
         ref="input"
         class="input-password__input"
-        placeholder="senha" 
+        placeholder="senha"
         :type="type" 
         :name="name" 
         :id="name"
@@ -53,6 +59,14 @@ export default {
       type: String,
       required: true
     },
+    labelColor: {
+      type: String,
+      default: 'default',
+      validator: (value) => {
+        return ['default', 'primary', 'secondary', 'danger'].indexOf(value) !== -1
+      }
+    },
+    label: String,
     id: {
       type: String,
       required: true
@@ -127,6 +141,9 @@ export default {
         'input-password--outline': this.outlineInput && !this.error,
         'input-password--error': this.error
       }
+    },
+    labelClasses() {
+      return 'input__label--' + this.labelColor
     }
   },
   methods: {
@@ -166,6 +183,7 @@ export default {
   display: flex
   flex-direction: row
   width: 100%
+  margin-top: 5px
 input[type="password"]
   font-family: "fontello"
   font-style: normal
@@ -187,6 +205,15 @@ input[type="text"]
   border-left: none
   width: 100%
   min-width: 20px
+.input-password__label
+  margin-left: 5px
+  font-size: 0.8rem
+  font-weight: 700
+  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif
+.input-password__label--default
+  color: $color__label
+.input-password__label--primary
+  color: $color__primary
 .input-password__input::placeholder
   font-family: Avenir, Helvetica, Arial, sans-serif
   text-transform: capitalize

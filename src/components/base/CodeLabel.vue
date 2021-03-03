@@ -1,6 +1,6 @@
 <template>
   <div class="code-label">
-    <label class="code-label__label" :for="bind" v-bind:style="style">{{label}}<slot name="input"></slot></label>
+    <label class="code-label__label" :for="bind" v-bind:style="style">{{label}}</label>
   </div>
 </template>
 

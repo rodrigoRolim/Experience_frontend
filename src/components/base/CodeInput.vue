@@ -1,6 +1,11 @@
 <template>
   <div class="input-wrap">
-    <!-- <label :for="name" class="input__label">{{label}}</label> -->
+    <label
+      v-if="label"
+      :for="name" 
+      class="input__label"
+      :class="labelClasses"
+    >{{label}}</label>
     <div class="container-input">
       <i v-if="icon"
         class="container-input__icon" 
@@ -44,6 +49,13 @@ export default {
       type: String,
       default: 'dimgray'
     },
+    labelColor: {
+      type: String,
+      default: 'default',
+      validator: (value) => {
+        return ['default', 'primary', 'secondary', 'danger'].indexOf(value) !== -1
+      }
+    },
     name: {
       type: String,
       required: true
@@ -62,7 +74,6 @@ export default {
       type: String
     },
     label: String,
-    labelColor: String,
     bolder: Boolean,
     caret: {
       type: []
@@ -126,6 +137,9 @@ export default {
         'container-input__icon--outline-error': this.error,
         'container-input--error': this.error
       }
+    },
+    labelClasses() {
+      return 'input__label--' + this.labelColor
     }
   },
   methods: {
@@ -165,7 +179,15 @@ export default {
   flex-direction: column
   width: 100%
 .input__label
+  margin-left: 5px
+  margin-bottom: 5px
+  font-size: 0.8rem
+  font-weight: 700
   font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif
+.input__label--default
+  color: $color__label
+.input__label--primary
+  color: $color__primary
 .input-wrap__message-error
   margin-top: 40px
   min-width: 120px

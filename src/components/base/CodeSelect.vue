@@ -1,5 +1,11 @@
 <template>
   <div class="custom-select" :id="name" ref="box">
+    <label
+      v-if="label"
+      :for="name" 
+      class="custom-select__label"
+      :class="labelClasses"
+    >{{label}}</label>
     <div class="custom-select__select" ref="containerInput">
       <i 
         class="custom-select__icon"
@@ -80,7 +86,15 @@ export default {
     icon: String,
     name: String,
     error: String,
-    value: [Object, String]
+    value: [Object, String],
+    labelColor: {
+      type: String,
+      default: 'default',
+      validator: (value) => {
+        return ['default', 'primary', 'secondary', 'danger'].indexOf(value) !== -1
+      }
+    },
+    label: String
   },
   data () {
     return {
@@ -132,6 +146,9 @@ export default {
       return this.options.filter((option) => option.name.toLowerCase()
         .includes(this.digiteds.toLowerCase()))
     },
+    labelClasses() {
+      return 'input__label--' + this.labelColor
+    }
   },
   watch: {
     filterOptionsByKeys () {
@@ -243,6 +260,15 @@ export default {
 @import "../../styles/__themes.sass"
 .custom-select 
   position: relative
+.custom-select__label
+  margin-left: 5px
+  font-size: 0.8rem
+  font-weight: 700
+  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif
+.custom-select__label--default
+  color: $color__label
+.custom-select__label--primary
+  color: $color__primary
 .custom-select__modal
   @include respond-to(handhelds)
     display: flex
@@ -288,6 +314,7 @@ export default {
   background-color: rgba(0, 0, 0, 0.1)
 .custom-select__select
   display: flex
+  margin-top: 5px
 .custom-select__select:focus
   outline: none
 .custom-select__input
