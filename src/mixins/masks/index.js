@@ -31,9 +31,7 @@ export const identifier = {
       const mask = JSON.parse(localStorage.getItem('custom-access')).mask
       const hcSize = +mask.split(':')[0]
       const attSize = +mask.split(':')[1] + hcSize + 3
-      console.log(mask)
-      console.log(hcSize)
-      console.log(attSize)
+
       let input = value
       
       if (/\D\/$/g.test(input)) {

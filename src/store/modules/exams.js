@@ -48,6 +48,7 @@ const actions = {
   [GET_EXAMS_STORE]: ({commit}, { url, params = {}, headers }) => {
     commit(MESSAGE, undefined)
     commit(LOADING)
+    commit(GET_EXAMS_STORE, [])
     return new Promise((resolve, reject) => {
       requestResource({ url, params, method: 'GET', headers })
         .then((resp) => {         

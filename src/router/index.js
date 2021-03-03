@@ -1,5 +1,6 @@
 import VueRouter from 'vue-router'
 import store from '../store'
+import { getLabRouter } from '../config/lab-router'
 import { 
   DOCTOR_TYPE, 
   PATIENT_TYPE, 
@@ -34,33 +35,12 @@ const authorization = (to, from, next) => {
 
 const getLaboratory = (to, from, next) => {
 
-  let customAccess = {}
   let currentPath = JSON.parse(localStorage.getItem('custom-access'))?.rootPath
-  const isCedroAccess = currentPath === '/lab-cedro' || to.path === '/lab-cedro'
-  const isCortezAccess = currentPath === '/lab-cortez' || to.path === '/lab-cortez'
-  
-  if (isCedroAccess) {
-    
-    customAccess = {
-      endpoint: process.env.VUE_APP_API_CEDRO,
-      theme: "cedro",
-      logo: "cedro",
-      mask: process.env.VUE_APP_MASK_ATTENDANCE_CEDRO,
-      rootPath: '/lab-cedro'
-    }
-    localStorage.setItem('custom-access', JSON.stringify(customAccess))
-  }
-  if (isCortezAccess) {
- 
-    customAccess = {
-      endpoint: process.env.VUE_APP_API_CORTEZ,
-      theme: "cortez",
-      logo: "cortez",
-      mask: process.env.VUE_APP_MASK_ATTENDANCE_CORTEZ,
-      rootPath: '/lab-cortez'
-    }
-    localStorage.setItem('custom-access', JSON.stringify(customAccess))
-  }
+  let laboratory = ''
+  if (currentPath === '/lab-cedro' || to.path === '/lab-cedro') laboratory = 'cedro'
+  if (currentPath === '/lab-cortez' || to.path === '/lab-cortez') laboratory = 'cortez'
+
+  getLabRouter(laboratory)
   next()
 }
 

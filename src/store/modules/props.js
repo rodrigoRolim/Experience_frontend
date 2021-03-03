@@ -1,4 +1,15 @@
-import { SET_PROPS, CLEAN_PROPS } from '../../utils/alias'
+import { 
+  SET_PROPS, 
+  CLEAN_PROPS,
+  SET_PATIENT_NAME,
+  SET_HEALTH_CENTER,
+  SET_ATTENDANCE,
+  SET_GENDER,
+  SET_AGE,
+  SET_DELIVERY_DATE,
+  SET_DOCTOR,
+  SET_HEALTH_INSURANCE
+ } from '../../utils/alias'
 import cookies from 'vue-cookies'
 const state = () => ({
   patient: cookies.get('props')?.patient,
@@ -66,6 +77,62 @@ const mutations = {
     state.deliveryDate = null
     state.doctor = null
     state.healthInsurance = null
+  },
+  [SET_PATIENT_NAME]: (state, newPatientName) => {
+    let props = cookies.get('props');
+    props.namePatient = newPatientName
+    state.namePatient = newPatientName
+    cookies.remove('props')
+    cookies.set('props', props)
+  },
+  [SET_HEALTH_CENTER]: (state, newHealthCenter) => {
+    let props = cookies.get('props');
+    props.healthCenter = newHealthCenter
+    state.healthCenter = newHealthCenter
+    cookies.remove('props')
+    cookies.set('props', props)
+  },
+  [SET_ATTENDANCE]: (state, newAttendance) => {
+    let props = cookies.get('props');
+    props.attendance = newAttendance
+    state.attedance = newAttendance
+    cookies.remove('props')
+    cookies.set('props', props)
+  },
+  [SET_GENDER]: (state, newGender) => {
+    let props = cookies.get('props');
+    props.genderPatient = newGender
+    state.genderPatient = newGender
+    cookies.remove('props')
+    cookies.set('props', props)
+  },
+  [SET_AGE]: (state, newAge) => {
+    let props = cookies.get('props');
+    props.agePatient = newAge
+    state.agePatient = newAge
+    cookies.remove('props')
+    cookies.set('props', props)
+  },
+  [SET_DELIVERY_DATE]: (state, newDeliveryDate) => {
+    let props = cookies.get('props');
+    props.deliveryDate = newDeliveryDate
+    state.deliveryDate = newDeliveryDate
+    cookies.remove('props')
+    cookies.set('props', props)
+  },
+  [SET_DOCTOR]: (state, newDoctor) => {
+    let props = cookies.get('props');
+    props.doctor = newDoctor
+    state.doctor = newDoctor
+    cookies.remove('props')
+    cookies.set('props', props)
+  },
+  [SET_HEALTH_INSURANCE]: (state, newHealthInsurance) => {
+    let props = cookies.get('props')
+    props.healthInsurance = newHealthInsurance
+    state.healthInsurance = newHealthInsurance
+    cookies.remove('props')
+    cookies.set('props', props)
   }
 }
 
