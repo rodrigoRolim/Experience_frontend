@@ -46,9 +46,10 @@ import {
   NAMESPACED_EXAMS, 
   NAMESPACED_ATTENDANCE, 
   GET_ATTENDANCES_RELATIONS, 
-  GET_ATTENDANCES_STORE 
+  GET_ATTENDANCES_STORE, 
+  GET_EXAMS_STORE
 } from '../utils/alias'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { bus } from '../main'
 export default {
   name: 'DoctorPatientExams',
@@ -91,11 +92,18 @@ export default {
     ...mapActions(NAMESPACED_ATTENDANCE, {
       getAttendances: GET_ATTENDANCES_STORE
     }),
+    ...mapMutations(NAMESPACED_EXAMS, {
+      setExamList: GET_EXAMS_STORE
+    }),
     async getAttendancesRelations () {
-
-      let url = GET_ATTENDANCES_RELATIONS(this.patient)
-      await this.getAttendances({ url })
-       
+      try {
+        let url = GET_ATTENDANCES_RELATIONS(this.patient)
+        await this.getAttendances({ url })
+      } catch(e) {
+        if (e.response.status === 404) {
+          this.setExamList([])
+        } 
+      }       
     }
   }
 }
