@@ -2,16 +2,10 @@
   <div class="healthcare-login">
     <form class="healthcare-login__form">
       <div class="healthcare-login__cpf">
-        <code-label
-          bind="user"
-          label="Usuário"
-          color="#676a6c"
-          :fontWeight="700"
-          fontSize="0.8rem"
-         ></code-label>
         <code-input
           placeholder="Usuário"
           v-model="healthCare.userid"
+          label="usuário"
           name="user"
           type="text"
           @enter="confirm"
@@ -21,16 +15,10 @@
         /> 
       </div>
       <div class="healthcare-login__password">
-        <code-label
-          bind="healthPassword"
-          label="Senha"
-          color="#676a6c"
-          :fontWeight="700"
-          fontSize="0.8rem"
-        ></code-label>
          <code-input-password
           id="healthPassword"
           name="healthPassword"
+          label="senha"
           v-model="healthCare.senha"
           @enter="confirm"
           icon="lock"
@@ -39,15 +27,9 @@
         />
       </div>
       <div class="healthcare-login__healtcare-select">
-        <code-label
-          bind="healthcares"
-          label="Posto"
-          color="#676a6c"
-          :fontWeight="700"
-          fontSize="0.8rem"
-        ></code-label>
         <code-select
           :options="list"
+          label="posto"
           option="Selecione um posto"
           v-model="healthCare.posto"
           @enter="confirm"
@@ -81,7 +63,6 @@
 import CodeInput from './base/CodeInput'
 import CodeInputPassword from './base/CodeInputPassword'
 import CodeButton from './base/CodeButton'
-import CodeLabel from './base/CodeLabel'
 import CodeSelect from './base/CodeSelect'
 import { requestResource } from '../services/api'
 import { required, isOption } from '../mixins/validations/rules'
@@ -107,7 +88,6 @@ export default {
     CodeButton,
     CodeInput,
     CodeInputPassword,
-    CodeLabel,
     CodeSelect
   },
   data () {

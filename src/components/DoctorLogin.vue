@@ -3,16 +3,10 @@
     <form class="doctor-login__form">
       <div class="doctor-login__selects">
         <div class="doctor-login__cr">
-          <code-label
-            bind="attendance"
-            label="Conselho Profissional"
-            color="#676a6c"
-            :fontWeight="700"
-            fontSize="0.8rem"
-          ></code-label>
           <code-select
             class="d-cr"
             :options="crs"
+            label="conselhor profissional"
             name="attendance"
             option="conselho profissional"
             v-model="doctor.sigla"
@@ -20,16 +14,10 @@
           ></code-select>
         </div>
        <div class="doctor-login__uf">
-          <code-label
-            bind="ufConselho"
-            label="UF conselho"
-            color="#676a6c"
-            :fontWeight="700"
-            fontSize="0.8rem"
-          ></code-label>
           <code-select
             class="doctor-login__cr-select"
             name="ufConselho"
+            label="UF conselho"
             :options="ufs"
             option="UF conselho"
             v-model="doctor.uf"
@@ -38,15 +26,9 @@
        </div>
       </div>
       <div class="doctor-login__crm">
-        <code-label
-          bind="numcrm"
-          label="Número Conselho Profissional"
-          color="#676a6c"
-          :fontWeight="700"
-          fontSize="0.8rem"
-        ></code-label>
         <code-input
           placeholder="Número Conselho Profissional"
+          label="número conselho profissional"
           name="numcrm"
           icon="stethoscope"
           v-model="doctor.crm"
@@ -57,16 +39,10 @@
         />
       </div>
       <div class="doctor-login__password">
-        <code-label
-          bind="doctorPassword"
-          label="Senha"
-          color="#676a6c"
-          :fontWeight="700"
-          fontSize="0.8rem"
-        ></code-label>
         <code-input-password
           id="doctorPassword"
           name="doctorPassword"
+          label="senha"
           :width="7"
           :height="9"
           icon="lock"
@@ -101,7 +77,6 @@
 import CodeSelect from './base/CodeSelect'
 import CodeInput from './base/CodeInput'
 import CodeInputPassword from './base/CodeInputPassword'
-import CodeLabel from './base/CodeLabel'
 import CodeButton from './base/CodeButton'
 import { required, min } from '../mixins/validations/rules'
 import { validator } from '../mixins/validations/validator'
@@ -116,7 +91,6 @@ export default {
     CodeSelect,
     CodeInput,
     CodeInputPassword,
-    CodeLabel,
     CodeButton
   },
   data () {

@@ -5,6 +5,8 @@
         :placeholder="placeholder"
         :icon="icon"
         :name="name"
+        :label="label"
+        :label-color="labelColor"
         autocomplete="off"
         v-model="inputEmitter"
         :noBorderRight="noBorderRight"
@@ -67,6 +69,14 @@ export default {
     placeholder: String,
     name: String,
     icon: String,
+    label: String,
+    labelColor: {
+      type: String,
+      default: 'default',
+      validator: (value) => {
+        return ['default', 'primary', 'secondary', 'danger'].indexOf(value) !== -1
+      }
+    },
     begin: {
       type: String
     },

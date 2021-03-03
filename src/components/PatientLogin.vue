@@ -27,16 +27,9 @@
         </code-group-radios>
       </div>
       <div class="login-patient__cpf" v-if="visibility !== 'ID'">
-        <code-label
-          bind="cpf"
-          label="Cpf"
-          color="#676a6c"
-          :fontWeight="700"
-          fontSize="0.8rem"
-         ></code-label>
         <code-input
           placeholder="CPF"
-          label="Cpf"
+          label="cpf"
           name="cpf"
           type="text"
           required
@@ -48,16 +41,10 @@
         />
       </div>
       <div class="login-patient__birthday" v-if="visibility !== 'ID'">
-         <code-label
-            bind="birthDay"
-            label="Data nascimento"
-            color="#676a6c"
-            :fontWeight="700"
-            fontSize="0.8rem"
-         ></code-label>
          <code-calendar
             class="calendars__calendar"
-            v-model="birthDay" 
+            v-model="birthDay"
+            label="data nascimento"
             name="begin"
             icon="birthday-cake" 
             placeholder="data de nascimento"
@@ -67,16 +54,11 @@
 
       </div>
       <div class="login-patient__attendance" v-else>
-        <code-label
-          bind="idAttendance"
-          label="Atendimento"
-          color="#676a6c"
-          :fontWeight="700"
-          fontSize="0.8rem"
-         ></code-label>
         <code-input
           ref="atendimento"
           placeholder="ID Atendimento"
+          label="atendimento"
+          label-color="default"
           name="atendimento"
           type="text"
           required
@@ -90,17 +72,11 @@
         />
       </div>
       <div class="login-patient__password">
-        <code-label
-          bind="patient-password"
-          label="Senha"
-          color="#676a6c"
-          :fontWeight="700"
-          fontSize="0.8rem"
-        ></code-label>
         <code-input-password
           ref="senha"
           name="senha"
           id="patient-password"
+          label="senha"
           icon="lock"
           @focus="focusInput"
           @enter="confirm"
@@ -161,7 +137,6 @@
 import CodeInput from './base/CodeInput'
 import CodeButton from './base/CodeButton'
 import CodeCalendar from './base/CodeCalendar'
-import CodeLabel from './base/CodeLabel'
 import CodeRadio from './base/CodeRadio'
 //import CodeTooltip from './base/CodeTooltip'
 import CodeGroupRadios from './base/CodeGroupRadios'
@@ -195,7 +170,6 @@ export default {
     CodeButton,
     CodeInput,
     CodeCalendar,
-    CodeLabel,
     CodeRadio,
     CodeGroupRadios,
     CodeInputPassword,

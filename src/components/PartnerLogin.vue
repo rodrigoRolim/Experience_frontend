@@ -2,16 +2,10 @@
   <div class="partner-login">
     <form class="partner-login__form">
       <div class="partner-login__partner-code">
-        <code-label
-          bind="partnerCode"
-          label="Código Parceiro"
-          color="#676a6c"
-          :fontWeight="700"
-          fontSize="0.8rem"
-        ></code-label>
         <code-input
           placeholder="Código do parceiro"
           name="partnerCode"
+          label="código parceiro"
           type="text"
           v-model="partner.posto"
           color="#333"
@@ -22,16 +16,10 @@
         />
       </div>
       <div class="partner-login__password">
-        <code-label
-          bind="partnerPassword"
-          label="Senha"
-          color="#676a6c"
-          :fontWeight="700"
-          fontSize="0.8rem"
-        ></code-label>
-         <code-input-password
+        <code-input-password
           id="partnerPassword"
           name="partnerPassword"
+          label="senha"
           v-model="partner.senha"
           icon="lock"
           color="#333"
@@ -64,7 +52,6 @@
 import CodeInput from './base/CodeInput'
 import CodeInputPassword from './base/CodeInputPassword'
 import CodeButton from './base/CodeButton'
-import CodeLabel from './base/CodeLabel'
 import { required } from '../mixins/validations/rules'
 import { validator } from '../mixins/validations/validator'
 import { login } from '../mixins/login'
@@ -77,8 +64,7 @@ export default {
   components: {
     CodeButton,
     CodeInput,
-    CodeInputPassword,
-    CodeLabel
+    CodeInputPassword
   },
   data () {
     return {
