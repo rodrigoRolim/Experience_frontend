@@ -373,9 +373,14 @@ export default {
       }
     },
     idAttendance (value) {
+      
+      const mask = JSON.parse(localStorage.getItem('custom-access')).mask
+      const hcSize = +mask.split(':')[0]
+      const attSize = +mask.split(':')[1] + hcSize + 3
+
       if (this.required(value)) {
         this.validate.atendimento = REQUIRED_INPUT
-      } else if (this.min(value, 11)) {
+      } else if (this.min(value, attSize)) {
         this.validate.atendimento = INCOMPLETE_ID
       } else {
         this.validate.atendimento = ''

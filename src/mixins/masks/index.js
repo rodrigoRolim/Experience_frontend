@@ -28,11 +28,16 @@ export const identifier = {
 
   watch: {
     identifier (value) {
-      
+      const mask = JSON.parse(localStorage.getItem('custom-access')).mask
+      const hcSize = +mask.split(':')[0]
+      const attSize = +mask.split(':')[1] + hcSize + 3
+      console.log(mask)
+      console.log(hcSize)
+      console.log(attSize)
       let input = value
       
       if (/\D\/$/g.test(input)) {
-        console.log('hi')
+ 
         input = input.substr(0, input.length - 3)
       }
 
@@ -41,10 +46,10 @@ export const identifier = {
       });
 
       let output = values.map(function (v, i) {
-        return (v.length >= 3 && i == 0) ? v + ' / ' : v
+        return (v.length >= hcSize && i == 0) ? v + ' / ' : v
       })
-      console.log('output: ', output)
-      this.identifier = output.join('').substr(0, 11)
+    
+      this.identifier = output.join('').substr(0, attSize)
     }
   }
 }
