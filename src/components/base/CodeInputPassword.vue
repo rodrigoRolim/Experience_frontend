@@ -63,7 +63,7 @@ export default {
       type: String,
       default: 'default',
       validator: (value) => {
-        return ['default', 'primary', 'secondary', 'danger'].indexOf(value) !== -1
+        return ['default', 'primary', 'text', 'danger', 'letters'].indexOf(value) !== -1
       }
     },
     label: String,
@@ -214,6 +214,12 @@ input[type="text"]
   color: $color__label
 .input-password__label--primary
   color: $color__primary
+.input-password__label--danger
+  color: $color__danger
+.inpur-password__label--letters
+  color: $color__letters
+.input-password__label--text
+  color: $color__text
 .input-password__input::placeholder
   font-family: Avenir, Helvetica, Arial, sans-serif
   text-transform: capitalize

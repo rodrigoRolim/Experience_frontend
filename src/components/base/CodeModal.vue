@@ -32,9 +32,7 @@ export default {
   data() {
     return {};
   },
-  created() {
-    document.body.style.overflow = "auto"
-  },
+  
   computed: {
     getClasses() {
       return [
@@ -47,13 +45,13 @@ export default {
     }
   },
   watch: {
-    display() {
-
-      if (document.body.style.overflow === "hidden" ) {
-        document.body.style.overflow = "auto";
+    display(value) {
+      console.log(value)
+      if (value) {
+        document.body.style.overflow = "hidden";
         return;
       }
-      document.body.style.overflow = "hidden";
+     document.body.style.overflow = "auto";
     },
   },
   methods: {

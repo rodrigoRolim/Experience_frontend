@@ -74,7 +74,7 @@ export default {
 .info__description--lg
   font-size: 1.0rem
 .info__content
-  font-weight: 600
+  font-weight: 500
   font-size: 0.72rem
   letter-spacing: .5px
 .info--left .info__content

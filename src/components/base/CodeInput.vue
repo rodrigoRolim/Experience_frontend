@@ -53,7 +53,7 @@ export default {
       type: String,
       default: 'default',
       validator: (value) => {
-        return ['default', 'primary', 'secondary', 'danger'].indexOf(value) !== -1
+        return ['default', 'primary', 'text', 'danger', 'letters'].indexOf(value) !== -1
       }
     },
     name: {
@@ -188,8 +188,14 @@ export default {
   color: $color__label
 .input__label--primary
   color: $color__primary
+.input__label--letters
+  color: $color__letters
+.input__label--text
+  color: $color__text
+.input__label--danger
+  color: $color__danger
 .input-wrap__message-error
-  margin-top: 40px
+  margin-top: 60px
   min-width: 120px
   display: flex
   flex-direction: row

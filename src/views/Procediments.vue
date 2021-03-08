@@ -16,16 +16,6 @@
               transparent
               @click="redirectToLogin"
             />
-            <!-- <code-button
-              class="procediments__manual"
-              text="manuais"
-              borded
-              letters="uppercase"
-              size="md"
-              name-icon="book-medical"
-              size-icon="lg"
-              transparent
-            /> -->
           </div>
         </template>
       </the-navbar>
@@ -67,8 +57,6 @@ export default {
   left: 0
   width: 100%
   z-index: 2
-.procediments__sign
-  margin-right: 20px
 .procediments__list
   margin-top: 120px
   @include respond-to(handhelds)

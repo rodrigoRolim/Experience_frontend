@@ -85,9 +85,9 @@ export default {
   justify-content: flex-start
   align-items: center
   @include respond-to(handhelds)
-    justify-content: center
+    justify-content: flex-start
 .procediment__name
-  font-weight: 500
+  font-weight: 600
   font-size: 12px
   margin-left: 10px
   text-transform: uppercase

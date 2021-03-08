@@ -91,7 +91,7 @@ export default {
       type: String,
       default: 'default',
       validator: (value) => {
-        return ['default', 'primary', 'secondary', 'danger'].indexOf(value) !== -1
+        return ['default', 'primary', 'text', 'danger', 'letters'].indexOf(value) !== -1
       }
     },
     label: String
@@ -147,7 +147,7 @@ export default {
         .includes(this.digiteds.toLowerCase()))
     },
     labelClasses() {
-      return 'input__label--' + this.labelColor
+      return 'custom-select__label--' + this.labelColor
     }
   },
   watch: {
@@ -269,6 +269,12 @@ export default {
   color: $color__label
 .custom-select__label--primary
   color: $color__primary
+.custom-select__label--letters
+  color: $color__primary
+.custom-select__label--danger
+  color: $color__danger
+.custom-select__label--text
+  color: $color__text
 .custom-select__modal
   @include respond-to(handhelds)
     display: flex

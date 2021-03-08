@@ -169,6 +169,10 @@ export default {
   align-self: flex-end
   letter-spacing: 0.5px
   width: 25%
+  word-break: break-all
+  @include respond-to(handhelds)
+    font-size: 0.7rem
+    width: 50%
 .exame__header .exame__name
   text-align: center
   margin: 0px auto
@@ -243,5 +247,6 @@ h2
   word-break: break-all
   width: 75%
   @include respond-to(handhelds)
-    width: 200px
+    width: 150px
+    font-size: 0.7rem
 </style>

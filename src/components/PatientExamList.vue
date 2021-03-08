@@ -27,7 +27,7 @@
       :display="show"
       @display="displayModal"
       class="modal"
-      position="center"
+      position="start"
     >
       <template v-slot:modal>
         <patient-exam-detail 

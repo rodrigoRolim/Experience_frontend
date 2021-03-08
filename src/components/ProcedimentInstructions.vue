@@ -139,6 +139,8 @@ export default {
 .aba--active.aba
   padding-bottom: 12px
   color: #5f5e5e
+  @include respond-to(handhelds)
+    font-size: .6rem
 .procediment-instructions__message
   display: flex
   align-items: center
