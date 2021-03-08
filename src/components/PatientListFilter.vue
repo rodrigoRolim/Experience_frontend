@@ -3,34 +3,20 @@
     <template v-slot:content>
       <div class="patient-list-filter">
         <div class="patient-list-filter__period">
-          <code-label 
-            class="patient-list-filter__label"
-            label="Período"
-            color="white"
-            :font-weight="400"
-            font-size="0.9rem"
+          <patient-list-filter-period
+            label-color="text"
+            :begin="params.begin"
+            :end="params.end"
+            @begin="setBegin"
+            @end="setEnd"
+            :error-begin="validate.begin"
+            :error-end="validate.end"
           />
-          <div class="patient-list-filter__calendars">
-            <patient-list-filter-period
-              :begin="params.begin"
-              :end="params.end"
-              @begin="setBegin"
-              @end="setEnd"
-              :error-begin="validate.begin"
-              :error-end="validate.end"
-            />
-          </div>
         </div>
         <div class="patient-list-filter__name-patient">
-          <code-label
-            class="patient-list-filter__label"
-            label="Nome do Paciente"
-            bind="patientName"
-            color="white"
-            :font-weight="400"
-            font-size="0.9rem"
-          />
-          <code-input 
+          <code-input
+            label="nome do paciente"
+            label-color="text"
             placeholder="digite o nome do paciente"
             name="patientName"
             @input="setNamePatient"
@@ -59,7 +45,6 @@
 
 <script>
 import CodeDropDown from '../components/base/CodeDropDown'
-import CodeLabel from '../components/base/CodeLabel'
 import CodeInput from '../components/base/CodeInput'
 import CodeButton from '../components/base/CodeButton'
 import PatientListFilterPeriod from '../components/PatientListFilterPeriod'
@@ -83,7 +68,6 @@ export default {
   components: {
     CodeDropDown,
     PatientListFilterPeriod,
-    CodeLabel,
     CodeInput,
     CodeButton
   },
@@ -211,8 +195,9 @@ export default {
   display: flex
   flex-direction: row
   justify-content: space-between
+  align-items: flex-end
   width: 100%
-  padding: 12px 10px
+  padding: 15px 10px
   @include respond-to(medium-screens)
     max-height: 250px
     flex-wrap: wrap
@@ -227,11 +212,7 @@ export default {
 .patient-list-filter__period
   width: 30%
 .patient-list-filter__buttons
-  display: flex
-  align-items: flex-end
-  justify-content: center
   width: 12%
-  height: 60px
 .patient-list-filter__name-patient,
 .patient-list-filter__period,
 .patient-list-filter__buttons
