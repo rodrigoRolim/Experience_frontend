@@ -148,4 +148,7 @@ export default {
   height: 50vh
 .procediment-instructions__message-content
   width: 50%
+  @include respond-to(handhelds)
+    width: 95%
+    font-size: 12px
 </style>

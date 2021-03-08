@@ -21,12 +21,13 @@
           <div class="name__exame">{{result.variavelNome}}</div>
           <div class="exame__result">
             <div class="exam__value">{{result.valor}}</div>
-            <span class="exame__result__unity">{{result.variavelUnidade}}</span></div>
+            <span class="exame__result__unity">{{result.variavelUnidade}}</span>
+          </div>
         </div>
       </div>
       <code-message
         v-if="message"
-        class="attendances__message"
+        class="exam__message"
         :message="message.content || ''"
         :typeMessage="message.type"
         position="center"
@@ -249,4 +250,5 @@ h2
   @include respond-to(handhelds)
     width: 150px
     font-size: 0.7rem
+
 </style>

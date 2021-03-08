@@ -192,7 +192,7 @@ const mutations = {
     state.params.realizer = realizer
   },
   [NAME]: (state, name) => {
-    state.params.name = name
+    state.params.name = name.toUpperCase()
   },
   [SUCCESS_PUSH]: (state) => {
     state.statusPush = 'ok'
