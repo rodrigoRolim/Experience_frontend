@@ -381,7 +381,7 @@ export default {
         var day = parseInt(values[0])
         var d = new Date(year, month, day)
         if (!isNaN(d)) {
-          var dates = [d.getDate(),d.getMonth() + 1, d.getFullYear()]
+          var dates = [d.getDate(), d.getMonth() + 1, d.getFullYear()]
           output = dates.map(function (v) {
             v = v.toString()
             return v.lenght == 1 ? '0' + v : v
