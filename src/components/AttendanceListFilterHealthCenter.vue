@@ -3,37 +3,22 @@
     <template v-slot:content >
       <div class="attendance-list-filter-healthcenter">
         <div class="attendance-list-filter-healthcenter__period">
-          <code-label
-            class="attendance-list-filter-healthcenter__label"
-            label="Período"
-            :fontWeight="400"
-            fontSize="0.9rem"
-            color="white"
-            fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
-          ></code-label>
-          <div class="period__dates">
-            <attendance-list-filter-period
-              :begin="params.begin"
-              :end="params.end"
-              @begin="setBegin"
-              @end="setEnd"
-              :error-begin="validate.begin"
-              :error-end="validate.end"
-            />
-          </div>
+          <attendance-list-filter-period
+            label-color="text"
+            :begin="params.begin"
+            :end="params.end"
+            @begin="setBegin"
+            @end="setEnd"
+            :error-begin="validate.begin"
+            :error-end="validate.end"
+          />
         </div>
         <div class="attendance-list-filter-healthcenter__health-center">
-          <code-label
-            class="attendance-list-filter-healthcenter__label"
-            label="Posto"
-            :fontWeight="400"
-            fontSize="0.9rem"
-            color="white"
-            fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
-          ></code-label>
           <code-select
             name="postos"
             option="selecione o posto"
+            label="posto cadastro"
+            label-color="text"
             :options="healthCenters"
             @input="setHealthCenter"
             :value="params.healthCenter"
@@ -41,17 +26,11 @@
           ></code-select>
         </div>
         <div class="attendance-list-filter-healthcenter__accomodation">
-          <code-label
-            class="attendance-list-filter-healthcenter__label"
-            label="Acomodação"
-            :fontWeight="400"
-            fontSize="0.9rem"
-            color="white"
-            fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
-          ></code-label>
           <code-select
             name="acomodacoes"
             option="selecione a acomodação"
+            label="acomodacão"
+            label-color="text"
             :options="accomodations"
             @input="setAccomodation"
             :value="params.accomodation"
@@ -59,17 +38,11 @@
           ></code-select>
         </div>
         <div class="attendance-list-filter-healthcenter__situation">
-          <code-label
-            class="attendance-list-filter-healthcenter__label"
-            label="Situação"
-            color="white"
-            :fontWeight="400"
-            fontSize="0.9rem"
-            fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
-          ></code-label>
           <code-select
             name="situation"
             option="selecione a situação"
+            label="situação"
+            label-color="text"
             :options="situations"
             @input="setSituation"
             :value="params.situation"
@@ -77,16 +50,10 @@
           ></code-select>
         </div>
         <div class="attendance-list-filter-healthcenter__realizer">
-          <code-label
-            class="attendance-list-filter-healthcenter__label"
-            label="Posto Realizante"
-            :fontWeight="400"
-            fontSize="0.9rem"
-            color="white"
-            fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
-          ></code-label>
           <code-select
             name="realizer"
+            label="posto responsável"
+            label-color="text"
             option="selecione posto realizante"
             :options="registrants"
             @input="setRealizer"
@@ -117,7 +84,6 @@
 <script>
 import CodeDropDown from './base/CodeDropDown.vue'
 import CodeSelect from './base/CodeSelect.vue'
-import CodeLabel from './base/CodeLabel.vue'
 import CodeButton from './base/CodeButton.vue'
 import AttendanceListFilterPeriod from './AttendanceListFilterPeriod'
 import { validator } from '../mixins/validations/validator'
@@ -164,7 +130,6 @@ export default {
   components: {
     CodeButton,
     CodeSelect,
-    CodeLabel,
     CodeDropDown,
     AttendanceListFilterPeriod
   },
@@ -474,6 +439,7 @@ export default {
   display: flex
   flex-direction: row
   justify-content: space-between
+  align-items: flex-end
   width: 100%
   padding: 12px 10px
   @include respond-to(medium-screens)
@@ -499,8 +465,6 @@ export default {
     width: 100%
 .attendance-list-filter-healthcenter__buttons
   width: 10%
-  align-self: flex-end
-  margin-bottom: 10px
   @include respond-to(medium-screens)
     width: 100%
     margin-top: 30px

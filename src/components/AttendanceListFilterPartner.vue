@@ -2,36 +2,23 @@
   <code-drop-down dropdown text="filtrar atendimento">
     <template v-slot:content>
       <div class="attendances-filter-partner">
-        <div class="attendances-filter-partner__period">
-          <code-label
-            class="attendances-filter-partner__label"
-            label="Período"
-            :fontWeight="400"
-            fontSize="0.9rem"
-            fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
+        <div class="attendances-filter-partner__calendars">
+          <attendance-list-filter-period 
+            :begin="params.begin"
+            :end="params.end"
+            @begin="setBegin"
+            @end="setEnd"
+            label-color="text"
+            :error-begin="validate.begin"
+            :error-end="validate.end"
           />
-          <div class="attendances-filter-partner__calendars">
-            <attendance-list-filter-period 
-             :begin="params.begin"
-             :end="params.end"
-             @begin="setBegin"
-             @end="setEnd"
-             :error-begin="validate.begin"
-             :error-end="validate.end"
-            />
-          </div>
         </div>
         <div class="attendances-filter-partner__accomodation">
-          <code-label
-            class="attendances-filter-partner__label"
-            label="Acomodação"
-            :fontWeight="400"
-            fontSize="0.9rem"
-            fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
-          />
           <code-select
             class="attendances-filter-partner__select"
             name="acomodations"
+            label="acomodacão"
+            label-color="text"
             option="selecione a acomodação"
             :options="accomodations"
             @input="setAccomodation"
@@ -40,16 +27,11 @@
           />
         </div>
         <div class="attendances-filter-partner__situation">
-          <code-label
-            class="attendances-filter-partner__label"
-            label="Situação"
-            :fontWeight="400"
-            fontSize="0.9rem"
-            fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
-          />
           <code-select
             class="attendances-filter-partner__select"
             name="situation"
+            label="situação"
+            label-color="text"
             option="selecione a situação"
             :options="situations"
             @input="setSituation"
@@ -58,16 +40,11 @@
           />
         </div>
         <div class="attendances-filter-partner__patient-name">
-          <code-label
-            class="attendances-filter-partener__label"
-            label="nome paciente"
-            :fontWeight="400"
-            fontSize="0.9rem"
-            fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
-          />
           <code-input 
             class="attendances-filter-partner__input"
             placeholder="digite o nome do paciente"
+            label="nome do paciente"
+            label-color="text"
             name="patientName"
             @input="setName"
             :value="params.name"
@@ -97,7 +74,6 @@
 
 <script>
 import CodeDropDown from '../components/base/CodeDropDown'
-import CodeLabel from '../components/base/CodeLabel'
 import CodeSelect from '../components/base/CodeSelect'
 import CodeInput from '../components/base/CodeInput'
 import CodeButton from '../components/base/CodeButton'
@@ -134,7 +110,6 @@ export default {
   mixins: [validator({ isOption, endLtBegin, beginGtEnd, required, date }), session],
   components: {
     CodeDropDown,
-    CodeLabel,
     CodeSelect,
     CodeInput,
     CodeButton,
@@ -379,8 +354,9 @@ export default {
   display: flex
   flex-direction: row
   justify-content: space-between
+  align-items: flex-end
   width: 100%
-  padding: 12px 10px
+  padding: 15px 10px
   @include respond-to(medium-screens)
     max-height: 250px
     flex-wrap: wrap
@@ -409,7 +385,6 @@ export default {
     margin: 5px 0
 .attendances-filter-partner__buttons
   width: 10%
-  align-self: center
   margin-top: 10px
   @include respond-to(medium-screens)
     width: 100%
@@ -417,7 +392,7 @@ export default {
   @include respond-to(handhelds)
     width: 100%
     margin-top: 40px
-.attendances-filter-partner__period
+.attendances-filter-partner__calendars
   width: 27%
   @include respond-to(medium-screens)
     width: 100%
@@ -425,6 +400,5 @@ export default {
   @include respond-to(handhelds)
     width: 100%
     margin: 5px 0
-  display: flex
-  flex-direction: column
+ 
 </style>

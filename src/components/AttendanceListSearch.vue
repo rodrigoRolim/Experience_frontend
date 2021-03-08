@@ -2,7 +2,6 @@
   <div class="searcher">
     <code-input
       class="searcher__input"
-      label="pesquisar paciente"
       placeholder="digite o nome do paciente e aperte enter"
       name="patient"
       type="text"

@@ -1,24 +1,26 @@
 <template>
-  <div class="period">
-    <div class="period__calendars">
-      <code-calendar
-        class="period__begin"
-        v-model="beginEmitter" 
-        noBorderRight name="begin" 
-        :end="end"
-        :error="errorBegin"
-        placeholder="data início"
-      />
-      <span class="period__gap">até</span>
-      <code-calendar
-        class="period__end" 
-        v-model="endEmitter" 
-        name="end" noBorderLeft 
-        :begin="begin"
-        :error="errorEnd"
-        placeholder="data fim"  
-      />
-    </div>
+  <div class="period__calendars">
+    <code-calendar
+      class="period__begin"
+      label="data inicial"
+      :label-color="labelColor"
+      v-model="beginEmitter" 
+      noBorderRight name="begin" 
+      :end="end"
+      :error="errorBegin"
+      placeholder="data início"
+    />
+    <span class="period__gap">até</span>
+    <code-calendar
+      class="period__end"
+      label="data final"
+      :label-color="labelColor"
+      v-model="endEmitter" 
+      name="end" noBorderLeft 
+      :begin="begin"
+      :error="errorEnd"
+      placeholder="data fim"  
+    />
   </div>
 </template>
 
@@ -32,6 +34,13 @@ export default {
     },
     end: {
       type: String
+    },
+    labelColor: {
+      type: String,
+      default: 'default',
+      validator: (value) => {
+        return ['default', 'primary', 'text', 'secondary', 'danger'].indexOf(value) !== -1
+      }
     },
     errorBegin: String,
     errorEnd: String
@@ -81,7 +90,7 @@ export default {
 .period__calendars
   display: flex
   flex-direction: row
-  margin-bottom: 10px
+  align-items: flex-end
   @include respond-to(handhelds)
     position: relative
 .period__gap
@@ -94,4 +103,6 @@ export default {
   color: white
   font-size: 14px
   padding: 0 3px
+  height: 38px
+  align-self: flex-end
 </style>
