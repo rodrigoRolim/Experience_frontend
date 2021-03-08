@@ -2,6 +2,8 @@
   <div class="patient-period">
      <code-calendar
       class="patient-period__calendar"
+      label="data inicial"
+      :labelColor="labelColor"
       v-model="beginEmitter" 
       noBorderRight name="begin" 
       :end="end"
@@ -11,6 +13,8 @@
     <span class="patient-period__gap">até</span>
     <code-calendar
       class="patient-period__calendar"
+      label="data final"
+      :labelColor="labelColor"
       v-model="endEmitter"  
       name="end" noBorderLeft 
       :begin="begin"
@@ -30,6 +34,13 @@ export default {
     },
     end: {
       type: String
+    },
+    labelColor: {
+      type: String,
+      default: 'default',
+      validator: (value) => {
+        return ['default', 'primary', 'secondary', 'danger'].indexOf(value) !== -1
+      }
     },
     errorBegin: String,
     errorEnd: String
@@ -76,7 +87,6 @@ export default {
 <style lang="sass" scoped>
 .patient-period
   display: flex
-  margin-bottom: 10px
   @include respond-to(handhelds)
     position: relative
 .patient-period__gap
@@ -88,5 +98,7 @@ export default {
   background-color: rgba(0,0,0,0.3)
   color: white
   font-size: 14px
-  padding: 0 3px 
+  padding: 0 3px
+  height: 38px
+  align-self: flex-end
 </style>
