@@ -14,18 +14,10 @@ $WAITING: #f8d300;
 $IN-PROGRESS: #f8ac59;
 $NO-REALIZED-YET: #5D88FF;
 
-$theme: #2e7052;
-$primary: #005b8f;
-$success: #00c500;
-$warning: #ff9966;
-$danger: #CA0B00;
-$info: #00b0c7;
-$dark: #282a3c;
-$brand: #22b9ff;
-$light: #fff;
-$error: red;
 $keyboard: #3d9370;
 $key: #2e7052;
 $key-active: #c2d0c8;
 
-$icon: lightslategray
+$border-colors: rgba(0,0,0,0.4);
+$icon: lightslategray;
+$unactive-color: rgba(0, 0, 0, 0.5);

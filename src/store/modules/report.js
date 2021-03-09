@@ -22,8 +22,10 @@ const actions = {
           resolve(resp.data)
         })
         .catch((err) => {
+          console.log({err})
           commit(ERROR)
           let status = (err.response) ? err.response.status : 408
+          console.log(status)
           commit(MESSAGE, status)
           reject(err)
         })
@@ -43,7 +45,7 @@ const mutations = {
   },
   [MESSAGE]: (state, status) => {
     const expiredSession = status === 401
-    const message = httpMessage({ status, data: 'resultado', experired: expiredSession })
+    const message = httpMessage({ status, data: 'pdf', experired: expiredSession })
     state.message = message
   }
 }

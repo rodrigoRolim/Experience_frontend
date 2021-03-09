@@ -189,7 +189,7 @@ export const MESSAGE_STATUS_401 = 'dados incorretos, verifique seus dados e tent
 export const MESSAGE_STATUS_404 = (data) => `${data}(s) não encontrado(s)`
 export const MESSAGE_STATUS_502 = 'conexão recusada, servidor pode está desativado'
 export const MESSAGE_STATUS_400 = 'ocorreu um problema'
-export const MESSAGE_STATUS_498 = 'o servidor parece está indisponível'
+export const MESSAGE_STATUS_498 = 'o serviço não está respondendo'
 /**
  * VALIDATORS REGEX
  * 
