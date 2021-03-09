@@ -21,6 +21,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+
 .menu-abas
   display: flex
   flex-direction: column
@@ -29,13 +30,13 @@ export default {
 .menu-abas__header
   display: flex
   flex-direction: row
-  border-bottom: 1px solid lightgray
+  border-bottom: 1px solid $border-colors
   width: 100%
 .menu-abas__body
   background-color: white
   border-bottom-left-radius: 4px
   width: 100%
-  border: 1px solid lightgray
+  border: 1px solid $border-colors
   border-top: none
   border-bottom-right-radius: 4px
 .menu-abas__header > .aba
@@ -45,7 +46,7 @@ export default {
   text-align: center
   font-weight: 700
   text-transform: capitalize
-  color: #676a6c90
+  color: $unactive-color
   font-size: 0.8rem
   width: 20%
   cursor: pointer
@@ -54,7 +55,7 @@ export default {
   display: flex
   align-items: center
   justify-content: center
-  border: 1px solid lightgray
+  border: 1px solid $border-colors
   border-top-right-radius: 4px
   border-top-left-radius: 4px
   border-bottom: none

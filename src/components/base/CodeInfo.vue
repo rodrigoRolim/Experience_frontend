@@ -55,6 +55,8 @@ export default {
   display: flex
   justify-content: center
   align-items: center
+  @include respond-to(handhelds)
+    width: 29px
 .info__label
   display: flex
   flex-direction: column
@@ -77,6 +79,8 @@ export default {
   font-weight: 500
   font-size: 0.72rem
   letter-spacing: .5px
+  @include respond-to(handhelds)
+    margin-left: 10px
 .info--left .info__content
   margin-right: 10px
 .info--bottom

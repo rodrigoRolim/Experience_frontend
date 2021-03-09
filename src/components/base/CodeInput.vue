@@ -174,6 +174,7 @@ export default {
 
 <style lang="sass" scoped>
 @import "../../styles/__themes"
+
 .input-wrap
   display: flex
   flex-direction: column
@@ -209,7 +210,7 @@ export default {
   width: 100%
 .container-input__input
   padding: 10px 7px
-  border: 1px solid lightgray
+  border: 1px solid $border-colors
   border-left: none
   width: 100%
   min-width: 20px
@@ -228,7 +229,7 @@ export default {
 .container-input--error
   border-color: $color__danger
   border-width: 2px
-  color: $danger
+  color: $color__danger
 .container-input
   display: flex
   flex-direction: row
@@ -243,7 +244,7 @@ export default {
   display: flex
   justify-content: center
   align-items: center
-  border: 1px solid lightgray
+  border: 1px solid $border-colors
   border-right: none
   border-radius: 4px 0px 0px 4px
   background-color: white

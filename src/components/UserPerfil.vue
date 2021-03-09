@@ -130,7 +130,7 @@ export default {
         case '1': 
           return 'paciente'
         case '2':
-          return 'posto'
+          return 'usuário'
         case '3':
           return 'paciente'
         case '4':

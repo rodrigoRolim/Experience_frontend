@@ -74,7 +74,7 @@ export default {
       type: String,
       default: 'default',
       validator: (value) => {
-        return ['default', 'primary', 'secondary', 'danger'].indexOf(value) !== -1
+        return ['default', 'primary', 'text', 'secondary', 'danger'].indexOf(value) !== -1
       }
     },
     begin: {

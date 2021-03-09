@@ -121,7 +121,7 @@ export default {
 <style lang="sass" scoped>
 
 @import "../styles/colors/__status-colors-exams.scss"
-
+@import "../styles/__themes.sass"
 .patient-exam
   display: flex
   flex-direction: column
@@ -178,7 +178,7 @@ export default {
   align-self: flex-end
   min-height: 29px
 .patient-exam__print-in-lab
-  color: map-get($theme-color, "danger")
+  color: $color__danger
   padding-bottom: 15px
 .patient-exam--print-in-lab
   opacity: 0.6

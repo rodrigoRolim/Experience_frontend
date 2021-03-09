@@ -83,6 +83,8 @@ $duration-visible: 0.6s
   outline: none
   color: gray
   width: 100%
+  @include respond-to(handhelds)
+    padding: 5px 0
 .dropdown__button--hidden
   display: none
 .dropdown__button

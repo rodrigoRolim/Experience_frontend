@@ -258,6 +258,7 @@ export default {
 
 <style lang="sass" scoped>
 @import "../../styles/__themes.sass"
+
 .custom-select 
   position: relative
 .custom-select__label
@@ -332,7 +333,7 @@ export default {
   text-transform: uppercase
   border-top-left-radius: 4px
   border-bottom-left-radius: 4px
-  border: 1px solid lightgray
+  border: 1px solid $border-colors
   border-right: none
   outline: none
 .custom-select__input--required,
@@ -343,7 +344,7 @@ export default {
   border-width: 2px !important
 .custom-select__icon--required
   border-color: $color__danger !important
-  color: $error !important
+  color: $color__danger !important
   border-width: 2px !important
 .custom-select__input::placeholder
   font-size: 14px
@@ -359,7 +360,8 @@ export default {
   justify-content: center
   align-items: center
   width: 40px
-  border: 1px solid lightgray
+  padding: 9px 14px
+  border: 1px solid $border-colors
   background-color: white
   border-top-left-radius: 4px
   border-bottom-left-radius: 4px
@@ -391,7 +393,7 @@ export default {
   display: flex
   justify-content: center
   align-items: center
-  border: 1px solid lightgray
+  border: 1px solid $border-colors
   border-left: none
   border-top-right-radius: 4px
   border-bottom-right-radius: 4px
@@ -402,7 +404,7 @@ export default {
   display: flex
   flex-direction: row
   margin-left: 10px
-  color: $error
+  color: $color__danger
   z-index: 0
 .custom-select__text-error
   font-style: italic
