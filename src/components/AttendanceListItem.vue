@@ -3,7 +3,7 @@
     @click="patientExamsView"
   >
     <div class="attendance-item__header">
-      <strong class="attendance-item__name-patient"> {{name}}</strong>
+      <span class="attendance-item__name-patient">{{name}}</span>
     </div>
     <div class="attendance-item__body">
       <attendance-list-item-profile
@@ -117,7 +117,8 @@ export default {
   height: 20px
 .attendance-item__name-patient
   color: rgba(71, 77, 94, 1)
-  font-size: 1.0rem
+  font-size: 0.89rem
+  font-weight: 500
   margin-bottom: 5px
 .attendance-item__body
   display: flex

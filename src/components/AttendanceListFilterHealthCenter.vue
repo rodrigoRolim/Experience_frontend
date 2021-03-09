@@ -461,7 +461,6 @@ export default {
   @include respond-to(medium-screens)
     width: 24%
   @include respond-to(handhelds)
-    margin: 5px 0
     width: 100%
 .attendance-list-filter-healthcenter__buttons
   width: 10%
@@ -475,10 +474,9 @@ export default {
   width: 25%
   @include respond-to(medium-screens)
     width: 100%
-    margin: 5px 0
+    margin: 10px 0
   @include respond-to(handhelds)
     width: 100%
-    margin: 10px 0
   display: flex
   flex-direction: column
 </style>

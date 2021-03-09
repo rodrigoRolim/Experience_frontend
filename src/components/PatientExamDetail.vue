@@ -26,10 +26,10 @@
         </div>
       </div>
       <code-message
-        v-if="message"
+        v-if="messageResult"
         class="exam__message"
-        :message="message.content || ''"
-        :typeMessage="message.type"
+        :message="messageResult.content || ''"
+        :typeMessage="messageResult.type"
         position="center"
         icon="info-circle"
       />
@@ -97,18 +97,19 @@ export default {
       .then((resp) => {
         this.results = resp
       })
-      //.catch((err) => console.log({err}))
+      .catch((err) => console.log({err}))
   },
   computed: {
     loadingFile() {
       return this.status === 'loading'
     },
     ...mapGetters(NAMESPACED_REPORT, [
-      'status'
+      'status',
+      'message'
     ]),
     ...mapGetters(NAMESPACED_RESULTS, {
         statusResults: 'status',
-        message: 'message'
+        messageResult: 'message'
       }      
     )
   },
@@ -126,6 +127,9 @@ export default {
           this.print({printable: base64, type: 'pdf', base64: true})
         })
         .catch(() => {
+           console.log(this.message)
+          console.log("buceta")
+          this.$emit('errorMessages', this.message)
           this.close()
         })
     },
@@ -138,6 +142,8 @@ export default {
           this.download(this.nameExam, base64)
         })
         .catch(() => {
+          console.log(this.message)
+          this.$emit('errorMessages', this.message)
           this.close()
         })
     },

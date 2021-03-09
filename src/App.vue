@@ -11,8 +11,6 @@ export default {
   created() {
     const customAccess = JSON.parse(localStorage.getItem('custom-access'))
     document.documentElement.dataset.theme = customAccess?.theme
-    document.documentElement.dataset.logo = customAccess?.logo
-    document.documentElement.dataset.rootPath = customAccess?.rootPath
   }
 }
 </script>
@@ -26,7 +24,8 @@ body
   font-size: 100%
   line-height: 1.1
   background-color: #f4f3f340
-  font-family: Roboto, Arial, sans-serif
+  font-family: 'Roboto', sans-serif
+  font-style: normal
   color: #505050
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
@@ -38,4 +37,6 @@ body
   width: 100%
 input
   outline: none
+a
+  color: gray
 </style>

@@ -375,14 +375,13 @@ export default {
     width: 27%
   @include respond-to(handhelds)
     width: 100%
-    margin: 5px 0
+    margin: 1px 0
 .attendances-filter-partner__patient-name
   width: 30%
   @include respond-to(medium-screens)
     width: 43%
   @include respond-to(handhelds)
     width: 100%
-    margin: 5px 0
 .attendances-filter-partner__buttons
   width: 10%
   margin-top: 10px
@@ -391,7 +390,7 @@ export default {
     margin-top: 30px
   @include respond-to(handhelds)
     width: 100%
-    margin-top: 40px
+    margin-top: 30px
 .attendances-filter-partner__calendars
   width: 27%
   @include respond-to(medium-screens)
@@ -399,6 +398,5 @@ export default {
     margin: 10px 0
   @include respond-to(handhelds)
     width: 100%
-    margin: 5px 0
  
 </style>

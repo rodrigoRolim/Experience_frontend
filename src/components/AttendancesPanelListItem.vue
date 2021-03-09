@@ -1,7 +1,7 @@
 <template>
   <div class="attendances-painel-list-item" :class="getStatus | statusModifier">
     <div class="attendances-painel-list-item__attendance">
-      <h2 class="attendances-painel-list-item__name">{{name}}</h2>
+      <div class="attendances-painel-list-item__name">{{name}}</div>
       <div class="attendances-painel-list-item__info">
         <div class="attendances-painel-list-item__date">
           <code-info
@@ -11,19 +11,19 @@
             color="lightslategray"
           />
         </div>
-        <code-chip-status-attendance 
-          :status="status"
-        />
-      </div>
-    </div>
-    <div class="atendances-painel-list-item__details">
-      <div class="attendances-painel-list-item__time">
-        <code-info 
-          description="tempo esperando"
+        <div class="attendances-painel-list-item__time">
+          <code-info 
+            description="tempo esperando"
+            size-info="15px"
+            :info="timeWaiting"
+          />
+        </div>
+        <div class="attendances-painel-list-item__status">
+          <code-chip-status-attendance
+            :status="status"
+          />
+        </div>
        
-          size-info="15px"
-          :info="timeWaiting"
-        />
       </div>
     </div>
   </div>
@@ -63,12 +63,17 @@ export default {
   methods: {
    counter() {
       const dateCurr = new Date()
+      
       let hours = Math.abs(this.attendanceTime - dateCurr.getTime()) / 36e5
       let integerHours = hours.toString().split(".")[0]
       let minutes = (hours - integerHours)*60
       let integerMinutes = minutes.toString().split(".")[0]
       let seconds = (minutes - integerMinutes)*60
-      this.timeWaiting = integerHours + ":" + integerMinutes + ":" + seconds.toString().split(".")[0]
+      let secondsInteger = seconds.toString().split(".")[0]
+
+      integerMinutes = (+integerMinutes < 10) ? '0' + integerMinutes : integerMinutes
+      secondsInteger = (+secondsInteger < 10) ? '0' + secondsInteger : secondsInteger
+      this.timeWaiting = integerHours + ":" + integerMinutes + ":" + secondsInteger
    }
   }
 }
@@ -87,20 +92,19 @@ export default {
   -webkit-box-shadow: 0 1px 0 rgb(9 30 66 / 25%)
   box-shadow: 0 1px 0 rgb(9 30 66 / 25%)
   background-color: #F5F5F5
+.attendances-painel-list-item__attendance
+  width: 100%
 .attendances-painel-list-item__name
-  margin-left: 5px
-  margin-bottom: 15px
-  text-transform: uppercase
+  font-size: 0.8rem
+  margin: 0px 0px 10px 5px
+  font-weight: 500
   width: 100%
 .attendances-painel-list-item__info
   display: flex
   flex-diretion: row
-  width: 350px
   justify-content: space-between
 .attendances-painel-list-item__date
   margin-left: 5px
-h2
-  font-size: 15px
 .atendances-painel-list-item__details
   width: 25%
 .attendances-painel-list-item--pendency
