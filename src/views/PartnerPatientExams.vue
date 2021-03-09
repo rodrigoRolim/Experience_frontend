@@ -101,7 +101,7 @@ export default {
     margin-top: 130px
   @include respond-to(handhelds)
     width: 100%
-    margin-top: 60px
+    margin-top: 70px
 .partner-patient__header
   position: fixed
   width: 100%

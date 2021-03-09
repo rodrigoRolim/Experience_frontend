@@ -35,10 +35,7 @@
 
 <script>
 export default {
-  name: 'about',
-  created() {
-    console.log('cu')
-  }
+  name: 'about'
 }
 </script>
 
