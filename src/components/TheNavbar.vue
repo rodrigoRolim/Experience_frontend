@@ -1,6 +1,7 @@
 <template>
   <header class="navbar__header">
     <div class="navbar__logo">
+      <slot class="navbar__back" name="back"></slot>
       <div class="navbar__collapser">
         <slot name="collapser"></slot>
       </div>
@@ -35,7 +36,7 @@ export default {
   },
   computed: {
     takeLogo() {
-      const logo = document.documentElement.dataset.logo
+      const logo = JSON.parse(localStorage.getItem('custom-access')).logo
       let images = require.context('@/assets/', false, /(\.png$)|(\.jpeg$)|(\.gif$)/)
       return images('./' + logo + ".png")
     }
@@ -54,9 +55,12 @@ export default {
 .navbar__collapser
   display: flex
 .navbar__image
-  width: 120px
+  width: 110px
+  @include respond-to(medium-screens)
+    margin: 0 auto
   @include respond-to(handhelds)
     width: 80px
+    margin: 0 auto
 .navbar__shadow-right
   width: 50%
   height: 40px
@@ -74,20 +78,31 @@ export default {
   flex-direction: row
   justify-content: space-between
   align-items: center
-  margin-left: 20px
-  width: 15%
   @include respond-to(handhelds)
-    width: auto
+    width: 100%
+  @include respond-to(medium-screens)
+    width: 100%
+.navbar__back
+  display: flex
+  justify-content: center
+  width: 5%
+.navbar__back:hover
+  cursor: pointer
 .navbar__collapser
-  margin-right: 20px
+  margin-left: 10px
   @include respond-to(wide-screens)
     display: none
+.navbar__collapser:hover
+  cursor: pointer
+.navbar__image
+  margin-left: 20px
 .navbar__user-perfil
   display: flex
   flex-direction: row
   align-items: center
   justify-content: flex-end
   margin-right: 20px
+  width: 5%
   @include respond-to(handhelds)
     width: 90px
 .navbar__home
@@ -96,8 +111,5 @@ export default {
   align-items: center
 .navbar__navigation
   display: flex
-  width: 170px
   justify-content: space-between
-  @include respond-to(handhelds)
-    width: 135px
 </style>
