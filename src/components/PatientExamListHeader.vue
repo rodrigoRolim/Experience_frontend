@@ -58,6 +58,14 @@
           />
           <code-info
             class="patient-exams--margin patient-exams__info"
+            icon="heartbeat"
+            size="lg"
+            description="atendimento"
+            :info="healthCenter | id(attendance)"
+            color="rgba(71, 77, 94, 1)"
+          />
+          <code-info
+            class="patient-exams--margin patient-exams__info"
             icon="user-md"
             size="lg"
             description="médico solicitante"
@@ -74,10 +82,12 @@
 import CodeInfo from './base/CodeInfo'
 import CodeDropDown from './base/CodeDropDown'
 import CodeCheckbox from '../components/base/CodeCheckbox'
+import { attendance } from '../mixins/formater'
 import { mapGetters, mapMutations } from 'vuex'
 import { NAMESPACED_EXAMS, CHECKED_ALL_EXAMS, UNCHECKED_ALL_EXAMS, NAMESPACED_PROPS } from '../utils/alias'
 export default {
   name: 'PatientExamListHeader',
+  mixins: [attendance],
   components: {
     CodeInfo,
     CodeDropDown,
@@ -137,7 +147,7 @@ export default {
   display: flex
   justify-content: space-between
 .patient-exams--margin
-  margin: 10px
+  margin: 10px 5px
 .patient-exams__patient-info
   display: flex
   flex-direction: row
