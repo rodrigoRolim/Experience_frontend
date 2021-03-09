@@ -6,23 +6,13 @@
       :class="{ 'partner__navbar--up-hidden': hiddenElement }"
     > 
       <the-navbar logo="logo_cedro">
-        <template v-slot:home>
-          <code-tooltip
-            text="lista de atendimentos"
-          >
-            <template v-slot:element>
-              <code-button
-                class="partner__home-btn"
-                color="icon"
-                name-icon="clipboard-list"
-                size-icon="2x"
-                size="sm"
-                borded
-                bolded
-                @click="redirectToAttendanceListView"
-              />
-            </template>
-          </code-tooltip>
+        <template v-slot:back v-if="isPartnerPatientExams">
+          <router-link to="/parceiro">
+            <code-info 
+              icon="arrow-left"
+              size="lg"
+            />
+          </router-link>
         </template>
         <template v-slot:perfil>
           <user-perfil />
@@ -38,8 +28,7 @@
 <script>
 import TheNavbar from '../components/TheNavbar'
 import UserPerfil from '../components/UserPerfil'
-import CodeButton from '../components/base/CodeButton'
-import CodeTooltip from '../components/base/CodeTooltip'
+import CodeInfo from '../components/base/CodeInfo'
 import { hiddenByScroll } from '../mixins/hiddenByScroll'
 export default {
   name: 'Partner',
@@ -47,12 +36,11 @@ export default {
   components: {
     TheNavbar,
     UserPerfil,
-    CodeTooltip,
-    CodeButton
+    CodeInfo
   },
-  data () {
-    return {
-     
+  computed: {
+    isPartnerPatientExams() {
+      return this.$route.path === '/parceiro/paciente-exames'
     }
   },
   methods: {
@@ -95,4 +83,9 @@ export default {
   @include respond-to(handhelds)
     background-color: transparent
     color: $color__icon
+a
+  display: flex
+  text-decoration: none
+  margin-left: 20px
+  padding: 0
 </style>

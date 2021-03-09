@@ -6,22 +6,13 @@
       :class="{ 'health-center--up-hidden': hiddenElement }"
     >
       <the-navbar>
-        <template v-slot:home>
-          <code-tooltip
-            text="lista atendimentos"
-          >
-            <template v-slot:element>
-              <code-button
-                color="icon"
-                name-icon="clipboard-list"
-                size-icon="2x"
-                size="sm"
-                borded
-                bolded
-                @click="redirectToAttendanceListView"
-              />
-            </template>
-          </code-tooltip>
+        <template v-slot:back v-if="isHealthCenterPatientExams">
+          <router-link to="/posto">
+            <code-info
+              icon="arrow-left"
+              size="lg"
+            />
+          </router-link>
         </template>
         <template v-slot:perfil>
           <user-perfil></user-perfil>
@@ -37,8 +28,7 @@
 <script>
 import TheNavbar from '../components/TheNavbar'
 import UserPerfil from '../components/UserPerfil'
-import CodeButton from '../components/base/CodeButton'
-import CodeTooltip from '../components/base/CodeTooltip'
+import CodeInfo from '../components/base/CodeInfo'
 import { hiddenByScroll } from '../mixins/hiddenByScroll'
 export default {
   name: 'HealthCenterHome',
@@ -46,13 +36,17 @@ export default {
   components: {
     TheNavbar,
     UserPerfil,
-    CodeButton,
-    CodeTooltip
+    CodeInfo,
   },
   data () {
     return {
       viewport: null,
       screen: -1
+    }
+  },
+  computed: {
+    isHealthCenterPatientExams() {
+      return this.$route.path === '/posto/paciente-exames'
     }
   },
   methods: {
@@ -88,4 +82,9 @@ export default {
 .health-center__exams,
 .health-center__patient
   cursor: default
+a
+  display: flex
+  text-decoration: none
+  margin-left: 20px
+  padding: 0
 </style>

@@ -1,23 +1,14 @@
 <template>
   <div class="doctor">
     <div class="doctor__navbar" :class="{ 'doctor__navbar--up-hidden': hiddenElement }">
-      <the-navbar logo="logo_cedro">
-        <template v-slot:home>
-          <code-tooltip
-            text="lista de pacientes"
-          >
-            <template v-slot:element>
-              <code-button
-                color="icon"
-                name-icon="clipboard-list"
-                size-icon="2x"
-                size="sm"
-                borded
-                bolded
-                @click="redirectToPatientListView"
-              />
-            </template>
-          </code-tooltip>
+      <the-navbar>
+        <template v-slot:back v-if="isDoctorPatientExams">
+          <router-link to="/medico">
+            <code-info
+              icon="arrow-left"
+              size="lg"
+            />
+          </router-link>
         </template>
         <template v-slot:collapser v-if="isDoctorPatientExams">
           <code-button-collapser />
@@ -36,9 +27,8 @@
 <script>
 import TheNavbar from '../components/TheNavbar'
 import UserPerfil from '../components/UserPerfil'
+import CodeInfo from '../components/base/CodeInfo'
 import CodeButtonCollapser from '../components/base/CodeButtonCollapser'
-import CodeButton from '../components/base/CodeButton.vue'
-import CodeTooltip from '../components/base/CodeTooltip.vue'
 import { hiddenByScroll } from '../mixins/hiddenByScroll'
 export default {
   name: 'Doctor',
@@ -47,8 +37,7 @@ export default {
     TheNavbar,
     UserPerfil,
     CodeButtonCollapser,
-    CodeButton,
-    CodeTooltip
+    CodeInfo,
   },
   data () {
     return {
@@ -94,6 +83,8 @@ export default {
 .doctor__patient
   cursor: default
 a
+  display: flex
   text-decoration: none
-  color: black
+  margin-left: 20px
+  padding: 0
 </style>
