@@ -36,9 +36,21 @@
           :correlative="correl | correlative"
           :name-exam="nameExam"
           @close="show = false"
+          @errorMessages="messagesHandler"
         />
       </template>
     </code-modal>
+    <transition name="slide-fade">
+      <div class="patient-exams__messages" v-if="messages">
+        <code-message
+          class="patient-exams__message-content"
+          :message="messages.content"
+          :type-message="messages.type"
+          position="center"
+          icon="times-circle"
+        />  
+      </div>
+    </transition>
     <patient-exams-list-actions :showsUp="someExamChecked" />
   </div>
 </template>
@@ -75,7 +87,8 @@ export default {
     return {
       show: false,
       listExams: [],
-      correl: null
+      correl: null,
+      messages: undefined
     }
   },
   mounted() {
@@ -112,11 +125,15 @@ export default {
     }
   },
   methods: {
+    messagesHandler(msg) {
+
+      this.messages = msg;
+      setTimeout(() => { this.messages = undefined }, 8000)
+    },
     ...mapActions(NAMESPACED_EXAMS, {
       requestExams: GET_EXAMS_STORE
     }),
     thereIsNoSelected() {
-
 
       return (this.healthCenter === null || this.attendance === null) ||
              (isNaN(this.healthCenter) || isNaN(this.attendance))
@@ -141,6 +158,7 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+@import '../styles/transitions/__slide_fade.scss'
 .patient-exams__list
   display: flex
   flex-flow: row wrap
@@ -162,5 +180,11 @@ export default {
   @include respond-to(widescreen)
     margin-left: 301px
   @include respond-to(handhelds)
-    width:90%
+    width: 90%
+.patient-exams__messages
+  position: fixed
+  width: 100vw
+  left: 0
+  bottom: 0
+  z-index: 999
 </style>
