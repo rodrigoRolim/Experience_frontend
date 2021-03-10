@@ -1,35 +1,28 @@
 <template>
   <div class="patient" @click="patientExamsView">
-    <div class="patient__header">
+    <div class="patient__info-patient">
       <strong class="patient__name">{{name}}</strong>
-    </div>
-    <div class="patient__body">
       <div class="patient__perfil">
-        <!-- <div class="patient__personal-dates"> -->
-          <div class="patient__sex patient--margin" v-if="sex">
-            <code-info 
-              class="icon"
-              :icon="genderIcon"
-              :info="sex"
-              description="sexo"
-              color="rgb(71, 77, 94)"
-              size="lg"
-            />
-          </div>
-          <div class="patient__age patient--margin">
-            <code-info
-              class="icon" 
-              icon="birthday-cake"
-              :info="age"
-              description="idade"
-              color="rgb(71, 77, 94)"
-              size="lg"
-            />
-          </div>
-        <!-- </div> -->
-      </div>
-      <div class="patient__contacts">
-        <!-- <strong class="patient__contact-title">contatos</strong> -->
+        <div class="patient__sex patient--margin" v-if="sex">
+          <code-info 
+            class="icon"
+            :icon="genderIcon"
+            :info="sex"
+            description="sexo"
+            color="rgb(71, 77, 94)"
+            size="lg"
+          />
+        </div>
+        <div class="patient__age patient--margin">
+          <code-info
+            class="icon" 
+            icon="birthday-cake"
+            :info="age"
+            description="idade"
+            color="rgb(71, 77, 94)"
+            size="lg"
+          />
+        </div>
         <div class="patient__contact-items">
           <div class="patient__phones patient--margin" v-if="phone">
             <code-info 
@@ -53,14 +46,22 @@
           </div>
         </div>
       </div>
-      <div class="patient-list-attendances">
+    </div>
+    <div class="patient__attendances">
+      <patient-list-item-attendances 
+        v-for="(attendance, i) in lastestAttendances"
+        :key="i"
+        :attendance-id="attendance.posto | id(attendance.atendimento)"
+        :attendance-date="attendance.dataAtd | date"
+      />
+      <patient-list-item-attendances 
+        attendance-id="000/00000"
+        attendance-date="21/09/2134"
+      />
         <patient-list-item-attendances 
-          v-for="(attendance, i) in lastestAttendances"
-          :key="i"
-          :attendance-id="attendance.posto | id(attendance.atendimento)"
-          :attendance-date="attendance.data_atd | date"
-        />
-      </div>
+        attendance-id="000/00000"
+        attendance-date="21/09/2134"
+      />
     </div>
   </div>
 </template>
@@ -151,7 +152,9 @@ export default {
 <style lang="sass" scoped>
 .patient
   display: flex
-  flex-direction: column
+  flex-direction: row
+  justify-content: space-between
+  align-items: flex-start
   width: 100%
   border: 1px solid lightgray
   border-radius: 4px
@@ -160,51 +163,39 @@ export default {
   cursor: pointer
   -webkit-box-shadow: 0 1px 0 rgb(9 30 66 / 25%)
   box-shadow: 0 1px 0 rgb(9 30 66 / 25%)
-.patient__body
-  display: flex
-  margin-top: 10px
   @include respond-to(medium-screens)
     flex-direction: column
   @include respond-to(handhelds)
     flex-direction: column
+.patient__info-patient
+  display: flex
+  flex-direction: column
+  width: 100%
+.patient__attendances
+  display: flex
+  flex-direction: row-reverse
+  align-items: flex-start
+  justify-content: space-between
+  @include respond-to(medium-screens)
+    margin-top: 20px
+  @include respond-to(handhelds)
+    margin-top: 20px
+    flex-flow: row wrap
+    width: 100%
 .patient:hover
   -webkit-box-shadow:  0 0 3px rgba(0,0,0,.3)
 .patient__perfil
   display: flex
-  flex-direction: column
-  width: 20%
+  flex-direction: row
+  justify-content: space-between
+  width: 350px
+  margin-top: 20px
   @include respond-to(medium-screens)
     flex-direction: row
-    width: 100%
+    width: 50%
   @include respond-to(handhelds)
-    width: 100%
-.patient-list-attendances
-  min-height: 70px
-  border-radius: 4px
-  padding: 2px 10px
-  width: 60%
-  @include respond-to(medium-screens)
-    width: 100%
-    margin-top: 20px
-    align-self: center
-  @include respond-to(handhelds)
-    width: 100%
-    margin-top: 20px
-    display: flex
-    flex-wrap: wrap
-    justify-content: space-evenly
-    min-height: 50px
-  display: flex
-  flex-direction: row 
-  justify-content: space-evenly
-  align-items: center
-  background-color: white
-  border: 1px solid lightgray
-.patient-list-attendances__item
-  display: flex
-  align-items: center
-  justify-content: center
-  width: 100%
+    flex-direction: column
+    width: 70%
 .patient__name
   color: rgb(71, 77, 94)
   font-size: 0.9rem
@@ -219,7 +210,7 @@ export default {
 .patient__contacts
   display: flex
   flex-direction: column
-  width: 30%
+  width: 100%
   @include respond-to(medium-screens)
     width: 100%
     margin-top: 20px
@@ -231,11 +222,15 @@ export default {
   flex-direction: column
   @include respond-to(handhelds)
     flex-direction: column
-.patient__phones
+.patient__phones,
+.patient__age,
+.patient__sex
   display: flex
   flex-direction: row
+  justify-content: space-between
 .patient--margin
-  margin: 10px 20px 10px 0
+  min-width: 118px
   @include respond-to(handhelds)
-    margin: 5px 0
+    margin-top: 10px
+
 </style>

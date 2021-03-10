@@ -41,9 +41,22 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.patient-list-item-attendances
+  display: flex
+  flex-direction: column
+  justify-content: center
+  border: 1px solid lightgray
+  padding: 0px 5px
+  background-color: white
+  border-radius: 4px
+  min-width: 140px
+  margin: 2px
+  @include respond-to(handhelds)
+    width: 49%
 .patient-list-item-attendances__date,
 .patient-list-item-attendances__id
-  display: flex
   margin: 8px 0px
-
+@media only screen and (max-width: 466px)
+  .patient-list-item-attendances
+    width: 100%
 </style>

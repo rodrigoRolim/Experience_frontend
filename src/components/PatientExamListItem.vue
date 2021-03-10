@@ -17,9 +17,10 @@
     <div class="patient-exam__print-in-lab" v-if="printInLab">
       <small>Este exame só poderá ser impresso no laboratorio</small>
     </div>
-    <div class="patient-exam__content" @click.self="click(status)">
-      <div class="patient-exam__health-center">
+    <div class="patient-exam__content"  @click.self="click(status)">
+      <div class="patient-exam__health-center"  @click.self="click(status)">
         <code-info
+          @click.self="click(status)"
           icon="clinic-medical"
           size="lg"
           description="Posto Realizante"
@@ -27,8 +28,8 @@
           :info="nameHealthCenter"     
         />
       </div>
-      <div class="patient-exam__status-exam" @click.self="click(status)">
-        <code-chip-status-exams :status="status" />
+      <div class="patient-exam__status-exam"  @click.self="click(status)">
+        <code-chip-status-exams :status="status"  @click.self="click(status)"/>
       </div>
       <div class="patient-exam__checkbox" >
         <code-checkbox

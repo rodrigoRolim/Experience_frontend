@@ -9,7 +9,7 @@ export const age = {
           age--;
       }
       const ageDate = age.toString()
-      return !isNaN(ageDate) ? ageDate : "";
+      return !isNaN(ageDate) ? ageDate + " anos" : "";
     }
   }
 }

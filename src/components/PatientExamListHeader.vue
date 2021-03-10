@@ -3,10 +3,11 @@
     <div class="patient-exams__name-checkall">
       <code-info
         size="lg"
+        class="patient-exams__patient"
         description="paciente"
         :info="name"
         color="rgba(71, 77, 94, 1)"
-        size-info="0.9rem"
+        
       />
       <div class="patient-exams__checkall" v-if="someFinalizedExam">
         <code-checkbox
@@ -172,6 +173,9 @@ export default {
     padding: 4px 19px
   @include respond-to(handhelds)
     text-align: center
+.patient-exams__patient
+  @include respond-to(handhelds)
+    font-size: 10px
 .patient-exams__title--capitalize
   text-transform: capitalize
 .patient-exams__attendance-datas

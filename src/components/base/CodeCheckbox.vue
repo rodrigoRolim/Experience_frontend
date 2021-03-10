@@ -108,7 +108,7 @@ export default {
   border-radius: 4px
 .checkbox__mark--md
   height: 29px
-  width: 29px
+  min-width: 29px
 .checkbox__input:checked ~ .checkbox__mark--md .checkbox__mark__content
   width: 25px
   height: 25px
@@ -138,6 +138,8 @@ export default {
   font-size: 0.9rem
   position: relative
   user-select: none
+  @include respond-to(handhelds)
+    font-size: 0.7rem
 .checkbox__label__text-right
   color: rgba(0,0,0,0.7)
   font-size: 0.9rem
