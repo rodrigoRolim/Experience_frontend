@@ -63,7 +63,8 @@ export default {
       'findExamNameByCorrel'
     ]),
     ...mapGetters(NAMESPACED_REPORT, [
-      'status'
+      'status',
+      'message'
     ]),
     ...mapGetters(NAMESPACED_AUTH, [
       'userName'
@@ -73,19 +74,22 @@ export default {
     },
   },
   methods: {
-    async printExamResult () {
+    printExamResult () {
       let url = GET_PDFS(this.healthCenter, this.attendance)
       let params = { exames: this.checkedExams.join(',') }
-      let base64 = await this.getReports({ url, params })
-      this.print({printable: base64, type: 'pdf', base64: true})
+      this.getReports({ url, params })
+        .then(base64 => this.print({printable: base64, type: 'pdf', base64: true}))
+        .catch(() => this.$emit('errorMessages', this.message))
+     
     },
-    async downloadExamResult () {
+    downloadExamResult () {
       let url = GET_PDFS(this.healthCenter, this.attendance)
       let params = { exames: this.checkedExams.join(',') }
       let namePDF = (this.numberCheckedExams > 1) ? this.name : 
         this.findExamNameByCorrel(this.checkedExams[0])
-      let base64 = await this.getReports({ url, params })
-      this.download(namePDF, base64)        
+      this.getReports({ url, params })
+        .then(base64 => this.download(namePDF, base64))
+        .catch(() => this.$emit('errorMessages', this.message))
     },
     ...mapActions(NAMESPACED_REPORT, {
       getReports: GET_REPORT_STORE

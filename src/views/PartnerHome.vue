@@ -94,9 +94,8 @@ export default {
   },
   methods: {
     messageError (value) {
-      this.message = {}
-      this.message['content'] = value
-      this.message['type'] = 'error'
+      this.message = value
+      console.log(this.message)
        setTimeout(() => {
         this.message = undefined
       }, this.TIME_MESSAGE)
@@ -153,7 +152,7 @@ export default {
   background-color: $color__default
   position: fixed
   bottom: 0
-  padding: 12px 0
+  padding: 10px 0
   width: 100%
 .partner__number
   font-size: 0.8rem

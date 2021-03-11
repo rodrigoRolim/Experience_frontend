@@ -86,7 +86,7 @@ $p-top-bott: 5px
   font-size: 0.8rem
   color: #3e3f3f
   margin-top: 3px
-  width: 50%
+  width: 100%
   text-align: justify
   @include respond-to(handhelds)
     width: 100%

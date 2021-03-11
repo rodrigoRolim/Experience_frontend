@@ -151,12 +151,14 @@ export default {
     if (!this.params.begin || !this.params.end) {
       this.setInitialDates() 
     }
-    this.initComponent()
+    if (!this.hasAttendances)
+      this.initComponent()
   },
   computed: {
     ...mapGetters(NAMESPACED_ATTENDANCE, [
       'params',
-      'status'
+      'status',
+      'hasAttendances'
     ]),
     ...mapGetters(NAMESPACED_AUTH, [
       'userId',

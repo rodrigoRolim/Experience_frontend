@@ -30,6 +30,11 @@
         />  
       </div>
     </transition>
+    <div class="doctor-home__total" v-if="total">
+      <span class="doctor-home__number">
+        foram encontrados {{total}} atendimentos no período selecionado
+      </span>
+    </div>
   </div>
 </template>
 
@@ -54,14 +59,15 @@ export default {
   },
   data () {
     return {
-      message: '',
+      message: undefined,
       type: '',
-      TIME_MESSAGE: 10000,
+      TIME_MESSAGE: 8000,
     }
   },
   computed: {
     ...mapGetters(NAMESPACED_PATIENT, [
-      'status'
+      'status',
+      'total',
     ]),
     displayLoading () {
       return this.status == 'loading'
@@ -69,6 +75,7 @@ export default {
   },
   methods: {
     messageError (value) {
+      console.log(value)
       this.message = value
        setTimeout(() => {
         this.message = ''
@@ -79,6 +86,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+@import "../styles/__themes"
 .doctor-home__filter
   position: fixed
   width: 100%
@@ -99,7 +107,22 @@ export default {
 .doctor-home__loading
   margin-top: 90px
 .doctor-home__messages
-  bottom: 45px
+  bottom: 0px
   position: absolute
   width: 100%
+.doctor-home__total
+  display: flex
+  justify-content: center
+  align-items: center 
+  color: $color__text
+  background-color: $color__default
+  position: fixed
+  bottom: 0
+  padding: 10px 0
+  width: 100%
+  z-index: 3
+.doctor-home__number
+  font-size: 0.8rem
+  @include respond-to(handhelds)
+    font-size: 0.7rem
 </style>

@@ -1,7 +1,7 @@
 <template>
-  <div class="chip-status-exams">
-    <span class="chip-status-exams__content" :class="'chip-status-exams--'+getStatus">
-      <span class="chip-status-exams__element" :class="getStatus">{{text}}</span>
+  <div class="chip-status-attendance">
+    <span class="chip-status-attendance__content" :class="'chip-status-attendance--'+getStatus">
+      <span class="chip-status-attendance__element" :class="getStatus">{{text}}</span>
     </span>
   </div>
 </template>
@@ -45,35 +45,33 @@ export default {
 
 <style lang="sass" scoped>
 
-.chip-status-exams
+.chip-status-attendance
   display: flex
   flex-direction: column
-  justify-content: center
+  width: 100%
   @include respond-to(handhelds)
     flex-direction: row
-    justify-content: flex-end
   @include respond-to(medium-screens)
     flex-direction: row
-    justify-content: flex-end
   @include respond-to(wide-screens)
     text-align: center
-.chip-status-exams__content
+.chip-status-attendance__content
   color: white
   font-size: 0.8rem
   padding: 4px 10px
   border-radius: 16px
-.chip-status-exams__element
+.chip-status-attendance__element
   padding: 3px 0
   border-radius: 10px
   font-weight: 600
-.chip-status-exams--pendency
+.chip-status-attendance--pendency
   background-color: $EP 
-.chip-status-exams--finished
+.chip-status-attendance--finished
   background-color: $TF
-.chip-status-exams--partial-finished
+.chip-status-attendance--partial-finished
   background-color: $PF
-.chip-status-exams--in-progress
+.chip-status-attendance--in-progress
   background-color: $EA
-.chip-status-exams--no-realized
+.chip-status-attendance--no-realized
   background-color: $NR
 </style>

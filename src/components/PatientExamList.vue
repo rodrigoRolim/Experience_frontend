@@ -51,7 +51,10 @@
         />  
       </div>
     </transition>
-    <patient-exams-list-actions :showsUp="someExamChecked"/>
+    <patient-exams-list-actions 
+      :showsUp="someExamChecked"
+      @errorMessages="messagesHandler"
+    />
   </div>
 </template>
 <script>

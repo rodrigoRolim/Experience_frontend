@@ -88,6 +88,10 @@ TheNavbar.vue
 TheSidebar.vue
 UserPerfil.vue
 
+
+
+www.experience.gov.com;
+
 ./src/components/base:
 CodeButtonCollapser.vue
 CodeButton.vue
@@ -208,3 +212,5 @@ Partner.vue
 PatientHome.vue
 Patient.vue
 Procediments.vue
+
+f3NeQsRUhgzu password nginx on aws lightsail

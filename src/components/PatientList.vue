@@ -1,10 +1,5 @@
 <template>
   <div class="patients">
-    <div class="patients__header">
-      <span class="patients__number">
-        foram encontrados {{total}} atendimentos no período selecionado
-      </span>
-    </div>
     <div class="patient__body" ref="patients" >
       <code-message
         v-if="message"
@@ -79,7 +74,6 @@ export default {
   computed: {
     ...mapGetters(NAMESPACED_PATIENT, [
       'patients',
-      'total',
       'message',
       'status',
       'params',
@@ -147,25 +141,10 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-@import "../styles/__themes"
+
 .patients
   display: flex
   flex-direction: column
-.patients__header
-  display: flex
-  justify-content: center
-  align-items: center 
-  color: $color__text
-  background-color: $color__default
-  position: fixed
-  bottom: 0
-  padding: 12px 0
-  width: 100%
-  z-index: 3
-.patients__number
-  font-size: 0.8rem
-  @include respond-to(handhelds)
-    font-size: 0.7rem
 .patient__body
   display: flex
   flex-direction: row

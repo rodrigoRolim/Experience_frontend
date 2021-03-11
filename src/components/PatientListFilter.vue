@@ -88,15 +88,18 @@ export default {
   },
   watch: {
     'params.begin': function (value) {
-
       if (this.required(value)) {
+
         this.validate.begin = 'campo obrigatório'
+        
       } else if (this.beginGtEnd(value, this.params.end)) {
         
-        this.validate.begin = 'inicio inválido'
+        this.validate.begin = 'data de inicio inválida'
       } else if (this.endLtBegin(this.params.begin, this.params.end)){
         
-        this.validate.end = 'final inválido'
+        this.validate.end = 'data de fim inválida'
+      } else if (!this.date(value, DATE_VALIDATOR)) {
+        this.validate.begin = 'data inválida'
       } else {
         this.validate.begin = ''
         this.validate.end = ''
@@ -107,9 +110,11 @@ export default {
         this.validate.end = 'campo obrigatório'
 
       } else if (this.endLtBegin(this.params.begin, value)) {
-        this.validate.end = 'final inválido'
+        this.validate.end = 'data de fim inválida'
       } else if (this.beginGtEnd(this.params.begin, this.params.end)){
         this.validate.begin = 'início inválido'
+      } else if (!this.date(value, DATE_VALIDATOR)){
+        this.validate.end = 'data inválida'
       } else {
         this.validate.begin = ''
         this.validate.end = ''

@@ -28,7 +28,6 @@
           :health-center="healthCenter"
           :attendance="attendance"
           :patient="patient"
-         
         />
       </div>
     </div>

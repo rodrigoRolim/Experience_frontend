@@ -27,8 +27,8 @@
       <div class="health-home__messages" v-if="message">
         <code-message
           class="health-home__message-content"
-          :message="message"
-          :type-message="type"
+          :message="message.content"
+          :type-message="message.type"
           position="center"
           icon="times-circle"
         />  
@@ -157,7 +157,7 @@ export default {
   background-color: $color__default
   position: fixed
   bottom: 0
-  padding: 12px 0
+  padding: 10px 0
   width: 100%
 .health-home__number
   font-size: 0.8rem

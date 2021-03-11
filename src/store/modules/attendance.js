@@ -56,6 +56,7 @@ const state = {
 
 const getters = {
   attendances: (state) => state?.attendances,
+  hasAttendances: (state) => state?.attendances.length > 0,
   total: (state) => state.total,
   name: () => (patientName) => {
     return patientName.toUpperCase()

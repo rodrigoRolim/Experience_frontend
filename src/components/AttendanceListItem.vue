@@ -4,15 +4,15 @@
   >
     <div class="attendance-item__header">
       <span class="attendance-item__name-patient">{{name}}</span>
-    </div>
-    <div class="attendance-item__body">
-      <attendance-list-item-profile
+       <attendance-list-item-profile
         class="attendance-item__profile"
         :name="name"
         :age="age"
         :gender="gender"
       />
-      <code-chip-status-attendance class="attendance-item__situation" :status="status"/>
+    </div>
+    <code-chip-status-attendance class="attendance-item__situation" :status="status"/>
+    <div class="attendance-item__body">
       <attendance-list-item-detail
         class="attendance-item__details"
         :attendance="attendance"
@@ -105,7 +105,7 @@ export default {
 
 .attendance-item
   display: flex
-  flex-direction: column
+  flex-direction: row
   justify-content: space-between
   margin: 5px
   padding: 10px
@@ -113,8 +113,33 @@ export default {
   border-radius: 5px
   -webkit-box-shadow: 0 1px 0 rgb(9 30 66 / 25%)
   box-shadow: 0 1px 0 rgb(9 30 66 / 25%)
+  @include respond-to(handhelds)
+    flex-direction: column
+  @include respond-to(medium-screens)
+    flex-direction: column
 .attendance-item__header
-  height: 20px
+  width: 31%
+  @include respond-to(handhelds)
+    flex-direction: column
+    width: 100%
+  @include respond-to(medium-screens)
+    flex-direction: column
+    width: 100%
+.attendance-item__situation
+  width: 17.9%
+  justify-content: center
+  align-items: center
+  margin-right: 8px
+  @include respond-to(handhelds)
+    width: 100%
+    align-self: center
+    justify-content: center
+  @include respond-to(medium-screens)
+    align-self: center
+    justify-content: flex-end
+    margin-bottom: 20px
+    padding-right: 40px
+    width: 100%
 .attendance-item__name-patient
   color: rgba(71, 77, 94, 1)
   font-size: 0.89rem
@@ -124,17 +149,14 @@ export default {
   display: flex
   flex-direction: row
   justify-content: space-between
+  width: 53%
   @include respond-to(handhelds)
     flex-direction: column
     padding: 0
+    width: 100%
   @include respond-to(medium-screens)
     flex-direction: column
-.attendance-item__situation
-  @include respond-to(handhelds)
-    align-self: center
-  @include respond-to(medium-screens)
-    margin-right: 80px 
-    margin-bottom: 20px
+    width: 100%
 .attendance-item:hover
   -webkit-box-shadow:  0 0 6px rgba(0,0,0,.3)
 .attendance-item--pendency
