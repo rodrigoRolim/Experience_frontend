@@ -27,6 +27,7 @@ const state = () => ({
 
 const getters = {
   isAuthenticated: state => !!state.token,
+  identify: state => state.identify,
   authState: state => state.status,
   userTypeAuthed: state => state.userType,
   userName: state => state.user,
