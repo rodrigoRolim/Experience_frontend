@@ -1,8 +1,9 @@
 import { requestResource } from '../../services/api'
-import { GET_HEALTH_CENTERS_STORE, LOADING, ERROR, SUCCESS, REINIT_STATE } from "../../utils/alias"
+import { GET_HEALTH_CENTERS_STORE, LOADING, ERROR, SUCCESS, REINIT_STATE, MESSAGE } from "../../utils/alias"
 const state = () => ({
   healthCenters: [],
-  status: ''
+  status: '',
+  message: undefined,
 })
 
 const getters = {
@@ -11,7 +12,8 @@ const getters = {
     hcs.push({ id: '', name: 'TODOS' })
     return hcs
   },
-  status: state => state.status
+  status: state => state.status,
+  message: state => state.message
 }
 
 const actions = {
@@ -38,6 +40,9 @@ const mutations = {
   },
   [LOADING]: (state) => {
     state.status = 'loading'
+  },
+  [MESSAGE]: (state, message) => {
+    state.message = message
   },
   [ERROR]: (state) => {
     state.status = 'error'

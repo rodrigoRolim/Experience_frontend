@@ -37,7 +37,7 @@ const getters = {
   params: state => state.params,
   checkedExams: state => state.checkedExams,
   numberCheckedExams: state => state.checkedExams.length,
-  findExamNameByCorrel: state => (correl) => state.exams.find(ex => correlatives(ex.correl) !== correl).nomeProcedimento,
+  findExamNameByCorrel: state => (correl) => state.exams.find(ex => correlatives(ex.correl) == correl).nomeProcedimento,
   checked: (state) => (correl) => state.checkedExams.includes(correlatives(correl)),
   someExamChecked: state => state.checkedExams.length > 0,
   allExamsChecked: state => state.checkedExams.length === state.exams.filter(exam => exam.situacaoExperience === 'FINALIZADO' && exam.tipoEntrega == '*').length,
