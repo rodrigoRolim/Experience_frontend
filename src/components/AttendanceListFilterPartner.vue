@@ -132,6 +132,7 @@ export default {
     if (!this.params.begin || !this.params.end) {
       this.setInitialDates() 
     }
+    this.initComponent()
   },
   computed: {
     ...mapGetters(NAMESPACED_ATTENDANCE, [
@@ -150,9 +151,9 @@ export default {
     allowRequest () {
       return !Object.values(this.validate).find((val) => val !== '')
     },
-    beginAndEnd () {
+   /*  beginAndEnd () {
       return `${this.params.begin}|${this.params.end}`
-    },
+    }, */
     disableConfirm () {
       return this.status === 'loading' || this.statusPush === 'loading' 
     }
@@ -217,13 +218,13 @@ export default {
         this.statusPush === 'loading'
       )
     },
-    beginAndEnd (value) {
+   /*  beginAndEnd (value) {
       let [begin, end] = value.split('|')
       if (this.validatePeriod(begin, end)) {
 
         this.initComponent()
       }
-    }
+    } */
   },
   methods: {
     validatePeriod(begin, end) {

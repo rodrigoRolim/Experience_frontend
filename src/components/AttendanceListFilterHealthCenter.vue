@@ -151,7 +151,7 @@ export default {
     if (!this.params.begin || !this.params.end) {
       this.setInitialDates() 
     }
-    
+    this.initComponent()
   },
   computed: {
     ...mapGetters(NAMESPACED_ATTENDANCE, [
@@ -178,9 +178,9 @@ export default {
     allowRequest () {
       return !Object.values(this.validate).find((val) => val !== '')
     },
-    beginAndEnd () {
+   /*  beginAndEnd () {
       return `${this.params.begin}|${this.params.end}`
-    },
+    }, */
     disableConfirm () {
       return this.status == 'loading'    || 
              this.statusAcc == 'loading' || 
@@ -267,14 +267,14 @@ export default {
              this.statusAcc == 'loading' ||
              this.status == 'loading'
     },
-    beginAndEnd (value) {
+   /*  beginAndEnd (value) {
       let [begin, end] = value.split('|')
 
       if (this.validatePeriod(begin, end)) {
         // this.backParamsToDefault()
         this.initComponent()
       }
-    }
+    } */
   },
   methods: {
     validatePeriod(begin, end) {
@@ -302,9 +302,9 @@ export default {
         if (!err.response) {
           this.message(408)
         } else {
-          this.$emit('error', httpMessage({ status: err.response.status }))
-        }
-          
+         
+          this.message(err.response.status)
+        }          
       }
     },
     catchErrorSelect (error) {
@@ -461,6 +461,7 @@ export default {
   @include respond-to(medium-screens)
     width: 24%
   @include respond-to(handhelds)
+    margin-bottom: 10px
     width: 100%
 .attendance-list-filter-healthcenter__buttons
   width: 10%
@@ -469,7 +470,7 @@ export default {
     margin-top: 30px
   @include respond-to(handhelds)
     width: 100%
-    margin-top: 40px
+    margin-top: 30px
 .attendance-list-filter-healthcenter__period
   width: 25%
   @include respond-to(medium-screens)
@@ -477,6 +478,7 @@ export default {
     margin: 10px 0
   @include respond-to(handhelds)
     width: 100%
+    margin-bottom: 10px
   display: flex
   flex-direction: column
 </style>

@@ -83,7 +83,7 @@ export default {
     if (!this.params.begin || !this.params.end) {
       this.setInitialDates() 
     }
-    //this.patients()
+    this.patients()
     
   },
   watch: {
@@ -115,20 +115,20 @@ export default {
         this.validate.end = ''
       }
     },
-    beginAndEnd (value) {
+    /* beginAndEnd (value) {
       let [begin, end] = value.split('|')
       if (this.validatePeriod(begin, end)) {
         this.patients()
       }
-    }
+    } */
   },
   computed: {
     ...mapGetters(NAMESPACED_PATIENT, [
       'params'
     ]),
-    beginAndEnd () {
+  /*   beginAndEnd () {
       return `${this.params.begin}|${this.params.end}`
-    },
+    }, */
     allowRequest () {
       return !Object.values(this.validate).find((val) => val !== '')
     },
