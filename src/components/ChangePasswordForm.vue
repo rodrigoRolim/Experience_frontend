@@ -23,16 +23,8 @@
       </div>
       <div class="change-password__inputs">
         <div class="change-password__current-password">
-          <code-label
-            label="Senha atual"
-            color="#676a6c"
-            :fontWeight="600"
-            fontSize=".9rem"
-            bind="currentPassword"
-            fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
-          ></code-label>
           <code-input
-            label="currentPassword"
+            label="senha"
             placeholder="senha atual"
             :hasIcon="true"
             name="currentPassword"
@@ -46,16 +38,9 @@
           />
         </div>
         <div class="change-password__new-password">
-          <code-label
-            label="Nova senha"
-            color="#676a6c"
-            :fontWeight="600"
-            fontSize=".9rem"
-            bind="newPassword"
-            fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
-          ></code-label>
+         
           <code-input
-            label="newPassword"
+            label="nova senha"
             placeholder="nova senha"
             :hasIcon="true"
             name="newPassword"
@@ -69,16 +54,8 @@
           />
         </div>
         <div class="change-password__confirm-password">
-          <code-label
-            label="Confirmar nova senha"
-            color="#676a6c"
-            :fontWeight="600"
-            fontSize=".9rem"
-            bind="confirmPassword"
-            fontFamily='"open sans", "Helvetica Neue", Helvetica, Arial, sans-serif'
-          ></code-label>
           <code-input
-            label="confirmPassword"
+            label="confirmar nova senha"
             placeholder="Confimar nova senha"
             :hasIcon="true"
             name="confirmPassword"
@@ -112,14 +89,12 @@
 <script>
 
 import CodeInput from './base/CodeInput'
-import CodeLabel from './base/CodeLabel'
 import CodeButton from './base/CodeButton'
 import CodeMessage from './base/CodeMessage'
 export default {
   name: 'ChangePasswordForm',
   components: {
     CodeInput,
-    CodeLabel,
     CodeButton,
     CodeMessage
   },

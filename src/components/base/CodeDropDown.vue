@@ -16,8 +16,9 @@
         'dropdown__contents--isdropable': dropdown, 
         'dropdown--visible': show && dropdown, 
         'dropdown--hidden': !show && dropdown,
-        'dropdown--overflow': hiddenElements }"
-      >
+        'dropdown--overflow': hiddenElements 
+      }"
+    >
       <slot name="content"></slot>
     </div>
   </div>

@@ -51,9 +51,8 @@ export default {
   display: flex
   flex-direction: row
   justify-content: space-between
-  width: 170px
+  width: 180px
   margin-top: 15px
   @include respond-to(handhelds)
     flex-direction: row
-
 </style>

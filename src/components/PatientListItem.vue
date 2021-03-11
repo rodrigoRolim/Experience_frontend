@@ -54,14 +54,6 @@
         :attendance-id="attendance.posto | id(attendance.atendimento)"
         :attendance-date="attendance.dataAtd | date"
       />
-      <patient-list-item-attendances 
-        attendance-id="000/00000"
-        attendance-date="21/09/2134"
-      />
-        <patient-list-item-attendances 
-        attendance-id="000/00000"
-        attendance-date="21/09/2134"
-      />
     </div>
   </div>
 </template>

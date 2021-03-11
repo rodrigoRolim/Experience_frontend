@@ -127,8 +127,6 @@ export default {
           this.print({printable: base64, type: 'pdf', base64: true})
         })
         .catch(() => {
-           console.log(this.message)
-          console.log("buceta")
           this.$emit('errorMessages', this.message)
           this.close()
         })
@@ -244,7 +242,7 @@ h2
   width: 100%
   margin: 3px 5px
   @include respond-to(handhelds)
-    width: 100%
+    display: none
 .exam__download
   width: 100%
   margin: 3px 5px

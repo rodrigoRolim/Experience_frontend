@@ -75,11 +75,9 @@ export default {
   },
   methods: {
     messageError (value) {
-      this.message = value.message
-      this.type = value.type
+      this.message = value
       setTimeout(() => {
-        this.message = ''
-        this.type = ''
+        this.message = undefined   
       }, this.TIME_MESSAGE)
     }
   },

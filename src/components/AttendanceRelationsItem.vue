@@ -32,7 +32,7 @@
 <script>
 import CodeInfo from './base/CodeInfo'
 import { mapGetters, mapMutations } from 'vuex'
-import { NAMESPACED_EXAMS, NAMESPACED_PROPS, SET_PROPS} from '../utils/alias'
+import { NAMESPACED_EXAMS, NAMESPACED_PROPS, SET_PROPS, UNCHECKED_ALL_EXAMS } from '../utils/alias'
 import { attendance } from '../mixins/formater' 
 export default {
   name: 'AttendanceRelationsItem',
@@ -81,6 +81,9 @@ export default {
     ...mapMutations(NAMESPACED_PROPS, {
       storeProps: SET_PROPS 
     }),
+    ...mapMutations(NAMESPACED_EXAMS, {
+      cleanCheckedExams: UNCHECKED_ALL_EXAMS
+    }),
     selectItem() {
       let patient = this.patient
       let healthCenter = this.healthCenter
@@ -103,7 +106,7 @@ export default {
         doctor,
         healthInsurance
       })
-      
+      this.cleanCheckedExams()
       this.$emit('selected', { 
         healthCenter: this.healthCenter,
         attendance: this.attendance 

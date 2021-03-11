@@ -1,7 +1,7 @@
 <template>
   <div class="patient-exams-list-actions" v-if="showsUp">
     <code-button
-      class="btn-1"
+      class="patient-exams-list-actions__print btn-1"
       text="imprimir"
       name-icon="print"
       borded
@@ -54,7 +54,8 @@ export default {
   computed: {
     ...mapGetters(NAMESPACED_PROPS, [
       'healthCenter',
-      'attendance'
+      'attendance',
+      'name'
     ]),
     ...mapGetters(NAMESPACED_EXAMS, [
       'checkedExams',
@@ -76,15 +77,13 @@ export default {
       let url = GET_PDFS(this.healthCenter, this.attendance)
       let params = { exames: this.checkedExams.join(',') }
       let base64 = await this.getReports({ url, params })
-      this.print(base64)
+      this.print({printable: base64, type: 'pdf', base64: true})
     },
     async downloadExamResult () {
-
       let url = GET_PDFS(this.healthCenter, this.attendance)
       let params = { exames: this.checkedExams.join(',') }
-      let namePDF = (this.numberCheckedExams > 1) ? this.userName : 
+      let namePDF = (this.numberCheckedExams > 1) ? this.name : 
         this.findExamNameByCorrel(this.checkedExams[0])
-      
       let base64 = await this.getReports({ url, params })
       this.download(namePDF, base64)        
     },
@@ -110,5 +109,8 @@ export default {
   border-radius: 4px
   @include respond-to(handhelds)
     box-shadow: none
-    width: 140px
+    width: 70px
+.patient-exams-list-actions__print
+  @include respond-to(handhelds)
+    display: none
 </style>

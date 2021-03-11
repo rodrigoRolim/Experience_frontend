@@ -59,4 +59,6 @@ export default {
 @media only screen and (max-width: 466px)
   .patient-list-item-attendances
     width: 100%
+    flex-direction: row
+    justify-content: space-evenly
 </style>

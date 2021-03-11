@@ -120,7 +120,6 @@ export default {
   @include respond-to(handhelds)
     margin-top: 60px
     margin-bottom: 40px
-  min-height: 100vh
 .doctor-patient__main
   width: calc( 100% - 360px )
   display: flex
@@ -142,7 +141,7 @@ export default {
     margin-top: 120px
   @include respond-to(handhelds)
     width: 100%
-    margin-top: 60px
+    margin-top: 85px
 .doctor-patient__modal
   z-index: 2
 .doctor-patient__spin

@@ -235,9 +235,10 @@ export default {
 .logins
   display: flex
   flex-direction: column
-  min-height: 100vh
+  min-height: calc(100vh - 60px)
+  overflow: auto
 .logins__main
-  margin-top: 50px
+  margin-top: 60px
   width: 100%
   display: flex
   flex-direction: row
@@ -275,7 +276,8 @@ html:fullscreen .logins__messages
     flex-direction: column
     align-items: center
     width: 100%
-  margin-top: 12vh
+    margin-top: 40px
+  margin-top: 10vh
 .logins__menu-abas
   width: 460px
   display: flex

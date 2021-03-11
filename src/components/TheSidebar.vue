@@ -68,6 +68,8 @@ export default {
   display: flex
   flex-direction: column
   margin-top: 160px
+  @include respond-to(handhelds)
+    margin-top: 100px
   padding-bottom: 20px
 .sidebar__row
   display: flex

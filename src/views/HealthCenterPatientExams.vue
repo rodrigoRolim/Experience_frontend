@@ -104,7 +104,7 @@ export default {
     margin-top: 75px
   @include respond-to(handhelds)
     width: 100%
-    margin-top: 55px
+    margin-top: 85px
 .health-center-patient__modal
   z-index: 2
 .health-center-patient__modal,

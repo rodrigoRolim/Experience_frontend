@@ -144,9 +144,14 @@ export default {
     width: 100%
   border-bottom: 1px solid rgba(0,0,0,0.1)
   padding: 15px 10px 0px 10px
+.patient-exams__checkall
+  @include respond-to(handhelds)
+    align-self: flex-end
 .patient-exams__name-checkall
   display: flex
   justify-content: space-between
+  @include respond-to(handhelds)
+    flex-direction: column
 .patient-exams--margin
   margin: 10px 5px
 .patient-exams__patient-info

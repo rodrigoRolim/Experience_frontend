@@ -32,7 +32,6 @@
           label="posto"
           option="Selecione um posto"
           v-model="healthCare.posto"
-          @enter="confirm"
           name="healthcares"
           icon="clinic-medical"
           :error="validate.posto"
