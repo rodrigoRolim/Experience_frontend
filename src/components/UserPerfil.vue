@@ -114,7 +114,7 @@ export default {
         case '0':
           return 'stethoscope'
         case '1' || '3' || '4': 
-          return 'birthday-cake'
+          return 'user'
         case '2':
           return 'clinic-medical'
         case '5':

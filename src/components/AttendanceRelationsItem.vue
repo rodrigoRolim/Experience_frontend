@@ -12,7 +12,7 @@
         class="attendance-relation-item__id"
         icon="heartbeat"
         size="lg"
-        description="ID atendimento"
+        description="atendimento"
         :info="healthCenter | id(attendance)"
       />
     </div>

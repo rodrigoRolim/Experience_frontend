@@ -52,7 +52,7 @@
         <div class="attendance-list-filter-healthcenter__realizer">
           <code-select
             name="realizer"
-            label="posto responsável"
+            label="posto realizante"
             label-color="text"
             option="selecione posto realizante"
             :options="registrants"
