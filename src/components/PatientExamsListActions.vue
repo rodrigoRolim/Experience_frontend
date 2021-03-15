@@ -78,7 +78,7 @@ export default {
       let url = GET_PDFS(this.healthCenter, this.attendance)
       let params = { exames: this.checkedExams.join(',') }
       this.getReports({ url, params })
-        .then(base64 => this.print({printable: base64, type: 'pdf', base64: true}))
+        .then(base64 => this.print({ printable: base64, type: 'pdf', base64: true }))
         .catch(() => this.$emit('errorMessages', this.message))
      
     },

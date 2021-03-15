@@ -133,7 +133,7 @@ export default {
     margin-left: 0
     width: 100%
 .doctor-patient__exams
-  width:  calc( 100% - 301px )
+  width:  calc( 100% - 316px )
   margin-top: 150px
   @include respond-to(medium-screens)
     width: 100%
@@ -160,14 +160,14 @@ export default {
   @include respond-to(wide-screens)
     display: block
   position: fixed
-  width: 301px
+  width: 316px
   overflow-y: auto
   height: 100vh
   z-index: 3
   @include respond-to(medium-screens)
     overflow-x: hidden
 .doctor-patient__patient
-  width: calc( 100% - 301px )
+  width: calc( 100% - 316px )
   @include respond-to(medium-screens)
     width: 100%
   @include respond-to(handhelds)

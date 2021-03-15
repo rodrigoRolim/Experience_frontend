@@ -6,6 +6,7 @@ export const pdf = {
     },
     download(name, base64) {
       var arrBuffer = this.base64ToArrayBuffer(base64)
+      console.log(arrBuffer)
       var newBlob = new Blob([arrBuffer], { type: "application/pdf" })
 
       if (window.navigator && window.navigator.msSaveOrOpenBlob) {
@@ -14,6 +15,7 @@ export const pdf = {
       }
 
       var data = window.URL.createObjectURL(newBlob)
+
       var link = document.createElement('a')
       document.body.appendChild(link)
       link.href = data
@@ -23,7 +25,18 @@ export const pdf = {
       window.URL.revokeObjectURL(data)
       link.remove()
     },
+    downloadPDF(name, pdf) {
+      const linkSource = `data:application/pdf;base64,${pdf}`;
+      const downloadLink = document.createElement("a");
+      //const fileName = "vct_illustration.pdf";
+  
+      downloadLink.href = linkSource;
+      downloadLink.download = name;
+      downloadLink.click();
+      downloadLink.remove();
+    },
     base64ToArrayBuffer(data) {
+      
       var binaryString = window.atob(data);
       var binaryLen = binaryString.length;
       var bytes = new Uint8Array(binaryLen);

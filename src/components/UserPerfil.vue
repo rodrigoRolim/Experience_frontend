@@ -118,7 +118,7 @@ export default {
         case '2':
           return 'clinic-medical'
         case '5':
-          return 'clinic-medical'
+          return 'handshake'
         default: 
           return ''
       }
