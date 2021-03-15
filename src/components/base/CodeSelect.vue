@@ -54,10 +54,11 @@
     <div class="custom-select__message-error"  v-if="error">
       <small class="custom-select__text-error">{{ error }}</small>
     </div>
-    <div :class="{'custom-select__modal': showModalList}" @click.self="closeList">
+    <div :class="{'custom-select__modal': showModalList}" @click.self="closeList"  id="select">
       <ul
         ref="list"
         class="custom-select__list"
+       
         v-show="showList" 
         role="list">
         <li 
@@ -199,14 +200,35 @@ export default {
       return this.filterOptionsByKeys.filter((option) => option.name.toLowerCase() === optionName)
     },
     nextItem () {
-      this.currentOption++
-      if (this.filterOptionsByKeys.length === this.currentOption)
+      if (this.filterOptionsByKeys.length === this.currentOption + 1)
         this.currentOption = 0
+      console.log(this.currentOption)
+      this.currentOption++;
+      const height = this.$refs.items[this.currentOption].offsetHeight;
+      const scrollTop = this.$refs.list.scrollTop;
+      const viewPort = scrollTop + height;
+      const offSet = height * this.currentOption;
+
+      if (offSet < scrollTop || (offSet + height) > viewPort) {
+
+        this.$refs.list.scrollTop = offSet
+      }
+      
     },
     previousItem () {
-      if (this.currentOption === 0)
+     
+      if (this.currentOption <= 0)
         this.currentOption = this.filterOptionsByKeys.length
+
       this.currentOption--
+
+      const height = this.$refs.items[this.currentOption].offsetHeight;
+      const scrollTop = this.$refs.list.scrollTop;
+      const viewPort = scrollTop + height;
+      const offSet = height * this.currentOption;
+      if (offSet < scrollTop || (offSet + height) > viewPort) {
+        this.$refs.list.scrollTop = offSet
+      }
     },
     pickerOptions (e) {
       if (!this.showList)
