@@ -3,10 +3,10 @@
     class="patient-exam" 
     :class="getClasses"
     @click.self="click(status)">
-    <div class="patient-exam__detail" @click.self="click(status)">
+    <div class="patient-exam__detail" @click="click(status)">
       <code-chip :text="mnemonico" transform="uppercase" class="patient-exam__tag" />
       <div class="patient-exam__separator-line"></div>
-      <div class="patient-exam__name-exam">
+      <div class="patient-exam__name-exam" >
         <code-info
           size="lg"
           color="rgba(71, 77, 94, 1)"
@@ -17,10 +17,9 @@
     <div class="patient-exam__print-in-lab" v-if="printInLab">
       <small>Este exame só poderá ser impresso no laboratorio</small>
     </div>
-    <div class="patient-exam__content"  @click.self="click(status)">
-      <div class="patient-exam__health-center"  @click.self="click(status)">
+    <div class="patient-exam__content">
+      <div class="patient-exam__health-center" @click="click(status)">
         <code-info
-          @click.self="click(status)"
           icon="clinic-medical"
           size="lg"
           description="Posto Realizante"
@@ -28,10 +27,10 @@
           :info="nameHealthCenter"     
         />
       </div>
-      <div class="patient-exam__status-exam"  @click.self="click(status)">
-        <code-chip-status-exams :status="status"  @click.self="click(status)"/>
+      <div class="patient-exam__status-exam" @click="click(status)">
+        <code-chip-status-exams :status="status" />
       </div>
-      <div class="patient-exam__checkbox" >
+      <div class="patient-exam__checkbox" @click="'javascript:void(0)'">
         <code-checkbox
           v-show="status === 'FINALIZADO' && !printInLab"
           text="imprimir"
@@ -144,7 +143,6 @@ export default {
   display: flex
   flex-direction: row
   justify-content: center
-  cursor: default
 .patient-exam__content
   display: flex
   justify-content: space-between
@@ -156,7 +154,6 @@ export default {
   width: 100%
 .patient-exam__health-center
   align-self: flex-start
-  cursor: default
   margin-left: 20px
 .patient-exam__separator-line
   content: "|"
@@ -174,7 +171,6 @@ export default {
     flex-direction: column
     align-items: center
   justify-content: center
-  cursor: default
 .patient-exam__checkbox
   align-self: flex-end
   min-height: 29px
