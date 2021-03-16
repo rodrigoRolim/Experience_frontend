@@ -11,6 +11,7 @@
         :gender="gender"
         :delivery="delivery"
         :doctor="doctor"
+        :attendaceData="attendanceDate"
       />
     </div>
     <div class="partner-patient__exams">
@@ -62,7 +63,8 @@ export default {
       'age',
       'gender',
       'delivery',
-      'doctor'
+      'doctor',
+      'attendanceDate'
     ]),
     ...mapGetters(NAMESPACED_EXAMS, [
       'status'
