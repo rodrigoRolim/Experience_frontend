@@ -83,7 +83,7 @@ export default {
   padding: 20px 10px
   cursor: pointer
   user-select: none
-  max-width: 350px
+  max-width: 340px
 .attendance-relations__item--active,
 .attendance-relations__item--initial-active
   background-color: white
