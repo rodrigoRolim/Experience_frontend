@@ -77,7 +77,8 @@ export default {
       let deliveryDate = this.dataDelivery
       let doctor = this.doctor
       let healthInsurance = this.healthInsurance
-
+      let attendanceDate = this.dataAttendance
+      console.log(attendanceDate, this.dataAttendance)
       this.storeProps({ 
         patient, 
         healthCenter, 
@@ -87,8 +88,10 @@ export default {
         genderPatient, 
         deliveryDate, 
         doctor, 
-        healthInsurance 
-      })
+        healthInsurance,
+        attendanceDate
+      });
+
       this.$router.push({ 
         path: this.$route.path+'/paciente-exames', 
         params: { patient, attendance, healthCenter } 
