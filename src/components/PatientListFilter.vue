@@ -22,6 +22,11 @@
             @input="setNamePatient"
             :value="params.name"
           />
+          <div class="patient-list-filter__clean" @click="clearName">
+            <code-info 
+              icon="times"
+            />
+          </div>
         </div>
         <div class="patient-list-filter__buttons">
           <code-button
@@ -47,6 +52,7 @@
 import CodeDropDown from '../components/base/CodeDropDown'
 import CodeInput from '../components/base/CodeInput'
 import CodeButton from '../components/base/CodeButton'
+import CodeInfo from '../components/base/CodeInfo'
 import PatientListFilterPeriod from '../components/PatientListFilterPeriod'
 import { validator } from '../mixins/validations/validator'
 import { endLtBegin, beginGtEnd, required, date } from '../mixins/validations/rules'
@@ -69,7 +75,8 @@ export default {
     CodeDropDown,
     PatientListFilterPeriod,
     CodeInput,
-    CodeButton
+    CodeButton,
+    CodeInfo
   },
   data () {
     return {
@@ -139,6 +146,9 @@ export default {
     },
   },
   methods: {
+    clearName() {
+      this.setNamePatient('')
+    },
     validatePeriod(begin, end) {
       return this.date(begin, DATE_VALIDATOR) && 
              this.date(end, DATE_VALIDATOR) && 
@@ -224,4 +234,11 @@ export default {
   @include respond-to(handhelds)
     width: 100%
     margin: 10px 0
+.patient-list-filter__name-patient
+  position: relative
+.patient-list-filter__clean
+  position: absolute
+  top: 52%
+  right: 10px
+  cursor: pointer
 </style>

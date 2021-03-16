@@ -49,6 +49,11 @@
             @input="setName"
             :value="params.name"
           />
+          <div class="attendaces-filter-partner__clean" @click="clearName">
+            <code-info 
+              icon="times"
+            />
+          </div>
         </div>
         <div class="attendances-filter-partner__buttons">
           <code-button
@@ -77,6 +82,7 @@ import CodeDropDown from '../components/base/CodeDropDown'
 import CodeSelect from '../components/base/CodeSelect'
 import CodeInput from '../components/base/CodeInput'
 import CodeButton from '../components/base/CodeButton'
+import CodeInfo from '../components/base/CodeInfo'
 import AttendanceListFilterPeriod from '../components/AttendanceListFilterPeriod'
 import { validator } from '../mixins/validations/validator'
 import { session } from '../mixins/session'
@@ -113,6 +119,7 @@ export default {
     CodeSelect,
     CodeInput,
     CodeButton,
+    CodeInfo,
     AttendanceListFilterPeriod
   },
   data () {
@@ -227,6 +234,9 @@ export default {
     } */
   },
   methods: {
+    clearName() {
+      this.setName('')
+    },
     validatePeriod(begin, end) {
       return this.date(begin, DATE_VALIDATOR) && 
              this.date(end, DATE_VALIDATOR) && 
@@ -378,11 +388,18 @@ export default {
     width: 100%
     margin: 1px 0
 .attendances-filter-partner__patient-name
+  display: flex
+  position: relative
   width: 30%
   @include respond-to(medium-screens)
     width: 43%
   @include respond-to(handhelds)
     width: 100%
+.attendaces-filter-partner__clean
+  position: absolute
+  top: 52%
+  right: 10px
+  cursor: pointer
 .attendances-filter-partner__buttons
   width: 10%
   margin-top: 10px
