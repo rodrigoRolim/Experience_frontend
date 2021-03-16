@@ -6,6 +6,21 @@
           <attendance-list-filter-health-center @error="messageError"/>
         </div>
       </div>
+      <div class="filter__searcher" :class="{'filter__searcher--modal': searcherInModal}">
+        <div class="filter__content">
+          <i 
+            class="searcher__arrow-back" 
+            :class="{'searcher__arrow-back--hidden': !searcherInModal, 'searcher__arrow-back--show': searcherInModal}"
+          >
+            <font-awesome-icon icon="arrow-left" size="lg" color="lightslategray"/>
+          </i>
+          <attendance-list-search
+            :class="{ 'filter__input': searcherInModal }"
+            @focus="searcherInModal = true"
+            @blur="searcherInModal = false"
+          />
+        </div>  
+      </div>
     </div>
     <div class="health-home__attendances">
       <code-modal
@@ -45,6 +60,7 @@
 <script>
 import AttendanceList from '../components/AttendanceList'
 import AttendanceListFilterHealthCenter from '../components/AttendanceListFilterHealthCenter'
+import AttendanceListSearch from '../components/AttendanceListSearch'
 import CodeModal from '../components/base/CodeModal'
 import CodeLoading from '../components/base/CodeLoading'
 import CodeMessage from '../components/base/CodeMessage'
@@ -57,6 +73,7 @@ export default {
   components: {
     AttendanceList,
     AttendanceListFilterHealthCenter,
+    AttendanceListSearch,
     CodeModal,
     CodeLoading,
     CodeMessage
