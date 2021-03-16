@@ -41,6 +41,15 @@
             :info="gender"
             color="rgba(71, 77, 94, 1)"
           />
+          <code-info
+            v-if="attendanceDate"
+            icon="clock"
+            size="lg"
+            class="patient-exams--margin patient-exams__info"
+            description="data atendimento"
+            :info="attendanceDate"
+            color="rgba(71, 77, 94, 1)"
+          />
           <code-info 
             icon="clock"
             size="lg"
@@ -108,7 +117,8 @@ export default {
         'gender',
         'delivery',
         'doctor',
-        'healthInsurance'
+        'healthInsurance',
+        'attendanceDate'
     ])
   },
   data () {
@@ -157,6 +167,7 @@ export default {
 .patient-exams__patient-info
   display: flex
   flex-direction: row
+  flex-wrap: wrap
   align-items: flex-start
   justify-content: space-between
   width: 100%
