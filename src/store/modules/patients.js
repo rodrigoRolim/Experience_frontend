@@ -38,6 +38,7 @@ const state = () => ({
 
 const getters = {
   patients: state => state.patients,
+  hasPatients: state => state.patients.length > 0,
   params: state => state.params,
   status: state => state.status,
   statusPush: state => state.statusPush,

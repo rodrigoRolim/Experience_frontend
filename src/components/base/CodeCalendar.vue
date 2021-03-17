@@ -157,6 +157,7 @@ export default {
     selectedDate (value) {
  
       if (this.showDate) this.showDate = false
+      
       var input = value
 
       if (/\D\/$/.test(input)) { 

@@ -9,6 +9,8 @@
       icon="search"
       color-icon="#368c8c"
       v-model="namePatient"
+      @focus="focus"
+      @blur="blur"
       @enter="search"
     />
   </div>
@@ -45,10 +47,12 @@ export default {
     ]),
     namePatient: {
       set(value) {
-        this.name = value.toUpperCase()
+        console.log(value)
+        const name = (value) ? value.toUpperCase() : value;
+        this.setName(name)
       },
       get() {
-        return this.name.toUpperCase()
+        return (this.params.name) ? this.params.name.toUpperCase() : ''
       }
     }
   },

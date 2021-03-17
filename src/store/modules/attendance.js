@@ -97,6 +97,8 @@ const actions = {
   [FILTER_ATTENDANCES_BY_NAME]: ({ commit }, { url, params, headers }) => {
     commit(MESSAGE, undefined)
     commit(REINIT_PAGINATION)
+    commit(EMPTY_ATTENDANCES)
+    commit(TOTAL_ATTENDANCES, 0)
     commit(LOADING)
     return new Promise((resolve, reject) => {
       requestResource({ url, params, method: 'GET', headers })
@@ -236,6 +238,7 @@ const mutations = {
     state.params.page = 1
     state.params.totalPages = null
     state.message = undefined
+    state.total = 0
   }
 }
 

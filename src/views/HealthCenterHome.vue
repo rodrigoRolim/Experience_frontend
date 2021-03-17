@@ -132,12 +132,12 @@ export default {
   flex-direction: column
   align-items: center
   justify-content: center
-  margin-top: 160px
+  margin-top: 215px
   transition: top 0.3s
   @include respond-to(handhelds)
-    margin-top: 100px
+    margin-top: 160px
   @include respond-to(medium-screens)
-    margin-top: 100px
+    margin-top: 150px
 .health-home__attendances
   width: 98%
 .health_center__modal
@@ -180,4 +180,45 @@ export default {
   font-size: 0.8rem
   @include respond-to(handhelds)
     font-size: 0.7rem
+.filter--modal
+  z-index: 10
+.filter__searcher
+  display: flex
+  align-items: center
+  width: 100%
+  padding: 10px 10px
+  height: 60px
+  background-color: white
+  -webkit-box-box-shadow: 0 2px 4px 1px rgba(0,0,0,0.1)
+  -moz-box-shadow: 0 2px 4px 1px rgba(0,0,0,0.1)
+  box-shadow: 0 2px 4px 1px rgba(0,0,0,0.1)
+.filter__content
+  width: 100%
+  display: flex
+  justify-content: space-around
+  align-items: center
+.searcher__arrow-back
+  width: 2%
+  margin-right: 20px
+.searcher__arrow-back--hidden
+  display: none
+.searcher__arrow-back--show
+  display: none
+  @include respond-to(handhelds)
+    display: block
+.filter__searcher--modal
+  @include respond-to(handhelds)
+    align-items: flex-start
+    overflow: auto
+    margin: 0 auto
+    width: 100%
+    height: 100%
+    position: fixed
+    top: 60px
+    left: 0
+    bottom: 0
+    z-index: 4
+    background-color: white
+    display: flex
+    justify-content: center
 </style>

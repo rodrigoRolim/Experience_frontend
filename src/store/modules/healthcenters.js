@@ -20,6 +20,7 @@ const actions = {
   [GET_HEALTH_CENTERS_STORE]: ({commit}, { url }) => {
     commit(LOADING)
     return new Promise((resolve, reject) => {
+      console.log(url)
       requestResource({ url, method: 'GET' })
         .then((resp) => {
           commit(GET_HEALTH_CENTERS_STORE, resp.data)
