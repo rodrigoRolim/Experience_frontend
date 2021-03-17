@@ -43,7 +43,7 @@
           />
           <code-info
             v-if="attendanceDate"
-            icon="clock"
+            icon="calendar-check"
             size="lg"
             class="patient-exams--margin patient-exams__info"
             description="data atendimento"
