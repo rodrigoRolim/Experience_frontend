@@ -23,7 +23,7 @@
     <transition name="fade" mode="in-out">
       <div class="user-perfil__menu" v-show="show">
         <div class="user-perfil__user-info">
-          <span class="user-perfil__name" v-if="userTypeAuthed === '0'">{{doctorName}}</span>
+          <!-- <span class="user-perfil__name" v-if="userTypeAuthed === '0'">{{doctorName}}</span> -->
           <div class="user-perfil__plus">
             <code-info
               :icon="typeUserIcon"
@@ -107,7 +107,7 @@ export default {
       if (this.userTypeAuthed !== '0') {
         return this.userName
       }
-      return this.userId
+      return this.doctorName
     },
     typeUserIcon () {
       switch (this.userTypeAuthed) {
@@ -126,7 +126,7 @@ export default {
     typeUserDescription () {
       switch (this.userTypeAuthed) {
         case '0':
-          return 'crm'
+          return 'medico'
         case '1': 
           return 'paciente'
         case '2':

@@ -94,7 +94,7 @@ export default {
     
   },
   mounted() {
-    if(this.hasPatients) {
+    if(!this.hasPatients) {
       this.patients()
     }
   },
