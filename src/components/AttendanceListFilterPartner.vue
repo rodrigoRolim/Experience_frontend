@@ -139,13 +139,17 @@ export default {
     if (!this.params.begin || !this.params.end) {
       this.setInitialDates() 
     }
-    this.initComponent()
+  },
+  mounted() {
+    if (!this.hasAttendances)
+      this.initComponent()
   },
   computed: {
     ...mapGetters(NAMESPACED_ATTENDANCE, [
       'params',
       'status',
-      'statusPush'
+      'statusPush',
+      'hasAttendances'
     ]),
     ...mapGetters(NAMESPACED_AUTH, [
       'userId',

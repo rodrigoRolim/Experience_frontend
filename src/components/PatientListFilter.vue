@@ -90,8 +90,13 @@ export default {
     if (!this.params.begin || !this.params.end) {
       this.setInitialDates() 
     }
-    this.patients()
+   
     
+  },
+  mounted() {
+    if(this.hasPatients) {
+      this.patients()
+    }
   },
   watch: {
     'params.begin': function (value) {
@@ -136,7 +141,8 @@ export default {
   },
   computed: {
     ...mapGetters(NAMESPACED_PATIENT, [
-      'params'
+      'params',
+      'hasPatients'
     ]),
   /*   beginAndEnd () {
       return `${this.params.begin}|${this.params.end}`

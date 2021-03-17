@@ -147,10 +147,12 @@ export default {
       prevent: false
     }
   },
-  created () {
+  created() {
     if (!this.params.begin || !this.params.end) {
       this.setInitialDates() 
     }
+  },
+  mounted() {
     if (!this.hasAttendances)
       this.initComponent()
   },
@@ -350,14 +352,8 @@ export default {
       return new Promise((resolve, reject) => {
         let urlHealthCenters = this.getURI(this.healthCenterLogged, this.getTypeUser(this.userTypeAuthed),  REGISTER)
         this.getHealthCenters({ url: urlHealthCenters })
-          .then((healthCenters) => {
-  
-            resolve(healthCenters)
-          })
-          .catch((err) => {
-
-            reject(err)
-          })
+          .then((healthCenters) => resolve(healthCenters))
+          .catch((err) => reject(err))
       })
     },
     listRegistrantsHealthCenters () {
