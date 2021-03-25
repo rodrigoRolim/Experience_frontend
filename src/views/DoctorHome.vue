@@ -74,8 +74,7 @@ export default {
     }
   },
   methods: {
-    messageError (value) {
-      console.log(value)
+    messageError(value) {
       this.message = value
        setTimeout(() => {
         this.message = ''

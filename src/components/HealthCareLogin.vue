@@ -15,7 +15,7 @@
         /> 
       </div>
       <div class="healthcare-login__password">
-         <code-input-password
+        <code-input-password
           id="healthPassword"
           name="healthPassword"
           label="senha"
@@ -28,7 +28,7 @@
       </div>
       <div class="healthcare-login__healtcare-select">
         <code-select
-          :options="list"
+          :options="healthCenterList"
           label="posto"
           option="Selecione um posto"
           v-model="healthCare.posto"
@@ -63,7 +63,6 @@ import CodeInput from './base/CodeInput'
 import CodeInputPassword from './base/CodeInputPassword'
 import CodeButton from './base/CodeButton'
 import CodeSelect from './base/CodeSelect'
-import { requestResource } from '../services/api'
 import { required, isOption } from '../mixins/validations/rules'
 import { validator } from '../mixins/validations/validator'
 import { login } from '../mixins/login'
@@ -71,13 +70,14 @@ import { mapActions, mapMutations } from 'vuex'
 import { httpMessage } from '../utils/statusMessages'
 import { 
   NAMESPACED_AUTH,
+  NAMESPACED_HEALTH_CENTERS,
   AUTH_REQUEST, 
   HEALTH_CENTER_AUTH, 
   HEALTH_CENTER_TYPE, 
   HEALTH_CENTER_ROUTE, 
-  REQUIRED_INPUT,
-  GET_HEALTH_CENTERS, 
+  REQUIRED_INPUT, 
   SELECTED_HEALTHCENTER,
+  GET_HEALTH_CENTERS_STORE,
   INVALID_OPTION
 } from '../utils/alias'
 export default {
@@ -104,33 +104,19 @@ export default {
       healthCenters: []
     }
   },
-  created () {
-    let url = GET_HEALTH_CENTERS 
-    requestResource({url})
-      .then(res => {
-        this.list = res.data
-      })
-      .catch((err) => {
-        let status = (err.response) ? err.response.status : 408
-        this.error(httpMessage({ status: status, data: 'postos' }))
-      })
+  async created () {
+    this.healthCenterList = await this.getHealthCenters()
   },
   computed: {
-    list: {
-      get () {
+    healthCenterList: {
+      get() {
         return this.healthCenters
       },
-      set (values) {
+      set(values) {
         this.healthCenters = values.map((value) => ({id: value.posto, name: value.nome}))
       }
     },
-    user () {
-      return this.healthCare.userid
-    },
-    password () {
-      return this.healthCare.senha
-    },
-    healthSelected () {
+    validateHealthCenter() {
       return this.healthCare.posto
     }
   },
@@ -138,24 +124,24 @@ export default {
     'healthCare.posto': function (value) {
       this.setHealthCenter(value)
     },
-    user (value) {
+    'healthCare.userid': function(value) {
       if (this.required(value)) {
         this.validate.userid = REQUIRED_INPUT
       } else {
         this.validate.userid = ''
       }
     },
-    password (value) {
+    'healthCare.senha': function(value) {
       if (this.required(value)) {
         this.validate.senha = REQUIRED_INPUT
       } else {
         this.validate.senha = ''
       }
     },
-    healthSelected (value) {
+    validateHealthCenter(value) {
       if (this.required(value)) {
         this.validate.posto = REQUIRED_INPUT
-      } else if (this.isOption(value, this.list)){
+      } else if (this.isOption(value, this.healthCenterList)){
         this.validate.posto = INVALID_OPTION
       } else {
         this.validate.posto = ''
@@ -163,6 +149,9 @@ export default {
     } 
   },
   methods: {
+    ...mapActions(NAMESPACED_HEALTH_CENTERS, {
+      getHealthCenters: GET_HEALTH_CENTERS_STORE
+    }),
     ...mapActions (NAMESPACED_AUTH, {
       login: AUTH_REQUEST
     }),

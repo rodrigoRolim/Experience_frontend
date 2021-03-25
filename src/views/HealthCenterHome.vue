@@ -18,6 +18,7 @@
             :class="{ 'filter__input': searcherInModal }"
             @focus="searcherInModal = true"
             @blur="searcherInModal = false"
+            @enter="searcherInModal = false"
           />
         </div>  
       </div>

@@ -54,9 +54,6 @@ export default {
     PatientExamsListHeader,
     PatientExamList
   },
-  created () {
- 
-  },
   computed: {
     ...mapGetters(NAMESPACED_PROPS, [
       'patient',

@@ -18,12 +18,14 @@
         :name="name"
         @input="filterOptions = $event.target.value"
         @keypress.enter.prevent="enter"
+        @change="change"
         class="custom-select__input"
         autocomplete="off" 
         :class="{
           'custom-select__input--icon': icon, 
           'custom-select__input--invalid': invalidOption,
-          'custom-select__input--required': error
+          'custom-select__input--required': error,
+          'custom-select__input--not-allowed': notAllowed
         }"
         v-model="selectedInput"
         placeholder="selecione uma opção" 
@@ -117,6 +119,9 @@ export default {
     this.checkListPosition()
   },
   computed: {
+    notAllowed() {
+      return this.options.length <= 0
+    },
     selectedInput: {
       set (value) {
         this.$emit('input', value)
@@ -159,6 +164,9 @@ export default {
   methods: {
     enter (e) {
       this.$emit('enter', e)
+    },
+    change(e) {
+      this.$emit('change', e)
     },
     dropDownEvent () {
       document.addEventListener('click', this.toggleListByClick)

@@ -142,7 +142,7 @@ import CodeRadio from './base/CodeRadio'
 import CodeGroupRadios from './base/CodeGroupRadios'
 import CodeInputPassword from './base/CodeInputPassword'
 import keyboardSelfService from './KeyboardSelfService'
-import { required, min, date, cpfValide } from '../mixins/validations/rules'
+import { required, min, date, cpfValide, areAllInputsEmpty } from '../mixins/validations/rules'
 import { validator } from '../mixins/validations/validator'
 import { cpf, identifier } from '../mixins/masks'
 import { login } from '../mixins/login';
@@ -162,7 +162,7 @@ import {
 import { mapActions } from 'vuex'
 export default {
   name: 'LoginPatient',
-  mixins: [validator({required, min, date, cpfValide }), cpf, identifier, login],
+  mixins: [validator({required, min, date, cpfValide, areAllInputsEmpty }), cpf, identifier, login],
   props: {
     digit: String
   },
@@ -290,9 +290,12 @@ export default {
         senha: patient.senha
       })
     },
-    validator () {
+    validator() {
       if (this.visibility === 'CPF') {
-        return (this.validate.cpf !== '' || this.validate.nascimento !== '' || this.validate.senha !== '')
+        return (
+          this.validate.cpf !== '' || 
+          this.validate.nascimento !== '' || 
+          this.validate.senha !== '')
       }
       return (  
         this.validate.atendimento !== '' || 
@@ -318,24 +321,23 @@ export default {
       this.validate.senha = ''
 
     },
-    softKeyboard (value) {
+    softKeyboard(value) {
 
       if (!value) {
         this.focusedInput = ''
       }
     },
-    cpf (value) {
+    cpf(value) {
  
       if (this.required(value)) {
         this.validate.cpf = REQUIRED_INPUT
-        //eslint-disable-next-line
-      } else if (this.cpfValide(value, /[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}$/g)){
+      } else if (this.cpfValide(value, /[0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{2}$/g)){
         this.validate.cpf = INCOMPLETE_CPF
       } else {
         this.validate.cpf = ''
       }
     },
-    birthDay (value) {
+    birthDay(value) {
 
       if (this.required(value)) {
         this.validate.nascimento = REQUIRED_INPUT
@@ -346,7 +348,7 @@ export default {
         this.validate.nascimento = ''
       }
     },
-    idAttendance (value) {
+    idAttendance(value) {
       
       const mask = JSON.parse(localStorage.getItem('custom-access')).mask
       const hcSize = +mask.split(':')[0]
@@ -395,36 +397,31 @@ export default {
       this.focusedInput = this.focusInputList[this.indexFocusedInput]
     },
 
-    validateAllFields () {
-      let fields = Object.keys(this.patient).filter(el => {
-
-        return this.patient[el] === ''
-      })
+    checkFormInputs() {
+      let fields = Object.keys(this.patient).filter(el => this.patient[el] === '')
 
       if (this.visibility == 'CPF') {
    
         fields = fields.filter(el => el == 'cpf' || el == 'nascimento' || el == 'senha')
-      } else {
-        fields = fields.filter(el => !(el == 'cpf' || el == 'nascimento'))
+        return this.areAllInputsEmpty(fields, this.validate, REQUIRED_INPUT)
       }
 
-      fields.forEach(element => {
-        this.validate[element] = REQUIRED_INPUT
-      })
-      return fields.length > 0
+      fields = fields.filter(el => !(el == 'cpf' || el == 'nascimento'))
+      return this.areAllInputsEmpty(fields, this.validate, REQUIRED_INPUT)
+      
     },
     confirm () {
       
       //e.preventDefault()
 
-      let emptyFieldAll = this.validateAllFields()
+      let hasInputsEmpty = this.checkFormInputs()
 
-      if (!emptyFieldAll && this.authState !== 'loading' && !this.validator) {
+      if (!hasInputsEmpty && this.authState !== 'loading' && !this.validator) {
         
         this.realizeLogin ()
         return
       }
-      if (emptyFieldAll || this.validator) {
+      if (hasInputsEmpty || this.validator) {
         this.error(httpMessage({ status: 111 }))
       }
 
