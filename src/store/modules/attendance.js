@@ -42,10 +42,10 @@ const state = {
   params: {
     begin: null,
     end: null,
-    healthCenter: { id: '', name: 'todos' },
-    accomodation: { id: '', name: 'todos' },
-    situation: { id: '', name: 'todos' },
-    realizer: { id: '', name: 'todos' },
+    healthCenter: null,
+    accomodation: null,
+    situation: null,
+    realizer: null,
     name: null,
     limit: 10,
     page: 1,
@@ -74,11 +74,9 @@ const actions = {
     commit(EMPTY_ATTENDANCES)
     commit(TOTAL_ATTENDANCES, 0)
     commit(LOADING)
-    console.log(url)
     return new Promise((resolve, reject) => {
       requestResource({ url, params, method: 'GET', headers })
         .then((resp) => {
-
           commit(GET_ATTENDANCES_STORE, resp.data.docs || resp.data)
           commit(TOTAL_ATTENDANCES, resp.data.total)
           commit(TOTAL_PAGES, resp.data.pages)
@@ -87,7 +85,6 @@ const actions = {
           resolve(resp)
         })
         .catch((err) => {
-          
           commit(MESSAGE, err.response.status)
           commit(ERROR)
           reject(err)
@@ -103,7 +100,8 @@ const actions = {
     return new Promise((resolve, reject) => {
       requestResource({ url, params, method: 'GET', headers })
         .then((resp) => {
-          commit(GET_ATTENDANCES_STORE, resp.data.docs)
+          commit(GET_ATTENDANCES_STORE, resp.data)
+          commit(TOTAL_ATTENDANCES, resp.data.length)
           commit(TOTAL_PAGES, resp.data.pages)
           commit(SUCCESS)
           resolve(resp)
@@ -152,7 +150,7 @@ const mutations = {
     state.attendances.push(...newAttendances)
   },
   [MESSAGE]: (state, status) => {
-    const message = httpMessage({ status, data: 'atendimentos' })
+    const message = httpMessage({ status, data: 'atendimento' })
     state.message = message
   },
   [LOADING]: (state) => {

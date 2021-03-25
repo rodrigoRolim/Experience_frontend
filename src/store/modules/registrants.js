@@ -8,7 +8,8 @@ const state = () => ({
 const getters = {
   registrants: state => {
     let regs = state.registrants.map((rgs => ({id: rgs.nomePostoRealizante, name: rgs.nomePostoRealizante})))
-    regs.push({ id: '', name: 'TODOS' })
+    if (regs)
+      regs.push({ id: '', name: 'TODOS' })
     return regs
   },
   status: state => state.status

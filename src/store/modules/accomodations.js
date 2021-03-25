@@ -8,10 +8,11 @@ const state = () => ({
 const getters = {
   accomodations: state =>  {
     let accs = state.accomodations.map((acc) => ({
-      id: (acc.acomodacao !== null) ? acc.nome_acomodacao : '',
-      name: (acc.nome_acomodacao) ? acc.nome_acomodacao : "SEM ACOMODAÇÃO"
+      id: (acc.acomodacao !== null) ? acc.nomeAcomodacao : '',
+      name: (acc.nomeAcomodacao) ? acc.nomeAcomodacao : "SEM ACOMODAÇÃO"
     }))
-    accs.push({ id: '', name: 'TODOS' })
+    if (accs)
+      accs.push({ id: '', name: 'TODOS' })
     return accs
   },
   status: state => state.status
