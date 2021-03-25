@@ -18,7 +18,6 @@
         :name="name"
         @input="filterOptions = $event.target.value"
         @keypress.enter.prevent="enter"
-        @change="change"
         class="custom-select__input"
         autocomplete="off" 
         :class="{
@@ -60,7 +59,6 @@
       <ul
         ref="list"
         class="custom-select__list"
-       
         v-show="showList" 
         role="list">
         <li 
@@ -126,6 +124,7 @@ export default {
       set (value) {
         this.$emit('input', value)
         this.$emit('key', value?.id)
+        this.$emit('change', value)
       },
       get () {
         return this.value?.name || this.value
@@ -164,9 +163,6 @@ export default {
   methods: {
     enter (e) {
       this.$emit('enter', e)
-    },
-    change(e) {
-      this.$emit('change', e)
     },
     dropDownEvent () {
       document.addEventListener('click', this.toggleListByClick)

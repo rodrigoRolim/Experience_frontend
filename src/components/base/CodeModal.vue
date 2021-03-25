@@ -46,7 +46,6 @@ export default {
   },
   watch: {
     display(value) {
-      console.log(value)
       if (value) {
         document.body.style.overflow = "hidden";
         return;
@@ -56,7 +55,6 @@ export default {
   },
   methods: {
     close() {
-      //document.body.style.overflow = "auto";
       this.$emit("display", false);
     },
   },

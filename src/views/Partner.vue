@@ -45,7 +45,6 @@ export default {
   },
   methods: {
     hiddenNavOnPanelAttendaces() {
-      console.log(this.$route.path)
       return this.$route.path !== '/parceiro/painel-atendimentos'
     },
     redirectToAttendanceListView() {
