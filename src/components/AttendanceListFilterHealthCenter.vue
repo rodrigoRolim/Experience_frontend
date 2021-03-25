@@ -142,7 +142,7 @@ export default {
   data () {
     return {
       situations: SITUATIONS,
-      healthCenterChosen: this.healthCenterLogged,
+      registrantId: this.healthCenterLogged,
       validate: {
         healthCenter: '',
         accomodation: '',
@@ -193,44 +193,19 @@ export default {
     allowRequest () {
       return !Object.values(this.validate).find((val) => val !== '')
     },
-   /*  beginAndEnd () {
-      return `${this.params.begin}|${this.params.end}`
-    }, */
-    disableConfirm () {
-      return this.status == 'loading'    || 
-             this.statusAcc == 'loading' || 
-             this.statusHc == 'loading'  || 
-             this.statusRg == 'loading'
+    disableConfirm() {
+      return this.status === 'loading'
     }
   },
   watch: {
-    waitRequest () {
-      return this.statusHc == 'loading'  || 
-             this.statusRg == 'loading'  ||
-             this.statusAcc == 'loading' ||
-             this.status == 'loading'
+    waitRequest() {
+      return this.disableConfirm()
     },
-   /*  beginAndEnd (value) {
-      let [begin, end] = value.split('|')
-
-      if (this.validatePeriod(begin, end)) {
-        // this.backParamsToDefault()
-        this.loadInitialParams()
-      }
-    } */
   },
   methods: {
-    /* validatePeriod(begin, end) {
-      return this.date(begin, DATE_VALIDATOR) && 
-             this.date(end, DATE_VALIDATOR) && 
-             !this.beginGtEnd(begin, end) &&
-             !this.endLtBegin(begin, end) &&
-             !this.required(begin) &&
-             !this.required(end)
-    }, */
-    backParamsToDefault () {
+    backParamsToDefault(option) {
       const defaultOption = {id: '', name: 'todos'}
-      this.setHealthCenter(this.healthCenterLogged)
+      this.setHealthCenter(option)
       
       if (this.accomodations) this.setAccomodation(defaultOption)
       if (this.registrants) this.setRealizer(defaultOption)
@@ -238,22 +213,26 @@ export default {
     },
     async loadInitialParams () {
       try {
-        await this.listRegisterHealthCenters() 
-        this.loadRegistersAndAccomodations()
-        this.backParamsToDefault() 
+        await this.listRegister() 
+        this.loadRegistersAndAccomodations(this.healthCenterLogged)
         await this.attendances()
+        
       } catch (err) {
         if (!err.response) {
           this.message(408)
         } else {
-         
           this.message(err.response.status)
         }          
       }
     },
-    async loadRegistersAndAccomodations() {
-      await this.listAccomodations()
-      await this.listRegistrantsHealthCenters()
+    async loadRegistersAndAccomodations(option) {
+      try {
+        this.backParamsToDefault(option) 
+        await this.listAccomodations()
+        await this.listRealizers()
+      } catch(e) {
+        console.log({e})
+      }
     },
     async confirm() {
 
@@ -276,17 +255,13 @@ export default {
     },
     listAccomodations () {
       return new Promise((resolve, reject) => {
-        let urlAccomodations = this.getURI(this.healthCenterLogged.id, this.getTypeUser(this.userTypeAuthed), ACCOMODATIONS)
+        let urlAccomodations = this.getURI(this.params.healthCenter.id, this.getTypeUser(this.userTypeAuthed), ACCOMODATIONS)
         this.getAccomodations({ url: urlAccomodations })
-          .then((accomodations) => {
-            resolve(accomodations)     
-          })
-          .catch((err) => {
-            reject(err)
-          })
+          .then((accomodations) => resolve(accomodations))
+          .catch((err) => reject(err))
       })
     },
-    listRegisterHealthCenters () {
+    listRegister() {
       return new Promise((resolve, reject) => {
         // let urlHealthCenters = this.getURI(this.healthCenterLogged, this.getTypeUser(this.userTypeAuthed),  REGISTER)
         this.getHealthCenters()
@@ -294,17 +269,12 @@ export default {
           .catch((err) => reject(err))
       })
     },
-    listRegistrantsHealthCenters () {
+    listRealizers() {
       return new Promise((resolve, reject) => {
-        let urlRealizers = this.getURI(this.healthCenterLogged.id, this.getTypeUser(this.userTypeAuthed), REGISTRANTS)
-        this.getRegistrants({ url: urlRealizers })
-          .then((healthCenters) => {
-            resolve(healthCenters)
-          })
-          .catch((err) => {
-
-            reject(err)
-          })
+        let urlRealizers = this.getURI(this.params.healthCenter.id, this.getTypeUser(this.userTypeAuthed), REGISTRANTS)
+        this.getRealizers({ url: urlRealizers })
+          .then((healthCenters) => resolve(healthCenters))
+          .catch((err) => reject(err))
       })
     },
     paramsQuery () {
@@ -321,10 +291,7 @@ export default {
       if (!this.waitRequest) {
         let headers = { 'X-Paginate': true }
         return new Promise((resolve, reject) => {
-          //let healthCenter = this.healthCenterLogged//this.userId
-          //this.healthCenterChosen = this.params.healthCenter.id
-          this.renitiPage()
-
+          console.log(this.params.healthCenter.id)
           let urlName = GET_ATTENDANCES(
             this.params.healthCenter.id,
             this.params.begin.split(" - ").join("-"),
@@ -358,7 +325,7 @@ export default {
       getHealthCenters: GET_HEALTH_CENTERS_STORE
     }),
     ...mapActions(NAMESPACED_REGISTRANTS, {
-      getRegistrants: GET_REGISTRANTS_STORE
+      getRealizers: GET_REGISTRANTS_STORE
     })
   }
 }

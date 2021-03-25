@@ -1,4 +1,4 @@
-import { LOADING, MESSAGE, SUCCESS, ERROR, GET_RESULT_STORE } from "../../utils/alias";
+import { LOADING, MESSAGE, SUCCESS, ERROR, GET_RESULT_STORE, REINIT_STATE } from "../../utils/alias";
 import { httpMessage } from '../../utils/statusMessages'
 import { requestResource } from '../../services/api'
 
@@ -16,6 +16,7 @@ const getters = {
 
 const actions = {
   [GET_RESULT_STORE]: ({ commit }, { url }) => {
+    commit(REINIT_STATE)
     commit(MESSAGE, undefined)
     commit(LOADING)
     return new Promise((resolve, reject) => {
@@ -51,7 +52,10 @@ const mutations = {
     const expiredSession = status === 401
     const message = httpMessage({ status, data: 'resultado', experired: expiredSession })
     state.message = message
-  }
+  },
+  [REINIT_STATE]: (state) => {
+    state.results = []
+  } 
 }
 
 export default {

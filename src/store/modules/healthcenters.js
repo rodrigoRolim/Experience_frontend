@@ -10,8 +10,8 @@ const getters = {
   healthCenters: state => {
     let hcs = state.healthCenters.map((hc => ({id: hc.posto, name: hc.nome})))
     //console.log(hcs)
-    if (hcs) 
-      hcs.push({ id: '', name: 'TODOS' })
+    /* if (hcs) 
+      hcs.push({ id: '', name: 'TODOS' }) */
     return hcs
   },
   status: state => state.status,
@@ -30,26 +30,11 @@ const actions = {
           resolve(resp.data)
         })
         .catch((err) => {
-          /* let status = (err.response) ? err.response.status : 408
-          this.error(httpMessage({ status: status, data: 'postos' })) */
           commit(ERROR)
           reject(err)
         })
     })
-  },
- /*  [GET_ALL_HEALTH_CENTERS]: ({ commit }) => {
-      requestResource({ url, method: 'GET' })
-        .then((resp) => {
-          commit(GET_HEALTH_CENTERS_STORE, resp.data)
-          commit(SUCCESS)
-          resolve(resp.data)
-        })
-        .catch((err) => {
-          commit(ERROR)
-          reject(err)
-        })
-    
-  } */
+  }
 }
 
 const mutations = {
