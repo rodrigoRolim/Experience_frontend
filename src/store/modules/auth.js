@@ -19,7 +19,6 @@ const state = () => ({
   healthCenterLogged: cookies.get('healthcenter-logged') || undefined,
   expired: cookies.get('expired') || false,
   message: undefined,
-  hasLoadedOnce: false,
   userType: cookies.get('user-session')?.user_type || "",
   uniqueAttendance: cookies.get('user-session')?.uniqueAttendance,
   accessPath: cookies.get('user-session')?.accessPath || ""
@@ -35,7 +34,7 @@ const getters = {
   uniqueAttendance: state => state.uniqueAttendance,
   token: state => state.token,
   expired: state => state.expired,
-  healthCenterLogged: state => state.healthCenterLogged?.id,
+  healthCenterLogged: state => state.healthCenterLogged,
   message: state =>  state.message,
   accessPath: state => state.accessPath
 }
@@ -44,7 +43,6 @@ const actions = {
   [AUTH_REQUEST]: ({ commit }, { url, uniqueAttendance, credentials, typeUser }) => {
     return new Promise((resolve, reject) => {
       commit(AUTH_REQUEST)
-      console.log(JSON.parse(localStorage.getItem('custom-access'))?.rootPath)
       requestToken({ url, auth: credentials })
         .then((resp) => {
           let user_session = {
@@ -89,24 +87,24 @@ const actions = {
   [REAUTH_REQUEST]: ({ commit }, { url }) => {
     return new Promise((resolve, reject) => {
       requestToken({ url })
-      .then((resp) => {
-        let newUser_session = {
-          token: resp.data.token,
-          user_type: cookies.get('user-session').user_type,
-          user_name: cookies.get('user-session').user_name,
-          identify: cookies.get('user-session').identify,
-          uniqueAttendance: cookies.get('user-session').uniqueAttendance
-        }
-        cookies.remove('user-session')
-        cookies.set('user-session', newUser_session)
-        resolve(resp.token)
-      })
-      .catch((err) => {
-        commit(MESSAGE, err.response.status)
-        commit(AUTH_ERROR, err)
-        cookies.remove('user-session')
-        reject(err.response.status)
-      })
+        .then((resp) => {
+          let newUser_session = {
+            token: resp.data.token,
+            user_type: cookies.get('user-session').user_type,
+            user_name: cookies.get('user-session').user_name,
+            identify: cookies.get('user-session').identify,
+            uniqueAttendance: cookies.get('user-session').uniqueAttendance
+          }
+          cookies.remove('user-session')
+          cookies.set('user-session', newUser_session)
+          resolve(resp.token)
+        })
+        .catch((err) => {
+          commit(MESSAGE, err.response.status)
+          commit(AUTH_ERROR, err)
+          cookies.remove('user-session')
+          reject(err.response.status)
+        })
     })
   }
 }
@@ -134,11 +132,9 @@ const mutations = {
     state.userType = session.user_type
     state.uniqueAttendance = session.uniqueAttendance
     state.accessPath = session.accessPath
-    state.hasLoadedOnce = true
   },
   [AUTH_ERROR]: (state) => {
     state.status = 'error'
-    state.hasLoadedOnce = true
   },
   [AUTH_REINIT_STATUS]: (state) => {
     state.status = ''

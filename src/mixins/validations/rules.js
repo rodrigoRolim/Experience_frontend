@@ -14,17 +14,13 @@ export const password = function (value, regex) {
   return regex.test(value)
 }
 export const date = function (value, regex) {
-  
   regex.lastIndex = 0
-  //console.log(regex.test(value))
-  console.log(value)
   return regex.test(value)
 }
 export const cpfValide = function (value, regex) {
   return !regex.test(value)
 }
 export const endLtBegin = function (begin, end) {
-
   let beginArr = begin.split(" - ")
   let endArr = end.split(" - ")
   
@@ -52,14 +48,14 @@ export const beginGtEnd = function (begin, end) {
 
   return new Date(beginYear, (beginMonth - 1), beginDay) > new Date(endYear, (endMonth - 1), endDay)
 }
-export const validateForm = function (form, validate, message) {
-  let fields = Object.keys(form).filter(el => form[el] == '' || form[el] == '')
+export const areAllInputsEmpty = function (form, validate, message) {
+  let fields = Object.keys(form).filter(el => form[el] == '')
   fields.forEach(element => {
     validate[element] = message
   })
   return fields.length > 0
 }
 export const isOption = function (option, options) {
-  console.log(!!options.find((opt) => opt.id == option.id || opt.name == option))
+
   return !options.find((opt) => opt.id == option.id || opt.name == option)
 }
