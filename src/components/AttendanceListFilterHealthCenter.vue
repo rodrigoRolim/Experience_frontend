@@ -1,5 +1,5 @@
 <template>
-  <code-drop-down text="Filtrar Atendimento" dropdown>
+  <code-drop-down text="Filtrar Atendimento" dropdown :close-dropdown="closeDropdown">
     <template v-slot:content >
       <div class="attendance-list-filter-healthcenter">
         <div class="attendance-list-filter-healthcenter__period">
@@ -21,6 +21,7 @@
             label-color="text"
             :options="healthCenters"
             @input="setHealthCenter"
+            @change="loadRegistersAndAccomodations"
             :value="params.healthCenter"
             :error="validate.healthCenter"
           ></code-select>
@@ -86,10 +87,8 @@ import CodeDropDown from './base/CodeDropDown.vue'
 import CodeSelect from './base/CodeSelect.vue'
 import CodeButton from './base/CodeButton.vue'
 import AttendanceListFilterPeriod from './AttendanceListFilterPeriod'
-import { validator } from '../mixins/validations/validator'
 import { session } from '../mixins/session'
-import { isOption, endLtBegin, beginGtEnd, required, date } from '../mixins/validations/rules'
-//import { messages } from '../mixins/user-messages'
+import { begin, end, healthCenter, accomodation, situation, realizer } from '../mixins/validations/paramsValidator'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { 
   NAMESPACED_ATTENDANCE, 
@@ -102,7 +101,7 @@ import {
   GET_HEALTH_CENTERS_STORE,
   GET_FILTERS, 
   ACCOMODATIONS,
-  REGISTER,
+  /* REGISTER, */
   SITUATIONS, 
   NAMESPACED_REGISTRANTS, 
   GET_REGISTRANTS_STORE, 
@@ -114,7 +113,6 @@ import {
   SITUATION,
   REALIZER,
   DEFAULT_DATES,
-  DATE_VALIDATOR,
   REINIT_PAGINATION,
   EMPTY_ATTENDANCES,
   MESSAGE
@@ -126,7 +124,15 @@ export default {
     begin: String,
     end: String
   },
-  mixins: [validator({ isOption, endLtBegin, beginGtEnd, required, date }), session],
+  mixins: [
+    session,
+    begin, 
+    end, 
+    healthCenter, 
+    accomodation, 
+    situation, 
+    realizer
+  ],
   components: {
     CodeButton,
     CodeSelect,
@@ -136,6 +142,7 @@ export default {
   data () {
     return {
       situations: SITUATIONS,
+      healthCenterChosen: this.healthCenterLogged,
       validate: {
         healthCenter: '',
         accomodation: '',
@@ -144,17 +151,21 @@ export default {
         begin: '',
         end: ''
       },
-      prevent: false
+      prevent: false,
+      closeDropdown: false
     }
   },
   created() {
     if (!this.params.begin || !this.params.end) {
       this.setInitialDates() 
     }
+    
   },
   mounted() {
-    if (!this.hasAttendances)
-      this.initComponent()
+    if (!this.hasAttendances) {
+      this.loadInitialParams()
+    }
+    
   },
   computed: {
     ...mapGetters(NAMESPACED_ATTENDANCE, [
@@ -193,78 +204,6 @@ export default {
     }
   },
   watch: {
-    'params.begin': function (value) {
-
-      if (this.required(value)) {
-
-        this.validate.begin = 'campo obrigatório'
-        
-      } else if (this.beginGtEnd(value, this.params.end)) {
-        
-        this.validate.begin = 'data de inicio inválida'
-      } else if (this.endLtBegin(this.params.begin, this.params.end)){
-        
-        this.validate.end = 'data de fim inválida'
-      } else if (!this.date(value, DATE_VALIDATOR)) {
-        this.validate.begin = 'data inválida'
-      } else {
-        this.validate.begin = ''
-        this.validate.end = ''
-      }
-    },
-    'params.end': function (value) {
-      if (this.required(value)) {
-        this.validate.end = 'campo obrigatório'
-
-      } else if (this.endLtBegin(this.params.begin, value)) {
-        this.validate.end = 'data de fim inválida'
-      } else if (this.beginGtEnd(this.params.begin, this.params.end)){
-        this.validate.begin = 'início inválido'
-      } else if (!this.date(value, DATE_VALIDATOR)){
-        this.validate.end = 'data inválida'
-      } else {
-        this.validate.begin = ''
-        this.validate.end = ''
-      }
-    },
-    'params.healthCenter': function (value) {
-      if (this.required(value)) {
-        this.validate.healthCenter = 'campo obrigatório'
-      } else if (this.isOption(value, this.healthCenters)) {
-        this.validate.healthCenter = 'opção inválida'
-      } else {
-        this.validate.healthCenter = ''
-      }
-    },
-    'params.accomodation': function (value) {
-
-      if (this.required(value)) {
-        this.validate.accomodation = 'campo obrigatório'
-      } else if (this.isOption(value, this.accomodations)) {
-        this.validate.accomodation = 'opção inválida'
-      } else {
-        this.validate.accomodation = ''
-      }
-    },
-    'params.situation': function (value) {
-      if (this.required(value)) {
-        this.validate.situation = 'campo obrigatório'
-      } else if (this.isOption(value, this.situations)) {
-        this.validate.situation = 'opção inválida'
-      } else {
-        this.validate.situation = ''
-      }
-    },
-    'params.realizer': function (value) {
-
-      if (this.required(value)) {
-        this.validate.realizer = 'campo obrigatório'
-      } else if (this.isOption(value, this.registrants)) {
-        this.validate.realizer = 'opção inválida'
-      } else {
-        this.validate.realizer = ''
-      }
-    },
     waitRequest () {
       return this.statusHc == 'loading'  || 
              this.statusRg == 'loading'  ||
@@ -276,31 +215,32 @@ export default {
 
       if (this.validatePeriod(begin, end)) {
         // this.backParamsToDefault()
-        this.initComponent()
+        this.loadInitialParams()
       }
     } */
   },
   methods: {
-    validatePeriod(begin, end) {
+    /* validatePeriod(begin, end) {
       return this.date(begin, DATE_VALIDATOR) && 
              this.date(end, DATE_VALIDATOR) && 
              !this.beginGtEnd(begin, end) &&
              !this.endLtBegin(begin, end) &&
              !this.required(begin) &&
              !this.required(end)
-    },
+    }, */
     backParamsToDefault () {
       const defaultOption = {id: '', name: 'todos'}
-      this.setHealthCenter(defaultOption)
-      this.setAccomodation(defaultOption)
-      this.setRealizer(defaultOption)
+      this.setHealthCenter(this.healthCenterLogged)
+      
+      if (this.accomodations) this.setAccomodation(defaultOption)
+      if (this.registrants) this.setRealizer(defaultOption)
+      this.setSituation(defaultOption)
     },
-    async initComponent () {
-
+    async loadInitialParams () {
       try {
-        await this.listRegisterHealthCenters()
-        await this.listRegistrantsHealthCenters()
-        await this.listAccomodations()
+        await this.listRegisterHealthCenters() 
+        this.loadRegistersAndAccomodations()
+        this.backParamsToDefault() 
         await this.attendances()
       } catch (err) {
         if (!err.response) {
@@ -311,10 +251,9 @@ export default {
         }          
       }
     },
-    catchErrorSelect (error) {
-      if (!error) {
-        this.requestPrevent = true
-      }
+    async loadRegistersAndAccomodations() {
+      await this.listAccomodations()
+      await this.listRegistrantsHealthCenters()
     },
     async confirm() {
 
@@ -337,28 +276,27 @@ export default {
     },
     listAccomodations () {
       return new Promise((resolve, reject) => {
-        let urlAccomodations = this.getURI(this.healthCenterLogged, this.getTypeUser(this.userTypeAuthed), ACCOMODATIONS)
+        let urlAccomodations = this.getURI(this.healthCenterLogged.id, this.getTypeUser(this.userTypeAuthed), ACCOMODATIONS)
         this.getAccomodations({ url: urlAccomodations })
           .then((accomodations) => {
             resolve(accomodations)     
           })
           .catch((err) => {
-
             reject(err)
           })
       })
     },
     listRegisterHealthCenters () {
       return new Promise((resolve, reject) => {
-        let urlHealthCenters = this.getURI(this.healthCenterLogged, this.getTypeUser(this.userTypeAuthed),  REGISTER)
-        this.getHealthCenters({ url: urlHealthCenters })
+        // let urlHealthCenters = this.getURI(this.healthCenterLogged, this.getTypeUser(this.userTypeAuthed),  REGISTER)
+        this.getHealthCenters()
           .then((healthCenters) => resolve(healthCenters))
           .catch((err) => reject(err))
       })
     },
     listRegistrantsHealthCenters () {
       return new Promise((resolve, reject) => {
-        let urlRealizers = this.getURI(this.healthCenterLogged, this.getTypeUser(this.userTypeAuthed), REGISTRANTS)
+        let urlRealizers = this.getURI(this.healthCenterLogged.id, this.getTypeUser(this.userTypeAuthed), REGISTRANTS)
         this.getRegistrants({ url: urlRealizers })
           .then((healthCenters) => {
             resolve(healthCenters)
@@ -371,7 +309,7 @@ export default {
     },
     paramsQuery () {
       let queries = {}
-      if (this.params.healthCenter.id) queries['postocadastro'] = this.params.healthCenter.id
+      // if (this.params.healthCenter.id) queries['postocadastro'] = this.params.healthCenter.id
       if (this.params.realizer.id) queries['postorealizante'] = this.params.realizer.id
       if (this.params.accomodation.id) queries['acomodacao'] = this.params.accomodation.id
       if (this.params.situation.id) queries['situacao'] = this.params.situation.id
@@ -383,24 +321,18 @@ export default {
       if (!this.waitRequest) {
         let headers = { 'X-Paginate': true }
         return new Promise((resolve, reject) => {
-          let healthCenter = this.healthCenterLogged//this.userId
-  
+          //let healthCenter = this.healthCenterLogged//this.userId
+          //this.healthCenterChosen = this.params.healthCenter.id
           this.renitiPage()
 
           let urlName = GET_ATTENDANCES(
-            healthCenter,
+            this.params.healthCenter.id,
             this.params.begin.split(" - ").join("-"),
             this.params.end.split(" - ").join("-"),
             this.getTypeUser(this.userTypeAuthed))   
           this.getAttendances({ url: urlName, params: this.paramsQuery(), headers: headers })
-          .then((res) => {
-            
-            resolve(res)
-          })
-          .catch((err) => {
-
-            reject(err)
-          })
+          .then((res) => resolve(res))
+          .catch((err) => reject(err))
         })
       }
     },

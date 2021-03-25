@@ -49,7 +49,7 @@
             @input="setName"
             :value="params.name"
           />
-          <div class="attendaces-filter-partner__clean" @click="clearName">
+          <div class="attendaces-filter-partner__clean" @click="clearName" v-if="params.name">
             <code-info 
               icon="times"
             />
@@ -84,9 +84,8 @@ import CodeInput from '../components/base/CodeInput'
 import CodeButton from '../components/base/CodeButton'
 import CodeInfo from '../components/base/CodeInfo'
 import AttendanceListFilterPeriod from '../components/AttendanceListFilterPeriod'
-import { validator } from '../mixins/validations/validator'
 import { session } from '../mixins/session'
-import { isOption, endLtBegin, beginGtEnd, required, date } from '../mixins/validations/rules'
+import { begin, end, accomodation, situation } from '../mixins/validations/paramsValidator'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { 
   NAMESPACED_ATTENDANCE, 
@@ -103,7 +102,6 @@ import {
   ACCOMODATION,
   SITUATION,
   DEFAULT_DATES,
-  DATE_VALIDATOR,
   REINIT_PAGINATION,
   EMPTY_ATTENDANCES,
   NAME,
@@ -113,7 +111,13 @@ import {
 import { httpMessage } from '../utils/statusMessages'
 export default {
   name: 'AttendanceListFilterPartner',
-  mixins: [validator({ isOption, endLtBegin, beginGtEnd, required, date }), session],
+  mixins: [
+    session,
+    begin,
+    end,
+    accomodation,
+    situation,
+  ],
   components: {
     CodeDropDown,
     CodeSelect,
@@ -170,58 +174,6 @@ export default {
     }
   },
   watch: {
-    'params.begin': function (value) {
-      if (this.required(value)) {
-
-        this.validate.begin = 'campo obrigatório'
-        
-      } else if (this.beginGtEnd(value, this.params.end)) {
-        
-        this.validate.begin = 'data de inicio inválida'
-      } else if (this.endLtBegin(this.params.begin, this.params.end)){
-        
-        this.validate.end = 'data de fim inválida'
-      } else if (!this.date(value, DATE_VALIDATOR)) {
-        this.validate.begin = 'data inválida'
-      } else {
-        this.validate.begin = ''
-        this.validate.end = ''
-      }
-    },
-    'params.end': function (value) {
-       if (this.required(value)) {
-        this.validate.end = 'campo obrigatório'
-
-      } else if (this.endLtBegin(this.params.begin, value)) {
-        this.validate.end = 'data de fim inválida'
-      } else if (this.beginGtEnd(this.params.begin, this.params.end)){
-        this.validate.begin = 'início inválido'
-      } else if (!this.date(value, DATE_VALIDATOR)){
-        this.validate.end = 'data inválida'
-      } else {
-        this.validate.begin = ''
-        this.validate.end = ''
-      }
-    },
-    'params.accomodation': function (value) {
-
-      if (this.required(value)) {
-        this.validate.accomodation = 'campo obrigatório'
-      } else if (this.isOption(value, this.accomodations)) {
-        this.validate.accomodation = 'opção inválida'
-      } else {
-        this.validate.accomodation = ''
-      }
-    },
-    'params.situation': function (value) {
-      if (this.required(value)) {
-        this.validate.situation = 'campo obrigatório'
-      } else if (this.isOption(value, this.situations)) {
-        this.validate.situation = 'opção inválida'
-      } else {
-        this.validate.situation = ''
-      }
-    },
     waitRequest () {
       return (
         this.status === 'loading' || 
@@ -241,14 +193,14 @@ export default {
     clearName() {
       this.setName('')
     },
-    validatePeriod(begin, end) {
+   /*  validatePeriod(begin, end) {
       return this.date(begin, DATE_VALIDATOR) && 
              this.date(end, DATE_VALIDATOR) && 
              !this.beginGtEnd(begin, end) &&
              !this.endLtBegin(begin, end) &&
              !this.required(begin) &&
              !this.required(end)
-    },
+    }, */
     initFilters () {
       this.filters = Object.assign({}, this.params)
     },
