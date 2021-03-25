@@ -101,10 +101,7 @@ export default {
   },
   computed: {
     displayLoading () {
-      return this.statusHc == 'loading' || 
-        this.statusAcc == 'loading' || 
-        this.statusRg == 'loading' || 
-        this.status == 'loading'
+      return  this.status == 'loading'
     },
     ...mapGetters(NAMESPACED_ATTENDANCE, [
       'status',
