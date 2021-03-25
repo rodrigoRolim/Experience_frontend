@@ -23,8 +23,8 @@
       />
     </div>
     <code-modal
-      :normal="true"
-      :display="show"
+      normal
+      :display="show || dontCloseModal"
       @display="displayModal"
       class="modal"
       position="start"
@@ -36,6 +36,7 @@
           :correlative="correl | correlative"
           :name-exam="nameExam"
           @close="show = false"
+          @keepModalOpen="keepModalOpen"
           @errorMessages="messagesHandler"
         />
       </template>
@@ -88,6 +89,7 @@ export default {
   },
   data () {
     return {
+      dontCloseModal: false,
       show: false,
       listExams: [],
       correl: null,
@@ -117,8 +119,7 @@ export default {
     ]),
     selectedAttendance() {
       return `${this.healthCenter}|${this.attendance}`
-    },
-    
+    }
   },
   watch: {
     selectedAttendance(value) {
@@ -156,6 +157,9 @@ export default {
     displayModal(value) {
       if (this.status !== 'loading')
         this.show = value
+    },
+    keepModalOpen(keepOpen) {
+      this.dontCloseModal = keepOpen
     }
   }
 }

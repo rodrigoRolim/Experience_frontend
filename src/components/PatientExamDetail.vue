@@ -117,30 +117,37 @@ export default {
     close () {
       this.$emit('close')
     },
+    holdOnModal(keepOpen) {
+      this.$emit('keepModalOpen', keepOpen)
+    },
     printExamResult() {
-
+      this.holdOnModal(true)
       let url = GET_PDFS(this.healthCenter, this.attendance)
       let params = { exames: this.correlative }
       this.getReports({ url, params })
         .then((base64) => {
+          this.holdOnModal(false)
           this.close()
           this.print({printable: base64, type: 'pdf', base64: true})
         })
         .catch(() => {
           this.$emit('errorMessages', this.message)
+          this.holdOnModal(false)
           this.close()
         })
     },
     downloadExamResult() {
+      this.holdOnModal(true)
       let url = GET_PDFS(this.healthCenter, this.attendance)
       let params = { exames: this.correlative }
       this.getReports({ url, params })
         .then((base64) => {
+          this.holdOnModal(false)
           this.close()
           this.download(this.nameExam, base64)
         })
         .catch(() => {
-          console.log(this.message)
+          this.holdOnModal(false)
           this.$emit('errorMessages', this.message)
           this.close()
         })
