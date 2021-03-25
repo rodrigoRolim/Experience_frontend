@@ -1,6 +1,7 @@
 <template>
   <div class="searcher">
     <code-input
+      ref="input"
       class="searcher__input"
       placeholder="digite o nome do paciente e aperte enter"
       name="patient"
@@ -9,14 +10,21 @@
       icon="search"
       color-icon="#368c8c"
       v-model="namePatient"
+      :focused="removeFocus"
       @focus="focus"
       @blur="blur"
       @enter="search"
     />
+    <div class="searcher__clean" @click="clearName" v-if="namePatient">
+      <code-info 
+        icon="times"
+      />
+    </div>
   </div>
 </template>
 <script>
 import CodeInput from './base/CodeInput'
+import CodeInfo from './base/CodeInfo'
 import { session } from '../mixins/session'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { NAMESPACED_ATTENDANCE, FILTER_ATTENDANCES_BY_NAME, NAMESPACED_AUTH, GET_ATTENDANCES, NAME, REINIT_PAGINATION } from '../utils/alias'
@@ -28,10 +36,12 @@ export default {
   },
   mixins: [session, uppercase],
   components: {
-    CodeInput
+    CodeInput,
+    CodeInfo
   },
   data () {
     return {
+      removeFocus: true,
       modal: false,
       name: ''
     }
@@ -47,7 +57,6 @@ export default {
     ]),
     namePatient: {
       set(value) {
-        console.log(value)
         const name = (value) ? value.toUpperCase() : value;
         this.setName(name)
       },
@@ -69,15 +78,19 @@ export default {
     
       return queries
     },
+    clearName() {
+      this.namePatient = ''
+    },
     async search() {
-      let headers = {'X-Paginate': true}
-      const id = this.healthCenterLogged || this.userId
-      this.renitiPage()
+      let headers = {'X-Paginate': false}
+      const { id } = this.healthCenterLogged
+      this.reinitPage()
+      this.$emit('enter')
+      this.removeFocus = false
       await this.filterAttendanceByName({ url: this.getURI(id), params: this.paramsQuery(), headers })
-
+      this.removeFocus = undefined
     },
     getURI(id) {
-      console.log(id)
       return GET_ATTENDANCES(
           id,
           this.params.begin.split(" - ").join("-"),
@@ -95,14 +108,21 @@ export default {
     }),
     ...mapMutations(NAMESPACED_ATTENDANCE, {
       setName: NAME,
-      renitiPage: REINIT_PAGINATION
+      reinitPage: REINIT_PAGINATION
     })
   }
 }
 </script>
 <style lang="sass" scoped>
 .searcher
+  display: flex
+  align-items: center
   width: 100%
+  position: relative
+.searcher__clean
+  position: absolute
+  right: 10px
+  cursor: pointer
 .searcher--modal .searcher__input
   @include respond-to(handhelds)
     width: 90%
