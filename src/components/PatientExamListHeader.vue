@@ -7,7 +7,7 @@
         description="paciente"
         :info="name"
         color="rgba(71, 77, 94, 1)"
-        
+        size-info="13px"
       />
       <div class="patient-exams__checkall" v-if="someFinalizedExam">
         <code-checkbox
@@ -190,6 +190,7 @@ export default {
   @include respond-to(handhelds)
     text-align: center
 .patient-exams__patient
+  margin-bottom: 0.5em
   @include respond-to(handhelds)
     font-size: 10px
 .patient-exams__title--capitalize
