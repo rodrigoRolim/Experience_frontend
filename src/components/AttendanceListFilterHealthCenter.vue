@@ -280,9 +280,9 @@ export default {
     paramsQuery () {
       let queries = {}
       // if (this.params.healthCenter.id) queries['postocadastro'] = this.params.healthCenter.id
-      if (this.params.realizer.id) queries['postorealizante'] = this.params.realizer.id
-      if (this.params.accomodation.id) queries['acomodacao'] = this.params.accomodation.id
-      if (this.params.situation.id) queries['situacao'] = this.params.situation.id
+      if (this.params.realizer) queries['postorealizante'] = this.params.realizer.id
+      if (this.params.accomodation) queries['acomodacao'] = this.params.accomodation.id
+      if (this.params.situation) queries['situacao'] = this.params.situation.id
       queries['limit'] = this.params.limit
       queries['page'] = this.params.page
       return queries
