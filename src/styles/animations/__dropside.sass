@@ -1,17 +1,13 @@
 .sidebar--hidden
   @include respond-to(medium-screens)
     left: -100%
-    animation: hidden-sidebar 0.5s linear
   @include respond-to(handhelds)
     left: -100%
-    animation: hidden-sidebar 0.5s linear
 .sidebar--show
   @include respond-to(medium-screens)
     left: 0
-    animation: show-sidebar 0.5s linear
   @include respond-to(handhelds)
     left: 0
-    animation: show-sidebar 0.5s linear
 .sidebar--modal
   @include respond-to(medium-screens)
     width: 100%

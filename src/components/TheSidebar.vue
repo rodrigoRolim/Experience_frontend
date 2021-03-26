@@ -12,7 +12,7 @@
         position="flex-start"
         icon="info-circle"
       />
-      <attendance-relations v-else/>
+      <attendance-relations  id="scrollbar" v-else/>
     </div>
   </aside>
 </template>
@@ -42,12 +42,13 @@ export default {
 </script>
 <style lang="sass" scoped>
 @import "../styles/__themes"
+@import '../styles/_scrollbar'
+@include scrollbar($el: '#scrollbar', $w: 15px)
 .sidebar
   position: relative
   display: flex
   flex-direction: column
   background-color: $color__default
-  padding-bottom: 50px
   min-height: 100%
   width: 301px
   border-right: 1px solid rgba(0,0,0,0.01)
@@ -67,10 +68,9 @@ export default {
 .sidebar__body
   display: flex
   flex-direction: column
-  margin-top: 160px
+  margin-top: 105px
   @include respond-to(handhelds)
     margin-top: 100px
-  padding-bottom: 20px
 .sidebar__row
   display: flex
   flex-flow: row wrap

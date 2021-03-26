@@ -154,7 +154,6 @@ export default {
   width: 100%
 .patient-exam__health-center
   align-self: flex-start
-  margin-left: 20px
 .patient-exam__separator-line
   content: "|"
   display: flex

@@ -1,7 +1,6 @@
 <template>
   <div class="doctor-patient">
     <div class="doctor-patient__sidebar"
-      id="scrollbar" 
       :class="{ 'sidebar--show': displaySideBar, 'sidebar--hidden': !displaySideBar }"
     >
       <the-sidebar />
@@ -111,11 +110,9 @@ export default {
 
 <style lang="sass" scoped>
 @import '../styles/animations/__dropside'
-@import '../styles/_scrollbar'
-@include scrollbar($el: '#scrollbar', $w: 15px)
-
 .doctor-patient
   display: flex
+  min-height: 100vh
   @include respond-to(handhelds)
     margin-top: 60px
     margin-bottom: 40px
@@ -157,12 +154,13 @@ export default {
   top: 60px
   transition: top 0.3s
 .doctor-patient__sidebar
+  transition: left 0.5s linear
   @include respond-to(wide-screens)
     display: block
   position: fixed
   width: 301px
-  overflow-y: auto
-  height: 100vh
+  height: calc(100vh - 60px)
+  margin-top: 60px
   z-index: 3
   @include respond-to(medium-screens)
     overflow-x: hidden
