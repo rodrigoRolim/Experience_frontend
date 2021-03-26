@@ -7,7 +7,15 @@
     </div>
     <div class="doctor-patient__main" >
       <div class="doctor-patient__patient" :class="{ 'doctor-patient__patient--up-hidden': hiddenElement }">
-        <patient-exams-list-header />
+        <patient-exams-list-header 
+          :patient="parseInt(patient)"
+          :name="name"
+          :age="age"
+          :gender="gender"
+          :delivery="delivery"
+          :doctor="doctor"
+          :health-insurance="healthInsurance"
+        />
       </div>
       <div class="doctor-patient__exams">
         <code-modal
@@ -74,8 +82,12 @@ export default {
   computed: {
     ...mapGetters(NAMESPACED_PROPS, [
       'patient',
-      'healthCenter',
-      'attendance'
+      'name',
+      'age',
+      'gender',
+      'delivery',
+      'doctor',
+      'healthInsurance'
     ]),
     ...mapGetters(NAMESPACED_EXAMS, {
       statusExams: 'status'
@@ -130,8 +142,7 @@ export default {
     margin-left: 0
     width: 100%
 .doctor-patient__exams
-  width:  calc( 100% - 301px )
-  margin-top: 150px
+  width:  calc( 100% - 301px ) 
   @include respond-to(medium-screens)
     width: 100%
     margin-top: 120px
@@ -157,10 +168,12 @@ export default {
   transition: left 0.5s linear
   @include respond-to(wide-screens)
     display: block
+    margin-top: 60px
+  @include respond-to(medium-screens)
+    margin-top: 60px
   position: fixed
   width: 301px
   height: calc(100vh - 60px)
-  margin-top: 60px
   z-index: 3
   @include respond-to(medium-screens)
     overflow-x: hidden

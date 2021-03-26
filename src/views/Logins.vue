@@ -238,12 +238,12 @@ export default {
   min-height: calc(100vh - 60px)
   overflow: auto
 .logins__main
-  margin-top: 60px
+  margin-top: 90px
   width: 100%
   display: flex
   flex-direction: row
   justify-content: space-evenly
-  min-height: 89vh
+  height: calc( 100vh - 90px )
 .logins_main--fullscreen
   margin-top: 0
 .logins__main--unclickable
@@ -276,8 +276,6 @@ html:fullscreen .logins__messages
     flex-direction: column
     align-items: center
     width: 100%
-    margin-top: 40px
-  margin-top: 10vh
 .logins__menu-abas
   width: 460px
   display: flex
@@ -306,5 +304,4 @@ html:fullscreen .logins__messages
     display: none
   @include respond-to(handhelds)
     display: none
-  
 </style>

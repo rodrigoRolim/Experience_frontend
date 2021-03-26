@@ -23,8 +23,6 @@
       <div class="patient-exams__patient">
         <patient-exams-list-header 
           :patient="parseInt(patient)"
-          :health-center="parseInt(healthCenter)"
-          :attendance="parseInt(attendance)"
           :name="name"
           :age="age"
           :gender="gender"
@@ -115,8 +113,6 @@ export default {
     ]),
     ...mapGetters(NAMESPACED_PROPS, [
       'patient',
-      'attendance',
-      'healthCenter',
       'name',
       'age',
       'gender',
@@ -173,23 +169,23 @@ export default {
   margin-left: 301px
 .patient-exams__exams
   width: 100%
-  margin-top: 150px
   @include respond-to(medium-screens)
     width: 100%
-    margin-top: 120px
   @include respond-to(handhelds)
     width: 100%
-    margin-top: 85px
 .patient-exams__patient
   position: fixed
   top: 60px
 .patient-exams__sidebar
+  transition: left 0.5s linear
   @include respond-to(wide-screens)
     display: block
+    margin-top: 60px
+  @include respond-to(medium-screens)
+    margin-top: 60px
   position: fixed
-  width: 321px
-  overflow-y: auto
-  height: 100vh
+  width: 301px
+  height: calc(100vh - 60px)
   z-index: 4
   @include respond-to(medium-screens)
     overflow-x: hidden

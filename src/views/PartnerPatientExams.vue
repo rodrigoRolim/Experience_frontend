@@ -97,13 +97,10 @@ export default {
     width: 100%
 .partner-patient__exams
   width: 100%
-  margin-top: 150px
   @include respond-to(medium-screens)
     width: 100%
-    margin-top: 130px
   @include respond-to(handhelds)
     width: 100%
-    margin-top: 85px
 .partner-patient__header
   position: fixed
   width: 100%

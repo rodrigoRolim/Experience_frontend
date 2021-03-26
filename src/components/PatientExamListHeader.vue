@@ -25,7 +25,8 @@
     <code-drop-down bcolor="white" text="detalhes" dropdown>
       <template v-slot:content>
         <div class="patient-exams__patient-info">
-          <code-info 
+          <code-info
+            v-if="age"
             class="patient-exams--margin patient-exams__info"
             icon="birthday-cake"
             size="lg"
@@ -34,6 +35,7 @@
             color="rgba(71, 77, 94, 1)"
           />
           <code-info
+            v-if="gender"
             class="patient-exams--margin patient-exams__info"
             icon="mars"
             size="lg"
@@ -50,7 +52,8 @@
             :info="attendanceDate"
             color="rgba(71, 77, 94, 1)"
           />
-          <code-info 
+          <code-info
+            v-if="delivery"
             icon="clock"
             size="lg"
             class="patient-exams--margin patient-exams__info"
@@ -59,6 +62,7 @@
             color="rgba(71, 77, 94, 1)"
           />
           <code-info
+            v-if="healthInsurance"
             class="patient-exams--margin patient-exams__info"
             icon="credit-card"
             size="lg"
@@ -67,6 +71,7 @@
             color="rgba(71, 77, 94, 1)"
           />
           <code-info
+            v-if="healthCenter && attendance"
             class="patient-exams--margin patient-exams__info"
             icon="heartbeat"
             size="lg"
@@ -75,12 +80,14 @@
             color="rgba(71, 77, 94, 1)"
           />
           <code-info
+            v-if="doctor"
             class="patient-exams--margin patient-exams__info"
             icon="user-md"
             size="lg"
             description="médico solicitante"
             :info="doctor"
             color="rgba(71, 77, 94, 1)"
+            size-info="10px"
           />
         </div>
       </template>
@@ -94,10 +101,21 @@ import CodeDropDown from './base/CodeDropDown'
 import CodeCheckbox from '../components/base/CodeCheckbox'
 import { attendance } from '../mixins/formater'
 import { mapGetters, mapMutations } from 'vuex'
-import { NAMESPACED_EXAMS, CHECKED_ALL_EXAMS, UNCHECKED_ALL_EXAMS, NAMESPACED_PROPS } from '../utils/alias'
+import { NAMESPACED_EXAMS, CHECKED_ALL_EXAMS, UNCHECKED_ALL_EXAMS, /* NAMESPACED_PROPS  */} from '../utils/alias'
 export default {
   name: 'PatientExamListHeader',
   mixins: [attendance],
+  props: [
+    'healthCenter',
+        'attendance',
+        'patient',
+        'name',
+        'age',
+        'gender',
+        'delivery',
+        'doctor',
+        'healthInsurance',
+        'attendanceDate'],
   components: {
     CodeInfo,
     CodeDropDown,
@@ -108,7 +126,7 @@ export default {
       'someFinalizedExam',
       'allExamsChecked'
     ]),
-    ...mapGetters(NAMESPACED_PROPS, [
+   /*  ...mapGetters(NAMESPACED_PROPS, [
         'healthCenter',
         'attendance',
         'patient',
@@ -119,7 +137,7 @@ export default {
         'doctor',
         'healthInsurance',
         'attendanceDate'
-    ])
+    ]) */
   },
   data () {
     return {

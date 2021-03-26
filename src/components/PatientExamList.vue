@@ -172,7 +172,7 @@ export default {
   align-items: center
   justify-content: space-between  
   width: 100%
-  padding: 10px
+  padding: 170px 10px 0 10px
 .patient-exams__item
   margin: 5px 0
 #exams
