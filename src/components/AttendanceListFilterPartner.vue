@@ -46,6 +46,7 @@
             label="nome do paciente"
             label-color="text"
             name="patientName"
+            @enter="confirm"
             @input="setName"
             :value="params.name"
           />
@@ -166,9 +167,6 @@ export default {
     allowRequest () {
       return !Object.values(this.validate).find((val) => val !== '')
     },
-   /*  beginAndEnd () {
-      return `${this.params.begin}|${this.params.end}`
-    }, */
     disableConfirm () {
       return this.status === 'loading' || this.statusPush === 'loading' 
     }
@@ -181,39 +179,24 @@ export default {
         this.statusPush === 'loading'
       )
     },
-   /*  beginAndEnd (value) {
-      let [begin, end] = value.split('|')
-      if (this.validatePeriod(begin, end)) {
-
-        this.initComponent()
-      }
-    } */
   },
   methods: {
     clearName() {
       this.setName('')
     },
-   /*  validatePeriod(begin, end) {
-      return this.date(begin, DATE_VALIDATOR) && 
-             this.date(end, DATE_VALIDATOR) && 
-             !this.beginGtEnd(begin, end) &&
-             !this.endLtBegin(begin, end) &&
-             !this.required(begin) &&
-             !this.required(end)
-    }, */
     initFilters () {
       this.filters = Object.assign({}, this.params)
     },
-    backParamsToDefault () {
+    backParamsToDefault() {
       const defaultOption = {id: '', name: 'todos'}
-      this.setHealthCenter(defaultOption)
       this.setAccomodation(defaultOption)
-      this.setRealizer(defaultOption)
+      this.setSituation(defaultOption)
     },
     async initComponent () {
 
       try {
         await this.listAccomodations()
+        this.backParamsToDefault()
         await this.attendances()
       } catch (err) {
         if (!err.response) {
@@ -231,8 +214,6 @@ export default {
     async confirm () {
 
       if (this.allowRequest) {
-          //this.cancel()
-          //document.documentElement.scrollTop = 0
         await this.attendances()
       } else {
 
@@ -262,10 +243,10 @@ export default {
     },
     paramsQuery () {
       let queries = {}
-      if (this.params.healthCenter.id) queries['postocadastro'] = this.params.healthCenter.id
-      if (this.params.realizer.id) queries['postorealizante'] = this.params.realizer.id
-      if (this.params.accomodation.id) queries['acomodacao'] = this.params.accomodation.id
-      if (this.params.situation.id) queries['situacao'] = this.params.situation.id
+      if (this.params.healthCenter) queries['postocadastro'] = this.params.healthCenter.id
+      if (this.params.realizer) queries['postorealizante'] = this.params.realizer.id
+      if (this.params.accomodation) queries['acomodacao'] = this.params.accomodation.id
+      if (this.params.situation) queries['situacao'] = this.params.situation.id
       if (this.params.name) queries['nome'] = this.params.name
       queries['limit'] = this.params.limit
       queries['page'] = this.params.page
