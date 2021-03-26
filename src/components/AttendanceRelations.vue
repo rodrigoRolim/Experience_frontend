@@ -73,6 +73,10 @@ export default {
 </script>
 <style lang="sass" scoped>
 @import "../styles/__themes.sass"
+.attendance-relations
+  height: calc(100vh - 170px)
+  overflow-y: auto
+  overflow-x: hidden
 .attendance-relations__item
   display: flex
   flex-flow: row wrap
