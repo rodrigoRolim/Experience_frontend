@@ -19,7 +19,7 @@
         </template>
       </the-navbar>
     </div>
-    <div class="partner__main">
+    <div class="partner__main" :class="{ 'partner__main--up': hiddenElement }">
       <router-view />
     </div>
   </div>
@@ -58,6 +58,7 @@ export default {
 
 <style lang="sass" scoped>
 @import '../styles/__themes'
+
 .partner__navbar
   position: fixed
   width: 100%
@@ -67,6 +68,13 @@ export default {
   transition: top 0.3s
 .partner__navbar--up-hidden
   top: -61px
+.partner__main
+  margin-top: 60px
+  min-height: calc(100vh - 60px)
+  transition: margin-top 0.2s linear
+.partner__main--up
+  margin-top: 0
+  min-height: calc(100vh - 0px)
 .partner__footer
   display: none
   @include respond-to(handhelds)

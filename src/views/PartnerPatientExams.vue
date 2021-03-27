@@ -1,7 +1,6 @@
 <template>
  <div class="partner-patient">
-    <div class="partner-patient__header" 
-     :class="{ 'partner-patient__header--up-hidden': hiddenElement }">
+    <div class="partner-patient__header">
       <patient-exams-list-header
         :patient="parseInt(patient)"
         :health-center="parseInt(healthCenter)"
@@ -11,7 +10,7 @@
         :gender="gender"
         :delivery="delivery"
         :doctor="doctor"
-        :attendaceData="attendanceDate"
+        :attendance-date="attendanceDate"
       />
     </div>
     <div class="partner-patient__exams">
@@ -44,10 +43,9 @@ import CodeModal from '../components/base/CodeModal'
 import CodeLoading from '../components/base/CodeLoading'
 import { NAMESPACED_PROPS, NAMESPACED_EXAMS } from '../utils/alias'
 import { mapGetters } from 'vuex'
-import { hiddenByScroll } from '../mixins/hiddenByScroll'
+
 export default {
   name: 'partner-patientPatientExams',
-  mixins: [hiddenByScroll],
   components: {
     PatientExamsListHeader,
     PatientExamList,
@@ -79,9 +77,6 @@ export default {
 <style lang="sass" scoped>
 .partner-patient
   display: flex
-  @include respond-to(handhelds)
-    margin-top: 60px
-    margin-bottom: 40px
 .partner-patient__main
   width: 100%
   display: flex
@@ -97,6 +92,7 @@ export default {
     width: 100%
 .partner-patient__exams
   width: 100%
+  margin-top: 98px
   @include respond-to(medium-screens)
     width: 100%
   @include respond-to(handhelds)
@@ -105,8 +101,7 @@ export default {
   position: fixed
   width: 100%
   z-index: 3
-  top: 60px
-  transition: top 0.3s
+  top: inherit
   @include respond-to(medium-screens)
     width: 100%
   @include respond-to(handhelds)

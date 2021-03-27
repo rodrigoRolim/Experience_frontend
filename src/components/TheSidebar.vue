@@ -55,7 +55,7 @@ export default {
 .sidebar__header
   display: flex
   position: fixed
-  top: 60px
+  top: inherit
   width: 301px
   flex-direction: row
   justify-content: center

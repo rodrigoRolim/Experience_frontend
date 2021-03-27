@@ -1,5 +1,5 @@
 <template>
-  <div class="patient-exams__container">
+  <div class="patient-exams">
     <code-message
       v-if="message"
       class="patients-exams__message"
@@ -166,13 +166,14 @@ export default {
 </script>
 <style lang="sass" scoped>
 @import '../styles/transitions/__slide_fade.scss'
+.patient-exams
+  padding: 5px 10px
 .patient-exams__list
   display: flex
   flex-flow: row wrap
   align-items: center
   justify-content: space-between  
   width: 100%
-  padding: 170px 10px 0 10px
 .patient-exams__item
   margin: 5px 0
 #exams

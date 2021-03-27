@@ -1,10 +1,12 @@
 <template>
   <header class="navbar__header">
-    <div class="navbar__logo">
+    <div class="navbar__actions">
       <slot class="navbar__back" name="back"></slot>
       <div class="navbar__collapser">
         <slot name="collapser"></slot>
       </div>
+    </div>
+    <div class="navbar__logo">
       <img class="navbar__image" :src="takeLogo" alt="logo da empresa">
     </div>
     <div class="navbar__navigation">
@@ -48,10 +50,11 @@ export default {
   display: flex
   flex-direction: row
   background-color: #f3f1f1
-  justify-content: space-between
   min-height: 60px
   border-bottom: 1px solid rgba(0, 0, 0, 0.1)
   width: 100%
+  @include respond-to(handhelds)
+    justify-content: space-between
 .navbar__collapser
   display: flex
 .navbar__image
@@ -59,8 +62,8 @@ export default {
   @include respond-to(medium-screens)
     margin: 0 auto
   @include respond-to(handhelds)
-    width: 80px
-    margin: 0 auto
+    width: 110px
+    margin: 0  auto
 .navbar__shadow-right
   width: 50%
   height: 40px
@@ -73,15 +76,21 @@ export default {
   -moz-box-shadow: 0 8px 6px 1px rgba(0,0,0,0.1)
   box-shadow: 0 8px 6px 1px rgba(0,0,0,0.1)
   transform: rotate(0deg)
-.navbar__logo
+.navbar__actions
   display: flex
   flex-direction: row
   justify-content: space-between
   align-items: center
-  @include respond-to(handhelds)
-    width: 100%
+/**   @include respond-to(handhelds)
+    width: 17%
   @include respond-to(medium-screens)
-    width: 100%
+    width: 0% **/
+.navbar__logo
+  display: flex
+  justify-content: center
+  align-self: center
+  @include respond-to(handhelds)
+    margin-left: 38px
 .navbar__back
   display: flex
   justify-content: center
@@ -112,4 +121,7 @@ export default {
 .navbar__navigation
   display: flex
   justify-content: space-between
+  margin-left: auto
+  @include respond-to(handhelds)
+    margin-left: 0
 </style>

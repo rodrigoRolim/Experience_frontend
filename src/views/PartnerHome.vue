@@ -2,8 +2,8 @@
   <div class="partner-home">
     <div class="partner-home__filter" 
       :class="{
-        'partner-home__filter--index-up': searcherInModal, 
-        'partner-home__filter--up-hidden': hiddenElement }">
+        'partner-home__filter--index-up': searcherInModal}"
+    >
       <attendance-list-filter-partner @error="messageError"/>
     </div>
     <div class="partner-home__attendances">
@@ -48,11 +48,9 @@ import CodeLoading from '../components/base/CodeLoading'
 import CodeModal from '../components/base/CodeModal'
 import CodeMessage from '../components/base/CodeMessage'
 import { mapGetters } from 'vuex'
-import { hiddenByScroll } from '../mixins/hiddenByScroll'
 import { NAMESPACED_AUTH, NAMESPACED_ATTENDANCE, NAMESPACED_HEALTH_CENTERS, NAMESPACED_ACCOMODATIONS, NAMESPACED_REGISTRANTS} from '../utils/alias'
 export default {
   name: 'PartnerHome',
-  mixins: [hiddenByScroll],
   components: {
     AttendanceListFilterPartner,
     AttendanceList,
@@ -129,17 +127,16 @@ export default {
   position: fixed
   width: 100%
   z-index: 2
-  top: 60px
-  transition: top 0.3s
+  top: inherit
 .partner-home__filter--up-hidden
   top: 0
 .partner-home__attendances
-  margin-top: 160px
   width: 98%
-  @include respond-to(handhelds)
-    margin-top: 105px
+  margin-top: 100px
   @include respond-to(medium-screens)
-    margin-top: 100px
+    margin-top: 28px
+  @include respond-to(handhelds)
+    margin-top: 37px
 .partner-home__modal
   position: fixed
 .partner-home__loading

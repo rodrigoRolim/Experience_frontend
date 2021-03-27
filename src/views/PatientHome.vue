@@ -148,12 +148,7 @@ export default {
 <style lang="sass" scoped>
 @import '../styles/animations/__dropside'
 @import '../styles/transitions/__slide_fade.scss'
-.patient-exams
-  display: flex
-  @include respond-to(handhelds)
-    margin-top: 60px
-    margin-bottom: 40px
-  min-height: 100vh
+
 .patient-exams__main
   width: calc( 100% - 301px )
   display: flex
@@ -169,23 +164,23 @@ export default {
   margin-left: 301px
 .patient-exams__exams
   width: 100%
+  margin-top: 96px
   @include respond-to(medium-screens)
     width: 100%
+    margin-top: 73px
   @include respond-to(handhelds)
+    margin-top: 100px
     width: 100%
 .patient-exams__patient
   position: fixed
-  top: 60px
+  top: inherit
 .patient-exams__sidebar
   transition: left 0.5s linear
   @include respond-to(wide-screens)
     display: block
-    margin-top: 60px
-  @include respond-to(medium-screens)
-    margin-top: 60px
   position: fixed
   width: 301px
-  height: calc(100vh - 60px)
+  height: 100vh
   z-index: 4
   @include respond-to(medium-screens)
     overflow-x: hidden

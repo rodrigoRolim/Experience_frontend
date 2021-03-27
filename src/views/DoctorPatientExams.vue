@@ -6,7 +6,7 @@
       <the-sidebar />
     </div>
     <div class="doctor-patient__main" >
-      <div class="doctor-patient__patient" :class="{ 'doctor-patient__patient--up-hidden': hiddenElement }">
+      <div class="doctor-patient__patient">
         <patient-exams-list-header 
           :patient="parseInt(patient)"
           :name="name"
@@ -81,6 +81,8 @@ export default {
   },
   computed: {
     ...mapGetters(NAMESPACED_PROPS, [
+      'attendance',
+      'healthCenter',
       'patient',
       'name',
       'age',
@@ -124,10 +126,7 @@ export default {
 @import '../styles/animations/__dropside'
 .doctor-patient
   display: flex
-  min-height: 100vh
-  @include respond-to(handhelds)
-    margin-top: 60px
-    margin-bottom: 40px
+  position: relative
 .doctor-patient__main
   width: calc( 100% - 360px )
   display: flex
@@ -138,39 +137,31 @@ export default {
     margin-left: 0
     width: 100%
   @include respond-to(handhelds)
-    margin-top: 0
     margin-left: 0
     width: 100%
 .doctor-patient__exams
   width:  calc( 100% - 301px ) 
   @include respond-to(medium-screens)
     width: 100%
-    margin-top: 120px
   @include respond-to(handhelds)
     width: 100%
-    margin-top: 85px
 .doctor-patient__modal
   z-index: 2
+  position: fixed
+  top: 60px
 .doctor-patient__spin
   right: calc(100% - 221px)
   @include respond-to(medium-screens)
     right: 0
   @include respond-to(handhelds)
     right: 0
-.doctor-patient__modal
-  position: fixed
-  top: 60px
 .doctor-patient__patient
   position: fixed
-  top: 60px
-  transition: top 0.3s
+  top: inherit
 .doctor-patient__sidebar
   transition: left 0.5s linear
   @include respond-to(wide-screens)
     display: block
-    margin-top: 60px
-  @include respond-to(medium-screens)
-    margin-top: 60px
   position: fixed
   width: 301px
   height: calc(100vh - 60px)
@@ -183,6 +174,4 @@ export default {
     width: 100%
   @include respond-to(handhelds)
     width: 100%
-.doctor-patient__patient--up-hidden
-  top: 0
 </style>

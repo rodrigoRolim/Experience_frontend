@@ -52,6 +52,7 @@
             :info="attendanceDate"
             color="rgba(71, 77, 94, 1)"
           />
+         
           <code-info
             v-if="delivery"
             icon="clock"
@@ -107,15 +108,16 @@ export default {
   mixins: [attendance],
   props: [
     'healthCenter',
-        'attendance',
-        'patient',
-        'name',
-        'age',
-        'gender',
-        'delivery',
-        'doctor',
-        'healthInsurance',
-        'attendanceDate'],
+    'attendance',
+    'patient',
+    'name',
+    'age',
+    'gender',
+    'delivery',
+    'doctor',
+    'healthInsurance',
+    'attendanceDate'
+  ],
   components: {
     CodeInfo,
     CodeDropDown,

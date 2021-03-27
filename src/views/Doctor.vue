@@ -18,7 +18,7 @@
         </template>
       </the-navbar>
     </div>
-    <div class="doctor__main">
+    <div class="doctor__main" :class="{ 'doctor__main--up': hiddenElement }">
       <router-view />
     </div>
   </div>
@@ -38,11 +38,6 @@ export default {
     UserPerfil,
     CodeButtonCollapser,
     CodeInfo,
-  },
-  data () {
-    return {
-      
-    }
   },
   computed: {
     isDoctorPatientExams() {
@@ -65,11 +60,16 @@ export default {
   top: 0
   left: 0
   z-index: 4
-  transition: top 0.3s
+  transition: top 0.2s linear
 .doctor__navbar--up-hidden
   top: -61px
 .doctor__main
-  width: 100%
+  margin-top: 60px
+  min-height: calc(100vh - 60px)
+  transition: margin-top 0.2s linear
+.doctor__main--up
+  margin-top: 0
+  min-height: calc(100vh - 0px)
 .doctor__footer
   display: none
   @include respond-to(handhelds)

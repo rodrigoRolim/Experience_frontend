@@ -2,15 +2,13 @@
 @mixin scrollbar($el, $w)
 
   #{$el}::-webkit-scrollbar-track
-    background-color: $green
-  
+    background-color: transparent
 
   #{$el}::-webkit-scrollbar
     width: $w
-    background-color: $green
+    background-color: transparent
 
   #{$el}::-webkit-scrollbar-thumb
     background-color: white
-    border-radius: 2px
-    border: 2px solid $green
-
+    border: 2px solid $color__default
+    border-top: none

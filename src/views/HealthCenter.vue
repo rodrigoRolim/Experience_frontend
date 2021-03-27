@@ -19,7 +19,7 @@
         </template>
       </the-navbar>
     </div>
-    <div class="health-center__main">
+    <div class="health-center__main" :class="{ 'health-center__main--up': hiddenElement }">
       <router-view />
     </div>
   </div>
@@ -71,6 +71,13 @@ export default {
   transition: top 0.3s
 .health-center--up-hidden
   top: -61px
+.health-center__main
+  margin-top: 60px
+  min-height: calc(100vh - 60px)
+  transition: margin-top 0.2s linear
+.health-center__main--up
+  margin-top: 0
+  min-height: calc(100vh - 0px)
 .health-center__footer
   display: none
   @include respond-to(handhelds)

@@ -1,6 +1,6 @@
 <template>
   <div class="doctor-home">
-    <div class="doctor-home__filter" :class="{'doctor-home__filter--up-hidden': hiddenElement}">
+    <div class="doctor-home__filter">
       <patient-list-filter @error="messageError"/>
     </div>
     <div class="doctor-home__list">
@@ -17,7 +17,7 @@
           />
         </template>
       </code-modal>
-      <patient-list />
+      <patient-list class="doctor-home__patients" />
     </div>
     <transition name="slide-fade">
       <div class="doctor-home__messages" v-if="message">
@@ -89,19 +89,12 @@ export default {
 .doctor-home__filter
   position: fixed
   width: 100%
-  top: 60px
+  top: inherit
   left: 0
   z-index: 2
-  transition: top 0.3s
-.doctor-home__filter--up-hidden
-  top: 0px
 .doctor-home__list
-  margin-top: 170px
-  @include respond-to(medium-screens)
-    margin-top: 100px
-  @include respond-to(handhelds)
-    margin-top: 100px
-.doctor-home__modal
+  padding: 101px 0 30px 0
+.doctor-home__list .doctor-home__modal
   position: fixed
 .doctor-home__loading
   margin-top: 90px

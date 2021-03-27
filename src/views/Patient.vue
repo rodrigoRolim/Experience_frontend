@@ -1,6 +1,6 @@
 <template>
   <div class="patient">
-    <div class="patient__navbar">
+    <div class="patient__navbar" :class="{ 'patient__navbar--up-hidden': hiddenElement }">
       <the-navbar logo="logo_cedro">
         <template v-slot:collapser>
           <code-button-collapser />
@@ -10,7 +10,7 @@
         </template>
       </the-navbar>
     </div>
-    <div class="patient__main">
+    <div class="patient__main"  :class="{ 'patient__main--up': hiddenElement }">
       <router-view />
     </div>
   </div>
@@ -20,8 +20,10 @@
 import TheNavbar from '../components/TheNavbar'
 import CodeButtonCollapser from '../components/base/CodeButtonCollapser'
 import UserPerfil from '../components/UserPerfil'
+import { hiddenByScroll } from '../mixins/hiddenByScroll'
 export default {
   name: 'Patient',
+  mixins: [hiddenByScroll],
   components: {
     TheNavbar,
     CodeButtonCollapser,
@@ -48,6 +50,14 @@ export default {
   top: 0
   left: 0
   z-index: 33
+.patient__navbar--up-hidden
+  top: -61px
+.patient__main
+  margin-top: 60px
+  min-height: calc(100vh - 60px)
+.patient__main--up
+  margin-top: 0
+  min-height: calc(100vh - 0px)
 .patient__footer
   display: none
   @include respond-to(handhelds)

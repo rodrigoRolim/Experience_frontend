@@ -1,10 +1,8 @@
 <template>
   <div class="health-home">
-    <div class="health-home__filter" :class="{ 'health-home__filter--up-hidden': hiddenElement }">
-      <div class="filter" :class="{'filter--modal': searcherInModal}">
-        <div class="filter__options">
-          <attendance-list-filter-health-center @error="messageError"/>
-        </div>
+    <div class="health-home__filter" >
+      <div :class="{'filter--modal': searcherInModal}">
+        <attendance-list-filter-health-center @error="messageError"/>
       </div>
       <div class="filter__searcher" :class="{'filter__searcher--modal': searcherInModal}">
         <div class="filter__content">
@@ -66,11 +64,9 @@ import CodeModal from '../components/base/CodeModal'
 import CodeLoading from '../components/base/CodeLoading'
 import CodeMessage from '../components/base/CodeMessage'
 import { mapGetters } from 'vuex'
-import { hiddenByScroll } from '../mixins/hiddenByScroll'
 import { NAMESPACED_ATTENDANCE, NAMESPACED_ACCOMODATIONS, NAMESPACED_HEALTH_CENTERS, NAMESPACED_REGISTRANTS } from '../utils/alias'
 export default {
   name: 'HealthCenterHome',
-  mixins: [hiddenByScroll],
   components: {
     AttendanceList,
     AttendanceListFilterHealthCenter,
@@ -126,18 +122,15 @@ export default {
 @import '../styles/transitions/__slide_fade.scss'
 @import "../styles/__themes"
 .health-home
-  display: flex
-  flex-direction: column
-  align-items: center
-  justify-content: center
-  margin-top: 215px
-  transition: top 0.3s
-  @include respond-to(handhelds)
-    margin-top: 160px
-  @include respond-to(medium-screens)
-    margin-top: 150px
+  min-height: calc(100vh - 60px)
 .health-home__attendances
-  width: 98%
+  width: 100%
+  position: absolute
+  top: 213px
+  @include respond-to(medium-screens)
+    top: 146px
+  @include respond-to(handhelds)
+    top: 159px
 .health_center__modal
   position: fixed
 .health_center__loading
@@ -145,11 +138,8 @@ export default {
 .health-home__filter
   width: 100%
   position: fixed
-  top: 60px
+  top: inherit
   z-index: 2
-  transition: top 0.3s
-.health-home__filter--up-hidden
-  top: 0
 .filter--modal
   z-index: 10
 .health-home__messages
