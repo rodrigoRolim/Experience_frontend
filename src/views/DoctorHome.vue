@@ -94,6 +94,10 @@ export default {
   z-index: 2
 .doctor-home__list
   padding: 101px 0 30px 0
+  @include respond-to(medium-screens)
+    padding: 30px 0 30px 0
+  @include respond-to(handhelds)
+    padding: 40px 0 30px 0
 .doctor-home__list .doctor-home__modal
   position: fixed
 .doctor-home__loading

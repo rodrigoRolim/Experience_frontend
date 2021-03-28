@@ -140,10 +140,13 @@ export default {
     margin-left: 0
     width: 100%
 .doctor-patient__exams
-  width:  calc( 100% - 301px ) 
+  width:  calc( 100% - 301px )
+  margin-top: 97px
   @include respond-to(medium-screens)
     width: 100%
+    margin-top: 73px
   @include respond-to(handhelds)
+    margin-top: 68px
     width: 100%
 .doctor-patient__modal
   z-index: 2
