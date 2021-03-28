@@ -238,12 +238,11 @@ export default {
   min-height: calc(100vh - 60px)
   overflow: auto
 .logins__main
-  margin-top: 90px
+  margin-top: 95px
   width: 100%
   display: flex
   flex-direction: row
   justify-content: space-evenly
-  height: calc( 100vh - 90px )
 .logins_main--fullscreen
   margin-top: 0
 .logins__main--unclickable
