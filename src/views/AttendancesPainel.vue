@@ -37,7 +37,7 @@ export default {
     }),
     configUserIdSession() {
      
-      return this.healthCenterLogged !== undefined ? this.healthCenterLogged : this.userId
+      return this.healthCenterLogged !== undefined ? this.healthCenterLogged.id : this.userId
     },
     getURL(begin, end) {
       let healthCenter = this.configUserIdSession()
