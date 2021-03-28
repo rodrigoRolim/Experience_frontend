@@ -80,7 +80,7 @@ export default {
   width:  100%
   margin-top: 100px
   @include respond-to(medium-screens)
-    margin-top: 0px
+    margin-top: 70px
     width: 100%
   @include respond-to(handhelds)
     width: 100%
