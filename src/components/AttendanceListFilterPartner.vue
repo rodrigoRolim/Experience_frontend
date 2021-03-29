@@ -310,7 +310,7 @@ export default {
     flex-wrap: wrap
   @include respond-to(handhelds)
     flex-direction: column
-    height: 75vh
+    height: 70vh
     max-height: 450px
     overflow-y: auto
     width: 100%
@@ -320,10 +320,9 @@ export default {
 .attendances-filter-partner__situation
   width: 15%
   @include respond-to(medium-screens)
-    width: 27%
+    width: 24%
   @include respond-to(handhelds)
     width: 100%
-    margin: 1px 0
 .attendances-filter-partner__patient-name
   display: flex
   position: relative
