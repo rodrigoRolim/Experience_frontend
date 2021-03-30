@@ -1,46 +1,54 @@
 <template>
-  <div class="attendances-painel-list-item" :class="getStatus | statusModifier">
-    <div class="attendances-painel-list-item__attendance">
-      <div class="attendances-painel-list-item__name">{{name}}</div>
-      <div class="attendances-painel-list-item__info">
-        <div class="attendances-painel-list-item__date">
-          <code-info
-            description="data entrada"
-            :info="date"
-            size="lg"
-            color="lightslategray"
-          />
-        </div>
-        <div class="attendances-painel-list-item__time">
-          <code-info 
-            description="tempo esperando"
-            size-info="15px"
-            :info="timeWaiting"
-          />
-        </div>
-        <div class="attendances-painel-list-item__status">
-          <code-chip-status-attendance
-            :status="status"
-          />
-        </div>
-       
-      </div>
+<div class="painel-item" :class="getStatus | statusModifier">
+  <div class="painel-item__name">{{name}}</div>
+  <div class="painel-item__info">
+    <code-info
+      description="data entrada"
+      :info="date | dateAndTime"
+      size="lg"
+      color="lightslategray"
+    />
+    <code-info
+      class="painel-item__collect"
+      description="coleta"
+      info="8:50"
+    />
+  </div>
+  <div class="painel-item__forecast">
+    <span class="painel-item__label">Previsao:</span>
+    <span class="painel-item__value">14:00</span>
+  </div>
+  <div class="painel-item__status">
+    <code-chip-status-attendance
+      :status="status"
+    />
+  </div>
+  <div class="painel-item__footer">
+    <code-progress :numExams="10" :dones="dones"/>
+    <div class="painel-item__id">
+      <span class="painel-item__label">ID-</span>{{ healthCenter | id(attendance) }}
     </div>
   </div>
+</div>
 </template>
 
 <script>
 import { attendanceStatus } from '../mixins/attendanceStatus'
-import CodeInfo from '../components/base/CodeInfo'
-import CodeChipStatusAttendance from '../components/base/CodeChipStatusAttendance'
+import CodeInfo from './base/CodeInfo'
+import CodeChipStatusAttendance from './base/CodeChipStatusAttendance'
+import CodeProgress from './base/CodeProgress'
+import { attendance, dateAndTime } from '../mixins/formater'
 export default {
   name: 'AttendancesPainelListItem',
-  mixins: [attendanceStatus],
+  mixins: [attendanceStatus, attendance, dateAndTime],
   components: {
     CodeInfo,
-    CodeChipStatusAttendance
+    CodeChipStatusAttendance,
+    CodeProgress,
   },
   props: {
+    attendance: Number,
+    healthCenter: Number,
     name: String,
     status: String,
     date: String,
@@ -48,16 +56,19 @@ export default {
   },
   data() {
     return {
-      timeWaiting: ''
+      timeWaiting: '',
+      num:10,
+      dones:2
     }
   },
   created() {
     this.counter()
     setInterval(this.counter, 1000)
+   
   },
   filters: {
     statusModifier (situation) {
-      return 'attendances-painel-list-item--'+situation
+      return 'painel-item--'+situation
     }
   },
   methods: {
@@ -81,49 +92,72 @@ export default {
 
 <style lang="sass" scoped>
 @import "../styles/colors/__status-colors-attendances.scss"
-.attendances-painel-list-item
+.painel-item
   display: flex
-  flex-direction: row
-  justify-content: space-between
-  width: 100%
-  min-height: 50px
+  flex-direction: column
+  width: 320px
+  min-height: 25vh
   border-radius: 4px
   padding: 5px 5px 10px 5px
   -webkit-box-shadow: 0 1px 0 rgb(9 30 66 / 25%)
   box-shadow: 0 1px 0 rgb(9 30 66 / 25%)
-  background-color: #F5F5F5
-.attendances-painel-list-item__attendance
+  background-color: #F5F5F
+.painel-item__attendance
   width: 100%
-.attendances-painel-list-item__name
+.painel-item__name
   font-size: 0.8rem
   margin: 0px 0px 10px 5px
   font-weight: 500
   width: 100%
-.attendances-painel-list-item__info
+.painel-item__info
   display: flex
   flex-diretion: row
+  width: 300px
+  margin-top: 10px
+.painel-item__collect
+  margin-left: 150px
+.painel-item__forecast
+  display: flex
+  flex-direction: column
+  align-items: center
   justify-content: space-between
-.attendances-painel-list-item__date
+  height: 7vh
+  margin: 20px 0 15px 0
+.painel-item__status
+  display: flex
+  flex-direction: row
+  align-items: center
+  justify-content: center
+  width: 40%
+  margin: 0 auto
+.painel-item__footer
+  display: flex
+  font-size: 0.6em
+  margin-top: 15px
+.painel-item__id
+  margin-left: auto
+  align-self: flex-end
+.painel-item__date
   margin-left: 5px
 .atendances-painel-list-item__details
   width: 25%
-.attendances-painel-list-item--pendency
+.painel-item--pendency
   @include card-status-attendances($status: "EP", $border-large: left, $transparent: true)
   @include respond-to(handhelds)
     @include card-status-attendances($status: "EP", $border-large: top, $transparent: true)
-.attendances-painel-list-item--finished
+.painel-item--finished
   @include card-status-attendances($status: "TF", $border-large: left, $transparent: true)
   @include respond-to(handhelds)
     @include card-status-attendances($status: "TF", $border-large: top, $transparent: true)
-.attendances-painel-list-item--partial-finished
+.painel-item--partial-finished
   @include card-status-attendances($status: "PF", $border-large: left, $transparent: true)
   @include respond-to(handhelds)
     @include card-status-attendances($status: "PF", $border-large: top, $transparent: true)
-.attendances-painel-list-item--in-progress
+.painel-item--in-progress
   @include card-status-attendances($status: "EA", $border-large: left, $transparent: true)
   @include respond-to(handhelds)
     @include card-status-attendances($status: "EA", $border-large: top, $transparent: true)
-.attendances-painel-list-item--no-realized
+.painel-item--no-realized
   @include card-status-attendances($status: "NR", $border-large: left, $transparent: true)
   @include respond-to(handhelds)
     @include card-status-attendances($status: "NR", $border-large: top, $transparent: true)

@@ -6,7 +6,7 @@
           <code-select
             class="d-cr"
             :options="crs"
-            label="conselhor profissional"
+            label="conselho profissional"
             name="attendance"
             option="conselho profissional"
             v-model="doctor.sigla"

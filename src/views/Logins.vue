@@ -188,11 +188,9 @@ export default {
       console.log(value)
       console.log(this.fullscreenMode)
       if (value && !isFullscreen) {
-        console.log("enable fullscreen")
         document.documentElement.requestFullscreen()
         return
       } else {
-        console.log("disable fullscreen")
         document.exitFullscreen() 
       }
     },

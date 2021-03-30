@@ -47,28 +47,19 @@ export const date = {
 export const attendance = {
   filters: {
     id (healthCenter, attendance) {
-      let hc = healthCenter
-      let att = attendance
-
-      if (healthCenter < 10) {
-        hc = '00' + healthCenter
+     /* eslint-disable no-debugger */
+  
+      let hc = healthCenter.toString()
+      let att = attendance.toString()
+      const numberLeftZeroHc = 3 - hc.length
+     
+      for (let i = 0 ; i < numberLeftZeroHc; i++) {
+        hc = "0" + hc
       }
-      if (healthCenter > 9) {
-        hc = '0' + healthCenter
+      const numberLeftZeroAtt = 6 - att.length
+      for(let i = 0; i < numberLeftZeroAtt; i++) {
+        att = "0" + att
       }
-      if (attendance < 10) {
-        att = '0000' + attendance
-      }
-      if (attendance > 9) {
-        att = '000' + attendance
-      }
-      if (attendance > 99) {
-        att = '00' + attendance
-      }
-      if (attendance > 999) {
-        att = '0' + attendance
-      }
-      
       return hc + '/' + att
     }
   }
@@ -96,19 +87,44 @@ export const correlative = {
 export const time = {
   filters: {
     time(date) {
-      const datetime = date.split(" ")
-      const dateComplete = datetime[0].split("-")
-      const day = dateComplete[2]
-      const month = +dateComplete[1] - 1
-      const year = dateComplete[0]
-      const time = datetime[1].split(":")
-      const hour = time[0]
-      const min = time[1]
-      const second = time[2]
-
-      const dateInMiliSec = new Date(year, month, day, hour, min, second).getTime()
+      const dt = dateObject(date)
+      const dateInMiliSec = new Date(dt.year, dt.month, dt.day, dt.hour, dt.min, dt.second).getTime()
 
       return dateInMiliSec
     }
   }
+}
+export const dateAndTime = {
+  filters: {
+    dateAndTime(date) {
+      const dt = dateObject(date)
+      return dt.day + '/' + towDigitsMonth(dt.month) + '/' + dt.year + '-' + dt.hour + ':' + dt.min
+    }
+  }
+} 
+
+const dateObject = (date) => {
+
+  const datetime = date.split(" ")
+  const dateComplete = datetime[0].split("-")
+  const day = dateComplete[2]
+  const month = +dateComplete[1] - 1
+  const year = dateComplete[0]
+  const time = datetime[1].split(":")
+  const hour = time[0]
+  const min = time[1]
+  const second = time[2]
+
+  return {
+    day,
+    month,
+    year,
+    hour,
+    min,
+    second
+  }
+}
+
+const towDigitsMonth = (month) => {
+  return month.toString().length === 1 ? '0' + month : month
 }

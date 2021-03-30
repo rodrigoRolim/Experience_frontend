@@ -261,5 +261,6 @@ h2
   @include respond-to(handhelds)
     width: 150px
     font-size: 0.7rem
-
+.exam__message
+  margin: auto 0
 </style>

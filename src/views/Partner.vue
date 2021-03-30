@@ -19,7 +19,7 @@
         </template>
       </the-navbar>
     </div>
-    <div class="partner__main" :class="{ 'partner__main--up': hiddenElement }">
+    <div class="partner__main" :class="{ 'partner__main--up': hiddenElement || !hiddenNavOnPanelAttendaces()}">
       <router-view />
     </div>
   </div>
@@ -45,6 +45,7 @@ export default {
   },
   methods: {
     hiddenNavOnPanelAttendaces() {
+      console.log(this.$route.path !== '/parceiro/painel-atendimentos')
       return this.$route.path !== '/parceiro/painel-atendimentos'
     },
     redirectToAttendanceListView() {

@@ -78,7 +78,7 @@ export default {
       let doctor = this.doctor
       let healthInsurance = this.healthInsurance
       let attendanceDate = this.dataAttendance
-      console.log(attendanceDate, this.dataAttendance)
+
       this.storeProps({ 
         patient, 
         healthCenter, 

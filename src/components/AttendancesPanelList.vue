@@ -4,9 +4,11 @@
       class="attendances-panel-list__item"
       v-for="attendance of attendances"
       :key="attendance.registro"
+      :attendance="attendance.atendimento"
+      :healthCenter="attendance.posto"
       :name="attendance.nomeCliente"
       :status="attendance.situacaoExamesExperience"
-      :date="attendance.dataAtd | dateFormat"
+      :date="attendance.dataAtd"
       :attendance-time="attendance.dataAtd | time"
     />
   </div>
