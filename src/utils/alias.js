@@ -145,6 +145,7 @@ export const MESSAGE = 'MESSAGE'
 export const SELECTED = 'SELECTED'
 export const GET_REPORT_STORE = 'GET_REPORT_STORE' 
 export const GET_RESULT_STORE = 'GET_RESULT_STORE'
+export const GET_CURRENT_ATTENDANCES = 'GET_CURRENT_ATTENDANCES'
 export const TYPE_DELIVERY = 'TYPE_DELIVERY'
 export const EMPTY_STATE = 'EMPTY_STATE'
 export const GET_PATIENT_STORE = 'GET_PATIENT_STORE'
@@ -158,6 +159,8 @@ export const SET_AGE = 'SET_AGE'
 export const SET_DELIVERY_DATE = 'SET_DELIVERY_DATE'
 export const SET_DOCTOR = 'SET_DOCTOR'
 export const SET_HEALTH_INSURANCE = 'SET_HEALTH_INSURANCE'
+export const SET_CURRENT_ATTENDANCES = 'SET_CURRENT_ATTENDANCES'
+
 /**  
  * MUTATIONS TYPES AND ACTIONS' NAMES along namespace
 */
@@ -174,6 +177,7 @@ export const NAMESPACED_EXAMS = 'exams'
 export const NAMESPACED_REPORT = 'report'
 export const NAMESPACED_RESULTS = 'results'
 export const NAMESPACED_INSTRUCTIONS = 'instructions'
+export const NAMESPACED_ATTENDANCES_PANEL = 'attendancesPanel'
 /**  
  * VALIDATIONS MESSAGES
 */

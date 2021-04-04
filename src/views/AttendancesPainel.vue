@@ -7,8 +7,8 @@
 <script>
 import AttendancesPanelList from '../components/AttendancesPanelList'
 import { mapActions, mapGetters } from 'vuex'
-import { GET_ATTENDANCES_STORE, NAMESPACED_ATTENDANCE, NAMESPACED_AUTH, GET_ATTENDANCES } from '../utils/alias'
-import { end, begin } from '../utils/initialDates'
+import { GET_CURRENT_ATTENDANCES, NAMESPACED_ATTENDANCES_PANEL, NAMESPACED_AUTH, GET_ATTENDANCES } from '../utils/alias'
+//import { end, begin } from '../utils/initialDates'
 import { session } from '../mixins/session'
 export default {
   name: 'AttendancesPainel',
@@ -16,11 +16,17 @@ export default {
   components: {
     AttendancesPanelList
   },
+  data() {
+    return {
+      begin: '04 / 03 / 2020',
+      end: '04 / 03 / 2021'
+    }
+  },
   mounted() {
-    let endDate = end()
-    let beginDate = begin()
-    const urlName = this.getURL(beginDate, endDate)
-    this.getAttendances({ url: urlName, params: {}, headers: { 'X-paginate': false } })
+    //let endDate = end()
+    //let beginDate = begin()
+    const urlName = this.getURL(this.begin, this.end)
+    this.getCurrentAttendances({ url: urlName, params: {}, headers: { 'X-paginate': false } })
         .then(res => console.log(res))
         .catch(err => console.log({err}))
   },
@@ -32,8 +38,8 @@ export default {
     ]),
   },
   methods: {
-    ...mapActions(NAMESPACED_ATTENDANCE, {
-      getAttendances: GET_ATTENDANCES_STORE
+    ...mapActions(NAMESPACED_ATTENDANCES_PANEL, {
+      getCurrentAttendances: GET_CURRENT_ATTENDANCES
     }),
     configUserIdSession() {
      

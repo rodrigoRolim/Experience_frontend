@@ -13,6 +13,8 @@ import exams from './modules/exams'
 import instructions from './modules/instructions'
 import report from './modules/report'
 import results from './modules/results'
+import attendancesPanel from './modules/attendancesPanel'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -29,7 +31,8 @@ export default new Vuex.Store({
     results,
     props,
     exams,
-    instructions
+    instructions,
+    attendancesPanel
   },
   strict: process.env.NODE_ENV !== 'production'
 })

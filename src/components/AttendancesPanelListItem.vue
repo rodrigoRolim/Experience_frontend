@@ -15,7 +15,7 @@
     />
   </div>
   <div class="painel-item__forecast">
-    <span class="painel-item__label">Previsao:</span>
+    <span class="painel-item__label">Previsão:</span>
     <span class="painel-item__value">14:00</span>
   </div>
   <div class="painel-item__status">
@@ -133,7 +133,7 @@ export default {
 .painel-item__footer
   display: flex
   font-size: 0.6em
-  margin-top: 15px
+  margin: 15px 8px 0 5px
 .painel-item__id
   margin-left: auto
   align-self: flex-end
