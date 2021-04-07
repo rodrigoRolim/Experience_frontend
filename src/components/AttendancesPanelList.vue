@@ -49,7 +49,6 @@ export default {
     flex-direction: column
     justify-content: cente
 .attendances-panel-list__item
-  margin-bottom: 4px
   @include respond-to(handhelds)
     max-width: 100%
 </style>

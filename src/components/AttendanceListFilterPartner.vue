@@ -323,6 +323,7 @@ export default {
     width: 24%
   @include respond-to(handhelds)
     width: 100%
+    margin: 0.5em 0
 .attendances-filter-partner__patient-name
   display: flex
   position: relative
@@ -331,6 +332,7 @@ export default {
     width: 43%
   @include respond-to(handhelds)
     width: 100%
+    margin: 0.5em 0
 .attendaces-filter-partner__clean
   position: absolute
   top: 52%
@@ -341,16 +343,17 @@ export default {
   margin-top: 10px
   @include respond-to(medium-screens)
     width: 100%
-    margin-top: 30px
+    margin-top: 8vh
   @include respond-to(handhelds)
     width: 100%
-    margin-top: 30px
+    margin-top: 8vh
 .attendances-filter-partner__calendars
   width: 27%
   @include respond-to(medium-screens)
     width: 100%
-    margin: 10px 0
+    margin: 0.7em 0
   @include respond-to(handhelds)
     width: 100%
+    margin: 0.5em 0
  
 </style>

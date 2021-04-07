@@ -112,7 +112,7 @@
           :loading="showLoader"
           velocity-loading="1x"
           @click.prevent.stop="confirm"
-          :disabled="authState == 'loading'"
+          :disabled="status == 'loading'"
         ></code-button>
       </div>
     </form>
@@ -403,11 +403,11 @@ export default {
       if (this.visibility == 'CPF') {
    
         fields = fields.filter(el => el == 'cpf' || el == 'nascimento' || el == 'senha')
-        return this.areAllInputsEmpty(fields, this.validate, REQUIRED_INPUT)
+        return this.areAllInputsEmpty(fields, this.patient, this.validate, REQUIRED_INPUT)
       }
 
       fields = fields.filter(el => !(el == 'cpf' || el == 'nascimento'))
-      return this.areAllInputsEmpty(fields, this.validate, REQUIRED_INPUT)
+      return this.areAllInputsEmpty(fields, this.patient, this.validate, REQUIRED_INPUT)
       
     },
     confirm () {
@@ -415,8 +415,8 @@ export default {
       //e.preventDefault()
 
       let hasInputsEmpty = this.checkFormInputs()
-
-      if (!hasInputsEmpty && this.authState !== 'loading' && !this.validator) {
+      console.log(this.status, hasInputsEmpty)
+      if (hasInputsEmpty && this.status !== 'loading' && !this.validator) {
         
         this.realizeLogin ()
         return

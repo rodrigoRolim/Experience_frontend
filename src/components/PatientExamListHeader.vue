@@ -7,7 +7,7 @@
         description="paciente"
         :info="name"
         color="rgba(71, 77, 94, 1)"
-        size-info="13px"
+        
       />
       <div class="patient-exams__checkall" v-if="someFinalizedExam">
         <code-checkbox

@@ -48,14 +48,25 @@ export const beginGtEnd = function (begin, end) {
 
   return new Date(beginYear, (beginMonth - 1), beginDay) > new Date(endYear, (endMonth - 1), endDay)
 }
-export const areAllInputsEmpty = function (form, validate, message) {
-  let fields = Object.keys(form).filter(el => form[el] == '')
+export const areAllInputsEmpty = function (keys, object, validate, message) {
+  
+  let fields = keys.filter(el => object[el] == '')
   fields.forEach(element => {
     validate[element] = message
   })
+
   return fields.length > 0
 }
 export const isOption = function (option, options) {
 
   return !options.find((opt) => opt.id == option.id || opt.name == option)
+}
+
+export const valideQrcode = function (qrcode) {
+  try {
+    JSON.parse(qrcode)
+  } catch (e) {
+    return false
+  }
+  return true
 }

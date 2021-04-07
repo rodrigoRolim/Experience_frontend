@@ -167,14 +167,10 @@ export default {
       'isAuthenticated'
     ])
   },
-  created () {
-    //this.redirectToPreviousPage() 
-  },
   methods: {
     messages (value) {
       // console.log(value)
       this.messageToUser = value
-      console.log(value)
       setTimeout(() => {
         this.messageToUser = undefined
       }, this.TIME_MESSAGE)
@@ -185,8 +181,7 @@ export default {
     displayKeyboard (value) {
       this.fullscreenMode = value
       let isFullscreen = (document.fullscreenElement) ? true : false
-      console.log(value)
-      console.log(this.fullscreenMode)
+
       if (value && !isFullscreen) {
         document.documentElement.requestFullscreen()
         return
@@ -233,6 +228,7 @@ export default {
 .logins
   display: flex
   flex-direction: column
+  margin: 30px 0 20px 0
   min-height: calc(100vh - 60px)
   overflow: auto
 .logins__main
@@ -251,12 +247,6 @@ export default {
   top: 60px
   align-self: flex-end
   width: 100%
-  right: 0px
-  @include respond-to(medium-screens)
-    width: 100%
-    right: 0
-    left: 0
-    top: 60px
 html:fullscreen .logins__messages
   top: 0
 .logins__message

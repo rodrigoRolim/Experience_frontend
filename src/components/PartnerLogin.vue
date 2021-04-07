@@ -42,7 +42,7 @@
           size-icon="lg"
           :loading="showLoader"
           @click.prevent="confirm"
-          :disabled="authState == 'loading'"
+          :disabled="status == 'loading'"
         ></code-button>
       </div>  
     </form>
@@ -115,7 +115,7 @@ export default {
     },
     confirm () {
       let emptyField = this.validateAll()
-      if (!emptyField && this.authState !== 'loading') {
+      if (!emptyField && this.status !== 'loading') {
         this.realizeLogin()
         return
       } 

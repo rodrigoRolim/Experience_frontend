@@ -10,7 +10,7 @@ export const login = {
   },
   computed: {
     ...mapGetters(NAMESPACED_AUTH, [
-      'authState',
+      'status',
       'message'
     ])
   },
@@ -27,8 +27,8 @@ export const login = {
     success (status, pathName) {
       // debugger // eslint-disable-line
 
-      if (this.authState == 'success' && status == 200) {
-        this.showLoader = false
+      if (this.status == 'success' && status == 200) {
+        //this.showLoader = false
         this.clearParams()
         this.clearProps()
         this.$router.push({ path: pathName })
@@ -41,13 +41,11 @@ export const login = {
       }
     },
     error (message = this.message) {
-      //if (this.authState == 'error') {
-        this.showLoader = false
-        this.reinitState()
-        //if (!reinited) {
-        this.emitMessage(message)
-        //}
-      //}
+   
+      this.showLoader = false
+      this.reinitState()
+
+      this.emitMessage(message)
     },
     emitMessage (message) {
 

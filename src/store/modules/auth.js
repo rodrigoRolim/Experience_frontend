@@ -9,7 +9,7 @@ import {
     SELECTED_HEALTHCENTER,
     REAUTH_REQUEST,
     MESSAGE
-  } from '../../utils/alias'
+} from '../../utils/alias'
 import { httpMessage } from '../../utils/statusMessages'
 const state = () => ({
   token: cookies.get('user-session')?.token || null,
@@ -27,7 +27,7 @@ const state = () => ({
 const getters = {
   isAuthenticated: state => !!state.token,
   identify: state => state.identify,
-  authState: state => state.status,
+  status: state => state.status,
   userTypeAuthed: state => state.userType,
   userName: state => state.user,
   userId: state => state.identify || null,
@@ -60,6 +60,7 @@ const actions = {
           resolve(resp)
         })
         .catch((err) => {
+          console.log({err})
           let refused = err.message == 'Network Error' ? 502 : undefined
           let options = {
             status: refused || err.response.status
@@ -150,7 +151,7 @@ const mutations = {
   },
   [MESSAGE]: (state, status) => {
     const expiredSession = status === 401
-    const message = httpMessage({ status, data: 'exams', experired: expiredSession })
+    const message = httpMessage({ status, experired: expiredSession })
     state.message = message
   },
 }

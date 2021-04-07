@@ -1,6 +1,6 @@
 <template>
   <div class="qrcode-login">
-    <div class="qrcode-login__message" v-show="!showLoader" >
+    <div class="qrcode-login__message" v-show="showLoader" >
       <code-message
         :message="messageLoad"
         :typeMessage="typeMessageLoad"
@@ -11,7 +11,7 @@
         </template>
       </code-message>
     </div>
-    <div v-show="ready" class="qrcode-login__canvas" :class="{ 'qrcode-login__canvas--hidden': !ready, 'qrcode-login__canvas--show': ready }">
+    <div v-show="ready"  class="qrcode-login__canvas" :class="{ 'qrcode-login__canvas--hidden': !ready, 'qrcode-login__canvas--show': ready }">
       <canvas class="canvas" ref="canvas"/>
     </div>
   </div>
@@ -21,11 +21,13 @@ import jsQR from 'jsqr'
 import CodeLoading from './base/CodeLoading'
 import CodeMessage from './base/CodeMessage'
 import { login } from '../mixins/login';
+import { valideQrcode } from '../mixins/validations/rules'
+import { validator } from '../mixins/validations/validator'
 import { mapActions } from 'vuex'
 import { ATTENDANCE_AUTH, PATIENT_TYPE, PATIENT_ROUTE, AUTH_REQUEST, NAMESPACED_AUTH } from '../utils/alias'
 export default {
   name: 'QrcodeLogin',
-  mixins: [login],
+  mixins: [validator({ valideQrcode }), login],
   components: {
     CodeLoading,
     CodeMessage
@@ -40,6 +42,7 @@ export default {
       video: null,
       canvas: null,
       ready: false,
+      showLoader: true,
       stream: null,
       index: 0,
       direction: true,
@@ -64,7 +67,7 @@ export default {
     this.stopCamera()
   },
   watch: {
-    authState (value) {
+    status (value) {
 
       if (value === 'loading') {
         this.icon = 'flask'
@@ -88,35 +91,50 @@ export default {
   },
   methods: {
     ...mapActions(NAMESPACED_AUTH, {
-      login: AUTH_REQUEST
+      loginQrcode: AUTH_REQUEST
     }),
-    async realizeLogin (user) {
+    async realizeLogin (code) {
       this.$emit('loading', true)
       try {
-        let resp = await this.login({ 
+        this.stopCamera()
+        this.ready = false
+        let user = this.getCredentials(code)
+        let resp = await this.loginQrcode({ 
             url: ATTENDANCE_AUTH, 
             credentials: user,
             uniqueAttendance: true, 
             typeUser: PATIENT_TYPE 
           })
-        this.ready = false
-        this.showLoader = false
         this.success(resp.status, PATIENT_ROUTE)
- 
+       
+
       } catch (err) {
-        this.ready = false
-        this.showLoader = true
-        this.getCamera()
-        //let refused = err.message == 'Network Error' ? 502 : undefined
-        this.error() 
+        this.ready = true
+        this.showLoader = false
+        console.log({err})
+        if (err.response.status !== 401) {
+          this.error(JSON.parse(err.message))
+          this.$emit('loading', false)
+          return
+        }
+        this.error()
         this.$emit('loading', false)
+        this.video.load()
+        this.getCamera()
       }
     },
-    getCredentials (code) {
+    mountLoad() {
 
-      let codeObj = JSON.parse(code.data)
-      let arrIdentifier = codeObj.atendimento.split('/')
-      let [healthCenter, attendance] = arrIdentifier
+    },
+    getCredentials(code) {
+      try {
+        var codeObj = JSON.parse(code.data)
+        var arrIdentifier = codeObj.atendimento.split('/')
+        var [healthCenter, attendance] = arrIdentifier
+      } catch(err) {
+        var message = { content: 'qrcode invalido', type: 'error' }
+        throw new Error(JSON.stringify(message))
+      }
       return { posto: healthCenter, atendimento: attendance, senha: codeObj.senha }
     },
     stopCamera() {
@@ -141,6 +159,13 @@ export default {
       this.canvas.lineWidth = 4
       this.canvas.strokeStyle = color
       this.canvas.stroke()
+    },
+    recallCamera(playPromise) {
+      playPromise
+        .then((res) => {
+          console.log(res)
+          this.video.play()
+        })
     },
     getCamera() {
       navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } })
@@ -177,7 +202,7 @@ export default {
     },
     tick() {
       if (this.video.readyState === this.video.HAVE_ENOUGH_DATA && this.$refs.canvas) {
-        this.showLoader = true
+        this.showLoader = false
         this.ready = true
         this.$refs.canvas.height = this.video.videoHeight
         this.$refs.canvas.width = this.video.videoWidth
@@ -194,10 +219,13 @@ export default {
           this.drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, '#FF3B58')
 
           this.ready = false
-          this.showLoader = false
-          this.realizeLogin(this.getCredentials(code))
-          this.stopCamera()
-         
+          this.showLoader = true
+          if (this.valideQrcode(code.data)) {
+            this.realizeLogin(code)
+            return
+          }
+          var message = { content: 'qrcode invalido', type: 'error' }
+          this.error(message) 
         } else {
     
           this.drawBorder(imageData.width, imageData.height)
@@ -229,7 +257,7 @@ export default {
   align-items: center
 .qrcode-login__canvas canvas
   width: 90%
-  height: 40vh
+  height: 43vh
   @include respond-to(handhelds)
     width: 90%
     height: 40vh

@@ -66,7 +66,7 @@
           :loading="showLoader"
           velocity-loading="1x"
           @click.prevent="confirm"
-          :disabled="authState == 'loading'"
+          :disabled="status == 'loading'"
         ></code-button>
       </div>  
     </form>
@@ -168,7 +168,7 @@ export default {
     confirm () {
 
       let emptyInvalidFields = this.validateAllFields()
-      if (!emptyInvalidFields && this.authState !== 'loading' && !this.validator) {
+      if (!emptyInvalidFields && this.status !== 'loading' && !this.validator) {
         this.realizeLogin()
         return
       } 

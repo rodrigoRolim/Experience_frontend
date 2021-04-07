@@ -146,7 +146,7 @@ export default {
     width: 100%
     margin-top: 73px
   @include respond-to(handhelds)
-    margin-top: 68px
+    margin-top: 94px
     width: 100%
 .doctor-patient__modal
   z-index: 2
