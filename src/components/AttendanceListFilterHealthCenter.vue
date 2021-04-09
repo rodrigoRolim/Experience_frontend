@@ -21,7 +21,7 @@
             label-color="text"
             :options="healthCenters"
             @input="setHealthCenter"
-            @change="loadRegistersAndAccomodations"
+            @change="loadRealizersAndAccomodations"
             :value="params.healthCenter"
             :error="validate.healthCenter"
           ></code-select>
@@ -115,7 +115,8 @@ import {
   DEFAULT_DATES,
   REINIT_PAGINATION,
   EMPTY_ATTENDANCES,
-  MESSAGE
+  MESSAGE,
+  DATE_VALIDATOR
 } from '../utils/alias'
 import { httpMessage } from '../utils/statusMessages'
 export default {
@@ -142,7 +143,6 @@ export default {
   data () {
     return {
       situations: SITUATIONS,
-      registrantId: this.healthCenterLogged,
       validate: {
         healthCenter: '',
         accomodation: '',
@@ -195,17 +195,27 @@ export default {
     },
     disableConfirm() {
       return this.status === 'loading'
+    },
+    periodChanged() {
+      return `${this.params.begin}|${this.params.end}`
     }
   },
   watch: {
     waitRequest() {
       return this.disableConfirm()
     },
+    periodChanged(value) {
+      let [begin, end] = value.split('|')
+      if (this.date(begin, DATE_VALIDATOR) && this.date(end, DATE_VALIDATOR)) {
+        this.loadRealizersAndAccomodations(this.healthCenterLogged)
+        this.backParamsToDefault()
+      }
+    }
   },
   methods: {
     backParamsToDefault(option) {
       const defaultOption = {id: '', name: 'todos'}
-      this.setHealthCenter(option)
+      if (option) this.setHealthCenter(option)
       
       if (this.accomodations) this.setAccomodation(defaultOption)
       if (this.registrants) this.setRealizer(defaultOption)
@@ -213,8 +223,9 @@ export default {
     },
     async loadInitialParams () {
       try {
-        await this.listRegister() 
-        this.loadRegistersAndAccomodations(this.healthCenterLogged)
+        await this.listRegister()
+        this.backParamsToDefault(this.healthCenterLogged) 
+        this.loadRealizersAndAccomodations()
         await this.attendances()
         
       } catch (err) {
@@ -225,9 +236,8 @@ export default {
         }          
       }
     },
-    async loadRegistersAndAccomodations(option) {
+    async loadRealizersAndAccomodations() {
       try {
-        this.backParamsToDefault(option) 
         await this.listAccomodations()
         await this.listRealizers()
       } catch(e) {
@@ -263,7 +273,6 @@ export default {
     },
     listRegister() {
       return new Promise((resolve, reject) => {
-        // let urlHealthCenters = this.getURI(this.healthCenterLogged, this.getTypeUser(this.userTypeAuthed),  REGISTER)
         this.getHealthCenters()
           .then((healthCenters) => resolve(healthCenters))
           .catch((err) => reject(err))
