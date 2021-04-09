@@ -84,9 +84,9 @@ export const correlative = {
   }
 }
 
-export const time = {
+export const timer = {
   filters: {
-    time(date) {
+    timer(date) {
       const dt = dateObject(date)
       const dateInMiliSec = new Date(dt.year, dt.month, dt.day, dt.hour, dt.min, dt.second).getTime()
 
@@ -94,11 +94,25 @@ export const time = {
     }
   }
 }
+export const clockTime = {
+  filters: {
+    clockTime(date) {
+      if (date) {
+        const dateTime = date.split(" ")
+        const posLastColon = dateTime[1].lastIndexOf(":")
+        const time = dateTime[1].slice(0,posLastColon)
+        return time
+      }
+     return "N/A"
+      
+    }
+  }
+}
 export const dateAndTime = {
   filters: {
     dateAndTime(date) {
       const dt = dateObject(date)
-      return dt.day + '/' + towDigitsMonth(dt.month) + '/' + dt.year + '-' + dt.hour + ':' + dt.min
+      return dt.day + '/' + towDigitsMonth(dt.month + 1) + '/' + dt.year + '-' + dt.hour + ':' + dt.min
     }
   }
 } 

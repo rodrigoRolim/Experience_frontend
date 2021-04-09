@@ -353,7 +353,7 @@ export default {
       const mask = JSON.parse(localStorage.getItem('custom-access')).mask
       const hcSize = +mask.split(':')[0]
       const attSize = +mask.split(':')[1] + hcSize + 3
-
+      console.log(value)
       if (this.required(value)) {
         this.validate.atendimento = REQUIRED_INPUT
       } else if (this.min(value, attSize)) {
@@ -398,8 +398,7 @@ export default {
     },
 
     checkFormInputs() {
-      let fields = Object.keys(this.patient).filter(el => this.patient[el] === '')
-
+      let fields = Object.keys(this.patient).filter(el => this.patient[el] === '' || this.patient[el] == undefined)
       if (this.visibility == 'CPF') {
    
         fields = fields.filter(el => el == 'cpf' || el == 'nascimento' || el == 'senha')

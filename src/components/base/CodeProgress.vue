@@ -17,7 +17,12 @@
 export default {
   name: "CodeProgress",
   props: {
-    numExams: Number,
+    numExams: {
+      type: Number,
+      validator: function(value) {
+        return value > 0
+      }
+    },
     dones: Number,
     max: {
       types: Number,
@@ -32,8 +37,11 @@ export default {
 
   methods: {
     size() {
-      const rate = this.dones/this.numExams
-      return Math.floor(rate * this.max)
+      if (this.numExams) {
+        const rate = this.dones/this.numExams
+        return Math.floor(rate * this.max)
+      }
+      return 0
     }
   }
   

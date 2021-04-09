@@ -1,7 +1,7 @@
 <template>
   <div class="health-center">
     <div
-      v-if="hiddenNavOnPanelAttendaces()"
+      v-if="hiddenNavOnPanelAttendaces"
       class="health-center__navbar" 
       :class="{ 'health-center--up-hidden': hiddenElement }"
     >
@@ -19,7 +19,7 @@
         </template>
       </the-navbar>
     </div>
-    <div class="health-center__main" :class="{ 'health-center__main--up': hiddenElement }">
+    <div class="health-center__main" :class="{ 'health-center__main--up': hiddenElement || !hiddenNavOnPanelAttendaces }">
       <router-view />
     </div>
   </div>
@@ -47,12 +47,13 @@ export default {
   computed: {
     isHealthCenterPatientExams() {
       return this.$route.path === '/posto/paciente-exames'
+    },
+    hiddenNavOnPanelAttendaces() {
+      console.log(this.$route.path !== '/posto/painel-atendimentos')
+      return this.$route.path !== '/posto/painel-atendimentos'
     }
   },
   methods: {
-    hiddenNavOnPanelAttendaces() {
-      return this.$route.path !== '/posto/painel-atendimentos'
-    },
     redirectToAttendanceListView() {
       if (this.$route.path !== '/posto')
         this.$router.replace('/posto')

@@ -22,10 +22,11 @@ export const GET_HEALTH_CENTERS = '/v1/web/posto'
 // attendances
 export const GET_ATTENDANCE = `/v1/web/atendimento/`
 export const GET_ATTENDANCES_BY_CLIENT = '/v1/web/atendimento/cliente'
-export const GET_ATTENDANCES_RELATIONS = (client) => `/v1/web/atendimento/cliente/${client}`
 export const GET_ATTENDANCES = (healthCenter, begin, end, typeUser) => `/v1/web/atendimento/${begin}/${end}/${typeUser}/${healthCenter}`
-export const GET_ATTENDANCES_REQUESTER = (begin, end) => `/v1/web/atendimento/${begin}/${end}/solicitante`
+export const GET_ATTENDANCES_PAINEL = (begin, end, healthCenter) => `/v1/web/atendimento/${begin}/${end}/progressao/posto-cadastro/${healthCenter}`
 export const GET_ATTENDANCES_PATIENT = (client, begin, end) => `/v1/web/atendimento/${begin}/${end}/cliente/${client}`
+export const GET_ATTENDANCES_RELATIONS = (client) => `/v1/web/atendimento/cliente/${client}`
+export const GET_ATTENDANCES_REQUESTER = (begin, end) => `/v1/web/atendimento/${begin}/${end}/solicitante`
 // filters
 export const GET_FILTERS = (begin, end, typeUser, id, resource) => `v1/web/atendimento/${begin}/${end}/${typeUser}/${id}/${resource}`
 // agreements medical
@@ -184,7 +185,7 @@ export const NAMESPACED_ATTENDANCES_PANEL = 'attendancesPanel'
 export const REQUIRED_INPUT = 'campo obrigatório'
 export const INVALID_OPTION = 'opção inválida'
 export const INCOMPLETE_ID = 'ID incompleto'
-export const INCOMPLETE_CPF = 'cpf incompleto'
+export const INCOMPLETE_CP = 'número incompleto'
 export const INVALID_DATA = 'data inválida'
 export const INCOMPLET_CRM = 'crm incompleto'
 export const MESSAGE_STATUS_403 = 'dados incorretos, verifique seus dados e tente novamente'
@@ -220,6 +221,41 @@ export const REGISTER = 'postoscadastro'
   { id: 'NR', name: 'Não Realizados'},
   { id: 'EP', name: 'Pendentes'},
   { id: '', name: 'todos'}
+]
+export const CPS = [
+  {
+    id: 0, name: 'crm'
+  },
+  {
+    id: 1, name: 'crbio'
+  },
+  {
+    id: 2, name: 'crmv'
+  },
+  {
+    id: 3, name: 'crp'
+  },
+  {
+    id: 4, name: 'crf'
+  },
+  {
+    id: 5, name: 'cro'
+  },
+  {
+    id: 6, name: 'crefito'
+  },
+  {
+    id: 7, name: 'crefono'
+  },
+  {
+    id: 8, name: 'crn'
+  },
+  {
+    id: 9, name: 'cref'
+  },
+  {
+    id: 10, name: 'coren'
+  }
 ]
 export const UFS = [
   { id: 12,	name: 'AC' },

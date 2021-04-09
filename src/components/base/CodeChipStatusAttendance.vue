@@ -35,6 +35,8 @@ export default {
           return 'Não Realizado'
         case 'EP':
           return 'Há Pendencias'
+        case 'SE':
+          return 'Sem Exames'
         default:
           return ''
       }
@@ -74,4 +76,6 @@ export default {
   background-color: $EA
 .chip-status-attendance--no-realized
   background-color: $NR
+.chip-status-attendance--no-exams
+  background-color: $SE
 </style>

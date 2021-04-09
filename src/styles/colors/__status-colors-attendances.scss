@@ -5,7 +5,8 @@ $status-colors-attendances: (
   "PF": #f8d300, 
   "EA": #f8ac59, 
   "EP": #ed5565, 
-  "NR": #5D88FF 
+  "NR": #5D88FF,
+  "SE": #6b6d72
 );
 
 @mixin card-status-attendances($status, $border-large, $transparent) {

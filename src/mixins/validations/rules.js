@@ -50,7 +50,7 @@ export const beginGtEnd = function (begin, end) {
 }
 export const areAllInputsEmpty = function (keys, object, validate, message) {
   
-  let fields = keys.filter(el => object[el] == '')
+  let fields = keys.filter(el => object[el] == '' || object[el] == undefined)
   fields.forEach(element => {
     validate[element] = message
   })
@@ -58,7 +58,7 @@ export const areAllInputsEmpty = function (keys, object, validate, message) {
   return fields.length > 0
 }
 export const isOption = function (option, options) {
-
+  console.log(option, options)
   return !options.find((opt) => opt.id == option.id || opt.name == option)
 }
 

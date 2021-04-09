@@ -11,7 +11,7 @@
     <code-info
       class="painel-item__collect"
       description="coleta"
-      info="8:50"
+      :info="collectTime"
     />
   </div>
   <div class="painel-item__forecast">
@@ -24,7 +24,7 @@
     />
   </div>
   <div class="painel-item__footer">
-    <code-progress :numExams="10" :dones="dones"/>
+    <code-progress :numExams="total" :dones="dones"/>
     <div class="painel-item__id">
       <span class="painel-item__label">ID-</span>{{ healthCenter | id(attendance) }}
     </div>
@@ -52,13 +52,14 @@ export default {
     name: String,
     status: String,
     date: String,
-    attendanceTime: Number
+    attendanceTime: Number,
+    total: Number,
+    dones: Number,
+    collectTime: String,
   },
   data() {
     return {
-      timeWaiting: '',
-      num:10,
-      dones:2
+      timeWaiting: ''
     }
   },
   created() {
@@ -96,7 +97,7 @@ export default {
   display: flex
   flex-direction: column
   width: 320px
-  min-height: 25vh
+  min-height: 207px
   border-radius: 4px
   padding: 5px 5px 10px 5px
   -webkit-box-shadow: 0 1px 0 rgb(9 30 66 / 25%)
@@ -128,7 +129,6 @@ export default {
   flex-direction: row
   align-items: center
   justify-content: center
-  width: 40%
   margin: 0 auto
 .painel-item__footer
   display: flex
@@ -161,4 +161,8 @@ export default {
   @include card-status-attendances($status: "NR", $border-large: left, $transparent: true)
   @include respond-to(handhelds)
     @include card-status-attendances($status: "NR", $border-large: top, $transparent: true)
+.painel-item--no-exams
+  @include card-status-attendances($status: "SE", $border-large: left, $transparent: true)
+  @include respond-to(handhelds)
+    @include card-status-attendances($status: "SE", $border-large: top, $transparent: true)
 </style>

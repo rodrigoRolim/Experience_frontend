@@ -110,6 +110,7 @@ export default {
   display: flex
   flex-direction: row
   justify-content: space-between
+  min-height: 103px
   margin: 5px
   padding: 10px
   cursor: pointer
@@ -182,4 +183,8 @@ export default {
   @include card-status-attendances($status: "NR", $border-large: left, $transparent: true)
   @include respond-to(handhelds)
     @include card-status-attendances($status: "NR", $border-large: top, $transparent: true)
+.attendance-item--no-exams
+  @include card-status-attendances($status: "SE", $border-large: left, $transparent: true)
+  @include respond-to(handhelds)
+    @include card-status-attendances($status: "SE", $border-large: top, $transparent: true)
 </style>

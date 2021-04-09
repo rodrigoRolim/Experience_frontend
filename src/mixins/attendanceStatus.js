@@ -12,6 +12,8 @@ export const attendanceStatus = {
           return 'in-progress'
         case 'NR':
           return 'no-realized'
+        case 'SE':
+          return 'no-exams'
       }
     }
   }

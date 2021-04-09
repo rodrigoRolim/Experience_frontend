@@ -202,7 +202,7 @@ export default {
     width: 100%
     height: 100%
     position: fixed
-    top: 60px
+    top: 0px
     left: 0
     bottom: 0
     z-index: 4

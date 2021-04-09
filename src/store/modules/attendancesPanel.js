@@ -37,7 +37,6 @@ const actions = {
 
 const mutations = {
   [SET_CURRENT_ATTENDANCES]: (state, currentAttendances) => {
-    console.log(currentAttendances)
     state.currentAttendances = currentAttendances
   },
   [LOADING]: (state) => {

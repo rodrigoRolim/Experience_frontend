@@ -1,27 +1,30 @@
 <template>
   <div class="attendances-panel-list">
-    <attendances-panel-list-item
-      class="attendances-panel-list__item"
-      v-for="attendance of currentAttendances"
-      :key="attendance.registro"
-      :attendance="attendance.atendimento"
-      :healthCenter="attendance.posto"
-      :name="attendance.nomeCliente"
-      :status="attendance.situacaoExamesExperience"
-      :date="attendance.dataAtd"
-      :attendance-time="attendance.dataAtd | time"
-    />
+    <div v-for="attendance of currentAttendances" :key="attendance.registro">
+      <attendances-panel-list-item
+        class="attendances-panel-list__item"
+        :attendance="attendance.atendimento"
+        :healthCenter="attendance.posto"
+        :name="attendance.nomeCliente"
+        :status="attendance.situacaoAtendimento"
+        :date="attendance.dataAtd"
+        :attendance-time="attendance.dataAtd | timer"
+        :total="attendance.qtTotal"
+        :dones="attendance.qtFinalizados"
+        :collectTime="attendance.ultimaColeta | clockTime"
+        />
+    </div> 
   </div>
 </template>
 
 <script>
-import AttendancesPanelListItem from '../components/AttendancesPanelListItem'
+import AttendancesPanelListItem from './AttendancesPanelListItem'
 import { mapGetters } from 'vuex'
 import { NAMESPACED_ATTENDANCES_PANEL } from '../utils/alias'
-import { date, time } from '../mixins/formater'
+import { date, timer, clockTime } from '../mixins/formater'
 export default {
   name: 'AttendancesPanelList',
-  mixins: [date, time],
+  mixins: [date, timer, clockTime],
   components: {
     AttendancesPanelListItem
   },

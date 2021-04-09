@@ -7,7 +7,7 @@
 <script>
 import AttendancesPanelList from '../components/AttendancesPanelList'
 import { mapActions, mapGetters } from 'vuex'
-import { GET_CURRENT_ATTENDANCES, NAMESPACED_ATTENDANCES_PANEL, NAMESPACED_AUTH, GET_ATTENDANCES } from '../utils/alias'
+import { GET_CURRENT_ATTENDANCES, NAMESPACED_ATTENDANCES_PANEL, NAMESPACED_AUTH, GET_ATTENDANCES_PAINEL } from '../utils/alias'
 //import { end, begin } from '../utils/initialDates'
 import { session } from '../mixins/session'
 export default {
@@ -18,17 +18,15 @@ export default {
   },
   data() {
     return {
-      begin: '04 / 03 / 2020',
-      end: '04 / 03 / 2021'
+      begin: '02 / 11 / 2019',
+      end: '10 / 01 / 2021'
     }
   },
   mounted() {
     //let endDate = end()
     //let beginDate = begin()
-    const urlName = this.getURL(this.begin, this.end)
-    this.getCurrentAttendances({ url: urlName, params: {}, headers: { 'X-paginate': false } })
-        .then(res => console.log(res))
-        .catch(err => console.log({err}))
+    this.requestAttendances()
+    setInterval(this.requestAttendances, 60000)
   },
   computed: {
     ...mapGetters(NAMESPACED_AUTH, [
@@ -45,14 +43,20 @@ export default {
      
       return this.healthCenterLogged !== undefined ? this.healthCenterLogged.id : this.userId
     },
+    requestAttendances() {
+      const urlName = this.getURL(this.begin, this.end)
+      this.getCurrentAttendances({ url: urlName, params: {}, headers: { 'X-paginate': false } })
+          .then(res => console.log(res))
+          .catch(err => console.log({err}))
+    },
     getURL(begin, end) {
       let healthCenter = this.configUserIdSession()
       
-      const urlName = GET_ATTENDANCES(
-            healthCenter,
+      const urlName = GET_ATTENDANCES_PAINEL(
             begin.split(" / ").join("-"),
             end.split(" / ").join("-"),
-            this.getTypeUser(this.userTypeAuthed)
+            //this.getTypeUser(this.userTypeAuthed),
+            healthCenter,
           )
       return urlName
     }

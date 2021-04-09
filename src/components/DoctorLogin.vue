@@ -5,7 +5,7 @@
         <div class="doctor-login__cr">
           <code-select
             class="d-cr"
-            :options="crs"
+            :options="cps"
             label="conselho profissional"
             name="attendance"
             option="conselho profissional"
@@ -82,7 +82,7 @@ import { required, min } from '../mixins/validations/rules'
 import { validator } from '../mixins/validations/validator'
 import { login } from '../mixins/login';
 import { mapActions } from 'vuex'
-import { NAMESPACED_AUTH, AUTH_REQUEST, DOCTOR_AUTH, DOCTOR_ROUTE, DOCTOR_TYPE, REQUIRED_INPUT, INCOMPLET_CRM, UFS } from '../utils/alias'
+import { NAMESPACED_AUTH, AUTH_REQUEST, DOCTOR_AUTH, DOCTOR_ROUTE, DOCTOR_TYPE, REQUIRED_INPUT, /* INCOMPLETE_CP */ UFS, CPS } from '../utils/alias'
 import { httpMessage } from '../utils/statusMessages'
 export default {
   name: 'DoctorLogin',
@@ -96,7 +96,7 @@ export default {
   data () {
     return {
       ufs: UFS,
-      crs: [{id: 1, name: 'CRM'}],
+      cps: CPS,
       doctor: {
         sigla: '',
         uf: '',
@@ -140,8 +140,8 @@ export default {
     'doctor.crm': function (value) {
       if (this.required(value)) {
         this.validate.crm = REQUIRED_INPUT
-      } else if (this.min(value, 4)){
-        this.validate.crm = INCOMPLET_CRM
+      /*  else if (this.min(value, 4)){
+        this.validate.crm = INCOMPLETE_CP */
       } else {
         this.validate.crm = ''
       }
