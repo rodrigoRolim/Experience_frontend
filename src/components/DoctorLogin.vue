@@ -80,7 +80,7 @@ import CodeInputPassword from './base/CodeInputPassword'
 import CodeButton from './base/CodeButton'
 import { required, min } from '../mixins/validations/rules'
 import { validator } from '../mixins/validations/validator'
-import { login } from '../mixins/login';
+import { login } from '../mixins/login'
 import { mapActions } from 'vuex'
 import { NAMESPACED_AUTH, AUTH_REQUEST, DOCTOR_AUTH, DOCTOR_ROUTE, DOCTOR_TYPE, REQUIRED_INPUT, /* INCOMPLETE_CP */ UFS, CPS } from '../utils/alias'
 import { httpMessage } from '../utils/statusMessages'
