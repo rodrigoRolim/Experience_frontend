@@ -60,5 +60,5 @@ export default {
 .procediments__list
   margin-top: 120px
   @include respond-to(handhelds)
-    margin-top: 60px
+    margin-top: 75px
 </style>

@@ -43,6 +43,9 @@ export default {
      
       return this.healthCenterLogged !== undefined ? this.healthCenterLogged.id : this.userId
     },
+    queryParams() {
+      
+    },
     requestAttendances() {
       const urlName = this.getURL(this.begin, this.end)
       this.getCurrentAttendances({ url: urlName, params: {}, headers: { 'X-paginate': false } })

@@ -46,7 +46,8 @@ export default {
   grid-row-gap: 10px
   width: 100%
   padding: 5px 10px
-  align-items: center
+  @include respond-to(medium-screens)
+    grid-template-columns: repeat(auto-fill, 315px)
   @include respond-to(handhelds)
     flex-flow: nowrap
     flex-direction: column

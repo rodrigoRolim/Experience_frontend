@@ -1,7 +1,6 @@
 <template>
   <div class="health-center">
     <div
-      v-if="hiddenNavOnPanelAttendaces"
       class="health-center__navbar" 
       :class="{ 'health-center--up-hidden': hiddenElement }"
     >
@@ -19,7 +18,10 @@
         </template>
       </the-navbar>
     </div>
-    <div class="health-center__main" :class="{ 'health-center__main--up': hiddenElement || !hiddenNavOnPanelAttendaces }">
+    <div 
+      class="health-center__main" 
+      :class="{ 'health-center__main--up': hiddenElement || !hiddenNavOnPanelAttendaces }"
+    >
       <router-view />
     </div>
   </div>

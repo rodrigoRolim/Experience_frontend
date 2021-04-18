@@ -8,6 +8,9 @@ import {
 } from '../../utils/alias'
 const state  = () => ({
   currentAttendances: [],
+  params: {
+    acomodation: ''
+  },
   status: ''
 })
 

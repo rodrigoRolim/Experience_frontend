@@ -27,7 +27,7 @@
           'custom-select__input--not-allowed': notAllowed
         }"
         v-model="selectedInput"
-        placeholder="selecione uma opção" 
+        :placeholder="placeholder" 
       />
       <input :name="name" style="display:none" autocomplete="address-level4"/>
       <span 
@@ -95,7 +95,8 @@ export default {
         return ['default', 'primary', 'text', 'danger', 'letters'].indexOf(value) !== -1
       }
     },
-    label: String
+    label: String,
+    placeholder: String
   },
   data () {
     return {

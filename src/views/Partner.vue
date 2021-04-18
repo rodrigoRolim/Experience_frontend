@@ -1,7 +1,6 @@
 <template>
   <div class="partner">
     <div
-      v-if="hiddenNavOnPanelAttendaces()"
       class="partner__navbar" 
       :class="{ 'partner__navbar--up-hidden': hiddenElement }"
     > 
@@ -14,12 +13,21 @@
             />
           </router-link>
         </template>
+        <template v-slot:home v-if="showAccomodations()" >
+          <code-select
+            class="partner__accomodations"
+            name="acomodacoes"
+            placeholder="selecione a acomodação"
+            label-color="text"
+            :options="accomodations"
+          />
+        </template>
         <template v-slot:perfil>
           <user-perfil />
         </template>
       </the-navbar>
     </div>
-    <div class="partner__main" :class="{ 'partner__main--up': hiddenElement || !hiddenNavOnPanelAttendaces()}">
+    <div class="partner__main" :class="{ 'partner__main--up': hiddenElement}">
       <router-view />
     </div>
   </div>
@@ -29,29 +37,74 @@
 import TheNavbar from '../components/TheNavbar'
 import UserPerfil from '../components/UserPerfil'
 import CodeInfo from '../components/base/CodeInfo'
+import CodeSelect from '../components/base/CodeSelect'
 import { hiddenByScroll } from '../mixins/hiddenByScroll'
+import { mapActions, mapGetters } from 'vuex'
+import { GET_ACCOMODATIONS_STORE, NAMESPACED_ACCOMODATIONS, NAMESPACED_AUTH, GET_FILTERS, ACCOMODATIONS } from '../utils/alias'
+import { session } from '../mixins/session'
 export default {
   name: 'Partner',
-  mixins: [hiddenByScroll],
+  mixins: [hiddenByScroll, session],
   components: {
     TheNavbar,
     UserPerfil,
-    CodeInfo
+    CodeInfo,
+    CodeSelect
+  },
+  data() {
+    return { 
+      accomodations: [{ id: 0, name: "asdasd"}],
+      begin: '02 / 11 / 2019',
+      end: '10 / 01 / 2021'
+    }
+  },
+  created() {
+    this.lisAccomodations()
   },
   computed: {
+    ...mapGetters(NAMESPACED_AUTH, [
+      'userTypeAuthed',
+      'userId',
+      'healthCenterLogged'
+    ]),
     isPartnerPatientExams() {
       return this.$route.path === '/parceiro/paciente-exames'
     }
   },
   methods: {
-    hiddenNavOnPanelAttendaces() {
-      console.log(this.$route.path !== '/parceiro/painel-atendimentos')
-      return this.$route.path !== '/parceiro/painel-atendimentos'
+    ...mapActions(NAMESPACED_ACCOMODATIONS, {
+      getAccomodations: GET_ACCOMODATIONS_STORE
+    }),
+    showAccomodations() {
+      return this.$route.path === '/parceiro/painel-atendimentos'
     },
     redirectToAttendanceListView() {
-
       if (this.$route.path !== '/parceiro')
         this.$router.replace('/parceiro')
+    },
+    configUserIdSession() {
+     
+      return this.healthCenterLogged !== undefined ? this.healthCenterLogged.id : this.userId
+    },
+    getURL(begin, end) {
+      let healthCenter = this.configUserIdSession()
+      
+      const urlName = GET_FILTERS(
+            begin.split(" / ").join("-"),
+            end.split(" / ").join("-"),
+            this.getTypeUser(this.userTypeAuthed),
+            healthCenter,
+            ACCOMODATIONS
+          )
+      return urlName
+    },
+    lisAccomodations() {
+      this.getAccomodations({ url: this.getURL(this.begin, this.end) })
+        .then((res) => {
+          this.accomodations = res.data
+          console.log(this.accomodations)
+        })
+        .catch((err) => console.log({err}))
     }
   }
 }
@@ -96,4 +149,7 @@ a
   text-decoration: none
   margin-left: 20px
   padding: 0
+.partner__accomodations
+  margin-right: 35px
+  width: 320px
 </style>
