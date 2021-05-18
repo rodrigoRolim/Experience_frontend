@@ -18,8 +18,8 @@ export default {
   },
   data() {
     return {
-      begin: '02 / 11 / 2019',
-      end: '10 / 01 / 2021'
+      begin: '10 / 05 / 2021',
+      end: '18 / 05 / 2021'
     }
   },
   mounted() {

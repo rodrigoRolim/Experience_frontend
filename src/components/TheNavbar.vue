@@ -9,6 +9,9 @@
     <div class="navbar__logo">
       <img class="navbar__image" :src="takeLogo" alt="logo da empresa">
     </div>
+    <div class="navbar__painel">
+      <slot name="painel"></slot>
+    </div>
     <div class="navbar__navigation">
       <div class="navbar__home">
        <slot name="home"></slot>
@@ -121,7 +124,11 @@ export default {
 .navbar__navigation
   display: flex
   justify-content: space-between
-  margin-left: auto
+  
   @include respond-to(handhelds)
     margin-left: 0
+.navbar__painel
+  align-self: center
+  margin-left: auto
+  margin-right: 20px
 </style>

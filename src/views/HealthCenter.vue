@@ -13,6 +13,13 @@
             />
           </router-link>
         </template>
+        <template v-slot:painel>
+          <router-link to="/posto/painel-atendimentos">
+            <code-info
+              info="painel atendimentos"
+            />
+          </router-link>
+        </template>
         <template v-slot:perfil>
           <user-perfil></user-perfil>
         </template>

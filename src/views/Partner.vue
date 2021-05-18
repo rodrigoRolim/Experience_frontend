@@ -13,6 +13,14 @@
             />
           </router-link>
         </template>
+        <template v-slot:painel>
+          <router-link to="/parceiro/painel-atendimentos">
+            <code-info
+              size="lg"
+              info="painel atendimentos"
+            />
+          </router-link>
+        </template>
         <template v-slot:home v-if="showAccomodations()" >
           <code-select
             class="partner__accomodations"

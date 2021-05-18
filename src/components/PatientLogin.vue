@@ -414,8 +414,8 @@ export default {
       //e.preventDefault()
 
       let hasInputsEmpty = this.checkFormInputs()
-      console.log(this.status, hasInputsEmpty)
-      if (hasInputsEmpty && this.status !== 'loading' && !this.validator) {
+ 
+      if (!hasInputsEmpty && this.status !== 'loading' && !this.validator) {
         
         this.realizeLogin ()
         return
