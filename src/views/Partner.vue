@@ -14,14 +14,19 @@
           </router-link>
         </template>
         <template v-slot:painel>
-          <router-link to="/parceiro/painel-atendimentos">
+          <router-link to="/parceiro/painel-atendimentos" v-if="!isPanelAttendances">
             <code-info
               size="lg"
               info="painel atendimentos"
             />
           </router-link>
+          <router-link to="/parceiro" v-if="isPanelAttendances">
+            <code-info
+              info="atendimentos"
+            />
+          </router-link>
         </template>
-        <template v-slot:home v-if="showAccomodations()" >
+        <!-- <template v-slot:home v-if="showAccomodations()" >
           <code-select
             class="partner__accomodations"
             name="acomodacoes"
@@ -29,7 +34,7 @@
             label-color="text"
             :options="accomodations"
           />
-        </template>
+        </template> -->
         <template v-slot:perfil>
           <user-perfil />
         </template>
@@ -45,7 +50,7 @@
 import TheNavbar from '../components/TheNavbar'
 import UserPerfil from '../components/UserPerfil'
 import CodeInfo from '../components/base/CodeInfo'
-import CodeSelect from '../components/base/CodeSelect'
+//import CodeSelect from '../components/base/CodeSelect'
 import { hiddenByScroll } from '../mixins/hiddenByScroll'
 import { mapActions, mapGetters } from 'vuex'
 import { GET_ACCOMODATIONS_STORE, NAMESPACED_ACCOMODATIONS, NAMESPACED_AUTH, GET_FILTERS, ACCOMODATIONS } from '../utils/alias'
@@ -57,13 +62,13 @@ export default {
     TheNavbar,
     UserPerfil,
     CodeInfo,
-    CodeSelect
+    //CodeSelect
   },
   data() {
     return { 
       accomodations: [{ id: 0, name: "asdasd"}],
-      begin: '02 / 11 / 2019',
-      end: '10 / 01 / 2021'
+      begin: '10 / 05 / 2021',
+      end: '18 / 05 / 2021'
     }
   },
   created() {
@@ -77,6 +82,9 @@ export default {
     ]),
     isPartnerPatientExams() {
       return this.$route.path === '/parceiro/paciente-exames'
+    },
+    isPanelAttendances() {
+      return this.$route.path === '/parceiro/painel-atendimentos'
     }
   },
   methods: {

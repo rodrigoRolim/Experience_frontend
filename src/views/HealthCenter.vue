@@ -14,9 +14,14 @@
           </router-link>
         </template>
         <template v-slot:painel>
-          <router-link to="/posto/painel-atendimentos">
+          <router-link to="/posto/painel-atendimentos" v-if="!isPanelAttendances">
             <code-info
               info="painel atendimentos"
+            />
+          </router-link>
+          <router-link to="/posto" v-if="isPanelAttendances">
+            <code-info
+              info="atendimentos"
             />
           </router-link>
         </template>
@@ -58,8 +63,10 @@ export default {
       return this.$route.path === '/posto/paciente-exames'
     },
     hiddenNavOnPanelAttendaces() {
-      console.log(this.$route.path !== '/posto/painel-atendimentos')
       return this.$route.path !== '/posto/painel-atendimentos'
+    },
+    isPanelAttendances() {
+      return this.$route.path === '/posto/painel-atendimentos'
     }
   },
   methods: {
