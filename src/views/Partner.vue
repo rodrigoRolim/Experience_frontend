@@ -72,7 +72,7 @@ export default {
     }
   },
   created() {
-    this.lisAccomodations()
+    //this.lisAccomodations()
   },
   computed: {
     ...mapGetters(NAMESPACED_AUTH, [
