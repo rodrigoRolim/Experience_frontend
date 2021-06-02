@@ -50,7 +50,6 @@ export default {
 .chip-status-attendance
   display: flex
   flex-direction: column
-  width: 100%
   @include respond-to(handhelds)
     flex-direction: row
   @include respond-to(medium-screens)

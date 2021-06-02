@@ -60,7 +60,7 @@ const actions = {
           resolve(resp)
         })
         .catch((err) => {
-          console.log({err})
+
           let refused = err.message == 'Network Error' ? 502 : undefined
           let options = {
             status: refused || err.response.status
