@@ -8,7 +8,7 @@
     </div>
     <div class="laboratory-banner__info-versions" v-if="fullscreenMode">
       <small class="laboratory-banner__experience">experience: v2.0</small>
-      <small class="laboratory-banner__datasnap">datasnap: v2.0.3.0</small>
+      <small class="laboratory-banner__datasnap">api: v2.0.3.0</small>
     </div>
   </div>
 </template>
