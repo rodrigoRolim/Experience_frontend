@@ -18,17 +18,19 @@
       <small>Este exame só poderá ser impresso no laboratorio</small>
     </div>
     <div class="patient-exam__content">
-      <div class="patient-exam__health-center" @click="click(status)">
-        <code-info
-          icon="clinic-medical"
-          size="lg"
-          description="Posto Realizante"
-          color="rgba(71, 77, 94, 1)"
-          :info="nameHealthCenter"     
-        />
+      <div class="patient-exam__right">
+        <div class="patient-exam__health-center" @click="click(status)">
+          <code-info
+            icon="clinic-medical"
+            size="lg"
+            description="Posto Realizante"
+            color="rgba(71, 77, 94, 1)"
+            :info="nameHealthCenter"     
+          />
       </div>
       <div class="patient-exam__status-exam" @click="click(status)">
         <code-chip-status-exams :status="status" />
+      </div>
       </div>
       <div class="patient-exam__checkbox" @click="'javascript:void(0)'">
         <code-checkbox
@@ -145,8 +147,13 @@ export default {
   justify-content: center
 .patient-exam__content
   display: flex
-  justify-content: space-between
   padding: 5px
+.patient-exam__right
+  display: flex
+  width: 350px
+  justify-content: space-between
+  @include respond-to(medium-screens)
+    width: 290px
 .patient-exam__name-exam
   display: flex
   flex-direction: row
@@ -173,6 +180,7 @@ export default {
 .patient-exam__checkbox
   align-self: flex-end
   min-height: 29px
+  margin-left: auto
 .patient-exam__print-in-lab
   color: $color__danger
   padding-bottom: 15px

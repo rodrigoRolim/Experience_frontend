@@ -34,7 +34,7 @@ export default {
         case 'ANDAMENTO':
           return 'Em Andamento'
         case 'NAO':
-          return 'Ainda Não Realizado'
+          return 'Não Realizado'
         default:
           return ''
       }

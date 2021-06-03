@@ -4,7 +4,6 @@
       <code-info
         size="lg"
         class="patient-exams__patient"
-        description="paciente"
         :info="name"
         color="rgba(71, 77, 94, 1)"
         
@@ -72,7 +71,7 @@
             color="rgba(71, 77, 94, 1)"
           />
           <code-info
-            v-if="healthCenter && attendance"
+            v-if="attendance"
             class="patient-exams--margin patient-exams__info"
             icon="heartbeat"
             size="lg"
@@ -80,6 +79,7 @@
             :info="healthCenter | id(attendance)"
             color="rgba(71, 77, 94, 1)"
           />
+          
           <code-info
             v-if="doctor"
             class="patient-exams--margin patient-exams__info"
@@ -122,6 +122,9 @@ export default {
     CodeInfo,
     CodeDropDown,
     CodeCheckbox
+  },
+  created() {
+    console.log(this.healthInsurance)
   },
   computed: {
     ...mapGetters(NAMESPACED_EXAMS, [

@@ -8,7 +8,7 @@ import {
   MESSAGE_STATUS_498
 } from './alias'
 export const httpMessage = ({status, typeMessage= 'default', data = 'recurso' }) => {
-  console.log(typeMessage)
+
   switch (status) {
     case 111:
       return { type: 'error', content: MESSAGE_STATUS_111 }

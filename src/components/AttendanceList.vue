@@ -88,7 +88,8 @@ export default {
     ...mapGetters(NAMESPACED_AUTH, [
       'userTypeAuthed',
       'userId',
-      'healthCenterLogged'
+      'healthCenterLogged',
+      
     ]),
     ...mapGetters(NAMESPACED_ATTENDANCE, [
       'attendances',
@@ -157,7 +158,7 @@ export default {
     }),
     ...mapMutations(NAMESPACED_ATTENDANCE, {
       nextPage: NEXT_PAGE,
-      pushing: LOAD_PUSH
+      pushing: LOAD_PUSH,
     })
   }
 }

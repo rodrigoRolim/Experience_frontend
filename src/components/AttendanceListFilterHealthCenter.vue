@@ -171,7 +171,8 @@ export default {
     ...mapGetters(NAMESPACED_ATTENDANCE, [
       'params',
       'status',
-      'hasAttendances'
+      'hasAttendances',
+      'statusPush'
     ]),
     ...mapGetters(NAMESPACED_AUTH, [
       'userId',

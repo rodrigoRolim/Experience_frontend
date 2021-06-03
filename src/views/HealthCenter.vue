@@ -16,7 +16,7 @@
         <template v-slot:painel>
           <router-link to="/posto/painel-atendimentos" v-if="!isPanelAttendances">
             <code-info
-              info="painel atendimentos"
+              info="Painel Atendimentos"
             />
           </router-link>
           <router-link to="/posto" v-if="isPanelAttendances">

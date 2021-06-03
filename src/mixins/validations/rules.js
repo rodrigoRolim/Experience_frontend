@@ -58,7 +58,6 @@ export const areAllInputsEmpty = function (keys, object, validate, message) {
   return fields.length > 0
 }
 export const isOption = function (option, options) {
-  console.log(option, options)
   return !options.find((opt) => opt.id == option.id || opt.name == option)
 }
 
