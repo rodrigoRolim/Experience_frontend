@@ -13,9 +13,20 @@
           :info="name"     
         />
       </div>
+      <div class="patient-exam__collect" >
+        <code-info
+          sizeInfo="0.6rem"
+          color="rgba(71, 77, 94, 1)"
+          description="data coleta"
+          :info="collectDate"     
+        />
+      </div>
     </div>
     <div class="patient-exam__print-in-lab" v-if="printInLab">
       <small>Este exame só poderá ser impresso no laboratorio</small>
+    </div>
+    <div class="patient-exam__status-exam" @click="click(status)">
+      <code-chip-status-exams :status="status" />
     </div>
     <div class="patient-exam__content">
       <div class="patient-exam__right">
@@ -27,10 +38,7 @@
             color="rgba(71, 77, 94, 1)"
             :info="nameHealthCenter"     
           />
-      </div>
-      <div class="patient-exam__status-exam" @click="click(status)">
-        <code-chip-status-exams :status="status" />
-      </div>
+        </div>
       </div>
       <div class="patient-exam__checkbox" @click="'javascript:void(0)'">
         <code-checkbox
@@ -64,7 +72,8 @@ export default {
     nameHealthCenter: String,
     mnemonico: String,
     correl: Number,
-    typeDelivery: String
+    typeDelivery: String,
+    collectDate: String
   },
   components: {
     CodeChip,
@@ -141,6 +150,7 @@ export default {
   -webkit-box-shadow:  0 0 6px rgba(0,0,0,.3)
   box-shadow:  0 0 6px rgba(0,0,0,.3)
 .patient-exam__detail
+  width: 100%
   align-self: flex-start
   display: flex
   flex-direction: row
@@ -159,6 +169,13 @@ export default {
   flex-direction: row
   align-items: center
   width: 100%
+.patient-exam__collect
+  display: flex
+  flex-direction: row
+  align-items: center
+  justify-content: flex-end
+  margin-right: 10px
+  width: 100%
 .patient-exam__health-center
   align-self: flex-start
 .patient-exam__separator-line
@@ -167,7 +184,8 @@ export default {
   flex-direction: column
   margin: 25px 0px
 .patient-exam__status-exam
-  align-self: flex-start
+  width: 100%
+  align-self: center
   display: flex
   flex-direction: row
   @include respond-to(medium-screens)

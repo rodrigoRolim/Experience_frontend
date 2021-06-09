@@ -98,6 +98,7 @@ export default {
     width: 83%
 .dropdown__button
   width: 12%
+  border-radius: 4px
   @include respond-to(handhelds)
     margin-top: 20px
     width: 100%

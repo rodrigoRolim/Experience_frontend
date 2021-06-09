@@ -128,14 +128,14 @@ export default {
   mounted () {
     let date = new Date()
     this.day = date.getDate()
-    this.month = date.getMonth()
+    this.month = date.getMonth() - 1
   
-    this.year = date.getFullYear().toString()
+    this.year = +date.getFullYear().toString()
     this.weekDay = date.getDay()
 
-    this.selectedYear = this.year
-    this.selectedMonth = this.month
-    this.selectedDay = this.day
+    this.selectedYear = +this.year
+    this.selectedMonth = +this.month
+    this.selectedDay = +this.day
     this.selectedWeekDay = this.weekDay
 
     this.populateDates(this.month, this.year)
@@ -179,7 +179,9 @@ export default {
         return v.length == 2 && i < 2 ? v + ' / ' : v
       })
       
-      this.selectedDate = output.join('').substr(0, 14)
+      this.selectedDate = output.join('').substr(0, 14);
+      if (this.selectedDate.length >= 14)
+        this.populateAfterDigited(this.selectedDate);
     }
   },
   methods: {
@@ -230,11 +232,12 @@ export default {
 
       if (day) {
    
-        let date = new Date(this.year, this.month, day)
+        let date = new Date(this.year, this.month + 1, day)
         var begin, end
         
         if (this.begin) {
           begin = this.begin.split(" - ")
+          //console.log(new Date(+begin[2], +begin[1], +  begin[0]), date)
           return new Date(begin[2], begin[1], begin[0]) >= date
         }
         
@@ -245,10 +248,10 @@ export default {
 
         return false
       }
-      return false
+      return true
     },
     selectDay (day) {
-  
+      //console.log(day, month)
       if (!this.unselectableDates(day)) {
         this.inputEmitter = this.formatDate(new Date(this.year, this.month, day))
         this.selectedDay = day
@@ -301,7 +304,9 @@ export default {
         this.month = 0
         this.year++
       }
-      //this.currentMonth = this.months[this.month] + ' ' + this.year
+      this.selectedMonth = this.month;
+      this.selectedYear = this.year;
+
       this.populateDates(this.month, this.year)
     },
     goToPrevMonth () {
@@ -311,6 +316,8 @@ export default {
         this.year--
       }
      // this.currentMonth = this.months[this.month] + ' ' + this.year
+      this.selectedMonth = this.month;
+      this.selectedYear = this.year;
       this.populateDates(this.month, this.year)
     },
     populateDates (month, year) {
@@ -321,7 +328,7 @@ export default {
       let i = 0
       let j = 0
       let first_day = (new Date(year, month)).getDay()
-      
+     
       while (i < amount_days) {
         
         if (j == first_day) {
@@ -335,7 +342,7 @@ export default {
         if (this.selectedDay == (i + 1) && 
             this.selectedYear == year && 
             this.selectedMonth == month) {
-
+        
           this.selected = this.selectedDay
         }
        
@@ -393,6 +400,18 @@ export default {
 
       e.target.value = output
       
+    },
+    populateAfterDigited(selected) {
+      const digitedDate = selected.split(" / ");
+      this.selectedYear = digitedDate[2];
+      this.selectedMonth = digitedDate[1] - 1;
+      this.selectedDay = digitedDate[0];
+
+      this.month = +this.selectedMonth;
+      this.day = +this.selectedDay;
+      this.year = +this.selectedYear;
+ 
+      this.populateDates(this.month, this.year)   
     }
   }
 }

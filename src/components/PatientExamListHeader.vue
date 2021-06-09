@@ -6,7 +6,7 @@
         class="patient-exams__patient"
         :info="name"
         color="rgba(71, 77, 94, 1)"
-        
+        sizeInfo="0.89rem"
       />
       <div class="patient-exams__checkall" v-if="someFinalizedExam">
         <code-checkbox

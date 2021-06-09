@@ -180,7 +180,7 @@ export default {
   display: flex
   flex-direction: row
   justify-content: space-between
-  width: 350px
+  width: 400px
   margin-top: 20px
   @include respond-to(medium-screens)
     flex-direction: row

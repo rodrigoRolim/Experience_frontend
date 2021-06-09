@@ -18,6 +18,7 @@
         :mnemonico="exam.mnemonico" 
         :correl="exam.correl"
         :type-delivery="exam.tipoEntrega"
+        :collect-date="exam.dataCole | dateAndTime"
         @click="showExamResult(exam.correl, exam.nomeProcedimento)" 
         class="patient-exams__item"
       />
@@ -66,9 +67,11 @@ import PatientExamDetail from './PatientExamDetail'
 import PatientExamsListActions from './PatientExamsListActions'
 import { mapActions, mapGetters } from 'vuex'
 import { NAMESPACED_EXAMS, GET_EXAMS_ATTENDANCE, GET_EXAMS_STORE, NAMESPACED_REPORT } from '../utils/alias'
+import { dateAndTime } from "../mixins/formater";
 //import attendance from '../store/modules/attendance'
 export default {
   name: 'PatientExamList',
+  mixins: [dateAndTime],
   props: {
     patient: Number,
     attendance: {
