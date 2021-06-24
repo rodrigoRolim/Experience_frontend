@@ -17,12 +17,12 @@
           <router-link to="/parceiro/painel-atendimentos" v-if="!isPanelAttendances">
             <code-info
               size="lg"
-              info="painel atendimentos"
+              info="Painel Atendimentos"
             />
           </router-link>
           <router-link to="/parceiro" v-if="isPanelAttendances">
             <code-info
-              info="atendimentos"
+              info="Lista Atendimentos"
             />
           </router-link>
         </template>

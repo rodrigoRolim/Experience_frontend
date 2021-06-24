@@ -70,6 +70,7 @@
             :info="healthInsurance"
             color="rgba(71, 77, 94, 1)"
           />
+          
           <code-info
             v-if="attendance"
             class="patient-exams--margin patient-exams__info"
@@ -124,7 +125,7 @@ export default {
     CodeCheckbox
   },
   created() {
-    console.log(this.healthInsurance)
+    console.log(this.healthInsurance, this.attendanceDate)
   },
   computed: {
     ...mapGetters(NAMESPACED_EXAMS, [

@@ -160,7 +160,6 @@ export default {
   padding: 5px
 .patient-exam__right
   display: flex
-  width: 350px
   justify-content: space-between
   @include respond-to(medium-screens)
     width: 290px

@@ -1,11 +1,15 @@
 <template>
   <div class="attendances-painel">
-    <attendances-panel-list />
+    <div class="attendances-painel__filter">
+      <AttendancesPainelListFilter />
+    </div>
+    <attendances-panel-list class="attendances-painel__items"/>
   </div>
 </template>
 
 <script>
 import AttendancesPanelList from '../components/AttendancesPanelList'
+import AttendancesPainelListFilter from "../components/AttendancesPainelListFilter";
 import { mapActions, mapGetters } from 'vuex'
 import { GET_CURRENT_ATTENDANCES, NAMESPACED_ATTENDANCES_PANEL, NAMESPACED_AUTH, GET_ATTENDANCES_PAINEL } from '../utils/alias'
 //import { end, begin } from '../utils/initialDates'
@@ -14,11 +18,12 @@ export default {
   name: 'AttendancesPainel',
   mixins: [session],
   components: {
-    AttendancesPanelList
+    AttendancesPanelList,
+    AttendancesPainelListFilter
   },
   data() {
     return {
-      begin: '10 / 05 / 2021',
+      begin: '10 / 05 / 2020',
       end: '18 / 05 / 2021'
     }
   },
@@ -69,6 +74,14 @@ export default {
 
 <style lang="sass" scoped>
 .attendances-painel
-  min-height: 100vh
+  display: flex
+  flex-direction: column
+  min-height: calc(100vh - 60px)
   background-color: rgba(0,0,0,0.04)
+.attendances-painel__filter
+  position: fixed
+  width: 100%
+  top: 60px
+.attendances-painel__items
+  margin-top: 100px
 </style>

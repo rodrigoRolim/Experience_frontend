@@ -21,7 +21,7 @@
           </router-link>
           <router-link to="/posto" v-if="isPanelAttendances">
             <code-info
-              info="atendimentos"
+              info="Lista Atendimentos"
             />
           </router-link>
         </template>

@@ -92,8 +92,6 @@ export default {
   display: flex
   justify-content: center
   align-self: center
-  @include respond-to(handhelds)
-    margin-left: 38px
 .navbar__back
   display: flex
   justify-content: center
@@ -107,7 +105,9 @@ export default {
 .navbar__collapser:hover
   cursor: pointer
 .navbar__image
-  margin-left: 20px
+
+  @include respond-to(handhelds)
+    width: 70px
 .navbar__user-perfil
   display: flex
   flex-direction: row
@@ -124,11 +124,13 @@ export default {
 .navbar__navigation
   display: flex
   justify-content: space-between
-  
   @include respond-to(handhelds)
     margin-left: 0
 .navbar__painel
   align-self: center
   margin-left: auto
   margin-right: 20px
+  @include respond-to(handhelds)
+    margin-left: 0
+    margin-right: 0
 </style>

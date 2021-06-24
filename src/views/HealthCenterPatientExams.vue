@@ -5,6 +5,8 @@
         :patient="parseInt(patient)"
         :health-center="parseInt(healthCenter)"
         :attendance="parseInt(attendance)"
+        :health-insurance="healthInsurance"
+        :attendanceDate="attendanceDate"
         :name="name"
         :age="age"
         :gender="gender"
@@ -56,7 +58,9 @@ export default {
     ...mapGetters(NAMESPACED_PROPS, [
       'patient',
       'healthCenter',
+      'healthInsurance',
       'attendance',
+      'attendanceDate',
       'name',
       'age',
       'gender',

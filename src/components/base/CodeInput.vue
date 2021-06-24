@@ -105,7 +105,9 @@ export default {
       this.$refs.input.setSelectionRange(value[0], value[1])
     },
     value (value) {
-      if (value && this.numeric && !/^[0-9]*$/gi.test(value)) {
+
+      if (value && this.numeric && !/[0-9]/gi.test(value)) {
+        
         this.inputEmitter = value.substr(0, value.length - 1)
       }
     }
@@ -116,7 +118,6 @@ export default {
         return this.value
       },
       set (value) {
-
         this.$emit('input', value)
       }
     },
