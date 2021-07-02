@@ -75,7 +75,7 @@ serverAuth.interceptors.request.use(
   error => Promise.reject(error)
 )
 const serverPDF = axios.create({
-  baseURL: JSON.parse(localStorage.getItem('custom-access'))?.endpoint  + ':9050',
+  baseURL: JSON.parse(localStorage.getItem('custom-access'))?.endpoint + ':9050',
   timeout: 100000,
   headers: {
     'Content-Type': 'application/json'
