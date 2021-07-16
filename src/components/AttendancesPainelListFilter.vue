@@ -81,7 +81,6 @@ export default {
   },
   methods: {
     listAccomodations () {
-      console.log(this.params)
       let urlAccomodations = this.getURI(this.params.healthCenter.id, this.getTypeUser(this.userTypeAuthed), ACCOMODATIONS)
       this.getAccomodations({ url: urlAccomodations })
         .then(() => {})
